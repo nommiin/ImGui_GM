@@ -14,6 +14,7 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
     - [`ImGui.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml) for ImGui static & internal IO/events
   - ImGui_Misc/
     - [`ImGui_Misc.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for ImGuiKey to GM input mapping
+
 # Building
 *Using C++14 Standard, Windows SDK v10.0, built with Visual Studio Community 2022*
 
