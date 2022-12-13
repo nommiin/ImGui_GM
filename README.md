@@ -4,6 +4,10 @@ GameMaker bindings for ImGui
 # Building
 ***TODO***
 
+# Jump To
+- [main.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
+- [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) for ImGui->GML wrappers
+
 # Usage (GameMaker)
 1. Create a persistent object and call the following functions in their respective events:
   - `ImGui.__Initialize()` in the create event
