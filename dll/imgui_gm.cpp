@@ -1,8 +1,8 @@
-#include "thirdparty/imgui/imgui.h"
-#include "thirdparty/imgui/backends/imgui_impl_dx11.h"
+#include "imgui.h"
+#include "imgui_impl_dx11.h"
 
-#include "thirdparty/steamworks/source/Steamworks_vs/Steamworks/Extension_Interface.h"
-#include "thirdparty/steamworks/source/Steamworks_vs/Steamworks/YYRValue.h"
+#include "Extension_Interface.h"
+#include "YYRValue.h"
 
 // For storing changed input values
 static char INPUT_STR[256] = "";
