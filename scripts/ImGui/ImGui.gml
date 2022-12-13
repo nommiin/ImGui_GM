@@ -1,4 +1,47 @@
 function ImGui() constructor {
+	/// @section Binds
+	/// @function Begin(name, [open=false], [flags=ImGuiWindowFlags.None])
+	/// @desc Push a new Dear ImGui window to add widgets to.
+	/// @argument {string} name
+	/// @argument {boolean} open
+	/// @argument {ImGuiWindowFlags} flags
+	/// @returns {boolean} Return false when window is collapsed, so you can early out in your code. You always need to call ImGui.End() even if false is returned.
+	static Begin = function(name, open=false, flags=0) {
+		return __imgui_begin(name, open, flags);
+	}
+	
+	/// @function End()
+	/// @desc Should be called even if ImGui.Begin() returns false
+	static End = function() {
+		return __imgui_end();	
+	}
+	
+	/// @function Button(label)
+	/// @argument {string} label
+	/// @returns {boolean}
+	static Button = function(label) {
+		return __imgui_button(label);	
+	}
+	
+	/// @function Text()
+	/// @argument {string} val
+	static Text = function(val) {
+		return __imgui_text(val);	
+	}
+	
+	/// @function InputText(label, val)
+	/// @argument {string} label
+	/// @argument {ptr} val
+	static InputText = function(label, val) {
+		return __imgui_input_text(label, val);
+	}
+	
+	/// @function ShowAboutWindow()
+	static ShowAboutWindow = function() {
+		return __imgui_show_about();	
+	}
+	
+	/// @section Internal
 	static __State = {
 		Display: {
 			Width: 0,
@@ -43,47 +86,5 @@ function ImGui() constructor {
 	
 	static __Render = function() {
 		return __imgui_render();
-	}
-	
-	// Bindings
-	/// @function Begin(name, [open=false], [flags=ImGuiWindowFlags.None])
-	/// @desc Push a new Dear ImGui window to add widgets to.
-	/// @argument {string} name
-	/// @argument {boolean} open
-	/// @argument {ImGuiWindowFlags} flags
-	/// @returns {boolean} Return false when window is collapsed, so you can early out in your code. You always need to call ImGui.End() even if false is returned.
-	static Begin = function(name, open=false, flags=0) {
-		return __imgui_begin(name, open, flags);
-	}
-	
-	/// @function End()
-	/// @desc Should be called even if ImGui.Begin() returns false
-	static End = function() {
-		return __imgui_end();	
-	}
-	
-	/// @function Button(label)
-	/// @argument {string} label
-	/// @returns {boolean}
-	static Button = function(label) {
-		return __imgui_button(label);	
-	}
-	
-	/// @function Text()
-	/// @argument {string} val
-	static Text = function(val) {
-		return __imgui_text(val);	
-	}
-	
-	/// @function InputText(label, val)
-	/// @argument {string} label
-	/// @argument {ptr} val
-	static InputText = function(label, val) {
-		return __imgui_input_text(label, val);
-	}
-	
-	/// @function ShowAboutWindow()
-	static ShowAboutWindow = function() {
-		return __imgui_show_about();	
 	}
 };
