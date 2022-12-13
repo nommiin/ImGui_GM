@@ -15,7 +15,13 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
             - [`YYRValue.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/YYRValue.h) for `RValue` documentation 
 
 # Building
-***TODO***
+*Using C++14 Standard, Windows SDK v10.0, built with Visual Studio Community 2022*
+
+1. Run `copy_dependencies.bat` to copy required `.cpp` and `.h` files from `thirdparty/*` into `dll/`
+2. Open `dll.sln` in Visual Studio (support for versions older than 2022 is unknown)
+3. Build for x64, resulting `imgui_gm.dll` file should be automatically copied to `../extensions/ImGui_GM/imgui_gm.dll`
+4. Open `ImGui_GM.yyp` and create a local package containing `ImGui_GM` (extension), `ImGui` (script), and `ImGui_Misc` (script)
+5. Import local package into your game and create a controller object that calls `ImGui.__Initialize()` once, `ImGui.__Update()` every frame, and `ImGui.__Render()` in a draw event
 
 # Usage (GameMaker)
 ***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility header for more info***
