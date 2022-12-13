@@ -1,17 +1,14 @@
 // All the silly stuff that's too messy for ImGui.gml
-// We call (and discard) static_get for the ImGui class to initialize statics, required once so everywhere else can access statics
+// Call static_get for the ImGui class to initialize statics, required once so everywhere else can access
 var _ = static_get(new ImGui());
 _.__Mapping = array_create(ImGuiKey.ImGuiKey_KeysData_SIZE, -1);
 _.__Mapping[ImGuiKey.ImGuiKey_None] = vk_nokey;
-//_.__Mapping[ImGuiKey.ImGuiKey_Any] = vk_anykey;
 _.__Mapping[ImGuiKey.ImGuiKey_Enter] = vk_enter;
-//_.__Mapping[ImGuiKey.ImGuiKey_Return] = vk_return;
 _.__Mapping[ImGuiKey.ImGuiKey_Escape] = vk_escape;
 _.__Mapping[ImGuiKey.ImGuiKey_Space] = vk_space;
 _.__Mapping[ImGuiKey.ImGuiKey_Backspace] = vk_backspace;
 _.__Mapping[ImGuiKey.ImGuiKey_Tab] = vk_tab;
 _.__Mapping[ImGuiKey.ImGuiKey_Pause] = vk_pause;
-//_.__Mapping[ImGuiKey.ImGuiKey_Printscreen] = vk_printscreen;
 _.__Mapping[ImGuiKey.ImGuiKey_LeftArrow] = vk_left;
 _.__Mapping[ImGuiKey.ImGuiKey_RightArrow] = vk_right;
 _.__Mapping[ImGuiKey.ImGuiKey_UpArrow] = vk_up;
