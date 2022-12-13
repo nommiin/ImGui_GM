@@ -34,4 +34,4 @@ This extension is heavily WIP, but wrapped functions can be found in the `imgui_
 - `ImGui.InputText` -> `string`
 - `ImGui.Button` -> `boolean`
 
-The goal is to have most functions in the `ImGui::` namespace exposed to GML, ideally with direct calls to the ImGui functions
+The goal is to have most functions in the `ImGui::` namespace exposed to GML, ideally with direct calls to the ImGui functions (maybe auto generated?)
