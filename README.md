@@ -25,7 +25,7 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 5. Import local package into your game and create a controller object that calls `ImGui.__Initialize()` once, `ImGui.__Update()` every frame, and `ImGui.__Render()` in a draw event
 
 # Usage (GameMaker)
-***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility header for more info***
+***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility heading below for more info***
 
 0. Import build of ImGui_GM locally or from [releases](https://github.com/nommiin/ImGui_GM/releases/tag/build)
 1. Create a persistent object and call the following functions in their respective events:
