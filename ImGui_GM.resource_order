@@ -1,0 +1,12 @@
+{
+  "ResourceOrderSettings": [
+    {"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy","order":2,},
+    {"name":"fntDefault","path":"fonts/fntDefault/fntDefault.yy","order":2,},
+    {"name":"rmExample","path":"rooms/rmExample/rmExample.yy","order":1,},
+    {"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy","order":1,},
+  ],
+  "FolderOrderSettings": [
+    {"name":"ImGui_GM","path":"folders/ImGui_GM.yy","order":3,},
+    {"name":"Example","path":"folders/Example.yy","order":4,},
+  ],
+}
