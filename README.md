@@ -6,14 +6,14 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 - dll/
   - [`main.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
   - [`imgui_gm.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) for ImGui->GML wrappers
-  - thirdparty/
-    - steamworks/
-      - source/
-        - Steamworks_vs/
-          - Steamworks/
-            - [`Extension_Interface.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/Extension_Interface.h) for `YYRunnerInterface` struct 
-            - [`YYRValue.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/YYRValue.h) for `RValue` documentation 
-
+  - thirdparty/steamworks/source/Steamworks_vs/Steamworks/
+    - [`Extension_Interface.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/Extension_Interface.h) for `YYRunnerInterface` struct 
+    - [`YYRValue.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/YYRValue.h) for `RValue` documentation 
+- scripts/
+  - ImGui/
+    - [`ImGui.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml) for ImGui static & internal IO/events
+  - ImGui_Misc/
+    - [`ImGui_Misc.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for ImGuiKey to GM input mapping
 # Building
 ***TODO***
 
@@ -60,5 +60,5 @@ This extension is heavily WIP, but wrapped functions can be found in the [`imgui
 The goal is to have most functions in the `ImGui::` namespace exposed to GML, ideally with direct calls to the ImGui functions (maybe auto generated?)
 
 # Special Thanks
-- [rousr](https://rou.sr/) for creating the ImGui binding for GM that inspired development of this
+- [rousr](https://rou.sr/) for creating [ImGuiGML](https://imguigml.rou.sr/) which inspired development of this
 - [@nkrapivin](https://github.com/nkrapivin) for providing general assistance with `YYRunnerInterface` magic
