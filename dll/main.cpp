@@ -1,8 +1,8 @@
-#include "thirdparty/imgui/imgui.h"
-#include "thirdparty/imgui/backends/imgui_impl_dx11.h"
+#include "imgui.h"
+#include "imgui_impl_dx11.h"
 
-#include "thirdparty/steamworks/source/Steamworks_vs/Steamworks/Extension_Interface.h"
-#include "thirdparty/steamworks/source/Steamworks_vs/Steamworks/YYRValue.h"
+#include "Extension_Interface.h"
+#include "YYRValue.h"
 
 #define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- " __VA_ARGS__)
 #define WriteLog(...) DebugConsoleOutput("[ImGui_GM] " FIRST(__VA_ARGS__) /*"\n"*/ REST(__VA_ARGS__) "\n")
