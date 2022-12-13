@@ -1,24 +1,24 @@
 # ImGui_GM
-GameMaker bindings for ImGui
+Experimental GameMaker bindings for ImGui
 
 # Reference
 - dll/
-  - [main.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
-  - [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) for ImGui->GML wrappers
+  - [`main.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
+  - [`imgui_gm.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) for ImGui->GML wrappers
   - thirdparty/
     - steamworks/
       - source/
         - Steamworks_vs/
           - Steamworks/
-            - [Extension_Interface.h](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/Extension_Interface.h) for `YYRunnerInterface` struct 
-            - [YYRValue.h](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/YYRValue.h) for `RValue` documentation 
+            - [`Extension_Interface.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/Extension_Interface.h) for `YYRunnerInterface` struct 
+            - [`YYRValue.h`](https://github.com/YoYoGames/GMEXT-Steamworks/blob/main/source/Steamworks_vs/Steamworks/YYRValue.h) for `RValue` documentation 
 
 # Building
 ***TODO***
 
-
-
 # Usage (GameMaker)
+***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility header for more info***
+
 1. Create a persistent object and call the following functions in their respective events:
   - `ImGui.__Initialize()` in the create event
   - `ImGui.__Update()` in any updating event (suggested: Begin Step)
@@ -40,8 +40,12 @@ if (ImGui.Begin("Test Window", true)) {
 }
 ```
 
+# Compatibility
+This extension makes extensive use of the changed `static` behavior in beta runtime v2023.100.0.264 and onward. Be sure to use a runtime that has these changes in them, otherwise usage may not work as expected. If you're unsure about if your runtime supports these new behaviours or not, check if the `static_get` function exists; if so, you're good! Otherwise, you'll likely need to upgrade (or switch to [the beta](https://gms.yoyogames.com/release-notes-runtime-NuBeta.html))
+*Last Updated: 12/13/2022*
+
 # Coverage
-This extension is heavily WIP, but wrapped functions can be found in the `imgui_gm.cpp` file and called as static functions via the `ImGui` class
+This extension is heavily WIP, but wrapped functions can be found in the [`imgui_gm.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) file and called as static functions via the `ImGui` class
 - `ImGui.Begin` -> `boolean`
 - `ImGui.End` -> `void`
 - `ImGui.Text` -> `void`
