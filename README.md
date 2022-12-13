@@ -20,6 +20,7 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 # Usage (GameMaker)
 ***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility header for more info***
 
+0. Import build of ImGui_GM from [releases](https://github.com/nommiin/ImGui_GM/releases/tag/build)
 1. Create a persistent object and call the following functions in their respective events:
   - `ImGui.__Initialize()` in the create event
   - `ImGui.__Update()` in any updating event (suggested: Begin Step)
