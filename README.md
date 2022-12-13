@@ -35,3 +35,7 @@ This extension is heavily WIP, but wrapped functions can be found in the `imgui_
 - `ImGui.Button` -> `boolean`
 
 The goal is to have most functions in the `ImGui::` namespace exposed to GML, ideally with direct calls to the ImGui functions (maybe auto generated?)
+
+# Special Thanks
+- [rousr](https://rou.sr/) for creating the ImGui binding for GM that inspired development of this
+- [@nkrapivin](https://github.com/nkrapivin) for providing general assistance with `YYRunnerInterface` magic
