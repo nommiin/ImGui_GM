@@ -1,5 +1,5 @@
 # ImGui_GM
-Experimental ImGui bindings for GameMaker, heavily work-in-progress
+Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 
 # Reference
 - dll/
