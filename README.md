@@ -27,7 +27,7 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 # Usage (GameMaker)
 ***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility header for more info***
 
-0. Import build of ImGui_GM from [releases](https://github.com/nommiin/ImGui_GM/releases/tag/build)
+0. Import build of ImGui_GM locally or from [releases](https://github.com/nommiin/ImGui_GM/releases/tag/build)
 1. Create a persistent object and call the following functions in their respective events:
   - `ImGui.__Initialize()` in the create event
   - `ImGui.__Update()` in any updating event (suggested: Begin Step)
@@ -49,6 +49,8 @@ if (ImGui.Begin("Test Window", true)) {
 }
 ```
 
+3. See **Coverage** header or ImGui script in project for ImGui -> GML bindings
+
 # Compatibility
 This extension makes extensive use of the changed `static` behavior in beta runtime v2023.100.0.264 and onward. Be sure to use a runtime that has these changes in them, otherwise usage may not work as expected. If you're unsure about if your runtime supports these new behaviours or not, check if the `static_get` function exists; if so, you're good! Otherwise, you'll likely need to upgrade (or switch to [the beta](https://gms.yoyogames.com/release-notes-runtime-NuBeta.html))
 
@@ -59,10 +61,11 @@ At the time of writing, the aforementioned changes to `static` are only avaliabl
 # Coverage
 This extension is heavily WIP, but wrapped functions can be found in the [`imgui_gm.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) file and called as static functions via the `ImGui` class
 - `ImGui.Begin` -> `boolean`
-- `ImGui.End` -> `void`
-- `ImGui.Text` -> `void`
+- `ImGui.End` -> `undefined`
+- `ImGui.Text` -> `undefined`
 - `ImGui.InputText` -> `string`
 - `ImGui.Button` -> `boolean`
+- `ImGui.ShowAboutWindow` -> `undefined`
 
 The goal is to have most functions in the `ImGui::` namespace exposed to GML, ideally with direct calls to the ImGui functions (maybe auto generated?)
 
