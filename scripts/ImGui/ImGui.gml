@@ -13,20 +13,6 @@ function ImGui() constructor {
        return __imgui_end();
     }
 
-    /// @function Text(val)
-    /// @argument {String} val
-    static Text = function(val) {
-       return __imgui_text(val);
-    }
-
-    /// @function InputText(label, val, flags)
-    /// @argument {String} label
-    /// @argument {String} val
-    /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
-    static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
-       return __imgui_input_text(label, val, flags);
-    }
-
     /// @function Button(label, width, height)
     /// @argument {String} label
     /// @argument {Real} [width=0]
@@ -64,10 +50,58 @@ function ImGui() constructor {
 
     /// @function SetNextWindowSize(width, height, cond)
     /// @argument {Real} width
-    /// @argument {Real} [height=ImGuiCond.Always]
-    /// @argument {Int64} cond
-    static SetNextWindowSize = function(width, height=ImGuiCond.Always, cond) {
+    /// @argument {Real} height
+    /// @argument {Int64} [cond=ImGuiCond.Always]
+    static SetNextWindowSize = function(width, height, cond=ImGuiCond.Always) {
        return __imgui_set_next_window_size(width, height, cond);
+    }
+
+    /// @function TextUnformatted(text, text_end)
+    /// @argument {String} text
+    /// @argument {String} [text_end=""]
+    static TextUnformatted = function(text, text_end="") {
+       return __imgui_text_unformatted(text, text_end);
+    }
+
+    /// @function Text(text)
+    /// @argument {String} text
+    static Text = function(text) {
+       return __imgui_text(text);
+    }
+
+    /// @function TextColored(text, color, alpha)
+    /// @argument {String} text
+    /// @argument {Int64} color
+    /// @argument {Real} [alpha=1]
+    static TextColored = function(text, color, alpha=1) {
+       return __imgui_text_colored(text, color, alpha);
+    }
+
+    /// @function InputText(label, val, flags)
+    /// @argument {String} label
+    /// @argument {String} val
+    /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
+    static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
+       return __imgui_input_text(label, val, flags);
+    }
+
+    /// @function InputTextWithHint(label, hint, val, flags)
+    /// @argument {String} label
+    /// @argument {String} hint
+    /// @argument {String} val
+    /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
+    static InputTextWithHint = function(label, hint, val, flags=ImGuiInputTextFlags.None) {
+       return __imgui_input_text_with_hint(label, hint, val, flags);
+    }
+
+    /// @function InputTextMultiline(label, val, flags, width, height)
+    /// @argument {String} label
+    /// @argument {String} val
+    /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    static InputTextMultiline = function(label, val, flags=ImGuiInputTextFlags.None, width=0, height=0) {
+       return __imgui_input_text_multiline(label, val, flags, width, height);
     }
 
 	/// @section Internal
@@ -120,11 +154,11 @@ function ImGui() constructor {
 
 // Enums
 enum ImGuiCond {
-	None,
-	Always,
-	Once,
-	FirstUseEver,
-	Appearing	
+	None          = 0,
+	Always        = 1 << 0,
+	Once          = 1 << 1,
+	FirstUseEver  = 1 << 2,
+	Appearing     = 1 << 3	
 }
 
 enum ImGuiInputTextFlags
