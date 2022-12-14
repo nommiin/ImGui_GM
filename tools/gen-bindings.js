@@ -15,7 +15,7 @@
 const SPACING = "    ";
 
 // If enabled, modified files are saved with a ".test" extension
-const USE_TEST = true;
+const USE_TEST = false;
 
 const fs = require("node:fs"), path = require("node:path"), reserved = ["x", "y", "continue", "return"];
 function clean(blob) {
@@ -150,18 +150,16 @@ try {
             let end = -1;
             for (j = i + 1; j < resources.length; j++) {
                 const next = resources[j].trim();
-                if (next.startsWith("],")) {
-                    end = j + 1;
+                if (next.includes("],")) {
+                    if (next.length > 2) continue;
+                    end = j;
                     break;
                 }
             }
             if (end === -1) throw `Could not find end of "files" member at line ${i + 1}`;
 
-            const files = JSON.parse("[" + clean(resources.slice(i + 1, end).join("\n").trim()) + "]");
-            if (files.length < 1) throw `Could not read "files" member, array is empty or does not contain GMResource for ImGui_GM`;
-
-            const resource = files.reduce((prev, e) => prev ?? (e?.filename === "imgui_gm.dll" ? e : undefined), undefined);
-            if (!resource) throw `Could not read "files" member, could not find GMExtensionFile for imgui_gm.dll`;
+            const resource = JSON.parse(clean(resources.slice(i + 1, end).join("\n").trim()));
+            if (!resource) throw `Could not read "files" member, array is empty or does not contain GMResource for ImGui_GM`;
             resource.functions = resource.functions.filter(e => {
                 return !found.find(f => f.Name === e?.name);
             });
@@ -184,7 +182,8 @@ try {
             });
 
             // Write to file
-            let resources_write = resources.slice(0, i).concat(`  "files": [\n    ${JSON.stringify(resource, undefined, 4)}\n  ],`).concat(resources.slice(end + 1))
+            let resources_write = resources.slice(0, i).concat(`  "files": [\n    ${JSON.stringify(resource)}\n  ],`).concat(resources.slice(end + 1));
+            console.log(resources_write);
             fs.writeFileSync(input[1] + (USE_TEST ? ".test" : ""), resources_write.join("\n"));
             break;
         }

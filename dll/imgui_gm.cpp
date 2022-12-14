@@ -91,7 +91,7 @@ GMFUNC(__imgui_set_next_window_pos) {
 	double x = YYGetReal(arg, 0);
 	double y = YYGetReal(arg, 1);
 	int64 cond = YYGetInt64(arg, 2);
-	GMDEFAULT(ImGuiCond.Default);
+	GMDEFAULT(ImGuiCond.Always);
 	double pivot_x = YYGetReal(arg, 3);
 	GMDEFAULT(0);
 	double pivot_y = YYGetReal(arg, 4);
@@ -105,7 +105,7 @@ GMFUNC(__imgui_set_next_window_pos) {
 GMFUNC(__imgui_set_next_window_size) {
 	double width = YYGetReal(arg, 0);
 	double height = YYGetReal(arg, 1);
-	GMDEFAULT(ImGuiCond.Default);
+	GMDEFAULT(ImGuiCond.Always);
 	int64 cond = YYGetInt64(arg, 2);
 
 	ImGui::SetNextWindowSize(ImVec2(width, height), cond);

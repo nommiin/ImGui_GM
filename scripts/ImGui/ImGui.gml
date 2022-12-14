@@ -1,50 +1,75 @@
 function ImGui() constructor {
-	/// @section Binds
-	/// @function Begin(name, [open=false], [flags=ImGuiWindowFlags.None])
-	/// @desc Push a new Dear ImGui window to add widgets to.
-	/// @argument {string} name
-	/// @argument {boolean} open
-	/// @argument {ImGuiWindowFlags} flags
-	/// @returns {boolean} Return false when window is collapsed, so you can early out in your code. You always need to call ImGui.End() even if false is returned.
-	static Begin = function(name, open=false, flags=ImGuiWindowFlags.None) {
-		return __imgui_begin(name, open, flags);
-	}
-	
-	/// @function End()
-	/// @desc Should be called even if ImGui.Begin() returns false
-	static End = function() {
-		return __imgui_end();	
-	}
-	
-	/// @function Button(label)
-	/// @argument {string} label
-	/// @returns {boolean}
-	static Button = function(label, width=0, height=0) {
-		return __imgui_button(label, width, height);	
-	}
-	
-	/// @function Text()
-	/// @argument {string} val
-	static Text = function(val) {
-		return __imgui_text(val);	
-	}
-	
-	/// @function InputText(label, val)
-	/// @argument {string} label
-	/// @argument {ptr} val
-	static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
-		return __imgui_input_text(label, val);
-	}
-	
-	/// @function ShowAboutWindow()
-	static ShowAboutWindow = function() {
-		return __imgui_show_about();	
-	}
-	
-	static SetNextWindowPos = function(x, y, cond=ImGuiCond.Always, pivot_x=0, pivot_y=0) {
-		return __imgui_set_next_window_pos(x, y, cond, pivot_x, pivot_y);	
-	}
-	
+    /// @section Binds
+    /// @function Begin(name, show, flags)
+    /// @argument {String} name
+    /// @argument {Bool} [show=false]
+    /// @argument {Int64} [flags=ImGuiWindowFlags.None]
+    static Begin = function(name, show=false, flags=ImGuiWindowFlags.None) {
+       return __imgui_begin(name, show, flags);
+    }
+
+    /// @function End()
+    static End = function() {
+       return __imgui_end();
+    }
+
+    /// @function Text(val)
+    /// @argument {String} val
+    static Text = function(val) {
+       return __imgui_text(val);
+    }
+
+    /// @function InputText(label, val, flags)
+    /// @argument {String} label
+    /// @argument {String} val
+    /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
+    static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
+       return __imgui_input_text(label, val, flags);
+    }
+
+    /// @function Button(label, width, height)
+    /// @argument {String} label
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    static Button = function(label, width=0, height=0) {
+       return __imgui_button(label, width, height);
+    }
+
+    /// @function ShowAboutWindow(show)
+    /// @argument {Bool} show
+    static ShowAboutWindow = function(show) {
+       return __imgui_show_about(show);
+    }
+
+    /// @function ShowDemoWindow(show)
+    /// @argument {Bool} show
+    static ShowDemoWindow = function(show) {
+       return __imgui_show_demo(show);
+    }
+
+    /// @function ShowStyleEditor()
+    static ShowStyleEditor = function() {
+       return __imgui_show_style();
+    }
+
+    /// @function SetNextWindowPos(_x, _y, cond, pivot_x, pivot_y)
+    /// @argument {Real} _x
+    /// @argument {Real} _y
+    /// @argument {Int64} [cond=ImGuiCond.Always]
+    /// @argument {Real} [pivot_x=0]
+    /// @argument {Real} [pivot_y=0]
+    static SetNextWindowPos = function(_x, _y, cond=ImGuiCond.Always, pivot_x=0, pivot_y=0) {
+       return __imgui_set_next_window_pos(_x, _y, cond, pivot_x, pivot_y);
+    }
+
+    /// @function SetNextWindowSize(width, height, cond)
+    /// @argument {Real} width
+    /// @argument {Real} [height=ImGuiCond.Always]
+    /// @argument {Int64} cond
+    static SetNextWindowSize = function(width, height=ImGuiCond.Always, cond) {
+       return __imgui_set_next_window_size(width, height, cond);
+    }
+
 	/// @section Internal
 	static __State = {
 		Display: {
@@ -151,9 +176,9 @@ enum ImGuiWindowFlags
     NoNavInputs            = 1 << 18,  // No gamepad/keyboard navigation within the window
     NoNavFocus             = 1 << 19,  // No focusing toward this window with gamepad/keyboard navigation (e.g. skipped by CTRL+TAB)
     UnsavedDocument        = 1 << 20,  // Display a dot next to the title. When used in a tab/docking context, tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
-    NoNav                  = NoNavInputs | NoNavFocus,
-    NoDecoration           = NoTitleBar | NoResize | NoScrollbar | NoCollapse,
-    NoInputs               = NoMouseInputs | NoNavInputs | NoNavFocus,
+    NoNav                  = ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
+    NoDecoration           = ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoCollapse,
+    NoInputs               = ImGuiWindowFlags.NoMouseInputs | ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
 
     // [Internal]
     NavFlattened           = 1 << 23,  // [BETA] On child window: allow gamepad/keyboard navigation to cross over parent border to this child or between sibling child windows.
