@@ -6,7 +6,7 @@ function ImGui() constructor {
 	/// @argument {boolean} open
 	/// @argument {ImGuiWindowFlags} flags
 	/// @returns {boolean} Return false when window is collapsed, so you can early out in your code. You always need to call ImGui.End() even if false is returned.
-	static Begin = function(name, open=false, flags=0) {
+	static Begin = function(name, open=false, flags=ImGuiWindowFlags.None) {
 		return __imgui_begin(name, open, flags);
 	}
 	
@@ -19,8 +19,8 @@ function ImGui() constructor {
 	/// @function Button(label)
 	/// @argument {string} label
 	/// @returns {boolean}
-	static Button = function(label) {
-		return __imgui_button(label);	
+	static Button = function(label, width=0, height=0) {
+		return __imgui_button(label, width, height);	
 	}
 	
 	/// @function Text()
@@ -32,13 +32,17 @@ function ImGui() constructor {
 	/// @function InputText(label, val)
 	/// @argument {string} label
 	/// @argument {ptr} val
-	static InputText = function(label, val) {
+	static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_text(label, val);
 	}
 	
 	/// @function ShowAboutWindow()
 	static ShowAboutWindow = function() {
 		return __imgui_show_about();	
+	}
+	
+	static SetNextWindowPos = function(x, y, cond=ImGuiCond.Always, pivot_x=0, pivot_y=0) {
+		return __imgui_set_next_window_pos(x, y, cond, pivot_x, pivot_y);	
 	}
 	
 	/// @section Internal
@@ -87,4 +91,75 @@ function ImGui() constructor {
 	static __Render = function() {
 		return __imgui_render();
 	}
+};
+
+// Enums
+enum ImGuiCond {
+	None,
+	Always,
+	Once,
+	FirstUseEver,
+	Appearing	
+}
+
+enum ImGuiInputTextFlags
+{
+   None                = 0,
+   CharsDecimal        = 1 << 0,   // Allow 0123456789.+-*/
+   CharsHexadecimal    = 1 << 1,   // Allow 0123456789ABCDEFabcdef
+   CharsUppercase      = 1 << 2,   // Turn a..z into A..Z
+   CharsNoBlank        = 1 << 3,   // Filter out spaces, tabs
+   AutoSelectAll       = 1 << 4,   // Select entire text when first taking mouse focus
+   EnterReturnsTrue    = 1 << 5,   // Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider looking at the IsItemDeactivatedAfterEdit() function.
+   CallbackCompletion  = 1 << 6,   // Callback on pressing TAB (for completion handling)
+   CallbackHistory     = 1 << 7,   // Callback on pressing Up/Down arrows (for history handling)
+   CallbackAlways      = 1 << 8,   // Callback on each iteration. User code may query cursor position, modify text buffer.
+   CallbackCharFilter  = 1 << 9,   // Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.
+   AllowTabInput       = 1 << 10,  // Pressing TAB input a '\t' character into the text field
+   CtrlEnterForNewLine = 1 << 11,  // In multi-line mode, unfocus with Enter, add new line with Ctrl+Enter (default is opposite: unfocus with Ctrl+Enter, add line with Enter).
+   NoHorizontalScroll  = 1 << 12,  // Disable following the cursor horizontally
+   AlwaysOverwrite     = 1 << 13,  // Overwrite mode
+   ReadOnly            = 1 << 14,  // Read-only mode
+   Password            = 1 << 15,  // Password mode, display all characters as '*'
+   NoUndoRedo          = 1 << 16,  // Disable undo/redo. Note that input text owns the text data while active, if you want to provide your own undo/redo stack you need e.g. to call ClearActiveID().
+   CharsScientific     = 1 << 17,  // Allow 0123456789.+-*/eE (Scientific notation input)
+   CallbackResize      = 1 << 18,  // Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this)
+   CallbackEdit        = 1 << 19,  // Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active)
+   EscapeClearsAll     = 1 << 20,  // Escape key clears content if not empty, and deactivate otherwise (contrast to default behavior of Escape to revert)
+}
+
+enum ImGuiWindowFlags
+{
+    None                   = 0,
+    NoTitleBar             = 1 << 0,   // Disable title-bar
+    NoResize               = 1 << 1,   // Disable user resizing with the lower-right grip
+    NoMove                 = 1 << 2,   // Disable user moving the window
+    NoScrollbar            = 1 << 3,   // Disable scrollbars (window can still scroll with mouse or programmatically)
+    NoScrollWithMouse      = 1 << 4,   // Disable user vertically scrolling with mouse wheel. On child window, mouse wheel will be forwarded to the parent unless NoScrollbar is also set.
+    NoCollapse             = 1 << 5,   // Disable user collapsing window by double-clicking on it. Also referred to as Window Menu Button (e.g. within a docking node).
+    AlwaysAutoResize       = 1 << 6,   // Resize every window to its content every frame
+    NoBackground           = 1 << 7,   // Disable drawing background color (WindowBg, etc.) and outside border. Similar as using SetNextWindowBgAlpha(0.0f).
+    NoSavedSettings        = 1 << 8,   // Never load/save settings in .ini file
+    NoMouseInputs          = 1 << 9,   // Disable catching mouse, hovering test with pass through.
+    MenuBar                = 1 << 10,  // Has a menu-bar
+    HorizontalScrollbar    = 1 << 11,  // Allow horizontal scrollbar to appear (off by default). You may use SetNextWindowContentSize(ImVec2(width,0.0f)); prior to calling Begin() to specify width. Read code in imgui_demo in the "Horizontal Scrolling" section.
+    NoFocusOnAppearing     = 1 << 12,  // Disable taking focus when transitioning from hidden to visible state
+    NoBringToFrontOnFocus  = 1 << 13,  // Disable bringing window to front when taking focus (e.g. clicking on it or programmatically giving it focus)
+    AlwaysVerticalScrollbar= 1 << 14,  // Always show vertical scrollbar (even if ContentSize.y < Size.y)
+    AlwaysHorizontalScrollbar=1<< 15,  // Always show horizontal scrollbar (even if ContentSize.x < Size.x)
+    AlwaysUseWindowPadding = 1 << 16,  // Ensure child windows without border uses style.WindowPadding (ignored by default for non-bordered child windows, because more convenient)
+    NoNavInputs            = 1 << 18,  // No gamepad/keyboard navigation within the window
+    NoNavFocus             = 1 << 19,  // No focusing toward this window with gamepad/keyboard navigation (e.g. skipped by CTRL+TAB)
+    UnsavedDocument        = 1 << 20,  // Display a dot next to the title. When used in a tab/docking context, tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
+    NoNav                  = NoNavInputs | NoNavFocus,
+    NoDecoration           = NoTitleBar | NoResize | NoScrollbar | NoCollapse,
+    NoInputs               = NoMouseInputs | NoNavInputs | NoNavFocus,
+
+    // [Internal]
+    NavFlattened           = 1 << 23,  // [BETA] On child window: allow gamepad/keyboard navigation to cross over parent border to this child or between sibling child windows.
+    ChildWindow            = 1 << 24,  // Don't use! For internal use by BeginChild()
+    Tooltip                = 1 << 25,  // Don't use! For internal use by BeginTooltip()
+    Popup                  = 1 << 26,  // Don't use! For internal use by BeginPopup()
+    Modal                  = 1 << 27,  // Don't use! For internal use by BeginPopupModal()
+    ChildMenu              = 1 << 28,  // Don't use! For internal use by BeginMenu()
 };

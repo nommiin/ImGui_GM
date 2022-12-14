@@ -32,6 +32,7 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_input","externalName":"__imgui_input","help":"","documentation":"","kind":1,"hidden":false,"returnType":1,"argCount":0,"args":[],},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_show_about","externalName":"__imgui_show_about","help":"","documentation":"","kind":1,"hidden":false,"returnType":1,"argCount":0,"args":[],},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_button","externalName":"__imgui_button","help":"","documentation":"","kind":1,"hidden":false,"returnType":1,"argCount":0,"args":[],},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_set_next_window_pos","externalName":"__imgui_set_next_window_pos","help":"","documentation":"","kind":1,"hidden":false,"returnType":1,"argCount":0,"args":[],},
       ],"constants":[],"ProxyFiles":[],"usesRunnerInterface":true,"order":[],},
   ],
   "classname": "",
