@@ -14,11 +14,14 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
     - [`ImGui.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml) for ImGui static & internal IO/events
   - ImGui_Misc/
     - [`ImGui_Misc.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for ImGuiKey to GM input mapping
+- tools/
+  - [`gen-bindings.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/gen-bindings.js) for ImGui to GM binding generation
 
 # Building
-*Using C++14 Standard, Windows SDK v10.0, built with Visual Studio Community 2022*
+*Using C++14 Standard, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
 
 1. Run `copy_dependencies.bat` to copy required `.cpp` and `.h` files from `thirdparty/*` into `dll/`
+2. Run `gen-bindings.js` via Node from the root directory to automatically create externals for the ImGui_GM extension and binding functions in the ImGui script
 2. Open `dll.sln` in Visual Studio (support for versions older than 2022 is unknown)
 3. Build for x64, resulting `imgui_gm.dll` file should be automatically copied to `../extensions/ImGui_GM/imgui_gm.dll`
 4. Open `ImGui_GM.yyp` and create a local package containing `ImGui_GM` (extension), `ImGui` (script), and `ImGui_Misc` (script)
@@ -49,7 +52,7 @@ if (ImGui.Begin("Test Window", true)) {
 }
 ```
 
-3. See **Coverage** header or ImGui script in project for ImGui -> GML bindings
+3. See **Coverage** heading below or the ImGui script in project or `imgui_gm.cpp` for ImGui -> GML bindings
 
 # Compatibility
 This extension makes extensive use of the changed `static` behavior in beta runtime v2023.100.0.264 and onward. Be sure to use a runtime that has these changes in them, otherwise usage may not work as expected. If you're unsure about if your runtime supports these new behaviours or not, check if the `static_get` function exists; if so, you're good! Otherwise, you'll likely need to upgrade (or switch to [the beta](https://gms.yoyogames.com/release-notes-runtime-NuBeta.html))
@@ -60,14 +63,8 @@ At the time of writing, the aforementioned changes to `static` are only avaliabl
 
 # Coverage
 This extension is heavily WIP, but wrapped functions can be found in the [`imgui_gm.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp) file and called as static functions via the `ImGui` class
-- `ImGui.Begin` -> `boolean`
-- `ImGui.End` -> `undefined`
-- `ImGui.Text` -> `undefined`
-- `ImGui.InputText` -> `string`
-- `ImGui.Button` -> `boolean`
-- `ImGui.ShowAboutWindow` -> `undefined`
 
-The goal is to have most functions in the `ImGui::` namespace exposed to GML, ideally with direct calls to the ImGui functions (maybe auto generated?)
+Using the [`tools/gen-bindings.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/gen-bindings.js) script, you can automatically create bindings for GameMaker by defining functions in `imgui_gm.cpp` using the `GMFUNC` macro, with the internal name as the only argument. Arguments retrieved with `YYGet_` will be reflected in GM and default values for arguments can be defined using the `GMDEFAULT` macro below the argument assignment. Functions defined using `GMFUNC` must contain at least one call to `ImGui::` to infer naming for GameMaker.
 
 # Special Thanks
 - [rousr](https://rou.sr/) for creating [ImGuiGML](https://imguigml.rou.sr/) which inspired development of this
