@@ -5,29 +5,29 @@ function ImGui() constructor {
     /// @argument {Bool} [show=false]
     /// @argument {Int64} [flags=ImGuiWindowFlags.None]
     static Begin = function(name, show=false, flags=ImGuiWindowFlags.None) {
-       return __imgui_begin(name, show, flags);
+        return __imgui_begin(name, show, flags);
     }
 
     /// @function End()
     static End = function() {
-       return __imgui_end();
+        return __imgui_end();
     }
 
     /// @function ShowAboutWindow(show)
     /// @argument {Bool} show
     static ShowAboutWindow = function(show) {
-       return __imgui_show_about(show);
+        return __imgui_show_about(show);
     }
 
     /// @function ShowDemoWindow(show)
     /// @argument {Bool} show
     static ShowDemoWindow = function(show) {
-       return __imgui_show_demo(show);
+        return __imgui_show_demo(show);
     }
 
     /// @function ShowStyleEditor()
     static ShowStyleEditor = function() {
-       return __imgui_show_style();
+        return __imgui_show_style();
     }
 
     /// @function SetNextWindowPos(_x, _y, cond, pivot_x, pivot_y)
@@ -37,7 +37,7 @@ function ImGui() constructor {
     /// @argument {Real} [pivot_x=0]
     /// @argument {Real} [pivot_y=0]
     static SetNextWindowPos = function(_x, _y, cond=ImGuiCond.Always, pivot_x=0, pivot_y=0) {
-       return __imgui_set_next_window_pos(_x, _y, cond, pivot_x, pivot_y);
+        return __imgui_set_next_window_pos(_x, _y, cond, pivot_x, pivot_y);
     }
 
     /// @function SetNextWindowSize(width, height, cond)
@@ -45,20 +45,20 @@ function ImGui() constructor {
     /// @argument {Real} height
     /// @argument {Int64} [cond=ImGuiCond.Always]
     static SetNextWindowSize = function(width, height, cond=ImGuiCond.Always) {
-       return __imgui_set_next_window_size(width, height, cond);
+        return __imgui_set_next_window_size(width, height, cond);
     }
 
     /// @function TextUnformatted(text, text_end)
     /// @argument {String} text
     /// @argument {String} [text_end=""]
     static TextUnformatted = function(text, text_end="") {
-       return __imgui_text_unformatted(text, text_end);
+        return __imgui_text_unformatted(text, text_end);
     }
 
     /// @function Text(text)
     /// @argument {String} text
     static Text = function(text) {
-       return __imgui_text(text);
+        return __imgui_text(text);
     }
 
     /// @function TextColored(text, color, alpha)
@@ -66,32 +66,32 @@ function ImGui() constructor {
     /// @argument {Int64} color
     /// @argument {Real} [alpha=1]
     static TextColored = function(text, color, alpha=1) {
-       return __imgui_text_colored(text, color, alpha);
+        return __imgui_text_colored(text, color, alpha);
     }
 
     /// @function TextDisabled(text)
     /// @argument {String} text
     static TextDisabled = function(text) {
-       return __imgui_text_disabled(text);
+        return __imgui_text_disabled(text);
     }
 
     /// @function TextWrapped(text)
     /// @argument {String} text
     static TextWrapped = function(text) {
-       return __imgui_text_wrapped(text);
+        return __imgui_text_wrapped(text);
     }
 
     /// @function LabelText(label, text)
     /// @argument {String} label
     /// @argument {String} text
     static LabelText = function(label, text) {
-       return __imgui_label_text(label, text);
+        return __imgui_label_text(label, text);
     }
 
     /// @function BulletText(text)
     /// @argument {String} text
     static BulletText = function(text) {
-       return __imgui_bullet_text(text);
+        return __imgui_bullet_text(text);
     }
 
     /// @function Button(label, width, height)
@@ -99,13 +99,13 @@ function ImGui() constructor {
     /// @argument {Real} [width=0]
     /// @argument {Real} [height=0]
     static Button = function(label, width=0, height=0) {
-       return __imgui_button(label, width, height);
+        return __imgui_button(label, width, height);
     }
 
     /// @function SmallButton(label)
     /// @argument {String} label
     static SmallButton = function(label) {
-       return __imgui_small_button(label);
+        return __imgui_small_button(label);
     }
 
     /// @function InvisibleButton(_id, width, height, flags)
@@ -114,23 +114,24 @@ function ImGui() constructor {
     /// @argument {Real} [height=0]
     /// @argument {Int64} [flags=ImGuiButtonFlags.None]
     static InvisibleButton = function(_id, width=0, height=0, flags=ImGuiButtonFlags.None) {
-       return __imgui_invisible_button(_id, width, height, flags);
+        return __imgui_invisible_button(_id, width, height, flags);
     }
 
     /// @function ArrowButton(_id, dir)
     /// @argument {String} _id
     /// @argument {Int64} dir
     static ArrowButton = function(_id, dir) {
-       return __imgui_arrow_button(_id, dir);
+        return __imgui_arrow_button(_id, dir);
     }
 
-    /// @function Image(spr, width, height)
-    /// @argument {Ptr} spr
+    /// @function Image(spr, frame, width, height)
+    /// @argument {Real} spr
+    /// @argument {Real} [frame=0]
     /// @argument {Real} [width=sprite_get_width(spr)]
     /// @argument {Real} [height=sprite_get_height(spr)]
-    static Image = function(spr, width=sprite_get_width(spr), height=sprite_get_height(spr)) {
-		texture_set_stage(0, sprite_get_texture(spr, 0))
-       return __imgui_image(sprite_get_texture(spr, 0), width, height, sprite_get_uvs(spr, 0));
+    static Image = function(spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr)) {
+        texture_set_stage(0, sprite_get_texture(spr, frame))
+        return __imgui_image(spr, frame, width, height, sprite_get_uvs(spr, frame));
     }
 
     /// @function InputText(label, val, flags)
@@ -138,7 +139,7 @@ function ImGui() constructor {
     /// @argument {String} val
     /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
     static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
-       return __imgui_input_text(label, val, flags);
+        return __imgui_input_text(label, val, flags);
     }
 
     /// @function InputTextWithHint(label, hint, val, flags)
@@ -147,7 +148,7 @@ function ImGui() constructor {
     /// @argument {String} val
     /// @argument {Int64} [flags=ImGuiInputTextFlags.None]
     static InputTextWithHint = function(label, hint, val, flags=ImGuiInputTextFlags.None) {
-       return __imgui_input_text_with_hint(label, hint, val, flags);
+        return __imgui_input_text_with_hint(label, hint, val, flags);
     }
 
     /// @function InputTextMultiline(label, val, flags, width, height)
@@ -157,7 +158,7 @@ function ImGui() constructor {
     /// @argument {Real} [width=0]
     /// @argument {Real} [height=0]
     static InputTextMultiline = function(label, val, flags=ImGuiInputTextFlags.None, width=0, height=0) {
-       return __imgui_input_text_multiline(label, val, flags, width, height);
+        return __imgui_input_text_multiline(label, val, flags, width, height);
     }
 
 	/// @section Internal

@@ -81,19 +81,24 @@ try {
             }
 
             // Arguments
-            let args = [];
+            let args = [], prepend = undefined, arg_prev = 0;
             for(let j = i + 1; j < end_line; j++) {
                 const line = wrappers[j].trim();
                 const ind = line.indexOf("YYGet");
-                if (ind === -1) continue;
+                if (ind === -1) {
+                    continue;
+                }
                 
                 let start = line.indexOf("(", ind);
                 let end = line.indexOf(")", ind);
-                if (start === -1 || end === -1) throw `Could not arguments for YYGet call at line ${j + 1}`;
+                if (start === -1 || end === -1) throw `Could not get arguments for YYGet call at line ${j + 1}`;
 
                 const func = line.slice(ind, start);
                 const func_args = line.slice(start + 1, end).split(",").map(e => e.trim());
                 const arg_ind = parseInt(func_args[1]);
+
+                if (arg_ind - arg_prev > 1) throw `Could not allow YYGet call without sequential argument number argument at line ${j + 1}`;
+                arg_prev = arg_ind;
 
                 // Name
                 let copy = line.slice(0, ind);
@@ -102,27 +107,73 @@ try {
                 let arg_name = copy.slice(copy.lastIndexOf(" ")).trim();
                 if (reserved.includes(arg_name)) arg_name = "_" + arg_name;
 
-                let def = undefined, passthrough = undefined;
-                const next = wrappers[j + 1].trim();
-                if (next.startsWith("GMDEFAULT")) {
+                let def = undefined, passthrough = undefined, hide = false;
+                const terms = ["GMDEFAULT", "GMPASSTHROUGH", "GMHIDDEN", "GMPREPEND"];
+                for(let k = j + 1; k < end_line; k++) {
+                    const next = wrappers[k].trim();
+                    if (next.length === 0) continue;
+
                     let start = next.indexOf("(");
                     let end = next.lastIndexOf(")");
-                    if (start === -1 || end === -1) throw `Could not default value argument for GMDEFAULT call at line ${j + 1}`;
-                    def = next.slice(start + 1, end);
-                } else if (next.startsWith("GMPASSTHROUGH")) {
-                    let start = next.indexOf("(");
-                    let end = next.lastIndexOf(")");
-                    if (start === -1 || end === -1) throw `Could not passthrough value argument for GMPASSTHROUGH call at line ${j + 1}`;
-                    passthrough = next.slice(start + 1, end);
+                    let term = terms.indexOf(next.slice(0, start));
+                    if (term === -1) break;
+
+                    let data = next.slice(start + 1, end);
+                    data = data.replace("#self", arg_name);
+
+                    switch (terms[term]) {
+                        case "GMDEFAULT": {
+                            def = data;
+                            break;
+                        }
+
+                        case "GMHIDDEN": {
+                            hide = true;
+                            break;
+                        }
+
+                        case "GMPASSTHROUGH": {
+                            passthrough = data;
+                            break;
+                        }
+
+                        case "GMPREPEND": {
+                            if (!prepend) prepend = [];
+                            prepend.push(data);
+                            break;
+                        }
+                    }
+                    
                 }
 
                 args[arg_ind] = {
                     Name: arg_name,
                     Func: func,
                     Passthrough: passthrough,
-                    Def: def
+                    Def: def,
+                    Hidden: hide
                 }
             }
+
+            // Replace tags in arguments
+            args.forEach(e => {
+                let def = e.Def, pass = e.Passthrough;
+                for(let j = 0; j < args.length; j++) {
+                    if (def) def = def.replaceAll(`#arg${j}`, args[j].Name);
+                    if (pass) pass = pass.replaceAll(`#arg${j}`, args[j].Name);
+                }
+
+                e.Def = def;
+                e.Passthrough = pass;
+            });
+
+            if (prepend) prepend = prepend.map(e => {
+                let copy = e;
+                for(let j = 0; j < args.length; j++) {
+                    copy = copy.replaceAll(`#arg${j}`, args[j].Name);
+                }
+                return copy;
+            });
 
             // ImGui call
             let call = undefined;
@@ -142,7 +193,8 @@ try {
             found.push({
                 Name: name,
                 Call: call,
-                Arguments: args
+                Arguments: args,
+                Prepend: prepend
             });
         }
 
@@ -189,7 +241,6 @@ try {
 
             // Write to file
             let resources_write = resources.slice(0, i).concat(`  "files": [\n    ${JSON.stringify(resource)}\n  ],`).concat(resources.slice(end + 1));
-            console.log(resources_write);
             fs.writeFileSync(input[1] + (USE_TEST ? ".test" : ""), resources_write.join("\n"));
             break;
         }
@@ -231,13 +282,15 @@ try {
         found.forEach(func => {
             let line = [], args = func.Arguments;
 
-            line.push(`/// @function ${func.Call}(${args.map(e => e.Name).join(", ")})`);
+            line.push(`/// @function ${func.Call}(${args.filter(e => !e.Hidden).map(e => e.Name).join(", ")})`);
             args.forEach(e => {
+                if (e.Hidden) return;
                 line.push(`/// @argument {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def}]` : e.Name}`);
             });
-            line.push(`static ${func.Call} = function(${args.map(e => `${e.Name}${e.Def ? `=${e.Def}` : ""}`).join(", ")}) {`);
-            line.push(`   return ${func.Name}(${args.map(e => {
-                return `${e.Passthrough ? `${e.Passthrough}(${e.Name})` : e.Name}`;
+            line.push(`static ${func.Call} = function(${args.filter(e => !e.Hidden).map(e => `${e.Name}${e.Def ? `=${e.Def}` : ""}`).join(", ")}) {`);
+            if (func.Prepend) line.push(...func.Prepend.map(e => `${SPACING}${e}`));
+            line.push(`    return ${func.Name}(${args.map(e => {
+                return `${e.Passthrough ? `${e.Passthrough}` : e.Name}`;
             }).join(", ")});`);
             line.push(`}\n`);
 

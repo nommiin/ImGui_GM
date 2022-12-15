@@ -7,8 +7,11 @@
 #include <d3d11.h>
 
 #define GMFUNC(name) YYEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-#define GMDEFAULT(...) //
-#define GMPASSTHROUGH(...) //
+#define GMDEFAULT(...) /**/
+#define GMPASSTHROUGH(...) /**/
+#define GMHIDDEN(...) /**/
+#define GMPREPEND(...) /**/
+#define GMAPPEND(...) /**/
 #define GMCOLOR(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
 // BBGGRR
 
@@ -232,32 +235,34 @@ struct RefDynamicArrayOfRValue {
 };
 
 GMFUNC(__imgui_image) {
-	// Graphics*
-	/*
-		struct Graphics {
-			[+24] = GLTexture
-		}
-	*/
-	void* spr = YYGetPtr(arg, 0);
-	GMPASSTHROUGH(texture_set_stage(0, sprite_get_texture(#, 0)))
-	double width = YYGetReal(arg, 1);
-	GMDEFAULT(sprite_get_width(spr));
-	double height = YYGetReal(arg, 2);
-	GMDEFAULT(sprite_get_height(spr));
-	RValue* uvs = /*YYGetArray(arg, 3)*/&arg[3];
-	GMDEFAULT(sprite_get_uvs(spr, 0))
+	double spr = YYGetReal(arg, 0);
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)))
+	double frame = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double width = YYGetReal(arg, 2);
+	GMDEFAULT(sprite_get_width(#arg0));
+	double height = YYGetReal(arg, 3);
+	GMDEFAULT(sprite_get_height(#arg0));
+	/*uvs = YYGetArray(arg, 4);*/ RValue* uvs = &arg[4];
+	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
+	GMHIDDEN();
 
-	RValue uv_x1, uv_y1, uv_x2, uv_y2;
-	GET_RValue(&uv_x1, uvs, NULL, 0);
-	GET_RValue(&uv_y1, uvs, NULL, 1);
-	GET_RValue(&uv_x2, uvs, NULL, 2);
-	GET_RValue(&uv_y2, uvs, NULL, 3);
+	RValue copy;
+	GET_RValue(&copy, uvs, NULL, 0);
+	double uv_x1 = copy.val;
+	GET_RValue(&copy, uvs, NULL, 1);
+	double uv_y1 = copy.val;
+	GET_RValue(&copy, uvs, NULL, 2);
+	double uv_x2 = copy.val;
+	GET_RValue(&copy, uvs, NULL, 3);
+	double uv_y2 = copy.val;
+	FREE_RValue(&copy);
 
 	ID3D11ShaderResourceView* view;
 	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &view);
 	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &view);
 
-	ImGui::Image(view, ImVec2(width, height), ImVec2(uv_x1.val, uv_y1.val), ImVec2(uv_x2.val, uv_y2.val));
+	ImGui::Image(view, ImVec2(width, height), ImVec2(uv_x1, uv_y1), ImVec2(uv_x2, uv_y2));
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
