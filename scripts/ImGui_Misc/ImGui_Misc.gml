@@ -202,3 +202,25 @@ enum ImGuiKey
     ImGuiKey_KeysData_SIZE          = ImGuiKey.ImGuiKey_COUNT,                   // Size of KeysData[]: hold legacy 0..512 keycodes + named keys
     ImGuiKey_KeysData_OFFSET        = 0,                                // First key stored in io.KeysData[0]. Accesses to io.KeysData[] must use (key - ImGuiKey_KeysData_OFFSET).
 };
+
+enum ImGuiButtonFlags
+{
+    None                   = 0,
+    MouseButtonLeft        = 1 << 0,   // React on left mouse button (default)
+    MouseButtonRight       = 1 << 1,   // React on right mouse button
+    MouseButtonMiddle      = 1 << 2,   // React on center mouse button
+
+    // [Internal]
+    MouseButtonMask       = ImGuiButtonFlags.MouseButtonLeft | ImGuiButtonFlags.MouseButtonRight | ImGuiButtonFlags.MouseButtonMiddle,
+    MouseButtonDefault    = ImGuiButtonFlags.MouseButtonLeft,
+};
+
+enum ImGuiDir
+{
+	None    = -1,
+	Left    = 0,
+	Right   = 1,
+	Up      = 2,
+	Down    = 3,
+	COUNT
+};

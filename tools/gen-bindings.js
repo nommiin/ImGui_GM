@@ -17,7 +17,7 @@ const SPACING = "    ";
 // If enabled, modified files are saved with a ".test" extension
 const USE_TEST = false;
 
-const fs = require("node:fs"), path = require("node:path"), reserved = ["x", "y", "continue", "return"];
+const fs = require("node:fs"), path = require("node:path"), reserved = ["x", "y", "continue", "return", "id"];
 function clean(blob) {
         const removal = [];
         for(let i = 0; i < blob.length; i++) {
@@ -102,18 +102,24 @@ try {
                 let arg_name = copy.slice(copy.lastIndexOf(" ")).trim();
                 if (reserved.includes(arg_name)) arg_name = "_" + arg_name;
 
-                let def = undefined;
+                let def = undefined, passthrough = undefined;
                 const next = wrappers[j + 1].trim();
                 if (next.startsWith("GMDEFAULT")) {
                     let start = next.indexOf("(");
-                    let end = next.indexOf(")");
+                    let end = next.lastIndexOf(")");
                     if (start === -1 || end === -1) throw `Could not default value argument for GMDEFAULT call at line ${j + 1}`;
                     def = next.slice(start + 1, end);
+                } else if (next.startsWith("GMPASSTHROUGH")) {
+                    let start = next.indexOf("(");
+                    let end = next.lastIndexOf(")");
+                    if (start === -1 || end === -1) throw `Could not passthrough value argument for GMPASSTHROUGH call at line ${j + 1}`;
+                    passthrough = next.slice(start + 1, end);
                 }
 
                 args[arg_ind] = {
                     Name: arg_name,
                     Func: func,
+                    Passthrough: passthrough,
                     Def: def
                 }
             }
@@ -230,7 +236,9 @@ try {
                 line.push(`/// @argument {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def}]` : e.Name}`);
             });
             line.push(`static ${func.Call} = function(${args.map(e => `${e.Name}${e.Def ? `=${e.Def}` : ""}`).join(", ")}) {`);
-            line.push(`   return ${func.Name}(${args.map(e => e.Name).join(", ")});`);
+            line.push(`   return ${func.Name}(${args.map(e => {
+                return `${e.Passthrough ? `${e.Passthrough}(${e.Name})` : e.Name}`;
+            }).join(", ")});`);
             line.push(`}\n`);
 
             binds_content.push(line.map(e => `${SPACING}${e}`).join("\n"));

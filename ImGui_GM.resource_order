@@ -3,6 +3,7 @@
     {"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy","order":2,},
     {"name":"fntDefault","path":"fonts/fntDefault/fntDefault.yy","order":2,},
     {"name":"rmExample","path":"rooms/rmExample/rmExample.yy","order":1,},
+    {"name":"Sprite1","path":"sprites/Sprite1/Sprite1.yy","order":5,},
     {"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy","order":1,},
   ],
   "FolderOrderSettings": [

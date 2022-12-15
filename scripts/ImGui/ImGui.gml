@@ -13,14 +13,6 @@ function ImGui() constructor {
        return __imgui_end();
     }
 
-    /// @function Button(label, width, height)
-    /// @argument {String} label
-    /// @argument {Real} [width=0]
-    /// @argument {Real} [height=0]
-    static Button = function(label, width=0, height=0) {
-       return __imgui_button(label, width, height);
-    }
-
     /// @function ShowAboutWindow(show)
     /// @argument {Bool} show
     static ShowAboutWindow = function(show) {
@@ -75,6 +67,70 @@ function ImGui() constructor {
     /// @argument {Real} [alpha=1]
     static TextColored = function(text, color, alpha=1) {
        return __imgui_text_colored(text, color, alpha);
+    }
+
+    /// @function TextDisabled(text)
+    /// @argument {String} text
+    static TextDisabled = function(text) {
+       return __imgui_text_disabled(text);
+    }
+
+    /// @function TextWrapped(text)
+    /// @argument {String} text
+    static TextWrapped = function(text) {
+       return __imgui_text_wrapped(text);
+    }
+
+    /// @function LabelText(label, text)
+    /// @argument {String} label
+    /// @argument {String} text
+    static LabelText = function(label, text) {
+       return __imgui_label_text(label, text);
+    }
+
+    /// @function BulletText(text)
+    /// @argument {String} text
+    static BulletText = function(text) {
+       return __imgui_bullet_text(text);
+    }
+
+    /// @function Button(label, width, height)
+    /// @argument {String} label
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    static Button = function(label, width=0, height=0) {
+       return __imgui_button(label, width, height);
+    }
+
+    /// @function SmallButton(label)
+    /// @argument {String} label
+    static SmallButton = function(label) {
+       return __imgui_small_button(label);
+    }
+
+    /// @function InvisibleButton(_id, width, height, flags)
+    /// @argument {String} _id
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    /// @argument {Int64} [flags=ImGuiButtonFlags.None]
+    static InvisibleButton = function(_id, width=0, height=0, flags=ImGuiButtonFlags.None) {
+       return __imgui_invisible_button(_id, width, height, flags);
+    }
+
+    /// @function ArrowButton(_id, dir)
+    /// @argument {String} _id
+    /// @argument {Int64} dir
+    static ArrowButton = function(_id, dir) {
+       return __imgui_arrow_button(_id, dir);
+    }
+
+    /// @function Image(spr, width, height)
+    /// @argument {Ptr} spr
+    /// @argument {Real} [width=sprite_get_width(spr)]
+    /// @argument {Real} [height=sprite_get_height(spr)]
+    static Image = function(spr, width=sprite_get_width(spr), height=sprite_get_height(spr)) {
+		texture_set_stage(0, sprite_get_texture(spr, 0))
+       return __imgui_image(sprite_get_texture(spr, 0), width, height, sprite_get_uvs(spr, 0));
     }
 
     /// @function InputText(label, val, flags)

@@ -11,8 +11,8 @@ YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
 TYYBuiltin F_ScriptExecute{ nullptr };
 
-static ID3D11Device* g_pd3dDevice;
-static ID3D11DeviceContext* g_pd3dDeviceContext;
+ID3D11Device* g_pd3dDevice;
+ID3D11DeviceContext* g_pd3dDeviceContext;
 
 static ImGuiContext* g_ImGuiContext;
 static bool g_ImGuiInitialized = false;
