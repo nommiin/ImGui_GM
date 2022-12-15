@@ -7,7 +7,7 @@
    Notes:
    - Use GMFUNC to mark functions as wrappers
    - Arguments in wrapper functions must be read by using any of the YYGet_ functions
-   - Default argument values should be defined as GMDEFAULT above the argument assignment
+   - Default argument values should be defined as GMDEFAULT below the argument assignment
    - ImGui.gml must contain a @section for "Bindings"
 */
 

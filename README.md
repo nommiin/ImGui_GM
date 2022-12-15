@@ -1,6 +1,7 @@
 # ImGui_GM
 Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
-![image](https://user-images.githubusercontent.com/6483989/207411258-d49b0569-397d-4c2d-9349-b434f8ef2a76.png)
+![image](https://user-images.githubusercontent.com/6483989/207724319-a734111a-eee9-497d-a9ef-9689353482df.png)
+
 
 # Reference
 - dll/
