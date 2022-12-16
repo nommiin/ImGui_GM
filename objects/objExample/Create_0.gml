@@ -19,5 +19,10 @@ int2 = [0, 1];
 int3 = [0, 1, 2];
 int4 = [0, 1, 2, 3];
 
+sliderint = 64;
+sliderint2 = [64, 128];
+sliderint3 = [64, 128, 256];
+sliderint4 = [64, 128, 256, 512];
+
 vmin = 10;
 vmax = 90;

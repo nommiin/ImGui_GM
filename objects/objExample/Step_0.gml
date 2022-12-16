@@ -10,10 +10,15 @@ if (ImGui.Begin("Test Window", true)) {
 	
 	ImGui.Image(sprAngy, 0, 32, 64);
 
-	int = ImGui.DragInt("testing", int, 1, 0, 100);
+	int = ImGui.DragInt("testing int1", int, 1, 0, 100);
 	ImGui.DragInt2("testing gwa int2", int2, 1, 0, 100);
 	ImGui.DragInt3("testing gwa int3", int3, 1, 0, 100);
 	ImGui.DragInt4("testing gwa int4", int4, 1, 0, 100);
+	
+	sliderint = ImGui.SliderInt("testing sliderint1", sliderint, 0, 100);
+	ImGui.SliderInt2("testing gwa sliderint2", sliderint2, 0, 100);
+	ImGui.SliderInt3("testing gwa sliderint3", sliderint3,  0, 100);
+	ImGui.SliderInt4("testing gwa sliderint4", sliderint4, 0, 100);
 	
 	ImGui.DragFloatRange2("float range 2", floatrange, 0.25, 0, 100);
 	

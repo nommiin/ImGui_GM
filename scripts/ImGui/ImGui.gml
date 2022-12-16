@@ -225,7 +225,7 @@ function ImGui() constructor {
         return __imgui_drag_float(label, val, val_speed, val_min, val_max, fmt, flags);
     }
 
-    /// @function DragFloat3(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @function DragFloat2(label, val, val_speed, val_min, val_max, fmt, flags)
     /// @argument {String} label
     /// @argument {Array<float>} val
     /// @argument {Real} [val_speed=1]
@@ -233,7 +233,7 @@ function ImGui() constructor {
     /// @argument {Real} [val_max=1]
     /// @argument {String} [fmt="%.3f"]
     /// @argument {Int64} [flags=ImGuiComboFlags.None]
-    static DragFloat3 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiComboFlags.None) {
+    static DragFloat2 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiComboFlags.None) {
         return __imgui_drag_float2(label, val, val_speed, val_min, val_max, fmt, flags);
     }
 
@@ -333,6 +333,105 @@ function ImGui() constructor {
     /// @argument {Int64} [flags=ImGuiComboFlags.None]
     static DragIntRange2 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", fmt_max="%.3f", flags=ImGuiComboFlags.None) {
         return __imgui_drag_int_range2(label, val, val_speed, val_min, val_max, fmt, fmt_max, flags);
+    }
+
+    /// @function SliderFloat(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Float} val
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderFloat = function(label, val, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_float(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderFloat2(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} [val=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderFloat2 = function(label, val=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_float2(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderFloat3(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} [val=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderFloat3 = function(label, val=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_float3(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderFloat4(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} [val=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderFloat4 = function(label, val=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_float4(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderAngle(label, v_rad, v_deg_min, v_deg_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Float} v_rad
+    /// @argument {Real} [v_deg_min=1]
+    /// @argument {Real} [v_deg_max=1]
+    /// @argument {String} [fmt="%.0f deg"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderAngle = function(label, v_rad, v_deg_min=1, v_deg_max=1, fmt="%.0f deg", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_angle(label, v_rad, v_deg_min, v_deg_max, fmt, flags);
+    }
+
+    /// @function SliderInt(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Real} val
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderInt = function(label, val, val_min=1, val_max=1, fmt="%d", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_int(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderInt2(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} [val=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderInt2 = function(label, val=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_int2(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderInt3(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} [val=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderInt3 = function(label, val=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_int3(label, val, val_min, val_max, fmt, flags);
+    }
+
+    /// @function SliderInt4(label, val, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} [val=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiSliderFlags.None]
+    static SliderInt4 = function(label, val=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiSliderFlags.None) {
+        return __imgui_slider_int4(label, val, val_min, val_max, fmt, flags);
     }
 
     /// @function InputText(label, val, flags)

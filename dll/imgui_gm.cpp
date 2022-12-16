@@ -453,7 +453,7 @@ GMFUNC(__imgui_drag_float2) {
 	int64 flags = YYGetInt64(arg, 6);
 	GMDEFAULT(ImGuiComboFlags.None);
 
-	if (ImGui::DragFloat3(label, val, val_speed, val_min, val_max, fmt, flags)) {
+	if (ImGui::DragFloat2(label, val, val_speed, val_min, val_max, fmt, flags)) {
 		YYSetArray(&arg[1], val, len);
 	}
 	Result = arg[1];
@@ -642,6 +642,210 @@ GMFUNC(__imgui_drag_int_range2) {
 	if (ImGui::DragIntRange2(label, &val[0], &val[1], val_speed, val_min, val_max, fmt, fmt_max, (ImGuiComboFlags)flags)) {
 		YYSetArray(&arg[1], val, len);
 	}
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: SliderScalar, SliderFloat, SliderInt, etc.
+//-------------------------------------------------------------------------
+// UNSUPPORTED - SliderScalar()
+// UNSUPPORTED - SliderScalarN()
+// - SliderFloat()
+// - SliderFloat2()
+// - SliderFloat3()
+// - SliderFloat4()
+// - SliderAngle()
+// - SliderInt()
+// - SliderInt2()
+// - SliderInt3()
+// - SliderInt4()
+// - VSliderScalar()
+// - VSliderFloat()
+// - VSliderInt()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_slider_float) {
+	const char* label = YYGetString(arg, 0);
+	float val = YYGetFloat(arg, 1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	ImGui::SliderFloat(label, &val, val_min, val_max, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_slider_float2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::SliderFloat2(label, val, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_slider_float3) {
+	const int len = 3;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::SliderFloat3(label, val, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_slider_float4) {
+	const int len = 4;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::SliderFloat4(label, val, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_slider_angle) {
+	const char* label = YYGetString(arg, 0);
+	float v_rad = YYGetFloat(arg, 1);
+	double v_deg_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double v_deg_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.0f deg");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	ImGui::SliderAngle(label, &v_rad, v_deg_min, v_deg_max, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = v_rad;
+	return;
+}
+
+GMFUNC(__imgui_slider_int) {
+	const char* label = YYGetString(arg, 0);
+	int val = YYGetReal(arg, 1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	ImGui::SliderInt(label, &val, val_min, val_max, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_slider_int2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::SliderInt2(label, val, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_slider_int3) {
+	const int len = 3;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::SliderInt3(label, val, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_slider_int4) {
+	const int len = 4;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::SliderInt4(label, val, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
 	return;
 }
 
