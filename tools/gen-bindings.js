@@ -285,7 +285,7 @@ try {
             line.push(`/// @function ${func.Call}(${args.filter(e => !e.Hidden).map(e => e.Name).join(", ")})`);
             args.forEach(e => {
                 if (e.Hidden) return;
-                line.push(`/// @argument {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def}]` : e.Name}`);
+                line.push(`/// @argument {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def.replaceAll("(", "[").replaceAll(")", "]")}]` : e.Name}`);
             });
             line.push(`static ${func.Call} = function(${args.filter(e => !e.Hidden).map(e => `${e.Name}${e.Def ? `=${e.Def}` : ""}`).join(", ")}) {`);
             if (func.Prepend) line.push(...func.Prepend.map(e => `${SPACING}${e}`));

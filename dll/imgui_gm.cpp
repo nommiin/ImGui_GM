@@ -6,6 +6,9 @@
 
 #include <d3d11.h>
 
+extern ID3D11Device* g_pd3dDevice;
+extern ID3D11DeviceContext* g_pd3dDeviceContext;
+
 #define GMFUNC(name) YYEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 #define GMDEFAULT(...) /**/
 #define GMPASSTHROUGH(...) /**/
@@ -13,12 +16,40 @@
 #define GMPREPEND(...) /**/
 #define GMAPPEND(...) /**/
 #define GMCOLOR(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
-// BBGGRR
 
-char g_pInputBuffer[256] = "";
+#pragma warning( push )
+#pragma warning( disable : 4244 )
 
-extern ID3D11Device* g_pd3dDevice;
-extern ID3D11DeviceContext* g_pd3dDeviceContext;
+static ID3D11ShaderResourceView* g_pView;
+static inline ID3D11ShaderResourceView* GetTexture() {
+	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
+	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
+	return g_pView;
+}
+
+template<typename T>
+static inline T* YYGetArray(RValue* arg, int ind, int len) {
+	RValue* arr = &arg[ind];
+	RValue copy;
+	T* val = new T[len];
+	for (int i = 0; i < len; i++) {
+		GET_RValue(&copy, arr, NULL, i);
+		val[i] = copy.val;
+	}
+	FREE_RValue(&copy);
+	return val;
+}
+
+template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len) {
+	RValue copy{};
+	for (int i = 0; i < len; i++) {
+		copy.kind = VALUE_REAL;
+		copy.val = arr[i];
+		SET_RValue(arg, &copy, NULL, i);
+	}
+	FREE_RValue(&copy);
+	return;
+}
 
 // Direct bindings for ImGui functions to GML, add to ImGui statics
 GMFUNC(__imgui_begin) {
@@ -94,15 +125,15 @@ GMFUNC(__imgui_set_next_window_size) {
 // - Text()
 // - TextV()
 // - TextColored()
-// - TextColoredV() TODO!!!
+// TODO - TextColoredV()
 // - TextDisabled()
-// - TextDisabledV() TODO!!!
+// TODO - TextDisabledV()
 // - TextWrapped()
-// - TextWrappedV() TODO!!!
+// TODO - TextWrappedV()
 // - LabelText()
-// - LabelTextV() TODO!!!
+// TODO - LabelTextV()
 // - BulletText()
-// - BulletTextV() TODO!!!
+// TODO - BulletTextV()
 //-------------------------------------------------------------------------
 GMFUNC(__imgui_text_unformatted) {
 	const char* text = YYGetString(arg, 0);
@@ -178,7 +209,7 @@ GMFUNC(__imgui_bullet_text) {
 // - Image()
 // - ImageButton()
 // - Checkbox()
-// - CheckboxFlags()
+// UNSUPPORTED - CheckboxFlags()
 // - RadioButton()
 // - ProgressBar()
 // - Bullet()
@@ -210,7 +241,7 @@ GMFUNC(__imgui_invisible_button) {
 	double height = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	int64 flags = YYGetInt64(arg, 3);
-	GMDEFAULT(ImGuiButtonFlags.None)
+	GMDEFAULT(ImGuiButtonFlags.None);
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::InvisibleButton(id, ImVec2(width, height), flags);
@@ -226,14 +257,6 @@ GMFUNC(__imgui_arrow_button) {
 	return;
 }
 
-#define YYGetArray(arg, ind) (RValue*)(arg + (sizeof(RValue) * ind))
-
-struct RefDynamicArrayOfRValue {
-	int refcount;
-	int flags;
-	RValue* pArray;
-};
-
 GMFUNC(__imgui_image) {
 	double spr = YYGetReal(arg, 0);
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)))
@@ -243,42 +266,384 @@ GMFUNC(__imgui_image) {
 	GMDEFAULT(sprite_get_width(#arg0));
 	double height = YYGetReal(arg, 3);
 	GMDEFAULT(sprite_get_height(#arg0));
-	/*uvs = YYGetArray(arg, 4);*/ RValue* uvs = &arg[4];
+	double* uvs = YYGetArray<double>(arg, 4, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 	GMHIDDEN();
 
-	RValue copy;
-	GET_RValue(&copy, uvs, NULL, 0);
-	double uv_x1 = copy.val;
-	GET_RValue(&copy, uvs, NULL, 1);
-	double uv_y1 = copy.val;
-	GET_RValue(&copy, uvs, NULL, 2);
-	double uv_x2 = copy.val;
-	GET_RValue(&copy, uvs, NULL, 3);
-	double uv_y2 = copy.val;
-	FREE_RValue(&copy);
-
-	ID3D11ShaderResourceView* view;
-	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &view);
-	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &view);
-
-	ImGui::Image(view, ImVec2(width, height), ImVec2(uv_x1, uv_y1), ImVec2(uv_x2, uv_y2));
+	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]));
+	delete[]uvs;
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
 
-/*
-enum ImGuiDir
-{
-	None    = -1,
-	Left    = 0,
-	Right   = 1,
-	Up      = 2,
-	Down    = 3,
-	COUNT
-};
-*/
+GMFUNC(__imgui_image_button) {
+	const char* id = YYGetString(arg, 0);
+	double spr = YYGetReal(arg, 1);
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)))
+	double frame = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	double width = YYGetReal(arg, 3);
+	GMDEFAULT(sprite_get_width(#arg1));
+	double height = YYGetReal(arg, 4);
+	GMDEFAULT(sprite_get_height(#arg1));
+	double* uvs = YYGetArray<double>(arg, 5, 4);
+	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
+	GMHIDDEN();
 
+	bool res = ImGui::ImageButton(id, GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]));
+	delete[]uvs;
+	Result.kind = VALUE_BOOL;
+	Result.val = res;
+	return;
+}
+
+GMFUNC(__imgui_checkbox) {
+	const char* label = YYGetString(arg, 0);
+	bool val = YYGetBool(arg, 1);
+
+	ImGui::Checkbox(label, &val);
+	Result.kind = VALUE_BOOL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_radio_button) {
+	const char* label = YYGetString(arg, 0);
+	bool active = YYGetBool(arg, 1);
+
+	ImGui::RadioButton(label, &active);
+	Result.kind = VALUE_BOOL;
+	Result.val = active;
+	return;
+}
+
+GMFUNC(__imgui_progressbar) {
+	double frac = YYGetReal(arg, 0);
+	double size_x = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double size_y = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	const char* overlay = YYGetString(arg, 3);
+	GMDEFAULT("");
+
+	ImGui::ProgressBar(frac, ImVec2(size_x, size_y), overlay);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_bullet) {
+	ImGui::Bullet();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: Low-level Layout helpers
+//-------------------------------------------------------------------------
+// - Spacing()
+// - Dummy()
+// - NewLine()
+// - AlignTextToFramePadding()
+// - Separator()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_spacing) {
+	ImGui::Spacing();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_dummy) {
+	double width = YYGetReal(arg, 0);
+	double height = YYGetReal(arg, 1);
+	ImGui::Dummy(ImVec2(width, height));
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_newline) {
+	ImGui::NewLine();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_align_text_to_frame_padding) {
+	ImGui::AlignTextToFramePadding();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_separator) {
+	ImGui::Separator();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: ComboBox
+//-------------------------------------------------------------------------
+// - BeginCombo()
+// - EndCombo()
+// UNSUPPORTED - Combo()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_begin_combo) {
+	const char* label = YYGetString(arg, 0);
+	const char* preview_val = YYGetString(arg, 1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiComboFlags.None);
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginCombo(label, preview_val, (ImGuiComboFlags)flags);
+	return;
+}
+
+GMFUNC(__imgui_end_combo) {
+	ImGui::EndCombo();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: DragScalar, DragFloat, DragInt, etc.
+//-------------------------------------------------------------------------
+// UNSUPPORTED - DragScalar()
+// UNSUPPORTED - DragScalarN()
+// - DragFloat()
+// - DragFloat2()
+// - DragFloat3()
+// - DragFloat4()
+// - DragFloatRange2()
+// - DragInt()
+// - DragInt2()
+// - DragInt3()
+// - DragInt4()
+// - DragIntRange2()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_drag_float) {
+	const char* label = YYGetString(arg, 0);
+	float val = YYGetFloat(arg, 1);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	ImGui::DragFloat(label, &val, val_speed, val_min, val_max, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_drag_float2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	if (ImGui::DragFloat3(label, val, val_speed, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_drag_float3) {
+	const int len = 3;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	if (ImGui::DragFloat3(label, val, val_speed, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_drag_float4) {
+	const int len = 4;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	if (ImGui::DragFloat4(label, val, val_speed, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_drag_float_range2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%.3f");
+	const char* fmt_max = YYGetString(arg, 6);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 7);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	Result.kind = VALUE_UNDEFINED;
+	if (ImGui::DragFloatRange2(label, &val[0], &val[1], val_speed, val_min, val_max, fmt, fmt_max, (ImGuiComboFlags)flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	return;
+}
+
+GMFUNC(__imgui_drag_int) {
+	const char* label = YYGetString(arg, 0);
+	int val = YYGetReal(arg, 1);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	ImGui::DragInt(label, &val, val_speed, val_min, val_max, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_drag_int2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	if (ImGui::DragInt2(label, val, val_speed, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_drag_int3) {
+	const int len = 3;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	if (ImGui::DragInt3(label, val, val_speed, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_drag_int4) {
+	const int len = 4;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%d");
+	int64 flags = YYGetInt64(arg, 6);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	if (ImGui::DragInt4(label, val, val_speed, val_min, val_max, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_drag_int_range2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	double val_speed = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double val_min = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	double val_max = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 5);
+	GMDEFAULT("%.3f");
+	const char* fmt_max = YYGetString(arg, 6);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 7);
+	GMDEFAULT(ImGuiComboFlags.None);
+
+	Result.kind = VALUE_UNDEFINED;
+	if (ImGui::DragIntRange2(label, &val[0], &val[1], val_speed, val_min, val_max, fmt, fmt_max, (ImGuiComboFlags)flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	return;
+}
 
 //-------------------------------------------------------------------------
 // [SECTION] Widgets: ColorEdit, ColorPicker, ColorButton, etc.
@@ -350,3 +715,5 @@ GMFUNC(__imgui_input_text_multiline) {
 	FREE_RValue(&res);
 	return;
 }
+
+#pragma warning( pop )

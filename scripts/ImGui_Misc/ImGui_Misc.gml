@@ -224,3 +224,26 @@ enum ImGuiDir
 	Down    = 3,
 	COUNT
 };
+
+enum ImGuiComboFlags
+{
+    None                    = 0,
+    PopupAlignLeft          = 1 << 0,   // Align the popup toward the left by default
+    HeightSmall             = 1 << 1,   // Max ~4 items visible. Tip: If you want your combo popup to be a specific size you can use SetNextWindowSizeConstraints() prior to calling BeginCombo()
+    HeightRegular           = 1 << 2,   // Max ~8 items visible (default)
+    HeightLarge             = 1 << 3,   // Max ~20 items visible
+    HeightLargest           = 1 << 4,   // As many fitting items as possible
+    NoArrowButton           = 1 << 5,   // Display on the preview box without the square arrow button
+    NoPreview               = 1 << 6,   // Display only a square arrow button
+    HeightMask_             = ImGuiComboFlags.HeightSmall | ImGuiComboFlags.HeightRegular | ImGuiComboFlags.HeightLarge | ImGuiComboFlags.HeightLargest,
+};
+
+enum ImGuiSliderFlags
+{
+    None                   = 0,
+    AlwaysClamp            = 1 << 4,       // Clamp value to min/max bounds when input manually with CTRL+Click. By default CTRL+Click allows going out of bounds.
+    Logarithmic            = 1 << 5,       // Make the widget logarithmic (linear otherwise). Consider using NoRoundToFormat with this if using a format-string with small amount of digits.
+    NoRoundToFormat        = 1 << 6,       // Disable rounding underlying value to match precision of the display format string (e.g. %.3f values are rounded to those 3 digits)
+    NoInput                = 1 << 7,       // Disable CTRL+Click or Enter key allowing to input text directly into the widget
+    InvalidMask_           = 0x7000000F,   // [Internal] We treat using those bits as being potentially a 'float power' argument from the previous API that has got miscast to this enum, and will trigger an assert if needed.
+};

@@ -127,11 +127,212 @@ function ImGui() constructor {
     /// @function Image(spr, frame, width, height)
     /// @argument {Real} spr
     /// @argument {Real} [frame=0]
-    /// @argument {Real} [width=sprite_get_width(spr)]
-    /// @argument {Real} [height=sprite_get_height(spr)]
+    /// @argument {Real} [width=sprite_get_width[spr]]
+    /// @argument {Real} [height=sprite_get_height[spr]]
     static Image = function(spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr)) {
         texture_set_stage(0, sprite_get_texture(spr, frame))
         return __imgui_image(spr, frame, width, height, sprite_get_uvs(spr, frame));
+    }
+
+    /// @function ImageButton(_id, spr, frame, width, height)
+    /// @argument {String} _id
+    /// @argument {Real} spr
+    /// @argument {Real} [frame=0]
+    /// @argument {Real} [width=sprite_get_width[spr]]
+    /// @argument {Real} [height=sprite_get_height[spr]]
+    static ImageButton = function(_id, spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr)) {
+        texture_set_stage(0, sprite_get_texture(spr, frame))
+        return __imgui_image_button(_id, spr, frame, width, height, sprite_get_uvs(spr, frame));
+    }
+
+    /// @function Checkbox(label, val)
+    /// @argument {String} label
+    /// @argument {Bool} val
+    static Checkbox = function(label, val) {
+        return __imgui_checkbox(label, val);
+    }
+
+    /// @function RadioButton(label, active)
+    /// @argument {String} label
+    /// @argument {Bool} active
+    static RadioButton = function(label, active) {
+        return __imgui_radio_button(label, active);
+    }
+
+    /// @function ProgressBar(frac, size_x, size_y, overlay)
+    /// @argument {Real} frac
+    /// @argument {Real} [size_x=0]
+    /// @argument {Real} [size_y=0]
+    /// @argument {String} [overlay=""]
+    static ProgressBar = function(frac, size_x=0, size_y=0, overlay="") {
+        return __imgui_progressbar(frac, size_x, size_y, overlay);
+    }
+
+    /// @function Bullet()
+    static Bullet = function() {
+        return __imgui_bullet();
+    }
+
+    /// @function Spacing()
+    static Spacing = function() {
+        return __imgui_spacing();
+    }
+
+    /// @function Dummy(width, height)
+    /// @argument {Real} width
+    /// @argument {Real} height
+    static Dummy = function(width, height) {
+        return __imgui_dummy(width, height);
+    }
+
+    /// @function NewLine()
+    static NewLine = function() {
+        return __imgui_newline();
+    }
+
+    /// @function AlignTextToFramePadding()
+    static AlignTextToFramePadding = function() {
+        return __imgui_align_text_to_frame_padding();
+    }
+
+    /// @function Separator()
+    static Separator = function() {
+        return __imgui_separator();
+    }
+
+    /// @function BeginCombo(label, preview_val, flags)
+    /// @argument {String} label
+    /// @argument {String} preview_val
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static BeginCombo = function(label, preview_val, flags=ImGuiComboFlags.None) {
+        return __imgui_begin_combo(label, preview_val, flags);
+    }
+
+    /// @function EndCombo()
+    static EndCombo = function() {
+        return __imgui_end_combo();
+    }
+
+    /// @function DragFloat(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Float} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragFloat = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_float(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragFloat3(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragFloat3 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_float2(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragFloat3(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragFloat3 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_float3(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragFloat4(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragFloat4 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_float4(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragFloatRange2(label, val, val_speed, val_min, val_max, fmt, fmt_max, flags)
+    /// @argument {String} label
+    /// @argument {Array<float>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {String} [fmt_max="%.3f"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragFloatRange2 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", fmt_max="%.3f", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_float_range2(label, val, val_speed, val_min, val_max, fmt, fmt_max, flags);
+    }
+
+    /// @function DragInt(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Real} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragInt = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_int(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragInt2(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragInt2 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_int2(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragInt3(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragInt3 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_int3(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragInt4(label, val, val_speed, val_min, val_max, fmt, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%d"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragInt4 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%d", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_int4(label, val, val_speed, val_min, val_max, fmt, flags);
+    }
+
+    /// @function DragIntRange2(label, val, val_speed, val_min, val_max, fmt, fmt_max, flags)
+    /// @argument {String} label
+    /// @argument {Array<int>} val
+    /// @argument {Real} [val_speed=1]
+    /// @argument {Real} [val_min=1]
+    /// @argument {Real} [val_max=1]
+    /// @argument {String} [fmt="%.3f"]
+    /// @argument {String} [fmt_max="%.3f"]
+    /// @argument {Int64} [flags=ImGuiComboFlags.None]
+    static DragIntRange2 = function(label, val, val_speed=1, val_min=1, val_max=1, fmt="%.3f", fmt_max="%.3f", flags=ImGuiComboFlags.None) {
+        return __imgui_drag_int_range2(label, val, val_speed, val_min, val_max, fmt, fmt_max, flags);
     }
 
     /// @function InputText(label, val, flags)
