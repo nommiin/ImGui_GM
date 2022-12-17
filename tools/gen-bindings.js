@@ -285,6 +285,7 @@ try {
             line.push(`/// @function ${func.Call}(${args.filter(e => !e.Hidden).map(e => e.Name).join(", ")})`);
             args.forEach(e => {
                 if (e.Hidden) return;
+                // NOTE: parentheses are replaced with brackets inside of default assignments, IDE's editor gets borked if not
                 line.push(`/// @argument {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def.replaceAll("(", "[").replaceAll(")", "]")}]` : e.Name}`);
             });
             line.push(`static ${func.Call} = function(${args.filter(e => !e.Hidden).map(e => `${e.Name}${e.Def ? `=${e.Def}` : ""}`).join(", ")}) {`);

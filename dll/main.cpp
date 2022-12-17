@@ -121,3 +121,12 @@ YYEXPORT void __imgui_mouse(RValue& Result, CInstance* selfinst, CInstance* othe
 	io.AddMouseButtonEvent(button, down);
 	return;
 }
+
+YYEXPORT void __imgui_mouse_wheel(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg) {
+	double x = YYGetReal(arg, 0);
+	double y = YYGetReal(arg, 1);
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.AddMouseWheelEvent(x, y);
+	return;
+}

@@ -1,57 +1,57 @@
 // All the silly stuff that's too messy for ImGui.gml
 // Call static_get for the ImGui class to initialize statics, required once so everywhere else can access
 var _ = static_get(new ImGui());
-_.__Mapping = array_create(ImGuiKey.ImGuiKey_KeysData_SIZE, -1);
-_.__Mapping[ImGuiKey.ImGuiKey_None] = vk_nokey;
-_.__Mapping[ImGuiKey.ImGuiKey_Enter] = vk_enter;
-_.__Mapping[ImGuiKey.ImGuiKey_Escape] = vk_escape;
-_.__Mapping[ImGuiKey.ImGuiKey_Space] = vk_space;
-_.__Mapping[ImGuiKey.ImGuiKey_Backspace] = vk_backspace;
-_.__Mapping[ImGuiKey.ImGuiKey_Tab] = vk_tab;
-_.__Mapping[ImGuiKey.ImGuiKey_Pause] = vk_pause;
-_.__Mapping[ImGuiKey.ImGuiKey_LeftArrow] = vk_left;
-_.__Mapping[ImGuiKey.ImGuiKey_RightArrow] = vk_right;
-_.__Mapping[ImGuiKey.ImGuiKey_UpArrow] = vk_up;
-_.__Mapping[ImGuiKey.ImGuiKey_DownArrow] = vk_down;
-_.__Mapping[ImGuiKey.ImGuiKey_Home] = vk_home;
-_.__Mapping[ImGuiKey.ImGuiKey_End] = vk_end;
-_.__Mapping[ImGuiKey.ImGuiKey_Delete] = vk_delete;
-_.__Mapping[ImGuiKey.ImGuiKey_Insert] = vk_insert;
-_.__Mapping[ImGuiKey.ImGuiKey_PageUp] = vk_pageup;
-_.__Mapping[ImGuiKey.ImGuiKey_PageDown] = vk_pagedown;
-_.__Mapping[ImGuiKey.ImGuiKey_F1] = vk_f1;
-_.__Mapping[ImGuiKey.ImGuiKey_F2] = vk_f2;
-_.__Mapping[ImGuiKey.ImGuiKey_F3] = vk_f3;
-_.__Mapping[ImGuiKey.ImGuiKey_F4] = vk_f4;
-_.__Mapping[ImGuiKey.ImGuiKey_F5] = vk_f5;
-_.__Mapping[ImGuiKey.ImGuiKey_F6] = vk_f6;
-_.__Mapping[ImGuiKey.ImGuiKey_F7] = vk_f7;
-_.__Mapping[ImGuiKey.ImGuiKey_F8] = vk_f8;
-_.__Mapping[ImGuiKey.ImGuiKey_F9] = vk_f9;
-_.__Mapping[ImGuiKey.ImGuiKey_F10] = vk_f10;
-_.__Mapping[ImGuiKey.ImGuiKey_F11] = vk_f11;
-_.__Mapping[ImGuiKey.ImGuiKey_F12] = vk_f12;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad0] = vk_numpad0;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad1] = vk_numpad1;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad2] = vk_numpad2;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad3] = vk_numpad3;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad4] = vk_numpad4;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad5] = vk_numpad5;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad6] = vk_numpad6;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad7] = vk_numpad7;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad8] = vk_numpad8;
-_.__Mapping[ImGuiKey.ImGuiKey_Keypad9] = vk_numpad9;
-_.__Mapping[ImGuiKey.ImGuiKey_KeypadDivide] = vk_divide;
-_.__Mapping[ImGuiKey.ImGuiKey_KeypadMultiply] = vk_multiply;
-_.__Mapping[ImGuiKey.ImGuiKey_KeypadSubtract] = vk_subtract;
-_.__Mapping[ImGuiKey.ImGuiKey_KeypadAdd] = vk_add;
-_.__Mapping[ImGuiKey.ImGuiKey_KeypadDecimal] = vk_decimal;
-_.__Mapping[ImGuiKey.ImGuiKey_LeftShift] = vk_lshift;
-_.__Mapping[ImGuiKey.ImGuiKey_LeftCtrl] = vk_lcontrol;
-_.__Mapping[ImGuiKey.ImGuiKey_LeftAlt] = vk_lalt;
-_.__Mapping[ImGuiKey.ImGuiKey_RightShift] = vk_rshift;
-_.__Mapping[ImGuiKey.ImGuiKey_RightCtrl] = vk_rcontrol;
-_.__Mapping[ImGuiKey.ImGuiKey_RightAlt] = vk_ralt;
+_.__Mapping = array_create(ImGuiKey.KeysData_SIZE, -1);
+_.__Mapping[ImGuiKey.None] = vk_nokey;
+_.__Mapping[ImGuiKey.Enter] = vk_enter;
+_.__Mapping[ImGuiKey.Escape] = vk_escape;
+_.__Mapping[ImGuiKey.Space] = vk_space;
+_.__Mapping[ImGuiKey.Backspace] = vk_backspace;
+_.__Mapping[ImGuiKey.Tab] = vk_tab;
+_.__Mapping[ImGuiKey.Pause] = vk_pause;
+_.__Mapping[ImGuiKey.LeftArrow] = vk_left;
+_.__Mapping[ImGuiKey.RightArrow] = vk_right;
+_.__Mapping[ImGuiKey.UpArrow] = vk_up;
+_.__Mapping[ImGuiKey.DownArrow] = vk_down;
+_.__Mapping[ImGuiKey.Home] = vk_home;
+_.__Mapping[ImGuiKey.End] = vk_end;
+_.__Mapping[ImGuiKey.Delete] = vk_delete;
+_.__Mapping[ImGuiKey.Insert] = vk_insert;
+_.__Mapping[ImGuiKey.PageUp] = vk_pageup;
+_.__Mapping[ImGuiKey.PageDown] = vk_pagedown;
+_.__Mapping[ImGuiKey.F1] = vk_f1;
+_.__Mapping[ImGuiKey.F2] = vk_f2;
+_.__Mapping[ImGuiKey.F3] = vk_f3;
+_.__Mapping[ImGuiKey.F4] = vk_f4;
+_.__Mapping[ImGuiKey.F5] = vk_f5;
+_.__Mapping[ImGuiKey.F6] = vk_f6;
+_.__Mapping[ImGuiKey.F7] = vk_f7;
+_.__Mapping[ImGuiKey.F8] = vk_f8;
+_.__Mapping[ImGuiKey.F9] = vk_f9;
+_.__Mapping[ImGuiKey.F10] = vk_f10;
+_.__Mapping[ImGuiKey.F11] = vk_f11;
+_.__Mapping[ImGuiKey.F12] = vk_f12;
+_.__Mapping[ImGuiKey.Keypad0] = vk_numpad0;
+_.__Mapping[ImGuiKey.Keypad1] = vk_numpad1;
+_.__Mapping[ImGuiKey.Keypad2] = vk_numpad2;
+_.__Mapping[ImGuiKey.Keypad3] = vk_numpad3;
+_.__Mapping[ImGuiKey.Keypad4] = vk_numpad4;
+_.__Mapping[ImGuiKey.Keypad5] = vk_numpad5;
+_.__Mapping[ImGuiKey.Keypad6] = vk_numpad6;
+_.__Mapping[ImGuiKey.Keypad7] = vk_numpad7;
+_.__Mapping[ImGuiKey.Keypad8] = vk_numpad8;
+_.__Mapping[ImGuiKey.Keypad9] = vk_numpad9;
+_.__Mapping[ImGuiKey.KeypadDivide] = vk_divide;
+_.__Mapping[ImGuiKey.KeypadMultiply] = vk_multiply;
+_.__Mapping[ImGuiKey.KeypadSubtract] = vk_subtract;
+_.__Mapping[ImGuiKey.KeypadAdd] = vk_add;
+_.__Mapping[ImGuiKey.KeypadDecimal] = vk_decimal;
+_.__Mapping[ImGuiKey.LeftShift] = vk_lshift;
+_.__Mapping[ImGuiKey.LeftCtrl] = vk_lcontrol;
+_.__Mapping[ImGuiKey.LeftAlt] = vk_lalt;
+_.__Mapping[ImGuiKey.RightShift] = vk_rshift;
+_.__Mapping[ImGuiKey.RightCtrl] = vk_rcontrol;
+_.__Mapping[ImGuiKey.RightAlt] = vk_ralt;
 _.__Mapping[ImGuiKey.ImGuiKey_1] = ord("1");
 _.__Mapping[ImGuiKey.ImGuiKey_2] = ord("2");
 _.__Mapping[ImGuiKey.ImGuiKey_3] = ord("3");
@@ -61,128 +61,129 @@ _.__Mapping[ImGuiKey.ImGuiKey_6] = ord("6");
 _.__Mapping[ImGuiKey.ImGuiKey_7] = ord("7");
 _.__Mapping[ImGuiKey.ImGuiKey_8] = ord("8");
 _.__Mapping[ImGuiKey.ImGuiKey_9] = ord("9");
-_.__Mapping[ImGuiKey.ImGuiKey_A] = ord("A");
-_.__Mapping[ImGuiKey.ImGuiKey_B] = ord("B");
-_.__Mapping[ImGuiKey.ImGuiKey_C] = ord("C");
-_.__Mapping[ImGuiKey.ImGuiKey_D] = ord("D");
-_.__Mapping[ImGuiKey.ImGuiKey_E] = ord("E");
-_.__Mapping[ImGuiKey.ImGuiKey_F] = ord("F");
-_.__Mapping[ImGuiKey.ImGuiKey_G] = ord("G");
-_.__Mapping[ImGuiKey.ImGuiKey_H] = ord("H");
-_.__Mapping[ImGuiKey.ImGuiKey_I] = ord("I");
-_.__Mapping[ImGuiKey.ImGuiKey_J] = ord("J");
-_.__Mapping[ImGuiKey.ImGuiKey_K] = ord("K");
-_.__Mapping[ImGuiKey.ImGuiKey_L] = ord("L");
-_.__Mapping[ImGuiKey.ImGuiKey_M] = ord("M");
-_.__Mapping[ImGuiKey.ImGuiKey_N] = ord("N");
-_.__Mapping[ImGuiKey.ImGuiKey_O] = ord("O");
-_.__Mapping[ImGuiKey.ImGuiKey_P] = ord("P");
-_.__Mapping[ImGuiKey.ImGuiKey_Q] = ord("Q");
-_.__Mapping[ImGuiKey.ImGuiKey_R] = ord("R");
-_.__Mapping[ImGuiKey.ImGuiKey_S] = ord("S");
-_.__Mapping[ImGuiKey.ImGuiKey_T] = ord("T");
-_.__Mapping[ImGuiKey.ImGuiKey_U] = ord("U");
-_.__Mapping[ImGuiKey.ImGuiKey_V] = ord("V");
-_.__Mapping[ImGuiKey.ImGuiKey_W] = ord("W");
-_.__Mapping[ImGuiKey.ImGuiKey_X] = ord("X");
-_.__Mapping[ImGuiKey.ImGuiKey_Y] = ord("Y");
-_.__Mapping[ImGuiKey.ImGuiKey_Z] = ord("Z");
+_.__Mapping[ImGuiKey.ImGuiKey_0] = ord("0");
+_.__Mapping[ImGuiKey.A] = ord("A");
+_.__Mapping[ImGuiKey.B] = ord("B");
+_.__Mapping[ImGuiKey.C] = ord("C");
+_.__Mapping[ImGuiKey.D] = ord("D");
+_.__Mapping[ImGuiKey.E] = ord("E");
+_.__Mapping[ImGuiKey.F] = ord("F");
+_.__Mapping[ImGuiKey.G] = ord("G");
+_.__Mapping[ImGuiKey.H] = ord("H");
+_.__Mapping[ImGuiKey.I] = ord("I");
+_.__Mapping[ImGuiKey.J] = ord("J");
+_.__Mapping[ImGuiKey.K] = ord("K");
+_.__Mapping[ImGuiKey.L] = ord("L");
+_.__Mapping[ImGuiKey.M] = ord("M");
+_.__Mapping[ImGuiKey.N] = ord("N");
+_.__Mapping[ImGuiKey.O] = ord("O");
+_.__Mapping[ImGuiKey.P] = ord("P");
+_.__Mapping[ImGuiKey.Q] = ord("Q");
+_.__Mapping[ImGuiKey.R] = ord("R");
+_.__Mapping[ImGuiKey.S] = ord("S");
+_.__Mapping[ImGuiKey.T] = ord("T");
+_.__Mapping[ImGuiKey.U] = ord("U");
+_.__Mapping[ImGuiKey.V] = ord("V");
+_.__Mapping[ImGuiKey.W] = ord("W");
+_.__Mapping[ImGuiKey.X] = ord("X");
+_.__Mapping[ImGuiKey.Y] = ord("Y");
+_.__Mapping[ImGuiKey.Z] = ord("Z");
 
 // slightly modified from imgui.h
 enum ImGuiKey
 {
     // Keyboard
-    ImGuiKey_None = 0,
-    ImGuiKey_Tab = 512,             // == ImGuiKey_NamedKey_BEGIN
-    ImGuiKey_LeftArrow,
-    ImGuiKey_RightArrow,
-    ImGuiKey_UpArrow,
-    ImGuiKey_DownArrow,
-    ImGuiKey_PageUp,
-    ImGuiKey_PageDown,
-    ImGuiKey_Home,
-    ImGuiKey_End,
-    ImGuiKey_Insert,
-    ImGuiKey_Delete,
-    ImGuiKey_Backspace,
-    ImGuiKey_Space,
-    ImGuiKey_Enter,
-    ImGuiKey_Escape,
-    ImGuiKey_LeftCtrl, ImGuiKey_LeftShift, ImGuiKey_LeftAlt, ImGuiKey_LeftSuper,
-    ImGuiKey_RightCtrl, ImGuiKey_RightShift, ImGuiKey_RightAlt, ImGuiKey_RightSuper,
-    ImGuiKey_Menu,
+    None = 0,
+    Tab = 512,             // == NamedKey_BEGIN
+    LeftArrow,
+    RightArrow,
+    UpArrow,
+    DownArrow,
+    PageUp,
+    PageDown,
+    Home,
+    End,
+    Insert,
+    Delete,
+    Backspace,
+    Space,
+    Enter,
+    Escape,
+    LeftCtrl, LeftShift, LeftAlt, LeftSuper,
+    RightCtrl, RightShift, RightAlt, RightSuper,
+    Menu,
     ImGuiKey_0, ImGuiKey_1, ImGuiKey_2, ImGuiKey_3, ImGuiKey_4, ImGuiKey_5, ImGuiKey_6, ImGuiKey_7, ImGuiKey_8, ImGuiKey_9,
-    ImGuiKey_A, ImGuiKey_B, ImGuiKey_C, ImGuiKey_D, ImGuiKey_E, ImGuiKey_F, ImGuiKey_G, ImGuiKey_H, ImGuiKey_I, ImGuiKey_J,
-    ImGuiKey_K, ImGuiKey_L, ImGuiKey_M, ImGuiKey_N, ImGuiKey_O, ImGuiKey_P, ImGuiKey_Q, ImGuiKey_R, ImGuiKey_S, ImGuiKey_T,
-    ImGuiKey_U, ImGuiKey_V, ImGuiKey_W, ImGuiKey_X, ImGuiKey_Y, ImGuiKey_Z,
-    ImGuiKey_F1, ImGuiKey_F2, ImGuiKey_F3, ImGuiKey_F4, ImGuiKey_F5, ImGuiKey_F6,
-    ImGuiKey_F7, ImGuiKey_F8, ImGuiKey_F9, ImGuiKey_F10, ImGuiKey_F11, ImGuiKey_F12,
-    ImGuiKey_Apostrophe,        // '
-    ImGuiKey_Comma,             // ,
-    ImGuiKey_Minus,             // -
-    ImGuiKey_Period,            // .
-    ImGuiKey_Slash,             // /
-    ImGuiKey_Semicolon,         // ;
-    ImGuiKey_Equal,             // =
-    ImGuiKey_LeftBracket,       // [
-    ImGuiKey_Backslash,         // \ (this text inhibit multiline comment caused by backslash)
-    ImGuiKey_RightBracket,      // ]
-    ImGuiKey_GraveAccent,       // `
-    ImGuiKey_CapsLock,
-    ImGuiKey_ScrollLock,
-    ImGuiKey_NumLock,
-    ImGuiKey_PrintScreen,
-    ImGuiKey_Pause,
-    ImGuiKey_Keypad0, ImGuiKey_Keypad1, ImGuiKey_Keypad2, ImGuiKey_Keypad3, ImGuiKey_Keypad4,
-    ImGuiKey_Keypad5, ImGuiKey_Keypad6, ImGuiKey_Keypad7, ImGuiKey_Keypad8, ImGuiKey_Keypad9,
-    ImGuiKey_KeypadDecimal,
-    ImGuiKey_KeypadDivide,
-    ImGuiKey_KeypadMultiply,
-    ImGuiKey_KeypadSubtract,
-    ImGuiKey_KeypadAdd,
-    ImGuiKey_KeypadEnter,
-    ImGuiKey_KeypadEqual,
+    A, B, C, D, E, F, G, H, I, J,
+    K, L, M, N, O, P, Q, R, S, T,
+    U, V, W, X, Y, Z,
+    F1, F2, F3, F4, F5, F6,
+    F7, F8, F9, F10, F11, F12,
+    Apostrophe,        // '
+    Comma,             // ,
+    Minus,             // -
+    Period,            // .
+    Slash,             // /
+    Semicolon,         // ;
+    Equal,             // =
+    LeftBracket,       // [
+    Backslash,         // \ (this text inhibit multiline comment caused by backslash)
+    RightBracket,      // ]
+    GraveAccent,       // `
+    CapsLock,
+    ScrollLock,
+    NumLock,
+    PrintScreen,
+    Pause,
+    Keypad0, Keypad1, Keypad2, Keypad3, Keypad4,
+    Keypad5, Keypad6, Keypad7, Keypad8, Keypad9,
+    KeypadDecimal,
+    KeypadDivide,
+    KeypadMultiply,
+    KeypadSubtract,
+    KeypadAdd,
+    KeypadEnter,
+    KeypadEqual,
 
     // Gamepad (some of those are analog values, 0.0f to 1.0f)                          // NAVIGATION ACTION
     // (download controller mapping PNG/PSD at http://dearimgui.org/controls_sheets)
-    ImGuiKey_GamepadStart,          // Menu (Xbox)      + (Switch)   Start/Options (PS)
-    ImGuiKey_GamepadBack,           // View (Xbox)      - (Switch)   Share (PS)
-    ImGuiKey_GamepadFaceLeft,       // X (Xbox)         Y (Switch)   Square (PS)        // Tap: Toggle Menu. Hold: Windowing mode (Focus/Move/Resize windows)
-    ImGuiKey_GamepadFaceRight,      // B (Xbox)         A (Switch)   Circle (PS)        // Cancel / Close / Exit
-    ImGuiKey_GamepadFaceUp,         // Y (Xbox)         X (Switch)   Triangle (PS)      // Text Input / On-screen Keyboard
-    ImGuiKey_GamepadFaceDown,       // A (Xbox)         B (Switch)   Cross (PS)         // Activate / Open / Toggle / Tweak
-    ImGuiKey_GamepadDpadLeft,       // D-pad Left                                       // Move / Tweak / Resize Window (in Windowing mode)
-    ImGuiKey_GamepadDpadRight,      // D-pad Right                                      // Move / Tweak / Resize Window (in Windowing mode)
-    ImGuiKey_GamepadDpadUp,         // D-pad Up                                         // Move / Tweak / Resize Window (in Windowing mode)
-    ImGuiKey_GamepadDpadDown,       // D-pad Down                                       // Move / Tweak / Resize Window (in Windowing mode)
-    ImGuiKey_GamepadL1,             // L Bumper (Xbox)  L (Switch)   L1 (PS)            // Tweak Slower / Focus Previous (in Windowing mode)
-    ImGuiKey_GamepadR1,             // R Bumper (Xbox)  R (Switch)   R1 (PS)            // Tweak Faster / Focus Next (in Windowing mode)
-    ImGuiKey_GamepadL2,             // L Trig. (Xbox)   ZL (Switch)  L2 (PS) [Analog]
-    ImGuiKey_GamepadR2,             // R Trig. (Xbox)   ZR (Switch)  R2 (PS) [Analog]
-    ImGuiKey_GamepadL3,             // L Stick (Xbox)   L3 (Switch)  L3 (PS)
-    ImGuiKey_GamepadR3,             // R Stick (Xbox)   R3 (Switch)  R3 (PS)
-    ImGuiKey_GamepadLStickLeft,     // [Analog]                                         // Move Window (in Windowing mode)
-    ImGuiKey_GamepadLStickRight,    // [Analog]                                         // Move Window (in Windowing mode)
-    ImGuiKey_GamepadLStickUp,       // [Analog]                                         // Move Window (in Windowing mode)
-    ImGuiKey_GamepadLStickDown,     // [Analog]                                         // Move Window (in Windowing mode)
-    ImGuiKey_GamepadRStickLeft,     // [Analog]
-    ImGuiKey_GamepadRStickRight,    // [Analog]
-    ImGuiKey_GamepadRStickUp,       // [Analog]
-    ImGuiKey_GamepadRStickDown,     // [Analog]
+    GamepadStart,          // Menu (Xbox)      + (Switch)   Start/Options (PS)
+    GamepadBack,           // View (Xbox)      - (Switch)   Share (PS)
+    GamepadFaceLeft,       // X (Xbox)         Y (Switch)   Square (PS)        // Tap: Toggle Menu. Hold: Windowing mode (Focus/Move/Resize windows)
+    GamepadFaceRight,      // B (Xbox)         A (Switch)   Circle (PS)        // Cancel / Close / Exit
+    GamepadFaceUp,         // Y (Xbox)         X (Switch)   Triangle (PS)      // Text Input / On-screen Keyboard
+    GamepadFaceDown,       // A (Xbox)         B (Switch)   Cross (PS)         // Activate / Open / Toggle / Tweak
+    GamepadDpadLeft,       // D-pad Left                                       // Move / Tweak / Resize Window (in Windowing mode)
+    GamepadDpadRight,      // D-pad Right                                      // Move / Tweak / Resize Window (in Windowing mode)
+    GamepadDpadUp,         // D-pad Up                                         // Move / Tweak / Resize Window (in Windowing mode)
+    GamepadDpadDown,       // D-pad Down                                       // Move / Tweak / Resize Window (in Windowing mode)
+    GamepadL1,             // L Bumper (Xbox)  L (Switch)   L1 (PS)            // Tweak Slower / Focus Previous (in Windowing mode)
+    GamepadR1,             // R Bumper (Xbox)  R (Switch)   R1 (PS)            // Tweak Faster / Focus Next (in Windowing mode)
+    GamepadL2,             // L Trig. (Xbox)   ZL (Switch)  L2 (PS) [Analog]
+    GamepadR2,             // R Trig. (Xbox)   ZR (Switch)  R2 (PS) [Analog]
+    GamepadL3,             // L Stick (Xbox)   L3 (Switch)  L3 (PS)
+    GamepadR3,             // R Stick (Xbox)   R3 (Switch)  R3 (PS)
+    GamepadLStickLeft,     // [Analog]                                         // Move Window (in Windowing mode)
+    GamepadLStickRight,    // [Analog]                                         // Move Window (in Windowing mode)
+    GamepadLStickUp,       // [Analog]                                         // Move Window (in Windowing mode)
+    GamepadLStickDown,     // [Analog]                                         // Move Window (in Windowing mode)
+    GamepadRStickLeft,     // [Analog]
+    GamepadRStickRight,    // [Analog]
+    GamepadRStickUp,       // [Analog]
+    GamepadRStickDown,     // [Analog]
 
     // Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls)
     // - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
-    ImGuiKey_MouseLeft, ImGuiKey_MouseRight, ImGuiKey_MouseMiddle, ImGuiKey_MouseX1, ImGuiKey_MouseX2, ImGuiKey_MouseWheelX, ImGuiKey_MouseWheelY,
+    MouseLeft, MouseRight, MouseMiddle, MouseX1, MouseX2, MouseWheelX, MouseWheelY,
 
     // [Internal] Reserved for mod storage
-    ImGuiKey_ReservedForModCtrl, ImGuiKey_ReservedForModShift, ImGuiKey_ReservedForModAlt, ImGuiKey_ReservedForModSuper,
-    ImGuiKey_COUNT,
+    ReservedForModCtrl, ReservedForModShift, ReservedForModAlt, ReservedForModSuper,
+    COUNT,
 
     // Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls)
     // - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing
     //   them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc.
     // - Code polling every key (e.g. an interface to detect a key press for input mapping) might want to ignore those
-    //   and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiMod_Ctrl).
+    //   and prefer using the real keys (e.g. LeftCtrl, RightCtrl instead of ImGuiMod_Ctrl).
     // - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys.
     //   In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and
     //   backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
@@ -196,11 +197,11 @@ enum ImGuiKey
 
     // [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + the io.KeyMap[] array.
     // We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)
-    ImGuiKey_NamedKey_BEGIN         = 512,
-    ImGuiKey_NamedKey_END           = ImGuiKey.ImGuiKey_COUNT,
-    ImGuiKey_NamedKey_COUNT         = ImGuiKey.ImGuiKey_NamedKey_END - ImGuiKey.ImGuiKey_NamedKey_BEGIN,
-    ImGuiKey_KeysData_SIZE          = ImGuiKey.ImGuiKey_COUNT,                   // Size of KeysData[]: hold legacy 0..512 keycodes + named keys
-    ImGuiKey_KeysData_OFFSET        = 0,                                // First key stored in io.KeysData[0]. Accesses to io.KeysData[] must use (key - ImGuiKey_KeysData_OFFSET).
+    NamedKey_BEGIN         = 512,
+    NamedKey_END           = ImGuiKey.COUNT,
+    NamedKey_COUNT         = ImGuiKey.NamedKey_END - ImGuiKey.NamedKey_BEGIN,
+    KeysData_SIZE          = ImGuiKey.COUNT,                   // Size of KeysData[]: hold legacy 0..512 keycodes + named keys
+    KeysData_OFFSET        = 0,                                // First key stored in io.KeysData[0]. Accesses to io.KeysData[] must use (key - KeysData_OFFSET).
 };
 
 enum ImGuiButtonFlags
@@ -246,4 +247,154 @@ enum ImGuiSliderFlags
     NoRoundToFormat        = 1 << 6,       // Disable rounding underlying value to match precision of the display format string (e.g. %.3f values are rounded to those 3 digits)
     NoInput                = 1 << 7,       // Disable CTRL+Click or Enter key allowing to input text directly into the widget
     InvalidMask_           = 0x7000000F,   // [Internal] We treat using those bits as being potentially a 'float power' argument from the previous API that has got miscast to this enum, and will trigger an assert if needed.
+};
+
+enum ImGuiColorEditFlags
+{
+    None            = 0,
+    NoAlpha         = 1 << 1,   //              // ColorEdit, ColorPicker, ColorButton: ignore Alpha component (will only read 3 components from the input pointer).
+    NoPicker        = 1 << 2,   //              // ColorEdit: disable picker when clicking on color square.
+    NoOptions       = 1 << 3,   //              // ColorEdit: disable toggling options menu when right-clicking on inputs/small preview.
+    NoSmallPreview  = 1 << 4,   //              // ColorEdit, ColorPicker: disable color square preview next to the inputs. (e.g. to show only the inputs)
+    NoInputs        = 1 << 5,   //              // ColorEdit, ColorPicker: disable inputs sliders/text widgets (e.g. to show only the small preview color square).
+    NoTooltip       = 1 << 6,   //              // ColorEdit, ColorPicker, ColorButton: disable tooltip when hovering the preview.
+    NoLabel         = 1 << 7,   //              // ColorEdit, ColorPicker: disable display of inline text label (the label is still forwarded to the tooltip and picker).
+    NoSidePreview   = 1 << 8,   //              // ColorPicker: disable bigger color preview on right side of the picker, use small color square preview instead.
+    NoDragDrop      = 1 << 9,   //              // ColorEdit: disable drag and drop target. ColorButton: disable drag and drop source.
+    NoBorder        = 1 << 10,  //              // ColorButton: disable border (which is enforced by default)
+
+    // User Options (right-click on widget to change some of them).
+    AlphaBar        = 1 << 16,  //              // ColorEdit, ColorPicker: show vertical alpha bar/gradient in picker.
+    AlphaPreview    = 1 << 17,  //              // ColorEdit, ColorPicker, ColorButton: display preview as a transparent color over a checkerboard, instead of opaque.
+    AlphaPreviewHalf= 1 << 18,  //              // ColorEdit, ColorPicker, ColorButton: display half opaque / half checkerboard, instead of opaque.
+    HDR             = 1 << 19,  //              // (WIP) ColorEdit: Currently only disable 0.0f..1.0f limits in RGBA edition (note: you probably want to use Float flag as well).
+    DisplayRGB      = 1 << 20,  // [Display]    // ColorEdit: override _display_ type among RGB/HSV/Hex. ColorPicker: select any combination using one or more of RGB/HSV/Hex.
+    DisplayHSV      = 1 << 21,  // [Display]    // "
+    DisplayHex      = 1 << 22,  // [Display]    // "
+    Uint8           = 1 << 23,  // [DataType]   // ColorEdit, ColorPicker, ColorButton: _display_ values formatted as 0..255.
+    Float           = 1 << 24,  // [DataType]   // ColorEdit, ColorPicker, ColorButton: _display_ values formatted as 0.0f..1.0f floats instead of 0..255 integers. No round-trip of value via integers.
+    PickerHueBar    = 1 << 25,  // [Picker]     // ColorPicker: bar for Hue, rectangle for Sat/Value.
+    PickerHueWheel  = 1 << 26,  // [Picker]     // ColorPicker: wheel for Hue, triangle for Sat/Value.
+    InputRGB        = 1 << 27,  // [Input]      // ColorEdit, ColorPicker: input and output data in RGB format.
+    InputHSV        = 1 << 28,  // [Input]      // ColorEdit, ColorPicker: input and output data in HSV format.
+
+    // Defaults Options. You can set application defaults using SetColorEditOptions(). The intent is that you probably don't want to
+    // override them in most of your calls. Let the user choose via the option menu and/or call SetColorEditOptions() once during startup.
+    DefaultOptions_ = ImGuiColorEditFlags.Uint8 | ImGuiColorEditFlags.DisplayRGB | ImGuiColorEditFlags.InputRGB | ImGuiColorEditFlags.PickerHueBar,
+
+    // [Internal] Masks
+    DisplayMask_    = ImGuiColorEditFlags.DisplayRGB | ImGuiColorEditFlags.DisplayHSV | ImGuiColorEditFlags.DisplayHex,
+    DataTypeMask_   = ImGuiColorEditFlags.Uint8 | ImGuiColorEditFlags.Float,
+    PickerMask_     = ImGuiColorEditFlags.PickerHueWheel | ImGuiColorEditFlags.PickerHueBar,
+    InputMask_      = ImGuiColorEditFlags.InputRGB | ImGuiColorEditFlags.InputHSV,
+
+    // Obsolete names (will be removed)
+    // RGB = DisplayRGB, HSV = DisplayHSV, HEX = DisplayHex  // [renamed in 1.69]
+};
+
+enum ImGuiReturnFlags {
+	Show = 1 << 0,
+	Open = 1 << 1,
+	Both = 1 << 2
+}
+
+enum ImGuiStyleVar
+{
+    // Enum name --------------------- // Member in ImGuiStyle structure (see ImGuiStyle for descriptions)
+    Alpha,               // float     Alpha
+    DisabledAlpha,       // float     DisabledAlpha
+    WindowPadding,       // ImVec2    WindowPadding
+    WindowRounding,      // float     WindowRounding
+    WindowBorderSize,    // float     WindowBorderSize
+    WindowMinSize,       // ImVec2    WindowMinSize
+    WindowTitleAlign,    // ImVec2    WindowTitleAlign
+    ChildRounding,       // float     ChildRounding
+    ChildBorderSize,     // float     ChildBorderSize
+    PopupRounding,       // float     PopupRounding
+    PopupBorderSize,     // float     PopupBorderSize
+    FramePadding,        // ImVec2    FramePadding
+    FrameRounding,       // float     FrameRounding
+    FrameBorderSize,     // float     FrameBorderSize
+    ItemSpacing,         // ImVec2    ItemSpacing
+    ItemInnerSpacing,    // ImVec2    ItemInnerSpacing
+    IndentSpacing,       // float     IndentSpacing
+    CellPadding,         // ImVec2    CellPadding
+    ScrollbarSize,       // float     ScrollbarSize
+    ScrollbarRounding,   // float     ScrollbarRounding
+    GrabMinSize,         // float     GrabMinSize
+    GrabRounding,        // float     GrabRounding
+    TabRounding,         // float     TabRounding
+    ButtonTextAlign,     // ImVec2    ButtonTextAlign
+    SelectableTextAlign, // ImVec2    SelectableTextAlign
+    COUNT
+};
+
+enum ImGuiCond {
+	None          = 0,
+	Always        = 1 << 0,
+	Once          = 1 << 1,
+	FirstUseEver  = 1 << 2,
+	Appearing     = 1 << 3	
+}
+
+enum ImGuiInputTextFlags
+{
+   None                = 0,
+   CharsDecimal        = 1 << 0,   // Allow 0123456789.+-*/
+   CharsHexadecimal    = 1 << 1,   // Allow 0123456789ABCDEFabcdef
+   CharsUppercase      = 1 << 2,   // Turn a..z into A..Z
+   CharsNoBlank        = 1 << 3,   // Filter out spaces, tabs
+   AutoSelectAll       = 1 << 4,   // Select entire text when first taking mouse focus
+   EnterReturnsTrue    = 1 << 5,   // Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider looking at the IsItemDeactivatedAfterEdit() function.
+   CallbackCompletion  = 1 << 6,   // Callback on pressing TAB (for completion handling)
+   CallbackHistory     = 1 << 7,   // Callback on pressing Up/Down arrows (for history handling)
+   CallbackAlways      = 1 << 8,   // Callback on each iteration. User code may query cursor position, modify text buffer.
+   CallbackCharFilter  = 1 << 9,   // Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.
+   AllowTabInput       = 1 << 10,  // Pressing TAB input a '\t' character into the text field
+   CtrlEnterForNewLine = 1 << 11,  // In multi-line mode, unfocus with Enter, add new line with Ctrl+Enter (default is opposite: unfocus with Ctrl+Enter, add line with Enter).
+   NoHorizontalScroll  = 1 << 12,  // Disable following the cursor horizontally
+   AlwaysOverwrite     = 1 << 13,  // Overwrite mode
+   ReadOnly            = 1 << 14,  // Read-only mode
+   Password            = 1 << 15,  // Password mode, display all characters as '*'
+   NoUndoRedo          = 1 << 16,  // Disable undo/redo. Note that input text owns the text data while active, if you want to provide your own undo/redo stack you need e.g. to call ClearActiveID().
+   CharsScientific     = 1 << 17,  // Allow 0123456789.+-*/eE (Scientific notation input)
+   CallbackResize      = 1 << 18,  // Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this)
+   CallbackEdit        = 1 << 19,  // Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active)
+   EscapeClearsAll     = 1 << 20,  // Escape key clears content if not empty, and deactivate otherwise (contrast to default behavior of Escape to revert)
+}
+
+enum ImGuiWindowFlags
+{
+    None                   = 0,
+    NoTitleBar             = 1 << 0,   // Disable title-bar
+    NoResize               = 1 << 1,   // Disable user resizing with the lower-right grip
+    NoMove                 = 1 << 2,   // Disable user moving the window
+    NoScrollbar            = 1 << 3,   // Disable scrollbars (window can still scroll with mouse or programmatically)
+    NoScrollWithMouse      = 1 << 4,   // Disable user vertically scrolling with mouse wheel. On child window, mouse wheel will be forwarded to the parent unless NoScrollbar is also set.
+    NoCollapse             = 1 << 5,   // Disable user collapsing window by double-clicking on it. Also referred to as Window Menu Button (e.g. within a docking node).
+    AlwaysAutoResize       = 1 << 6,   // Resize every window to its content every frame
+    NoBackground           = 1 << 7,   // Disable drawing background color (WindowBg, etc.) and outside border. Similar as using SetNextWindowBgAlpha(0.0f).
+    NoSavedSettings        = 1 << 8,   // Never load/save settings in .ini file
+    NoMouseInputs          = 1 << 9,   // Disable catching mouse, hovering test with pass through.
+    MenuBar                = 1 << 10,  // Has a menu-bar
+    HorizontalScrollbar    = 1 << 11,  // Allow horizontal scrollbar to appear (off by default). You may use SetNextWindowContentSize(ImVec2(width,0.0f)); prior to calling Begin() to specify width. Read code in imgui_demo in the "Horizontal Scrolling" section.
+    NoFocusOnAppearing     = 1 << 12,  // Disable taking focus when transitioning from hidden to visible state
+    NoBringToFrontOnFocus  = 1 << 13,  // Disable bringing window to front when taking focus (e.g. clicking on it or programmatically giving it focus)
+    AlwaysVerticalScrollbar= 1 << 14,  // Always show vertical scrollbar (even if ContentSize.y < Size.y)
+    AlwaysHorizontalScrollbar=1<< 15,  // Always show horizontal scrollbar (even if ContentSize.x < Size.x)
+    AlwaysUseWindowPadding = 1 << 16,  // Ensure child windows without border uses style.WindowPadding (ignored by default for non-bordered child windows, because more convenient)
+    NoNavInputs            = 1 << 18,  // No gamepad/keyboard navigation within the window
+    NoNavFocus             = 1 << 19,  // No focusing toward this window with gamepad/keyboard navigation (e.g. skipped by CTRL+TAB)
+    UnsavedDocument        = 1 << 20,  // Display a dot next to the title. When used in a tab/docking context, tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
+    NoNav                  = ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
+    NoDecoration           = ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoCollapse,
+    NoInputs               = ImGuiWindowFlags.NoMouseInputs | ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
+
+    // [Internal]
+    NavFlattened           = 1 << 23,  // [BETA] On child window: allow gamepad/keyboard navigation to cross over parent border to this child or between sibling child windows.
+    ChildWindow            = 1 << 24,  // Don't use! For internal use by BeginChild()
+    Tooltip                = 1 << 25,  // Don't use! For internal use by BeginTooltip()
+    Popup                  = 1 << 26,  // Don't use! For internal use by BeginPopup()
+    Modal                  = 1 << 27,  // Don't use! For internal use by BeginPopupModal()
+    ChildMenu              = 1 << 28,  // Don't use! For internal use by BeginMenu()
 };

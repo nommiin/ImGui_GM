@@ -15,10 +15,8 @@ extern ID3D11DeviceContext* g_pd3dDeviceContext;
 #define GMHIDDEN(...) /**/
 #define GMPREPEND(...) /**/
 #define GMAPPEND(...) /**/
-#define GMCOLOR(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
-
-#pragma warning( push )
-#pragma warning( disable : 4244 )
+#define GMCOLOR_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
+#define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16))
 
 static ID3D11ShaderResourceView* g_pView;
 static inline ID3D11ShaderResourceView* GetTexture() {
@@ -51,16 +49,28 @@ template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len)
 	return;
 }
 
+#pragma warning( push )
+#pragma warning( disable : 4244 )
+
+enum ImGuiReturnFlags {
+	Show = 1 << 0,
+	Open = 1 << 1,
+	Both = Show | Open
+};
+
 // Direct bindings for ImGui functions to GML, add to ImGui statics
 GMFUNC(__imgui_begin) {
 	const char* name = YYGetString(arg, 0);
-	bool show = YYGetBool(arg, 1);
-	GMDEFAULT(false);
+	bool open = YYGetBool(arg, 1);
+	GMDEFAULT(undefined);
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiWindowFlags.None);
-	 
+	int64 ret_mask = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiReturnFlags.Show);
+	
+	bool ret = ImGui::Begin(name, &open, (ImGuiWindowFlags)flags);
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::Begin(name, &show, (ImGuiWindowFlags)flags);
+	Result.val = ((open << 1) | ret) & ret_mask;
 	return;
 }
 
@@ -121,32 +131,20 @@ GMFUNC(__imgui_set_next_window_size) {
 //-------------------------------------------------------------------------
 // [SECTION] Widgets: Text, etc.
 //-------------------------------------------------------------------------
-// - TextUnformatted()
+// UNSUPPORTED - TextUnformatted()
 // - Text()
-// - TextV()
+// UNSUPPORTED - TextV()
 // - TextColored()
-// TODO - TextColoredV()
+// UNSUPPORTED - TextColoredV()
 // - TextDisabled()
-// TODO - TextDisabledV()
+// UNSUPPORTED - TextDisabledV()
 // - TextWrapped()
-// TODO - TextWrappedV()
+// UNSUPPORTED - TextWrappedV()
 // - LabelText()
-// TODO - LabelTextV()
+// UNSUPPORTED - LabelTextV()
 // - BulletText()
-// TODO - BulletTextV()
+// UNSUPPORTED - BulletTextV()
 //-------------------------------------------------------------------------
-GMFUNC(__imgui_text_unformatted) {
-	const char* text = YYGetString(arg, 0);
-	const char* text_end = YYGetString(arg, 1);
-	GMDEFAULT("");
-
-	// TODO: text_end seems like it might be evil, since it gets borked in GM? Will need to look into this 
-
-	ImGui::TextUnformatted(text, text_end);
-	Result.kind = VALUE_UNDEFINED;
-	return;
-}
-
 GMFUNC(__imgui_text) {
 	const char* text = YYGetString(arg, 0);
 
@@ -161,7 +159,7 @@ GMFUNC(__imgui_text_colored) {
 	double alpha = YYGetReal(arg, 2);
 	GMDEFAULT(1)
 
-	ImGui::TextColored(GMCOLOR(color, alpha), text);
+	ImGui::TextColored(GMCOLOR_TO(color, alpha), text);
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -259,41 +257,44 @@ GMFUNC(__imgui_arrow_button) {
 
 GMFUNC(__imgui_image) {
 	double spr = YYGetReal(arg, 0);
-	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)))
 	double frame = YYGetReal(arg, 1);
 	GMDEFAULT(0);
 	double width = YYGetReal(arg, 2);
 	GMDEFAULT(sprite_get_width(#arg0));
 	double height = YYGetReal(arg, 3);
 	GMDEFAULT(sprite_get_height(#arg0));
-	double* uvs = YYGetArray<double>(arg, 4, 4);
+	double blend = YYGetReal(arg, 4);
+	GMDEFAULT(c_white);
+	double* uvs = YYGetArray<double>(arg, 5, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 	GMHIDDEN();
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)));
 
-	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]));
-	delete[]uvs;
 	Result.kind = VALUE_UNDEFINED;
+	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), GMCOLOR_TO(blend, 1));
+	delete[]uvs;
 	return;
 }
 
 GMFUNC(__imgui_image_button) {
 	const char* id = YYGetString(arg, 0);
 	double spr = YYGetReal(arg, 1);
-	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)))
 	double frame = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	double width = YYGetReal(arg, 3);
 	GMDEFAULT(sprite_get_width(#arg1));
 	double height = YYGetReal(arg, 4);
 	GMDEFAULT(sprite_get_height(#arg1));
-	double* uvs = YYGetArray<double>(arg, 5, 4);
+	double blend = YYGetReal(arg, 5);
+	GMDEFAULT(c_white);
+	double* uvs = YYGetArray<double>(arg, 6, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
 	GMHIDDEN();
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
 
-	bool res = ImGui::ImageButton(id, GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]));
-	delete[]uvs;
 	Result.kind = VALUE_BOOL;
-	Result.val = res;
+	Result.val = ImGui::ImageButton(id, GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), ImColor(255, 0, 255, 255), GMCOLOR_TO(blend, 1));
+	delete[]uvs;
 	return;
 }
 
@@ -850,17 +851,175 @@ GMFUNC(__imgui_slider_int4) {
 }
 
 //-------------------------------------------------------------------------
-// [SECTION] Widgets: ColorEdit, ColorPicker, ColorButton, etc.
+// [SECTION] Widgets: InputScalar, InputFloat, InputInt, etc.
 //-------------------------------------------------------------------------
-// - ColorEdit3()
-// - ColorEdit4()
-// - ColorPicker3()
-// - RenderColorRectWithAlphaCheckerboard() [Internal]
-// - ColorPicker4()
-// - ColorButton()
-// - SetColorEditOptions()
+// UNSUPPORTED - InputScalar()
+// UNSUPPORTED - InputScalarN()
+// - InputFloat()
+// - InputFloat2()
+// - InputFloat3()
+// - InputFloat4()
+// - InputInt()
+// - InputInt2()
+// - InputInt3()
+// - InputInt4()
+// - InputDouble()
 //-------------------------------------------------------------------------
+GMFUNC(__imgui_input_float) {
+	const char* label = YYGetString(arg, 0);
+	float val = YYGetReal(arg, 1);
+	double step = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double step_fast = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiInputTextFlags.None);
 
+	ImGui::InputFloat(label, &val, step, step_fast, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_input_float2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 2);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::InputFloat2(label, val, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_input_float3) {
+	const int len = 3;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 2);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::InputFloat3(label, val, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_input_float4) {
+	const int len = 4;
+
+	const char* label = YYGetString(arg, 0);
+	float* val = YYGetArray<float>(arg, 1, len);
+	GMDEFAULT(1);
+	const char* fmt = YYGetString(arg, 2);
+	GMDEFAULT("%.3f");
+	int64 flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	if (ImGui::InputFloat3(label, val, fmt, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_input_int) {
+	const char* label = YYGetString(arg, 0);
+	int val = YYGetReal(arg, 1);
+	double step = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double step_fast = YYGetReal(arg, 3);
+	GMDEFAULT(100);
+	int64 flags = YYGetInt64(arg, 4);
+	GMDEFAULT(ImGuiInputTextFlags.None);
+
+	ImGui::InputInt(label, &val, step, step_fast, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
+
+GMFUNC(__imgui_input_int2) {
+	const int len = 2;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	GMDEFAULT(1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiInputTextFlags.None);
+
+	if (ImGui::InputInt2(label, val, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+
+GMFUNC(__imgui_input_int3) {
+	const int len = 3;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	GMDEFAULT(1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiInputTextFlags.None);
+
+	if (ImGui::InputInt3(label, val, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+GMFUNC(__imgui_input_int4) {
+	const int len = 4;
+
+	const char* label = YYGetString(arg, 0);
+	int* val = YYGetArray<int>(arg, 1, len);
+	GMDEFAULT(1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiInputTextFlags.None);
+
+	if (ImGui::InputInt4(label, val, flags)) {
+		YYSetArray(&arg[1], val, len);
+	}
+	Result = arg[1];
+	return;
+}
+
+
+GMFUNC(__imgui_input_double) {
+	const char* label = YYGetString(arg, 0);
+	double val = YYGetReal(arg, 1);
+	double step = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	double step_fast = YYGetReal(arg, 3);
+	GMDEFAULT(0);
+	const char* fmt = YYGetString(arg, 4);
+	GMDEFAULT("%.6f");
+	int64 flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiInputTextFlags.None);
+
+	ImGui::InputDouble(label, &val, step, step_fast, fmt, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = val;
+	return;
+}
 
 //-------------------------------------------------------------------------
 // [SECTION] Widgets: InputText, InputTextMultiline, InputTextWithHint
@@ -917,6 +1076,169 @@ GMFUNC(__imgui_input_text_multiline) {
 	YYCreateString(&res, INPUT_BUF);
 	COPY_RValue(&Result, &res);
 	FREE_RValue(&res);
+	return;
+}
+
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: ColorEdit, ColorPicker, ColorButton, etc.
+//-------------------------------------------------------------------------
+// - ColorEdit3()
+// - ColorEdit4()
+// - ColorPicker3()
+// - ColorPicker4()
+// - ColorButton()
+// - SetColorEditOptions()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_color_edit3) {
+	const char* label = YYGetString(arg, 0);
+	double color = YYGetReal(arg, 1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiColorEditFlags.None);
+
+	ImColor col = GMCOLOR_TO(color, 1);
+
+	Result.kind = VALUE_REAL;
+	Result.val = color;
+	if (ImGui::ColorEdit3(label, (float*)&col.Value, flags)) {
+		Result.val = GMCOLOR_FROM(((float*)&col.Value));
+	}
+	return;
+}
+
+GMFUNC(__imgui_color_edit4) {
+	const char* label = YYGetString(arg, 0);
+	double color = YYGetReal(arg, 1);
+	double alpha = YYGetReal(arg, 2);
+	int64 flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiColorEditFlags.None);
+
+	ImColor col = GMCOLOR_TO(color, alpha);
+
+	Result.kind = VALUE_REAL;
+	Result.val = color;
+	if (ImGui::ColorEdit4(label, (float*)&col.Value, flags)) {
+		Result.val = GMCOLOR_FROM(((float*)&col.Value));
+	}
+	return;
+}
+
+GMFUNC(__imgui_color_picker3) {
+	const char* label = YYGetString(arg, 0);
+	double color = YYGetReal(arg, 1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiColorEditFlags.None);
+
+	ImColor col = GMCOLOR_TO(color, 1);
+
+	Result.kind = VALUE_REAL;
+	Result.val = color;
+	if (ImGui::ColorPicker3(label, (float*)&col.Value, flags)) {
+		Result.val = GMCOLOR_FROM(((float*)&col.Value));
+	}
+	return;
+}
+
+GMFUNC(__imgui_color_picker4) {
+	const char* label = YYGetString(arg, 0);
+	double color = YYGetReal(arg, 1);
+	double alpha = YYGetReal(arg, 2);
+	int64 flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiColorEditFlags.None);
+
+	ImColor col = GMCOLOR_TO(color, alpha);
+
+	Result.kind = VALUE_REAL;
+	Result.val = color;
+	if (ImGui::ColorPicker4(label, (float*)&col.Value, flags)) {
+		Result.val = GMCOLOR_FROM(((float*)&col.Value));
+	}
+	return;
+}
+
+GMFUNC(__imgui_color_button) {
+	const char* id = YYGetString(arg, 0);
+	double color = YYGetReal(arg, 1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiColorEditFlags.None);
+	double width = YYGetReal(arg, 3);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 4);
+	GMDEFAULT(0);
+
+	ImColor col = GMCOLOR_TO(color, 1);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::ColorButton(id, col, flags, ImVec2(width, height));
+	return;
+}
+
+GMFUNC(__imgui_set_color_edit_options) {
+	int64 flags = YYGetInt64(arg, 0);
+	ImGui::SetColorEditOptions(flags);
+
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: TreeNode, CollapsingHeader, etc.
+//-------------------------------------------------------------------------
+// - TreeNode()
+// UNSUPPORTED - TreeNodeV()
+// - TreeNodeEx()
+// UNSUPPORTED - TreeNodeExV()
+// - TreePush()
+// - TreePop()
+// - GetTreeNodeToLabelSpacing()
+// - SetNextItemOpen()
+// - CollapsingHeader()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_treenode) {
+	const char* label = YYGetString(arg, 0);
+
+	ImGui::TreeNode(label);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_treenode_ex) {
+	const char* label = YYGetString(arg, 0);
+	int64 flags = YYGetInt64(arg, 1);
+	GMDEFAULT(ImGuiTreeNodeFlags.None)
+
+	ImGui::TreeNodeEx(label, flags);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_tree_push) {
+	const char* id = YYGetString(arg, 0);
+
+	ImGui::TreePush(id);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_tree_pop) {
+	ImGui::TreePop();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_get_tree_node_to_label_spacing) {
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetTreeNodeToLabelSpacing();
+	return;
+}
+
+GMFUNC(__imgui_set_next_item_open) {
+	bool open = YYGetBool(arg, 0);
+	int64 cond = YYGetInt64(arg, 1);
+	GMDEFAULT(ImGuiCond.None);
+
+	ImGui::SetNextItemOpen(open, cond);
+	Result.kind = VALUE_UNDEFINED;
 	return;
 }
 
