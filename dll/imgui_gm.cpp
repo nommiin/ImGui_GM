@@ -3,11 +3,24 @@
 
 #include "Extension_Interface.h"
 #include "YYRValue.h"
+#include "Ref.h"
 
 #include <d3d11.h>
+#include <vector>
+#include <string>
 
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
+
+static ID3D11ShaderResourceView* g_pView;
+static inline ID3D11ShaderResourceView* GetTexture() {
+	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
+	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
+	return g_pView;
+}
+
+static std::vector<const char*> s_Items;
+static RValue s_Copy;
 
 #define GMFUNC(name) YYEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 #define GMDEFAULT(...) /**/
@@ -18,34 +31,22 @@ extern ID3D11DeviceContext* g_pd3dDeviceContext;
 #define GMCOLOR_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
 #define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16))
 
-static ID3D11ShaderResourceView* g_pView;
-static inline ID3D11ShaderResourceView* GetTexture() {
-	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
-	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
-	return g_pView;
-}
-
-template<typename T>
-static inline T* YYGetArray(RValue* arg, int ind, int len) {
+template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {
 	RValue* arr = &arg[ind];
-	RValue copy;
 	T* val = new T[len];
 	for (int i = 0; i < len; i++) {
-		GET_RValue(&copy, arr, NULL, i);
-		val[i] = copy.val;
+		GET_RValue(&s_Copy, arr, NULL, i);
+		val[i] = s_Copy.val;
 	}
-	FREE_RValue(&copy);
 	return val;
 }
 
 template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len) {
-	RValue copy{};
 	for (int i = 0; i < len; i++) {
-		copy.kind = VALUE_REAL;
-		copy.val = arr[i];
-		SET_RValue(arg, &copy, NULL, i);
+		s_Copy.kind = VALUE_REAL;
+		s_Copy.val = arr[i];
+		SET_RValue(arg, &s_Copy, NULL, i);
 	}
-	FREE_RValue(&copy);
 	return;
 }
 
@@ -66,10 +67,10 @@ GMFUNC(__imgui_begin) {
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiWindowFlags.None);
 	int64 ret_mask = YYGetInt64(arg, 3);
-	GMDEFAULT(ImGuiReturnFlags.Show);
+	GMDEFAULT(ImGuiReturnFlags.Open);
 	
 	bool ret = ImGui::Begin(name, &open, (ImGuiWindowFlags)flags);
-	Result.kind = VALUE_BOOL;
+	Result.kind = VALUE_REAL;
 	Result.val = ((open << 1) | ret) & ret_mask;
 	return;
 }
@@ -1037,10 +1038,8 @@ GMFUNC(__imgui_input_text) {
 
 	strcpy(INPUT_BUF, val);
 	ImGui::InputText(label, INPUT_BUF, IM_ARRAYSIZE(INPUT_BUF), (ImGuiInputTextFlags)flags);
-	RValue res = { 0 };
-	YYCreateString(&res, INPUT_BUF);
-	COPY_RValue(&Result, &res);
-	FREE_RValue(&res);
+	YYCreateString(&s_Copy, INPUT_BUF);
+	COPY_RValue(&Result, &s_Copy);
 	return;
 }
 
@@ -1053,10 +1052,8 @@ GMFUNC(__imgui_input_text_with_hint) {
 
 	strcpy(INPUT_BUF, val);
 	ImGui::InputTextWithHint(label, hint, INPUT_BUF, IM_ARRAYSIZE(INPUT_BUF), (ImGuiInputTextFlags)flags);
-	RValue res = { 0 };
-	YYCreateString(&res, INPUT_BUF);
-	COPY_RValue(&Result, &res);
-	FREE_RValue(&res);
+	YYCreateString(&s_Copy, INPUT_BUF);
+	COPY_RValue(&Result, &s_Copy);
 	return;
 }
 
@@ -1072,10 +1069,8 @@ GMFUNC(__imgui_input_text_multiline) {
 
 	strcpy(INPUT_BUF, val);
 	ImGui::InputTextMultiline(label, INPUT_BUF, IM_ARRAYSIZE(INPUT_BUF), ImVec2(width, height), (ImGuiInputTextFlags)flags);
-	RValue res = { 0 };
-	YYCreateString(&res, INPUT_BUF);
-	COPY_RValue(&Result, &res);
-	FREE_RValue(&res);
+	YYCreateString(&s_Copy, INPUT_BUF);
+	COPY_RValue(&Result, &s_Copy);
 	return;
 }
 
@@ -1239,6 +1234,104 @@ GMFUNC(__imgui_set_next_item_open) {
 
 	ImGui::SetNextItemOpen(open, cond);
 	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_collapsing_header) {
+	const char* label = YYGetString(arg, 0);
+	bool open = YYGetBool(arg, 1);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiTreeNodeFlags.None);
+	int64 ret_mask = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiReturnFlags.Open);
+
+	bool ret = ImGui::CollapsingHeader(label, &open, (ImGuiTreeNodeFlags)flags);
+	Result.kind = VALUE_REAL;
+	Result.val = ((open << 1) | ret) & ret_mask;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: Selectable
+//-------------------------------------------------------------------------
+// - Selectable()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_selectable) {
+	const char* label = YYGetString(arg, 0);
+	bool selected = YYGetBool(arg, 1);
+	GMDEFAULT(false);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiSelectableFlags.None);
+	double width = YYGetReal(arg, 3);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 4);
+	GMDEFAULT(0);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::Selectable(label, selected, flags, ImVec2(width, height));
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: ListBox
+//-------------------------------------------------------------------------
+// - BeginListBox()
+// - EndListBox()
+// - ListBox()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_begin_listbox) {
+	const char* label = YYGetString(arg, 0);
+	double width = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginListBox(label, ImVec2(width, height));
+	return;
+}
+
+GMFUNC(__imgui_end_listbox) {
+	ImGui::EndListBox();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_listbox) {
+	const char* label = YYGetString(arg, 0);
+	int ind = YYGetReal(arg, 1);
+	RValue* items = &arg[2]; // = YYGetArray<String>(arg, 2);
+	double height_in_items = YYGetReal(arg, 3);
+	GMDEFAULT(-1);
+
+	for (int i = 0; GET_RValue(&s_Copy, items, NULL, i); i++) {
+		switch (s_Copy.kind) {
+			case VALUE_STRING: {
+				s_Items.push_back(s_Copy.GetString());
+				break;
+			}
+
+			case VALUE_REAL: {
+				std::string a = std::to_string(1);
+				s_Items.push_back(std::move(a.c_str()));
+				break;
+			}
+
+			case VALUE_UNDEFINED: {
+				s_Items.push_back("undefined");
+				break;
+			}
+
+			default: {
+				YYError("ImGui.Listbox unsupported type \"%s\" met at items[%d]", KIND_NAME_RValue(&s_Copy), i);
+			}
+		}
+	}
+
+	ImGui::ListBox(label, &ind, s_Items.data(), s_Items.size(), height_in_items);
+	s_Items.clear();
+	Result.kind = VALUE_REAL;
+	Result.val = ind;
 	return;
 }
 

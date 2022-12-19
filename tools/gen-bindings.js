@@ -76,7 +76,7 @@ try {
             let end_line = i;
             while (!wrappers[end_line].trim().startsWith("return;")) {
                 if (++end_line >= wrappers.length) {
-                    throw `Could not find end of GMFUNC contents at line ${i + 1}`;
+                    throw `Could not find end of GMFUNC contents at line ${i + 1}, expected "return" keyword`;
                 }
             }
 

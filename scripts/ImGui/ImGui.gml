@@ -4,8 +4,8 @@ function ImGui() constructor {
     /// @argument {String} name
     /// @argument {Bool} [open=undefined]
     /// @argument {Int64} [flags=ImGuiWindowFlags.None]
-    /// @argument {Int64} [ret_mask=ImGuiReturnFlags.Show]
-    static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, ret_mask=ImGuiReturnFlags.Show) {
+    /// @argument {Int64} [ret_mask=ImGuiReturnFlags.Open]
+    static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, ret_mask=ImGuiReturnFlags.Open) {
         return __imgui_begin(name, open, flags, ret_mask);
     }
 
@@ -624,6 +624,47 @@ function ImGui() constructor {
     /// @argument {Int64} [cond=ImGuiCond.None]
     static SetNextItemOpen = function(open, cond=ImGuiCond.None) {
         return __imgui_set_next_item_open(open, cond);
+    }
+
+    /// @function CollapsingHeader(label, open, flags, ret_mask)
+    /// @argument {String} label
+    /// @argument {Bool} open
+    /// @argument {Int64} [flags=ImGuiTreeNodeFlags.None]
+    /// @argument {Int64} [ret_mask=ImGuiReturnFlags.Open]
+    static CollapsingHeader = function(label, open, flags=ImGuiTreeNodeFlags.None, ret_mask=ImGuiReturnFlags.Open) {
+        return __imgui_collapsing_header(label, open, flags, ret_mask);
+    }
+
+    /// @function Selectable(label, selected, flags, width, height)
+    /// @argument {String} label
+    /// @argument {Bool} [selected=false]
+    /// @argument {Int64} [flags=ImGuiSelectableFlags.None]
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    static Selectable = function(label, selected=false, flags=ImGuiSelectableFlags.None, width=0, height=0) {
+        return __imgui_selectable(label, selected, flags, width, height);
+    }
+
+    /// @function BeginListBox(label, width, height)
+    /// @argument {String} label
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    static BeginListBox = function(label, width=0, height=0) {
+        return __imgui_begin_listbox(label, width, height);
+    }
+
+    /// @function EndListBox()
+    static EndListBox = function() {
+        return __imgui_end_listbox();
+    }
+
+    /// @function ListBox(label, ind, items, height_in_items)
+    /// @argument {String} label
+    /// @argument {Real} ind
+    /// @argument {Array<String>} items
+    /// @argument {Real} [height_in_items=-1]
+    static ListBox = function(label, ind, items, height_in_items=-1) {
+        return __imgui_listbox(label, ind, items, height_in_items);
     }
 
 	/// @section Internal

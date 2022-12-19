@@ -1,26 +1,10 @@
 ImGui.ShowDemoWindow();
-ImGui.ShowStyleEditor();
 
 ImGui.SetNextWindowPos(96, 32, ImGuiCond.FirstUseEver);
 ImGui.SetNextWindowSize(480, 640, ImGuiCond.FirstUseEver);
 
-if (ImGui.Begin("Test Window", true)) {
-	// Text Widgets
-	ImGui.Text("Text");
-	
-	ImGui.Image(sprAngy, 0, 32, 64);
-
-	int = ImGui.DragInt("testing int1", int, 1, 0, 100);
-	ImGui.DragInt2("testing gwa int2", int2, 1, 0, 100);
-	ImGui.DragInt3("testing gwa int3", int3, 1, 0, 100);
-	ImGui.DragInt4("testing gwa int4", int4, 1, 0, 100);
-	
-	sliderint = ImGui.SliderInt("testing sliderint1", sliderint, 0, 100);
-	ImGui.SliderInt2("testing gwa sliderint2", sliderint2, 0, 100);
-	ImGui.SliderInt3("testing gwa sliderint3", sliderint3,  0, 100);
-	ImGui.SliderInt4("testing gwa sliderint4", sliderint4, 0, 100);
-	
-	ImGui.DragFloatRange2("float range 2", floatrange, 0.25, 0, 100);
-	
+if (open) {
+	open = ImGui.Begin("Test Window", open, ImGuiWindowFlags.None, ImGuiReturnFlags.Open);
+	ind = ImGui.ListBox("hewwo", ind, ["test 1", 32, "test 2", undefined, "test 3"]);
 	ImGui.End();
 }

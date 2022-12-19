@@ -1,5 +1,10 @@
 ImGui.__Initialize();
 
+header1 = true;
+header2 = true;
+
+test = 0;
+
 show = true;
 str = "is this thing on!";
 str2 = "";
@@ -26,3 +31,16 @@ sliderint4 = [64, 128, 256, 512];
 
 vmin = 10;
 vmax = 90;
+
+multi = @"
+	// hi
+	console.log('hewwo');
+";
+
+randomize();
+col = irandom(c_white);
+
+open = true;
+
+box = 0;
+ind = 0;
