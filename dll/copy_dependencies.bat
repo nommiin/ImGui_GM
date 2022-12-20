@@ -9,8 +9,12 @@ copy "thirdparty\imgui\backends\imgui_impl_dx11.*"
 
 set program=GameMakerStudio2-Beta
 set runtime=runtime-2023.100.0.273
-set base="%PROGRAMDATA%\%program%\Cache\runtimes\%runtime%\yyc\include"
+set base=%PROGRAMDATA%\%program%\Cache\runtimes\%runtime%\yyc\include
 
 copy "%base%\extension\YYRunnerInterface.h" "Extension_Interface.h"
-copy "%base%\YYRValue.h"
+copy "%base%\YYStd.h"
 copy "%base%\Ref.h"
+
+echo #include "Ref.h" >> YYRValue.h
+type %base%\YYRValue.h >> YYRValue.h
+echo Copied and modified YYRValue.h

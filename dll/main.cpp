@@ -4,8 +4,9 @@
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 
+#define YYEXPORT __declspec(dllexport)
 #define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- " __VA_ARGS__)
-#define WriteLog(...) DebugConsoleOutput("[ImGui_GM] " FIRST(__VA_ARGS__) /*"\n"*/ REST(__VA_ARGS__) "\n")
+#define WriteLog(...) DebugConsoleOutput("[ImGui_GM] %s\n", __VA_ARGS__)
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;

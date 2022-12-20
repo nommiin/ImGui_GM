@@ -71,5 +71,8 @@
     <ClInclude Include="YYRValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="YYStd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

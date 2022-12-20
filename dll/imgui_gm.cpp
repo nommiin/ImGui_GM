@@ -22,7 +22,7 @@ static inline ID3D11ShaderResourceView* GetTexture() {
 static std::vector<const char*> s_Items;
 static RValue s_Copy;
 
-#define GMFUNC(name) YYEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+#define GMFUNC(name) __declspec(dllexport) void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 #define GMDEFAULT(...) /**/
 #define GMPASSTHROUGH(...) /**/
 #define GMHIDDEN(...) /**/
