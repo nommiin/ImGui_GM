@@ -25,6 +25,7 @@ void __initialize() {
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 	return;
 }
 
@@ -185,5 +186,11 @@ YYEXPORT void __imgui_mouse_wheel(RValue& Result, CInstance* selfinst, CInstance
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.AddMouseWheelEvent(x, y);
+	return;
+}
+
+YYEXPORT void __imgui_mouse_cursor(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg) {
+	Result.kind = VALUE_REAL;
+	Result.val = (int)ImGui::GetMouseCursor();
 	return;
 }

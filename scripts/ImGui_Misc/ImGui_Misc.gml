@@ -88,6 +88,16 @@ _.__Mapping[ImGuiKey.W] = ord("W");
 _.__Mapping[ImGuiKey.X] = ord("X");
 _.__Mapping[ImGuiKey.Y] = ord("Y");
 _.__Mapping[ImGuiKey.Z] = ord("Z");
+_.__Cursor[ImGuiMouseCursor.None + 1] = cr_none;
+_.__Cursor[ImGuiMouseCursor.Arrow + 1] = cr_default;
+_.__Cursor[ImGuiMouseCursor.TextInput + 1] = cr_beam;
+_.__Cursor[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
+_.__Cursor[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
+_.__Cursor[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
+_.__Cursor[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
+_.__Cursor[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
+_.__Cursor[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
+_.__Cursor[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
 
 // slightly modified from imgui.h
 enum ImGuiKey
@@ -418,4 +428,19 @@ enum ImGuiTreeNodeFlags
     NavLeftJumpsBackHere = 1 << 13,  // (WIP) Nav: left direction may move to this TreeNode() from any of its child (items submitted between TreeNode and TreePop)
     //NoScrollOnOpen     = 1 << 14,  // FIXME: TODO: Disable automatic scroll on TreePop() if node got just open and contents is not visible
     CollapsingHeader     = ImGuiTreeNodeFlags.Framed | ImGuiTreeNodeFlags.NoTreePushOnOpen | ImGuiTreeNodeFlags.NoAutoOpenOnLog,
+};
+
+enum ImGuiMouseCursor
+{
+    None = -1,
+    Arrow = 0,
+    TextInput,         // When hovering over InputText, etc.
+    ResizeAll,         // (Unused by Dear ImGui functions)
+    ResizeNS,          // When hovering over a horizontal border
+    ResizeEW,          // When hovering over a vertical border or a column
+    ResizeNESW,        // When hovering over the bottom-left corner of a window
+    ResizeNWSE,        // When hovering over the bottom-right corner of a window
+    Hand,              // (Unused by Dear ImGui functions. Use for e.g. hyperlinks)
+    NotAllowed,        // When hovering something with disallowed interaction. Usually a crossed circle.
+    COUNT
 };

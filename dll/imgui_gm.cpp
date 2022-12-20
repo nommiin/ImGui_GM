@@ -19,7 +19,6 @@ static inline ID3D11ShaderResourceView* GetTexture() {
 	return g_pView;
 }
 
-static std::vector<const char*> s_Items;
 static RValue s_Copy;
 
 #define GMFUNC(name) __declspec(dllexport) void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
@@ -1298,7 +1297,8 @@ GMFUNC(__imgui_end_listbox) {
 	return;
 }
 
-char LISTBOX_BUF[4096];
+static std::vector<const char*> s_Items;
+static std::vector<std::string> s_Strings;
 GMFUNC(__imgui_listbox) {
 	const char* label = YYGetString(arg, 0);
 	int ind = YYGetReal(arg, 1);
@@ -1306,28 +1306,23 @@ GMFUNC(__imgui_listbox) {
 	double height_in_items = YYGetReal(arg, 3);
 	GMDEFAULT(-1);
 
-	const static char* REAL_PLACEHOLDER = "<number>";
+	s_Strings.clear();
 	for (int i = 0; GET_RValue(&s_Copy, items, NULL, i); i++) {
 		switch (s_Copy.kind) {
 			case VALUE_STRING: {
-				s_Items.push_back(s_Copy.GetString());
+				s_Strings.emplace_back(std::string(s_Copy.GetString()));
 				break;
 			}
 
+			case VALUE_INT32:
+			case VALUE_INT64:
 			case VALUE_REAL: {
-				/*
-				TODO: The following code produces a dangling pointer, so ImGui::ListBox displays an empty string :(
-				      For now, I'm just gonna return the placeholder until I figure it out x_x
-				std::string a = std::to_string(s_Copy.val);
-				const char* b = a.c_str();
-				s_Items.push_back(b);
-				*/
-				s_Items.push_back(REAL_PLACEHOLDER);
+				s_Strings.emplace_back(std::to_string((int)s_Copy.val));
 				break;
 			}
 
 			case VALUE_UNDEFINED: {
-				s_Items.push_back("undefined");
+				s_Strings.push_back("undefined");
 				break;
 			}
 
@@ -1337,8 +1332,12 @@ GMFUNC(__imgui_listbox) {
 		}
 	}
 
-	ImGui::ListBox(label, &ind, s_Items.data(), (int)s_Items.size(), height_in_items);
 	s_Items.clear();
+	for (auto&& str : s_Strings) {
+		s_Items.push_back(str.c_str());
+	}
+	ImGui::ListBox(label, &ind, s_Items.data(), (int)s_Items.size(), height_in_items);
+	
 	Result.kind = VALUE_REAL;
 	Result.val = ind;
 	return;

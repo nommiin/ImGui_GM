@@ -690,12 +690,12 @@ function ImGui() constructor {
 	static Translator = undefined;//new ImGui_Translator();
 	
 	static __Initialize = function() {
-		var info = os_get_info(), info =  {
+		var info = os_get_info(), pointers =  {
 			Device: info[? "video_d3d11_device"],
 			Context: info[? "video_d3d11_context"]
 		};
 		ds_map_destroy(info);
-		return __imgui_initialize(info);
+		return __imgui_initialize(pointers);
 	}
 	
 	static __Update = function() {
@@ -716,6 +716,7 @@ function ImGui() constructor {
 		__imgui_key(ImGuiKey.ImGuiMod_Shift, keyboard_check_direct(vk_lshift));
 		__imgui_key(ImGuiKey.ImGuiMod_Alt, keyboard_check_direct(vk_lalt));
 		if (__imgui_input(keyboard_string)) keyboard_string = "";
+		window_set_cursor(__Cursor[__imgui_mouse_cursor() + 1]);
 		return __imgui_update(__State);
 	}
 	
