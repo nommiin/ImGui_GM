@@ -1332,6 +1332,13 @@ function ImGui() constructor {
         return __imgui_surface(surf, width, height, blend, alpha, texture_get_uvs(tex));
     }
 
+    /// @function Buffer(ind, size)
+    /// @argument {Real} ind
+    /// @argument {Real} [size=buffer_get_size[ind]]
+    static Buffer = function(ind, size=buffer_get_size(ind)) {
+        return __imgui_buffer(ind, size);
+    }
+
     /// @function BeginTooltip()
     static BeginTooltip = function() {
         return __imgui_begin_tooltip();

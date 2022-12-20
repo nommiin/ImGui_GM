@@ -1,6 +1,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_impl_dx11.h"
+#include "imgui_memory_editor.h"
 
 #include "Extension_Interface.h"
 #include "YYRValue.h"
@@ -2332,6 +2333,19 @@ GMFUNC(__imgui_surface) {
 	Result.kind = VALUE_UNDEFINED;
 	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), GMCOLOR3_TO(blend, alpha));
 	delete[]uvs;
+	return;
+}
+
+static MemoryEditor buffer_edit;
+GMFUNC(__imgui_buffer) {
+	double ind = YYGetReal(arg, 0);
+	double size = YYGetReal(arg, 1);
+	GMDEFAULT(buffer_get_size(#arg0));
+	GMOVERRIDE(Buffer);
+
+	void* buff = BufferGet(BufferGetFromGML(ind));
+	buffer_edit.DrawWindow("Buffer", buff, size);
+	Result.kind = VALUE_UNDEFINED;
 	return;
 }
 
