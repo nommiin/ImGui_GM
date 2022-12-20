@@ -1,5 +1,5 @@
 # ImGui_GM
-Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
+Experimental ***currently Windows only*** ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 ![image](https://user-images.githubusercontent.com/6483989/207724319-a734111a-eee9-497d-a9ef-9689353482df.png)
 
 
@@ -14,7 +14,9 @@ Experimental ImGui wrapper & bindings for GameMaker, heavily work-in-progress
   - ImGui/
     - [`ImGui.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml) for ImGui static & internal IO/events
   - ImGui_Misc/
-    - [`ImGui_Misc.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for ImGuiKey to GM input mapping
+    - [`ImGui_Misc.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for enum definitions and misc ImGui->GM mapping 
+  - ImGui_Translator/
+    - [`ImGui_Translator.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Translator/ImGui_Translator.gml) for experimental ImDrawData -> vertex translation layer 
 - tools/
   - [`gen-bindings.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/gen-bindings.js) for ImGui to GM binding generation
 
