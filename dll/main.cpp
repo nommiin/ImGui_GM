@@ -21,6 +21,10 @@ static int g_pDrawData = -1;
 void __initialize() {
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;
+	ImGui::StyleColorsDark();
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	return;
 }
 
@@ -40,7 +44,7 @@ YYEXPORT void __imgui_initialize(RValue& Result, CInstance* selfinst, CInstance*
 	g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(state, "Device")->ptr);
 	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(state, "Context")->ptr);
 
-	ImGui::StyleColorsDark();
+	
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 	return;

@@ -72,7 +72,7 @@ GMFUNC(__imgui_begin) {
 	
 	bool ret = ImGui::Begin(name, &open, (ImGuiWindowFlags)flags);
 	Result.kind = VALUE_REAL;
-	Result.val = ((open << 1) | ret) & ret_mask;
+	Result.val = ((open << 1) | (int)ret) & ret_mask;
 	return;
 }
 
@@ -1248,7 +1248,7 @@ GMFUNC(__imgui_collapsing_header) {
 
 	bool ret = ImGui::CollapsingHeader(label, &open, (ImGuiTreeNodeFlags)flags);
 	Result.kind = VALUE_REAL;
-	Result.val = ((open << 1) | ret) & ret_mask;
+	Result.val = ((open << 1) | (int)ret) & ret_mask;
 	return;
 }
 
@@ -1337,7 +1337,7 @@ GMFUNC(__imgui_listbox) {
 		}
 	}
 
-	ImGui::ListBox(label, &ind, s_Items.data(), s_Items.size(), height_in_items);
+	ImGui::ListBox(label, &ind, s_Items.data(), (int)s_Items.size(), height_in_items);
 	s_Items.clear();
 	Result.kind = VALUE_REAL;
 	Result.val = ind;
