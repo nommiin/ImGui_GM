@@ -14,6 +14,56 @@ function ImGui() constructor {
         return __imgui_end();
     }
 
+    /// @function BringWindowToDisplayFront(window)
+    /// @argument {Ptr} window
+    static BringWindowToDisplayFront = function(window) {
+        return __imgui_bring_window_to_display_front(window);
+    }
+
+    /// @function BringWindowToDisplayBack(window)
+    /// @argument {Ptr} window
+    static BringWindowToDisplayBack = function(window) {
+        return __imgui_bring_window_to_display_back(window);
+    }
+
+    /// @function BringWindowToDisplayBehind(window, behind_window)
+    /// @argument {Ptr} window
+    /// @argument {Ptr} behind_window
+    static BringWindowToDisplayBehind = function(window, behind_window) {
+        return __imgui_bring_window_to_display_behind(window, behind_window);
+    }
+
+    /// @function FindWindowDisplayIndex(window)
+    /// @argument {Ptr} window
+    static FindWindowDisplayIndex = function(window) {
+        return __imgui_find_window_display_index(window);
+    }
+
+    /// @function FocusWindow(window)
+    /// @argument {Ptr} window
+    static FocusWindow = function(window) {
+        return __imgui_focus_window(window);
+    }
+
+    /// @function FocusTopMostWindowUnderOne(under_window, ignore_window)
+    /// @argument {Ptr} under_window
+    /// @argument {Ptr} [ignore_window=pointer_null]
+    static FocusTopMostWindowUnderOne = function(under_window, ignore_window=pointer_null) {
+        return __imgui_focus_top_mouse_window_under_one(under_window, ignore_window);
+    }
+
+    /// @function PushItemFlag(flags, enabled)
+    /// @argument {Real} flags
+    /// @argument {Bool} enabled
+    static PushItemFlag = function(flags, enabled) {
+        return __imgui_push_item_flag(flags, enabled);
+    }
+
+    /// @function PopItemFlag()
+    static PopItemFlag = function() {
+        return __imgui_pop_item_flag();
+    }
+
     /// @function ShowAboutWindow(show)
     /// @argument {Bool} show
     static ShowAboutWindow = function(show) {
@@ -29,6 +79,157 @@ function ImGui() constructor {
     /// @function ShowStyleEditor()
     static ShowStyleEditor = function() {
         return __imgui_show_style();
+    }
+
+    /// @function BeginDisabled(disabled)
+    /// @argument {Bool} disabled
+    static BeginDisabled = function(disabled) {
+        return __imgui_begin_disabled(disabled);
+    }
+
+    /// @function EndDisabled()
+    static EndDisabled = function() {
+        return __imgui_end_disabled();
+    }
+
+    /// @function PushAllowKeyboardFocus(allow_keyboard_focus)
+    /// @argument {Bool} allow_keyboard_focus
+    static PushAllowKeyboardFocus = function(allow_keyboard_focus) {
+        return __imgui_push_allow_keyboard_focus(allow_keyboard_focus);
+    }
+
+    /// @function PopAllowKeyboardFocus()
+    static PopAllowKeyboardFocus = function() {
+        return __imgui_pop_allow_keyboard_focus();
+    }
+
+    /// @function PushButtonRepeat(_repeat)
+    /// @argument {Bool} _repeat
+    static PushButtonRepeat = function(_repeat) {
+        return __imgui_push_button_repeat(_repeat);
+    }
+
+    /// @function PopButtonRepeat()
+    static PopButtonRepeat = function() {
+        return __imgui_pop_button_repeat();
+    }
+
+    /// @function PushTextWrapPos(wrap_pos_x)
+    /// @argument {Real} wrap_pos_x
+    static PushTextWrapPos = function(wrap_pos_x) {
+        return __imgui_push_text_wrap_pos(wrap_pos_x);
+    }
+
+    /// @function PopTextWrapPos()
+    static PopTextWrapPos = function() {
+        return __imgui_pop_text_wrap_pos();
+    }
+
+    /// @function IsWindowChildOf(window, potential_parent, popup_hierarchy, dock_hierarchy)
+    /// @argument {Ptr} window
+    /// @argument {Ptr} potential_parent
+    /// @argument {Bool} popup_hierarchy
+    /// @argument {Bool} dock_hierarchy
+    static IsWindowChildOf = function(window, potential_parent, popup_hierarchy, dock_hierarchy) {
+        return __imgui_is_window_child_of(window, potential_parent, popup_hierarchy, dock_hierarchy);
+    }
+
+    /// @function IsWindowWithinBeginStackOf(window, potential_parent)
+    /// @argument {Ptr} window
+    /// @argument {Ptr} potential_parent
+    static IsWindowWithinBeginStackOf = function(window, potential_parent) {
+        return __imgui_is_window_within_begin_stack_of(window, potential_parent);
+    }
+
+    /// @function IsWindowAbove(potential_above, potential_below)
+    /// @argument {Ptr} potential_above
+    /// @argument {Ptr} potential_below
+    static IsWindowAbove = function(potential_above, potential_below) {
+        return __imgui_is_window_above(potential_above, potential_below);
+    }
+
+    /// @function IsWindowHovered(flags)
+    /// @argument {Real} [flags=ImGuiHoveredFlags.AnyWindow]
+    static IsWindowHovered = function(flags=ImGuiHoveredFlags.AnyWindow) {
+        return __imgui_is_window_hovered(flags);
+    }
+
+    /// @function IsWindowHovered(flags)
+    /// @argument {Real} [flags=ImGuiFocusedFlags.AnyWindow]
+    static IsWindowHovered = function(flags=ImGuiFocusedFlags.AnyWindow) {
+        return __imgui_is_window_focused(flags);
+    }
+
+    /// @function IsWindowDocked()
+    static IsWindowDocked = function() {
+        return __imgui_is_window_docked();
+    }
+
+    /// @function IsWindowNavFocusable(window)
+    /// @argument {Ptr} window
+    static IsWindowNavFocusable = function(window) {
+        return __imgui_is_window_nav_focusable(window);
+    }
+
+    /// @function GetWindowWidth()
+    static GetWindowWidth = function() {
+        return __imgui_get_window_width();
+    }
+
+    /// @function GetWindowHeight()
+    static GetWindowHeight = function() {
+        return __imgui_get_window_height();
+    }
+
+    /// @function GetWindowPos()
+    static GetWindowPos = function() {
+        return __imgui_get_window_pos_x();
+    }
+
+    /// @function GetWindowPos()
+    static GetWindowPos = function() {
+        return __imgui_get_window_pos_y();
+    }
+
+    /// @function SetWindowPos(window, _x, _y, cond)
+    /// @argument {Ptr} window
+    /// @argument {Real} _x
+    /// @argument {Real} _y
+    /// @argument {Int64} [cond=ImGuiCond.Always]
+    static SetWindowPos = function(window, _x, _y, cond=ImGuiCond.Always) {
+        return __imgui_set_window_pos(window, _x, _y, cond);
+    }
+
+    /// @function SetWindowSize(window, width, height, cond)
+    /// @argument {Ptr} window
+    /// @argument {Real} width
+    /// @argument {Real} height
+    /// @argument {Int64} [cond=ImGuiCond.Always]
+    static SetWindowSize = function(window, width, height, cond=ImGuiCond.Always) {
+        return __imgui_set_window_size(window, width, height, cond);
+    }
+
+    /// @function SetWindowCollapsed(window, collapsed, cond)
+    /// @argument {Ptr} window
+    /// @argument {Real} collapsed
+    /// @argument {Int64} [cond=ImGuiCond.Always]
+    static SetWindowCollapsed = function(window, collapsed, cond=ImGuiCond.Always) {
+        return __imgui_set_window_collapsed(window, collapsed, cond);
+    }
+
+    /// @function IsWindowCollapsed()
+    static IsWindowCollapsed = function() {
+        return __imgui_is_window_collapsed();
+    }
+
+    /// @function IsWindowAppearing()
+    static IsWindowAppearing = function() {
+        return __imgui_is_window_appearing();
+    }
+
+    /// @function SetWindowFocus()
+    static SetWindowFocus = function() {
+        return __imgui_set_window_focus();
     }
 
     /// @function SetNextWindowPos(_x, _y, cond, pivot_x, pivot_y)
@@ -47,6 +248,310 @@ function ImGui() constructor {
     /// @argument {Int64} [cond=ImGuiCond.Always]
     static SetNextWindowSize = function(width, height, cond=ImGuiCond.Always) {
         return __imgui_set_next_window_size(width, height, cond);
+    }
+
+    /// @function SetNextWindowSizeConstraints(width_min, height_min, width_max, height_max)
+    /// @argument {Real} width_min
+    /// @argument {Real} height_min
+    /// @argument {Real} width_max
+    /// @argument {Real} height_max
+    static SetNextWindowSizeConstraints = function(width_min, height_min, width_max, height_max) {
+        return __imgui_set_next_window_size_constraints(width_min, height_min, width_max, height_max);
+    }
+
+    /// @function SetNextWindowContentSize(width, height)
+    /// @argument {Real} width
+    /// @argument {Real} height
+    static SetNextWindowContentSize = function(width, height) {
+        return __imgui_set_next_window_content_size(width, height);
+    }
+
+    /// @function SetNextWindowScroll(_x, _y)
+    /// @argument {Real} _x
+    /// @argument {Real} _y
+    static SetNextWindowScroll = function(_x, _y) {
+        return __imgui_set_next_window_scroll(_x, _y);
+    }
+
+    /// @function SetNextWindowCollapsed(collapsed, cond)
+    /// @argument {Bool} collapsed
+    /// @argument {Int64} [cond=ImGuiCond.Always]
+    static SetNextWindowCollapsed = function(collapsed, cond=ImGuiCond.Always) {
+        return __imgui_set_next_window_collapsed(collapsed, cond);
+    }
+
+    /// @function SetNextWindowFocus()
+    static SetNextWindowFocus = function() {
+        return __imgui_set_next_window_focus();
+    }
+
+    /// @function SetNextWindowBgAlpha(alpha)
+    /// @argument {Real} alpha
+    static SetNextWindowBgAlpha = function(alpha) {
+        return __imgui_set_next_window_bg_alpha(alpha);
+    }
+
+    /// @function SetWindowFontScale(scale)
+    /// @argument {Real} scale
+    static SetWindowFontScale = function(scale) {
+        return __imgui_set_window_font_scale(scale);
+    }
+
+    /// @function PushID(_id)
+    /// @argument {String} _id
+    static PushID = function(_id) {
+        return __imgui_pushid(_id);
+    }
+
+    /// @function PopID()
+    static PopID = function() {
+        return __imgui_popid();
+    }
+
+    /// @function IsRectVisible(width, height)
+    /// @argument {Real} width
+    /// @argument {Real} height
+    static IsRectVisible = function(width, height) {
+        return __imgui_is_rect_visible(width, height);
+    }
+
+    /// @function GetCursorPosX()
+    static GetCursorPosX = function() {
+        return __imgui_get_cursor_pos_x();
+    }
+
+    /// @function GetCursorPosY()
+    static GetCursorPosY = function() {
+        return __imgui_get_cursor_pos_y();
+    }
+
+    /// @function GetCursorStartPos()
+    static GetCursorStartPos = function() {
+        return __imgui_get_cursor_start_x();
+    }
+
+    /// @function GetCursorStartPos()
+    static GetCursorStartPos = function() {
+        return __imgui_get_cursor_start_y();
+    }
+
+    /// @function SetCursorPos(_x, _y)
+    /// @argument {Real} _x
+    /// @argument {Real} _y
+    static SetCursorPos = function(_x, _y) {
+        return __imgui_set_cursor_pos(_x, _y);
+    }
+
+    /// @function Indent(width)
+    /// @argument {Real} width
+    static Indent = function(width) {
+        return __imgui_indent(width);
+    }
+
+    /// @function Unindent(width)
+    /// @argument {Real} width
+    static Unindent = function(width) {
+        return __imgui_unindent(width);
+    }
+
+    /// @function SetNextItemWidth(width)
+    /// @argument {Real} width
+    static SetNextItemWidth = function(width) {
+        return __imgui_set_next_item_width(width);
+    }
+
+    /// @function PushItemWidth(width)
+    /// @argument {Real} width
+    static PushItemWidth = function(width) {
+        return __imgui_push_item_width(width);
+    }
+
+    /// @function PopItemWidth()
+    static PopItemWidth = function() {
+        return __imgui_pop_item_width();
+    }
+
+    /// @function CalcItemWidth()
+    static CalcItemWidth = function() {
+        return __imgui_calc_item_width();
+    }
+
+    /// @function GetTextLineHeight()
+    static GetTextLineHeight = function() {
+        return __imgui_get_text_line_height();
+    }
+
+    /// @function GetTextLineHeightWithSpacing()
+    static GetTextLineHeightWithSpacing = function() {
+        return __imgui_get_text_line_height_with_spacing();
+    }
+
+    /// @function GetFrameHeight()
+    static GetFrameHeight = function() {
+        return __imgui_get_frame_height();
+    }
+
+    /// @function GetFrameHeightWithSpacing()
+    static GetFrameHeightWithSpacing = function() {
+        return __imgui_get_frame_height_with_spacing();
+    }
+
+    /// @function BeginGroup()
+    static BeginGroup = function() {
+        return __imgui_begin_group();
+    }
+
+    /// @function EndGroup()
+    static EndGroup = function() {
+        return __imgui_end_group();
+    }
+
+    /// @function ScrollToItem(flags)
+    /// @argument {Real} flags
+    static ScrollToItem = function(flags) {
+        return __imgui_scroll_to_item(flags);
+    }
+
+    /// @function ScrollToRect(window, x1, y1, x2, y2, flags)
+    /// @argument {Ptr} window
+    /// @argument {Real} x1
+    /// @argument {Real} y1
+    /// @argument {Real} x2
+    /// @argument {Real} y2
+    /// @argument {Int64} [flags=ImGuiScrollFlags.None]
+    static ScrollToRect = function(window, x1, y1, x2, y2, flags=ImGuiScrollFlags.None) {
+        return __imgui_scroll_to_rect(window, x1, y1, x2, y2, flags);
+    }
+
+    /// @function GetScrollX()
+    static GetScrollX = function() {
+        return __imgui_get_scroll_x();
+    }
+
+    /// @function GetScrollY()
+    static GetScrollY = function() {
+        return __imgui_get_scroll_y();
+    }
+
+    /// @function GetScrollMaxX()
+    static GetScrollMaxX = function() {
+        return __imgui_get_scroll_max_x();
+    }
+
+    /// @function GetScrollMaxY()
+    static GetScrollMaxY = function() {
+        return __imgui_get_scroll_max_y();
+    }
+
+    /// @function SetScrollX(scroll_x, window)
+    /// @argument {Real} scroll_x
+    /// @argument {Ptr} [window=pointer_null]
+    static SetScrollX = function(scroll_x, window=pointer_null) {
+        return __imgui_set_scroll_x(scroll_x, window);
+    }
+
+    /// @function SetScrollY(scroll_x, window)
+    /// @argument {Real} scroll_x
+    /// @argument {Ptr} [window=pointer_null]
+    static SetScrollY = function(scroll_x, window=pointer_null) {
+        return __imgui_set_scroll_y(scroll_x, window);
+    }
+
+    /// @function SetScrollFromPosX(local_x, center_x_ratio, window)
+    /// @argument {Real} local_x
+    /// @argument {Real} center_x_ratio
+    /// @argument {Ptr} [window=pointer_null]
+    static SetScrollFromPosX = function(local_x, center_x_ratio, window=pointer_null) {
+        return __imgui_set_scroll_from_pos_x(local_x, center_x_ratio, window);
+    }
+
+    /// @function SetScrollFromPosY(local_y, center_y_ratio, window)
+    /// @argument {Real} local_y
+    /// @argument {Real} center_y_ratio
+    /// @argument {Ptr} [window=pointer_null]
+    static SetScrollFromPosY = function(local_y, center_y_ratio, window=pointer_null) {
+        return __imgui_set_scroll_from_pos_y(local_y, center_y_ratio, window);
+    }
+
+    /// @function SetScrollHereX(center_x_ratio)
+    /// @argument {Real} center_x_ratio
+    static SetScrollHereX = function(center_x_ratio) {
+        return __imgui_set_scroll_here_x(center_x_ratio);
+    }
+
+    /// @function SetScrollHereY(center_y_ratio)
+    /// @argument {Real} center_y_ratio
+    static SetScrollHereY = function(center_y_ratio) {
+        return __imgui_set_scroll_here_y(center_y_ratio);
+    }
+
+    /// @function IsPopupOpen(str_id, flags)
+    /// @argument {String} str_id
+    /// @argument {Real} [flags=ImGuiWindowFlags.None]
+    static IsPopupOpen = function(str_id, flags=ImGuiWindowFlags.None) {
+        return __imgui_is_popup_open(str_id, flags);
+    }
+
+    /// @function GetTopMostPopupModal()
+    static GetTopMostPopupModal = function() {
+        return __imgui_get_topmost_popup_modal();
+    }
+
+    /// @function GetTopMostAndVisiblePopupModal()
+    static GetTopMostAndVisiblePopupModal = function() {
+        return __imgui_get_topmost_and_visible_popup_modal();
+    }
+
+    /// @function OpenPopup(str_id, flags)
+    /// @argument {String} str_id
+    /// @argument {Real} [flags=ImGuiWindowFlags.None]
+    static OpenPopup = function(str_id, flags=ImGuiWindowFlags.None) {
+        return __imgui_open_popup(str_id, flags);
+    }
+
+    /// @function ClosePopupsOverWindow(ref_window, restore_focus_to_window_under_popup)
+    /// @argument {Ptr} ref_window
+    /// @argument {Bool} restore_focus_to_window_under_popup
+    static ClosePopupsOverWindow = function(ref_window, restore_focus_to_window_under_popup) {
+        return __imgui_close_popups_over_window(ref_window, restore_focus_to_window_under_popup);
+    }
+
+    /// @function ClosePopupsExceptModals()
+    static ClosePopupsExceptModals = function() {
+        return __imgui_close_popups_except_modals();
+    }
+
+    /// @function ClosePopupToLevel(remaining, restore_focus_to_window_under_popup)
+    /// @argument {Real} remaining
+    /// @argument {Bool} restore_focus_to_window_under_popup
+    static ClosePopupToLevel = function(remaining, restore_focus_to_window_under_popup) {
+        return __imgui_close_popup_to_level(remaining, restore_focus_to_window_under_popup);
+    }
+
+    /// @function CloseCurrentPopup()
+    static CloseCurrentPopup = function() {
+        return __imgui_close_current_popup();
+    }
+
+    /// @function BeginPopup(str_id, flags)
+    /// @argument {String} str_id
+    /// @argument {Real} [flags=ImGuiWindowFlags.None]
+    static BeginPopup = function(str_id, flags=ImGuiWindowFlags.None) {
+        return __imgui_begin_popup(str_id, flags);
+    }
+
+    /// @function BeginPopupModal(name, open, flags, ret_mask)
+    /// @argument {String} name
+    /// @argument {Bool} [open=undefined]
+    /// @argument {Int64} [flags=ImGuiWindowFlags.None]
+    /// @argument {Int64} [ret_mask=ImGuiReturnFlags.Open]
+    static BeginPopupModal = function(name, open=undefined, flags=ImGuiWindowFlags.None, ret_mask=ImGuiReturnFlags.Open) {
+        return __imgui_begin_popup_modal(name, open, flags, ret_mask);
+    }
+
+    /// @function EndPopup()
+    static EndPopup = function() {
+        return __imgui_end_popup();
     }
 
     /// @function Text(text)

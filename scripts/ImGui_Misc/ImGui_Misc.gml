@@ -538,3 +538,17 @@ enum ImGuiTooltipFlags
     None                      = 0,
 	OverridePreviousTooltip   = 1 << 0,   // Override will clear/ignore previously submitted tooltip (defaults to append)
 };
+
+enum ImGuiScrollFlags
+{
+    None                   = 0,
+    KeepVisibleEdgeX       = 1 << 0,       // If item is not visible: scroll as little as possible on X axis to bring item back into view [default for X axis]
+    KeepVisibleEdgeY       = 1 << 1,       // If item is not visible: scroll as little as possible on Y axis to bring item back into view [default for Y axis for windows that are already visible]
+    KeepVisibleCenterX     = 1 << 2,       // If item is not visible: scroll to make the item centered on X axis [rarely used]
+    KeepVisibleCenterY     = 1 << 3,       // If item is not visible: scroll to make the item centered on Y axis
+    AlwaysCenterX          = 1 << 4,       // Always center the result item on X axis [rarely used]
+    AlwaysCenterY          = 1 << 5,       // Always center the result item on Y axis [default for Y axis for appearing window)
+    NoScrollParent         = 1 << 6,       // Disable forwarding scrolling to parent window if required to keep item/rect visible (only scroll window the function was applied to).
+    MaskX_                 = ImGuiScrollFlags.KeepVisibleEdgeX | ImGuiScrollFlags.KeepVisibleCenterX | ImGuiScrollFlags.AlwaysCenterX,
+    MaskY_                 = ImGuiScrollFlags.KeepVisibleEdgeY | ImGuiScrollFlags.KeepVisibleCenterY | ImGuiScrollFlags.AlwaysCenterY,
+};

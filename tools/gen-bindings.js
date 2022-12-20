@@ -17,7 +17,7 @@ const SPACING = "    ";
 // If enabled, modified files are saved with a ".test" extension
 const USE_TEST = false;
 
-const fs = require("node:fs"), path = require("node:path"), reserved = ["x", "y", "continue", "return", "id"];
+const fs = require("node:fs"), path = require("node:path"), reserved = ["x", "y", "continue", "return", "id", "repeat"];
 function clean(blob) {
         const removal = [];
         for(let i = 0; i < blob.length; i++) {
