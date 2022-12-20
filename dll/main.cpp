@@ -9,13 +9,13 @@
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
-TYYBuiltin F_ScriptExecute{ nullptr };
 
 ID3D11Device* g_pd3dDevice;
 ID3D11DeviceContext* g_pd3dDeviceContext;
 
 static ImGuiContext* g_ImGuiContext;
 static bool g_ImGuiInitialized = false;
+static int g_pDrawData = -1;
 
 void __initialize() {
 	g_ImGuiContext = ImGui::CreateContext();
@@ -82,12 +82,64 @@ YYEXPORT void __imgui_update(RValue& Result, CInstance* selfinst, CInstance* oth
 	return;
 }
 
+static char* g_pWrite[128];
+template<typename T> inline void BufferWrite(int buffer, T val, int& offset, bool grow=true) {
+	*(T*)(&g_pWrite) = val;
+	offset = BufferWriteContent(buffer, offset, g_pWrite, sizeof(T), grow);
+}
+
 YYEXPORT void __imgui_render(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg) {
 	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	ImDrawData* data = ImGui::GetDrawData();
+	if (argc == 0) {
+		ImGui_ImplDX11_RenderDrawData(data);
+	} else {
+		int buffer = YYGetReal(arg, 0), offset = 0;
+		BufferWrite<bool>(buffer, data->Valid, offset);
+		if (data->Valid) {
+			BufferWrite<int>(buffer, data->CmdListsCount, offset);
+			for (int i = 0; i < data->CmdListsCount; i++) {
+				const ImDrawList* list = data->CmdLists[i];
 
-	Result.kind = VALUE_BOOL;
-	Result.val = 1;
+				BufferWrite<int>(buffer, list->IdxBuffer.Size, offset);
+				for (int j = 0; j < list->IdxBuffer.Size; j++) {
+					BufferWrite<ImDrawIdx>(buffer, (ImDrawIdx)&list->IdxBuffer[j], offset);
+				}
+
+				BufferWrite<int>(buffer, list->VtxBuffer.Size, offset);
+				for (int j = 0; j < list->VtxBuffer.Size; j++) {
+					const ImDrawVert* vert = &list->VtxBuffer[j];
+					BufferWrite<float>(buffer, vert->pos.x, offset);
+					BufferWrite<float>(buffer, vert->pos.y, offset);
+					BufferWrite<float>(buffer, vert->uv.x, offset);
+					BufferWrite<float>(buffer, vert->uv.y, offset);
+					BufferWrite<unsigned int>(buffer, vert->col, offset);
+				}
+
+				BufferWrite<int>(buffer, list->CmdBuffer.Size, offset);
+				for (int j = 0; j < list->CmdBuffer.Size; j++) {
+					const ImDrawCmd* cmd = &list->CmdBuffer[j];
+					if (cmd->UserCallback != nullptr) {
+						BufferWrite<int>(buffer, -1, offset);
+					}
+					else
+					{
+						BufferWrite<int>(buffer, 0, offset);
+						BufferWrite<float>(buffer, cmd->ClipRect.x, offset);
+						BufferWrite<float>(buffer, cmd->ClipRect.y, offset);
+						BufferWrite<float>(buffer, cmd->ClipRect.z, offset);
+						BufferWrite<float>(buffer, cmd->ClipRect.w, offset);
+						BufferWrite<int>(buffer, (int)cmd->TextureId, offset);
+						BufferWrite<unsigned int>(buffer, cmd->VtxOffset, offset);
+						BufferWrite<unsigned int>(buffer, cmd->IdxOffset, offset);
+						BufferWrite<unsigned int>(buffer, cmd->ElemCount, offset);
+						BufferWrite<double>(buffer, 0, offset);
+						BufferWrite<double>(buffer, 0, offset);
+					}
+				}
+			}
+		}
+	}
 	return;
 }
 

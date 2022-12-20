@@ -6,7 +6,8 @@
     {"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy","order":1,},
   ],
   "FolderOrderSettings": [
-    {"name":"ImGui_GM","path":"folders/ImGui_GM.yy","order":3,},
     {"name":"Example","path":"folders/Example.yy","order":4,},
+    {"name":"ImGui_GM","path":"folders/ImGui_GM.yy","order":3,},
+    {"name":"Experimental","path":"folders/ImGui_GM/Experimental.yy","order":3,},
   ],
 }

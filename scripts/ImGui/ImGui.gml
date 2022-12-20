@@ -686,6 +686,9 @@ function ImGui() constructor {
 		}
 	};
 	
+	/// @desc EXPERIMENTAL: If set, intercepts ImDrawData from implementation; native used otherwise
+	static Translator = undefined;//new ImGui_Translator();
+	
 	static __Initialize = function() {
 		var info = os_get_info(), info =  {
 			Device: info[? "video_d3d11_device"],
@@ -717,6 +720,11 @@ function ImGui() constructor {
 	}
 	
 	static __Render = function() {
-		return __imgui_render();
+		if (Translator != undefined) {
+			__imgui_render(Translator.Buffer);
+			return Translator.Render();
+		} else {
+			return __imgui_render();
+		}
 	}
 };

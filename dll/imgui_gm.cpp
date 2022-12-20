@@ -30,6 +30,7 @@ static RValue s_Copy;
 #define GMAPPEND(...) /**/
 #define GMCOLOR_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
 #define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16))
+#define SCRATCH_BUFFER_SIZE 4096
 
 template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {
 	RValue* arr = &arg[ind];
@@ -1029,14 +1030,14 @@ GMFUNC(__imgui_input_double) {
 // - InputTextWithHint()
 // - InputTextMultiline()
 //-------------------------------------------------------------------------
-char INPUT_BUF[128];
+char INPUT_BUF[SCRATCH_BUFFER_SIZE];
 GMFUNC(__imgui_input_text) {
 	const char* label = YYGetString(arg, 0);
 	const char* val = YYGetString(arg, 1);
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy(INPUT_BUF, val);
+	strcpy_s(INPUT_BUF, val);
 	ImGui::InputText(label, INPUT_BUF, IM_ARRAYSIZE(INPUT_BUF), (ImGuiInputTextFlags)flags);
 	YYCreateString(&s_Copy, INPUT_BUF);
 	COPY_RValue(&Result, &s_Copy);
@@ -1050,7 +1051,7 @@ GMFUNC(__imgui_input_text_with_hint) {
 	int64 flags = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy(INPUT_BUF, val);
+	strcpy_s(INPUT_BUF, val);
 	ImGui::InputTextWithHint(label, hint, INPUT_BUF, IM_ARRAYSIZE(INPUT_BUF), (ImGuiInputTextFlags)flags);
 	YYCreateString(&s_Copy, INPUT_BUF);
 	COPY_RValue(&Result, &s_Copy);
@@ -1067,7 +1068,7 @@ GMFUNC(__imgui_input_text_multiline) {
 	double height = YYGetReal(arg, 4);
 	GMDEFAULT(0);
 
-	strcpy(INPUT_BUF, val);
+	strcpy_s(INPUT_BUF, val);
 	ImGui::InputTextMultiline(label, INPUT_BUF, IM_ARRAYSIZE(INPUT_BUF), ImVec2(width, height), (ImGuiInputTextFlags)flags);
 	YYCreateString(&s_Copy, INPUT_BUF);
 	COPY_RValue(&Result, &s_Copy);
@@ -1297,6 +1298,7 @@ GMFUNC(__imgui_end_listbox) {
 	return;
 }
 
+char LISTBOX_BUF[4096];
 GMFUNC(__imgui_listbox) {
 	const char* label = YYGetString(arg, 0);
 	int ind = YYGetReal(arg, 1);
@@ -1304,6 +1306,7 @@ GMFUNC(__imgui_listbox) {
 	double height_in_items = YYGetReal(arg, 3);
 	GMDEFAULT(-1);
 
+	const static char* REAL_PLACEHOLDER = "<number>";
 	for (int i = 0; GET_RValue(&s_Copy, items, NULL, i); i++) {
 		switch (s_Copy.kind) {
 			case VALUE_STRING: {
@@ -1312,8 +1315,14 @@ GMFUNC(__imgui_listbox) {
 			}
 
 			case VALUE_REAL: {
-				std::string a = std::to_string(1);
-				s_Items.push_back(std::move(a.c_str()));
+				/*
+				TODO: The following code produces a dangling pointer, so ImGui::ListBox displays an empty string :(
+				      For now, I'm just gonna return the placeholder until I figure it out x_x
+				std::string a = std::to_string(s_Copy.val);
+				const char* b = a.c_str();
+				s_Items.push_back(b);
+				*/
+				s_Items.push_back(REAL_PLACEHOLDER);
 				break;
 			}
 
