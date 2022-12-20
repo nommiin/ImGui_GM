@@ -307,12 +307,18 @@ GMFUNC(__imgui_get_window_height) {
 
 GMFUNC(__imgui_get_window_pos_x) {
 	Result.kind = VALUE_REAL;
+	/*
+		ImGui::GetWindowPosX();
+	*/
 	Result.val = ImGui::GetWindowPos().x;
 	return;
 }
 
 GMFUNC(__imgui_get_window_pos_y) {
 	Result.kind = VALUE_REAL;
+	/*
+		ImGui::GetWindowPosY();
+	*/
 	Result.val = ImGui::GetWindowPos().y;
 	return;
 }
@@ -819,6 +825,15 @@ GMFUNC(__imgui_begin_popup_modal) {
 GMFUNC(__imgui_end_popup) {
 	ImGui::EndPopup();
 	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_is_item_hovered) {
+	int64 flags = YYGetReal(arg, 0);
+	GMDEFAULT(ImGuiHoveredFlags.None);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::IsItemHovered(flags);
 	return;
 }
 

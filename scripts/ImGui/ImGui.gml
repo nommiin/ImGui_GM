@@ -181,13 +181,13 @@ function ImGui() constructor {
         return __imgui_get_window_height();
     }
 
-    /// @function GetWindowPos()
-    static GetWindowPos = function() {
+    /// @function GetWindowPosX()
+    static GetWindowPosX = function() {
         return __imgui_get_window_pos_x();
     }
 
-    /// @function GetWindowPos()
-    static GetWindowPos = function() {
+    /// @function GetWindowPosY()
+    static GetWindowPosY = function() {
         return __imgui_get_window_pos_y();
     }
 
@@ -552,6 +552,12 @@ function ImGui() constructor {
     /// @function EndPopup()
     static EndPopup = function() {
         return __imgui_end_popup();
+    }
+
+    /// @function IsItemHovered(flags)
+    /// @argument {Real} [flags=ImGuiHoveredFlags.None]
+    static IsItemHovered = function(flags=ImGuiHoveredFlags.None) {
+        return __imgui_is_item_hovered(flags);
     }
 
     /// @function Text(text)
