@@ -1,6 +1,4 @@
 [submodule "dll/thirdparty/imgui"]
 	path = dll/thirdparty/imgui
 	url = https://github.com/ocornut/imgui.git
-[submodule "dll/thirdparty/steamworks"]
-	path = dll/thirdparty/steamworks
-	url = https://github.com/YoYoGames/GMEXT-Steamworks
+	branch = docking
