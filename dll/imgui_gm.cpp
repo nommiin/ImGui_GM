@@ -22,13 +22,16 @@ static inline ID3D11ShaderResourceView* GetTexture() {
 static RValue s_Copy;
 
 #define GMFUNC(name) __declspec(dllexport) void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
+
+// For gen-bindings.js
 #define GMDEFAULT(...) /**/
 #define GMPASSTHROUGH(...) /**/
 #define GMHIDDEN(...) /**/
 #define GMPREPEND(...) /**/
 #define GMAPPEND(...) /**/
+#define GMOVERRIDE(...) /**/
 
-#define GMCOLOR3_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 0xFF)
+#define GMCOLOR3_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(alpha * 0xFF))
 #define GMCOLOR4_TO(col) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(((int)col >> 24) & 0xFF))
 
 #define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16) | (int)((int)(col[3] * 0xFF) << 24))
@@ -274,7 +277,7 @@ GMFUNC(__imgui_image) {
 	double* uvs = YYGetArray<double>(arg, 6, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 	GMHIDDEN();
-	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)));
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)););
 
 	Result.kind = VALUE_UNDEFINED;
 	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), GMCOLOR3_TO(blend, alpha));
@@ -298,7 +301,7 @@ GMFUNC(__imgui_image_button) {
 	double* uvs = YYGetArray<double>(arg, 7, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
 	GMHIDDEN();
-	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)););
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::ImageButton(id, GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), ImColor(0, 0, 0, 0), GMCOLOR3_TO(blend, alpha));
@@ -1202,8 +1205,8 @@ GMFUNC(__imgui_set_color_edit_options) {
 GMFUNC(__imgui_treenode) {
 	const char* label = YYGetString(arg, 0);
 
-	ImGui::TreeNode(label);
-	Result.kind = VALUE_UNDEFINED;
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::TreeNode(label);
 	return;
 }
 
@@ -1212,8 +1215,8 @@ GMFUNC(__imgui_treenode_ex) {
 	int64 flags = YYGetInt64(arg, 1);
 	GMDEFAULT(ImGuiTreeNodeFlags.None)
 
-	ImGui::TreeNodeEx(label, flags);
-	Result.kind = VALUE_UNDEFINED;
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::TreeNodeEx(label, flags);
 	return;
 }
 
@@ -1532,7 +1535,123 @@ GMFUNC(__imgui_tab_item_button) {
 
 GMFUNC(__imgui_set_tab_item_closed) {
 	const char* label = YYGetString(arg, 0);
+
 	ImGui::SetTabItemClosed(label);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] STYLING
+//-----------------------------------------------------------------------------
+GMFUNC(__imgui_get_style_color) {
+	int idx = YYGetReal(arg, 0);
+
+	const ImVec4 col = ImGui::GetStyleColorVec4(idx);
+	Result.kind = VALUE_REAL;
+	Result.val = (int)col.x | (((int)col.y << 8) & 0xFF) | (((int)col.y << 16) & 0xFF) | (((int)col.z << 24) & 0xFF);
+	return;
+}
+
+GMFUNC(__imgui_get_style_color_name) {
+	int idx = YYGetReal(arg, 0);
+	YYCreateString(&Result, ImGui::GetStyleColorName(idx));
+	return;
+}
+
+GMFUNC(__imgui_push_style_color) {
+	int idx = YYGetReal(arg, 0);
+	double color = YYGetReal(arg, 1);
+	float alpha = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+
+	ImColor col = GMCOLOR3_TO(color, alpha);
+	ImGui::PushStyleColor(idx, (ImVec4)col);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_pop_style_color) {
+	int count = YYGetReal(arg, 0);
+	GMDEFAULT(1);
+
+	ImGui::PopStyleColor(count);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_push_style_var) {
+	int idx = YYGetReal(arg, 0);
+	float v1 = YYGetReal(arg, 1);
+	RValue* v2 = &arg[2]; // = YYGetReal(arg, 2);
+	GMDEFAULT(undefined);
+
+	if (v2->kind == VALUE_UNDEFINED) {
+		ImGui::PushStyleVar(idx, v1);
+	}
+	else 
+	{
+		ImGui::PushStyleVar(idx, ImVec2(v1, (float)v2->val));
+	}
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_pop_style_var) {
+	int count = YYGetReal(arg, 0);
+	GMDEFAULT(1);
+
+	ImGui::PopStyleVar(count);
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Speciality
+//-------------------------------------------------------------------------
+// - Surface()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_surface) {
+	double surf = YYGetReal(arg, 0);
+	double width = YYGetReal(arg, 1);
+	GMDEFAULT(surface_get_width(#arg0));
+	double height = YYGetReal(arg, 2);
+	GMDEFAULT(surface_get_height(#arg0));
+	double blend = YYGetReal(arg, 3);
+	GMDEFAULT(c_white);
+	double alpha = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+	double* uvs = YYGetArray<double>(arg, 5, 4);
+	GMPASSTHROUGH(texture_get_uvs(tex))
+	GMHIDDEN();
+	GMPREPEND(var tex = surface_get_texture(#arg0); texture_set_stage(0, tex));
+	GMOVERRIDE(Surface);
+
+	Result.kind = VALUE_UNDEFINED;
+	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), GMCOLOR3_TO(blend, alpha));
+	delete[]uvs;
+	return;
+}
+
+//-----------------------------------------------------------------------------
+// [SECTION] TOOLTIPS
+//-----------------------------------------------------------------------------
+GMFUNC(__imgui_begin_tooltip) {
+	ImGui::BeginTooltip();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_end_tooltip) {
+	ImGui::EndTooltip();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_set_tooltip) {
+	const char* val = YYGetString(arg, 0);
+
+	ImGui::SetTooltip(val);
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }

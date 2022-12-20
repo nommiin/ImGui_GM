@@ -126,7 +126,7 @@ function ImGui() constructor {
     /// @argument {Real} [blend=c_white]
     /// @argument {Real} [alpha=1]
     static Image = function(spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr), blend=c_white, alpha=1) {
-        texture_set_stage(0, sprite_get_texture(spr, frame))
+        texture_set_stage(0, sprite_get_texture(spr, frame));
         return __imgui_image(spr, frame, width, height, blend, alpha, sprite_get_uvs(spr, frame));
     }
 
@@ -139,7 +139,7 @@ function ImGui() constructor {
     /// @argument {Real} [blend=c_white]
     /// @argument {Real} [alpha=1]
     static ImageButton = function(_id, spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr), blend=c_white, alpha=1) {
-        texture_set_stage(0, sprite_get_texture(spr, frame))
+        texture_set_stage(0, sprite_get_texture(spr, frame));
         return __imgui_image_button(_id, spr, frame, width, height, blend, alpha, sprite_get_uvs(spr, frame));
     }
 
@@ -770,6 +770,73 @@ function ImGui() constructor {
         return __imgui_set_tab_item_closed(label);
     }
 
+    /// @function GetStyleColorVec4(idx)
+    /// @argument {Real} idx
+    static GetStyleColorVec4 = function(idx) {
+        return __imgui_get_style_color(idx);
+    }
+
+    /// @function GetStyleColorName(idx)
+    /// @argument {Real} idx
+    static GetStyleColorName = function(idx) {
+        return __imgui_get_style_color_name(idx);
+    }
+
+    /// @function PushStyleColor(idx, color, alpha)
+    /// @argument {Real} idx
+    /// @argument {Real} color
+    /// @argument {Real} [alpha=1]
+    static PushStyleColor = function(idx, color, alpha=1) {
+        return __imgui_push_style_color(idx, color, alpha);
+    }
+
+    /// @function PopStyleColor(count)
+    /// @argument {Real} [count=1]
+    static PopStyleColor = function(count=1) {
+        return __imgui_pop_style_color(count);
+    }
+
+    /// @function PushStyleVar(idx, v1, v2)
+    /// @argument {Real} idx
+    /// @argument {Real} v1
+    /// @argument {Real} [v2=undefined]
+    static PushStyleVar = function(idx, v1, v2=undefined) {
+        return __imgui_push_style_var(idx, v1, v2);
+    }
+
+    /// @function PopStyleVar(count)
+    /// @argument {Real} [count=1]
+    static PopStyleVar = function(count=1) {
+        return __imgui_pop_style_var(count);
+    }
+
+    /// @function Surface(surf, width, height, blend, alpha)
+    /// @argument {Real} surf
+    /// @argument {Real} [width=surface_get_width[surf]]
+    /// @argument {Real} [height=surface_get_height[surf]]
+    /// @argument {Real} [blend=c_white]
+    /// @argument {Real} [alpha=1]
+    static Surface = function(surf, width=surface_get_width(surf), height=surface_get_height(surf), blend=c_white, alpha=1) {
+        var tex = surface_get_texture(surf); texture_set_stage(0, tex)
+        return __imgui_surface(surf, width, height, blend, alpha, texture_get_uvs(tex));
+    }
+
+    /// @function BeginTooltip()
+    static BeginTooltip = function() {
+        return __imgui_begin_tooltip();
+    }
+
+    /// @function EndTooltip()
+    static EndTooltip = function() {
+        return __imgui_end_tooltip();
+    }
+
+    /// @function SetTooltip(val)
+    /// @argument {String} val
+    static SetTooltip = function(val) {
+        return __imgui_set_tooltip(val);
+    }
+
 	/// @section Internal
 	/// @desc Where the (GML) magic happens, safe from the gen-bindings script
 	static __State = {
@@ -829,15 +896,6 @@ function ImGui() constructor {
 			return Translator.Render();
 		} else {
 			return __imgui_render();
-		}
-	}
-	
-	static Utility = {
-		IsOpen: function(ret) {
-			return ret & ImGuiReturnFlags.Open;	
-		},
-		IsVisible: function(ret) {
-			return ret & ImGuiReturnFlags.Visible;	
 		}
 	}
 };

@@ -52,3 +52,4 @@ col4 = c_white;
 box = 0;
 ind = 0;
 avo = true;
+surf = -1;

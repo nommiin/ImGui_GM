@@ -80,6 +80,9 @@ try {
                 }
             }
 
+            // ImGui:: Call
+            let call = undefined;
+
             // Arguments
             let args = [], prepend = undefined, arg_prev = 0;
             for(let j = i + 1; j < end_line; j++) {
@@ -108,7 +111,7 @@ try {
                 if (reserved.includes(arg_name)) arg_name = "_" + arg_name;
 
                 let def = undefined, passthrough = undefined, hide = false;
-                const terms = ["GMDEFAULT", "GMPASSTHROUGH", "GMHIDDEN", "GMPREPEND"];
+                const terms = ["GMDEFAULT", "GMPASSTHROUGH", "GMHIDDEN", "GMPREPEND", "GMOVERRIDE"];
                 for(let k = j + 1; k < end_line; k++) {
                     const next = wrappers[k].trim();
                     if (next.length === 0) continue;
@@ -118,28 +121,39 @@ try {
                     let term = terms.indexOf(next.slice(0, start));
                     if (term === -1) break;
 
-                    let data = next.slice(start + 1, end);
+                    let data = next.slice(start + 1, end).trim();
                     data = data.replace("#self", arg_name);
 
+                    // Replacements: You can use "#self" or "#argX" to insert argument names into a given macro's content
                     switch (terms[term]) {
+                        // Default value to assign to argument in function signature, replacements OK
                         case "GMDEFAULT": {
                             def = data;
                             break;
                         }
 
+                        // Hides argument from function signature, but still passed into wrapper function call
                         case "GMHIDDEN": {
                             hide = true;
                             break;
                         }
 
+                        // Passed into wrapper function call in place of argument, replacements OK
                         case "GMPASSTHROUGH": {
                             passthrough = data;
                             break;
                         }
 
+                        // Writes content after function definition and before the wrapper function call, replacements OK
                         case "GMPREPEND": {
                             if (!prepend) prepend = [];
                             prepend.push(data);
+                            break;
+                        }
+
+                        // Allows you to override the name of the ImGui:: function being called, only affects static function name in GameMaker 
+                        case "GMOVERRIDE": {
+                            call = data;
                             break;
                         }
                     }
@@ -176,18 +190,20 @@ try {
             });
 
             // ImGui call
-            let call = undefined;
-            for (let j = end_line; j > i; j--) {
-                const line = wrappers[j].trim();
-                const ind = line.indexOf("ImGui::");
-                if (ind === -1 || line.startsWith("//")) continue;
-
-                const start = ind + 7; // ImGui::.length
-                const end = line.indexOf("(", start);
-                if (end == -1) throw `Could not find end of ImGui:: call at line ${j + 1}`;
-                call = line.slice(start, end);
+            if (!call) {
+                for (let j = end_line; j > i; j--) {
+                    const line = wrappers[j].trim();
+                    const ind = line.indexOf("ImGui::");
+                    if (ind === -1 || line.startsWith("//")) continue;
+    
+                    const start = ind + 7; // ImGui::.length
+                    const end = line.indexOf("(", start);
+                    if (end == -1) throw `Could not find end of ImGui:: call at line ${j + 1}`;
+                    call = line.slice(start, end);
+                }
+                if (!call) throw `Could not find call to ImGui function in GMFUNC at line ${i + 1}`;
             }
-            if (!call) throw `Could not find call to ImGui function in GMFUNC at line ${i + 1}`;
+            
             
             console.log(`Found ${name} with ${args.length} arguments at line ${i + 1} (ImGui::${call})`);
             found.push({
