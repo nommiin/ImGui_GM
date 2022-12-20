@@ -1,6 +1,6 @@
 # ImGui_GM
 Experimental ***currently Windows only*** ImGui wrapper & bindings for GameMaker, heavily work-in-progress
-![image](https://user-images.githubusercontent.com/6483989/207724319-a734111a-eee9-497d-a9ef-9689353482df.png)
+![image](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png)
 
 
 # Reference
