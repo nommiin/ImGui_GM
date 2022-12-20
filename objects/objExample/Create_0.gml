@@ -41,6 +41,14 @@ randomize();
 col = irandom(c_white);
 
 open = true;
+selected = false;
+
+show_debug_message(typeof(c_white));
+
+
+col4 = c_white;
+//show_debug_message();
 
 box = 0;
 ind = 0;
+avo = true;

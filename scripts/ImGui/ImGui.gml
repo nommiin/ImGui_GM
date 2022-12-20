@@ -118,27 +118,29 @@ function ImGui() constructor {
         return __imgui_arrow_button(_id, dir);
     }
 
-    /// @function Image(spr, frame, width, height, blend)
+    /// @function Image(spr, frame, width, height, blend, alpha)
     /// @argument {Real} spr
     /// @argument {Real} [frame=0]
     /// @argument {Real} [width=sprite_get_width[spr]]
     /// @argument {Real} [height=sprite_get_height[spr]]
     /// @argument {Real} [blend=c_white]
-    static Image = function(spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr), blend=c_white) {
+    /// @argument {Real} [alpha=1]
+    static Image = function(spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr), blend=c_white, alpha=1) {
         texture_set_stage(0, sprite_get_texture(spr, frame))
-        return __imgui_image(spr, frame, width, height, blend, sprite_get_uvs(spr, frame));
+        return __imgui_image(spr, frame, width, height, blend, alpha, sprite_get_uvs(spr, frame));
     }
 
-    /// @function ImageButton(_id, spr, frame, width, height, blend)
+    /// @function ImageButton(_id, spr, frame, width, height, blend, alpha)
     /// @argument {String} _id
     /// @argument {Real} spr
     /// @argument {Real} [frame=0]
     /// @argument {Real} [width=sprite_get_width[spr]]
     /// @argument {Real} [height=sprite_get_height[spr]]
     /// @argument {Real} [blend=c_white]
-    static ImageButton = function(_id, spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr), blend=c_white) {
+    /// @argument {Real} [alpha=1]
+    static ImageButton = function(_id, spr, frame=0, width=sprite_get_width(spr), height=sprite_get_height(spr), blend=c_white, alpha=1) {
         texture_set_stage(0, sprite_get_texture(spr, frame))
-        return __imgui_image_button(_id, spr, frame, width, height, blend, sprite_get_uvs(spr, frame));
+        return __imgui_image_button(_id, spr, frame, width, height, blend, alpha, sprite_get_uvs(spr, frame));
     }
 
     /// @function Checkbox(label, val)
@@ -155,13 +157,13 @@ function ImGui() constructor {
         return __imgui_radio_button(label, active);
     }
 
-    /// @function ProgressBar(frac, size_x, size_y, overlay)
+    /// @function ProgressBar(frac, width, height, overlay)
     /// @argument {Real} frac
-    /// @argument {Real} [size_x=0]
-    /// @argument {Real} [size_y=0]
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
     /// @argument {String} [overlay=""]
-    static ProgressBar = function(frac, size_x=0, size_y=0, overlay="") {
-        return __imgui_progressbar(frac, size_x, size_y, overlay);
+    static ProgressBar = function(frac, width=0, height=0, overlay="") {
+        return __imgui_progressbar(frac, width, height, overlay);
     }
 
     /// @function Bullet()
@@ -548,13 +550,12 @@ function ImGui() constructor {
         return __imgui_color_edit3(label, color, flags);
     }
 
-    /// @function ColorEdit4(label, color, alpha, flags)
+    /// @function ColorEdit4(label, color, flags)
     /// @argument {String} label
     /// @argument {Real} color
-    /// @argument {Real} alpha
     /// @argument {Int64} [flags=ImGuiColorEditFlags.None]
-    static ColorEdit4 = function(label, color, alpha, flags=ImGuiColorEditFlags.None) {
-        return __imgui_color_edit4(label, color, alpha, flags);
+    static ColorEdit4 = function(label, color, flags=ImGuiColorEditFlags.None) {
+        return __imgui_color_edit4(label, color, flags);
     }
 
     /// @function ColorPicker3(label, color, flags)
@@ -565,23 +566,23 @@ function ImGui() constructor {
         return __imgui_color_picker3(label, color, flags);
     }
 
-    /// @function ColorPicker4(label, color, alpha, flags)
+    /// @function ColorPicker4(label, color, flags)
     /// @argument {String} label
     /// @argument {Real} color
-    /// @argument {Real} alpha
     /// @argument {Int64} [flags=ImGuiColorEditFlags.None]
-    static ColorPicker4 = function(label, color, alpha, flags=ImGuiColorEditFlags.None) {
-        return __imgui_color_picker4(label, color, alpha, flags);
+    static ColorPicker4 = function(label, color, flags=ImGuiColorEditFlags.None) {
+        return __imgui_color_picker4(label, color, flags);
     }
 
-    /// @function ColorButton(_id, color, flags, width, height)
+    /// @function ColorButton(_id, color, alpha, flags, width, height)
     /// @argument {String} _id
     /// @argument {Real} color
+    /// @argument {Real} [alpha=1]
     /// @argument {Int64} [flags=ImGuiColorEditFlags.None]
     /// @argument {Real} [width=0]
     /// @argument {Real} [height=0]
-    static ColorButton = function(_id, color, flags=ImGuiColorEditFlags.None, width=0, height=0) {
-        return __imgui_color_button(_id, color, flags, width, height);
+    static ColorButton = function(_id, color, alpha=1, flags=ImGuiColorEditFlags.None, width=0, height=0) {
+        return __imgui_color_button(_id, color, alpha, flags, width, height);
     }
 
     /// @function SetColorEditOptions(flags)
@@ -667,6 +668,108 @@ function ImGui() constructor {
         return __imgui_listbox(label, ind, items, height_in_items);
     }
 
+    /// @function PlotLines(label, values, overlay, width, height, stride)
+    /// @argument {String} label
+    /// @argument {Array<Float>} values
+    /// @argument {String} [overlay=""]
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    /// @argument {Real} [stride=4]
+    static PlotLines = function(label, values, overlay="", width=0, height=0, stride=4) {
+        return __imgui_plot_lines(label, values, overlay, width, height, stride);
+    }
+
+    /// @function PlotHistogram(label, values, overlay, width, height, stride)
+    /// @argument {String} label
+    /// @argument {Array<Float>} values
+    /// @argument {String} [overlay=""]
+    /// @argument {Real} [width=0]
+    /// @argument {Real} [height=0]
+    /// @argument {Real} [stride=4]
+    static PlotHistogram = function(label, values, overlay="", width=0, height=0, stride=4) {
+        return __imgui_plot_histogram(label, values, overlay, width, height, stride);
+    }
+
+    /// @function BeginMenuBar()
+    static BeginMenuBar = function() {
+        return __imgui_begin_menu_bar();
+    }
+
+    /// @function EndMenuBar()
+    static EndMenuBar = function() {
+        return __imgui_end_menu_bar();
+    }
+
+    /// @function BeginMainMenuBar()
+    static BeginMainMenuBar = function() {
+        return __imgui_begin_main_menu_bar();
+    }
+
+    /// @function EndMainMenuBar()
+    static EndMainMenuBar = function() {
+        return __imgui_end_main_menu_bar();
+    }
+
+    /// @function BeginMenu(label, enabled)
+    /// @argument {String} label
+    /// @argument {Bool} [enabled=true]
+    static BeginMenu = function(label, enabled=true) {
+        return __imgui_begin_menu(label, enabled);
+    }
+
+    /// @function EndMenu()
+    static EndMenu = function() {
+        return __imgui_end_menu();
+    }
+
+    /// @function MenuItem(label, shortcut, enabled, selected)
+    /// @argument {String} label
+    /// @argument {String} [shortcut=undefined]
+    /// @argument {Bool} [enabled=true]
+    /// @argument {Bool} [selected=false]
+    static MenuItem = function(label, shortcut=undefined, enabled=true, selected=false) {
+        return __imgui_menu_item(label, shortcut, enabled, selected);
+    }
+
+    /// @function BeginTabBar(_id, flags)
+    /// @argument {String} _id
+    /// @argument {Int64} [flags=ImGuiTabBarFlags.None]
+    static BeginTabBar = function(_id, flags=ImGuiTabBarFlags.None) {
+        return __imgui_begin_tab_bar(_id, flags);
+    }
+
+    /// @function EndTabBar()
+    static EndTabBar = function() {
+        return __imgui_end_tab_bar();
+    }
+
+    /// @function BeginTabItem(label, open, flags, ret_mask)
+    /// @argument {String} label
+    /// @argument {Bool} [open=undefined]
+    /// @argument {Int64} [flags=ImGuiTabItemFlags.None]
+    /// @argument {Int64} [ret_mask=ImGuiReturnFlags.Visible]
+    static BeginTabItem = function(label, open=undefined, flags=ImGuiTabItemFlags.None, ret_mask=ImGuiReturnFlags.Visible) {
+        return __imgui_begin_tab_item(label, open, flags, ret_mask);
+    }
+
+    /// @function EndTabItem()
+    static EndTabItem = function() {
+        return __imgui_end_tab_item();
+    }
+
+    /// @function TabItemButton(label, flags)
+    /// @argument {String} label
+    /// @argument {Int64} [flags=ImGuiTabItemFlags.None]
+    static TabItemButton = function(label, flags=ImGuiTabItemFlags.None) {
+        return __imgui_tab_item_button(label, flags);
+    }
+
+    /// @function SetTabItemClosed(label)
+    /// @argument {String} label
+    static SetTabItemClosed = function(label) {
+        return __imgui_set_tab_item_closed(label);
+    }
+
 	/// @section Internal
 	/// @desc Where the (GML) magic happens, safe from the gen-bindings script
 	static __State = {
@@ -687,7 +790,7 @@ function ImGui() constructor {
 	};
 	
 	/// @desc EXPERIMENTAL: If set, intercepts ImDrawData from implementation; native used otherwise
-	static Translator = undefined;//new ImGui_Translator();
+	static Translator = undefined; // new ImGui_Translator();
 	
 	static __Initialize = function() {
 		var info = os_get_info(), pointers =  {
@@ -726,6 +829,15 @@ function ImGui() constructor {
 			return Translator.Render();
 		} else {
 			return __imgui_render();
+		}
+	}
+	
+	static Utility = {
+		IsOpen: function(ret) {
+			return ret & ImGuiReturnFlags.Open;	
+		},
+		IsVisible: function(ret) {
+			return ret & ImGuiReturnFlags.Visible;	
 		}
 	}
 };

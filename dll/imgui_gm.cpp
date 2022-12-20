@@ -27,8 +27,11 @@ static RValue s_Copy;
 #define GMHIDDEN(...) /**/
 #define GMPREPEND(...) /**/
 #define GMAPPEND(...) /**/
-#define GMCOLOR_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 255)
-#define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16))
+
+#define GMCOLOR3_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), alpha * 0xFF)
+#define GMCOLOR4_TO(col) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(((int)col >> 24) & 0xFF))
+
+#define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16) | (int)((int)(col[3] * 0xFF) << 24))
 #define SCRATCH_BUFFER_SIZE 4096
 
 template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {
@@ -54,9 +57,9 @@ template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len)
 #pragma warning( disable : 4244 )
 
 enum ImGuiReturnFlags {
-	Show = 1 << 0,
-	Open = 1 << 1,
-	Both = Show | Open
+	ImGuiReturnFlags_Visible = 1 << 0,
+	ImGuiReturnFlags_Open = 1 << 1,
+	ImGuiReturnFlags_Both = ImGuiReturnFlags_Visible | ImGuiReturnFlags_Open
 };
 
 // Direct bindings for ImGui functions to GML, add to ImGui statics
@@ -160,7 +163,7 @@ GMFUNC(__imgui_text_colored) {
 	double alpha = YYGetReal(arg, 2);
 	GMDEFAULT(1)
 
-	ImGui::TextColored(GMCOLOR_TO(color, alpha), text);
+	ImGui::TextColored(GMCOLOR3_TO(color, alpha), text);
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -266,13 +269,15 @@ GMFUNC(__imgui_image) {
 	GMDEFAULT(sprite_get_height(#arg0));
 	double blend = YYGetReal(arg, 4);
 	GMDEFAULT(c_white);
-	double* uvs = YYGetArray<double>(arg, 5, 4);
+	double alpha = YYGetReal(arg, 5);
+	GMDEFAULT(1);
+	double* uvs = YYGetArray<double>(arg, 6, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 	GMHIDDEN();
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)));
 
 	Result.kind = VALUE_UNDEFINED;
-	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), GMCOLOR_TO(blend, 1));
+	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), GMCOLOR3_TO(blend, alpha));
 	delete[]uvs;
 	return;
 }
@@ -288,13 +293,15 @@ GMFUNC(__imgui_image_button) {
 	GMDEFAULT(sprite_get_height(#arg1));
 	double blend = YYGetReal(arg, 5);
 	GMDEFAULT(c_white);
-	double* uvs = YYGetArray<double>(arg, 6, 4);
+	double alpha = YYGetReal(arg, 6);
+	GMDEFAULT(1);
+	double* uvs = YYGetArray<double>(arg, 7, 4);
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
 	GMHIDDEN();
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::ImageButton(id, GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), ImColor(255, 0, 255, 255), GMCOLOR_TO(blend, 1));
+	Result.val = ImGui::ImageButton(id, GetTexture(), ImVec2(width, height), ImVec2(uvs[0], uvs[1]), ImVec2(uvs[2], uvs[3]), ImColor(0, 0, 0, 0), GMCOLOR3_TO(blend, alpha));
 	delete[]uvs;
 	return;
 }
@@ -321,14 +328,14 @@ GMFUNC(__imgui_radio_button) {
 
 GMFUNC(__imgui_progressbar) {
 	double frac = YYGetReal(arg, 0);
-	double size_x = YYGetReal(arg, 1);
+	double width = YYGetReal(arg, 1);
 	GMDEFAULT(0);
-	double size_y = YYGetReal(arg, 2);
+	double height = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	const char* overlay = YYGetString(arg, 3);
 	GMDEFAULT("");
 
-	ImGui::ProgressBar(frac, ImVec2(size_x, size_y), overlay);
+	ImGui::ProgressBar(frac, ImVec2(width, height), overlay);
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -1091,7 +1098,7 @@ GMFUNC(__imgui_color_edit3) {
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 
-	ImColor col = GMCOLOR_TO(color, 1);
+	ImColor col = GMCOLOR3_TO(color, 1);
 
 	Result.kind = VALUE_REAL;
 	Result.val = color;
@@ -1104,11 +1111,10 @@ GMFUNC(__imgui_color_edit3) {
 GMFUNC(__imgui_color_edit4) {
 	const char* label = YYGetString(arg, 0);
 	double color = YYGetReal(arg, 1);
-	double alpha = YYGetReal(arg, 2);
-	int64 flags = YYGetInt64(arg, 3);
+	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 
-	ImColor col = GMCOLOR_TO(color, alpha);
+	ImColor col = GMCOLOR4_TO(color, ((int)((int)color >> 24) & 0xFF) / 255);
 
 	Result.kind = VALUE_REAL;
 	Result.val = color;
@@ -1124,7 +1130,7 @@ GMFUNC(__imgui_color_picker3) {
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 
-	ImColor col = GMCOLOR_TO(color, 1);
+	ImColor col = GMCOLOR3_TO(color, 1);
 
 	Result.kind = VALUE_REAL;
 	Result.val = color;
@@ -1137,16 +1143,18 @@ GMFUNC(__imgui_color_picker3) {
 GMFUNC(__imgui_color_picker4) {
 	const char* label = YYGetString(arg, 0);
 	double color = YYGetReal(arg, 1);
-	double alpha = YYGetReal(arg, 2);
-	int64 flags = YYGetInt64(arg, 3);
+	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 
-	ImColor col = GMCOLOR_TO(color, alpha);
+	ImColor col = GMCOLOR4_TO(color);
 
 	Result.kind = VALUE_REAL;
-	Result.val = color;
 	if (ImGui::ColorPicker4(label, (float*)&col.Value, flags)) {
 		Result.val = GMCOLOR_FROM(((float*)&col.Value));
+	}
+	else
+	{
+		Result.val = color;
 	}
 	return;
 }
@@ -1154,14 +1162,16 @@ GMFUNC(__imgui_color_picker4) {
 GMFUNC(__imgui_color_button) {
 	const char* id = YYGetString(arg, 0);
 	double color = YYGetReal(arg, 1);
-	int64 flags = YYGetInt64(arg, 2);
+	double alpha = YYGetReal(arg, 2);
+	GMDEFAULT(1)
+	int64 flags = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiColorEditFlags.None);
-	double width = YYGetReal(arg, 3);
+	double width = YYGetReal(arg, 4);
 	GMDEFAULT(0);
-	double height = YYGetReal(arg, 4);
+	double height = YYGetReal(arg, 5);
 	GMDEFAULT(0);
 
-	ImColor col = GMCOLOR_TO(color, 1);
+	ImColor col = GMCOLOR3_TO(color, alpha);
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::ColorButton(id, col, flags, ImVec2(width, height));
@@ -1317,7 +1327,7 @@ GMFUNC(__imgui_listbox) {
 			case VALUE_INT32:
 			case VALUE_INT64:
 			case VALUE_REAL: {
-				s_Strings.emplace_back(std::to_string((int)s_Copy.val));
+				s_Strings.emplace_back(std::to_string(s_Copy.asReal()));
 				break;
 			}
 
@@ -1340,6 +1350,190 @@ GMFUNC(__imgui_listbox) {
 	
 	Result.kind = VALUE_REAL;
 	Result.val = ind;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: PlotLines, PlotHistogram
+//-------------------------------------------------------------------------
+// - PlotLines()
+// - PlotHistogram()
+//-------------------------------------------------------------------------
+static std::vector<float> s_Lines;
+GMFUNC(__imgui_plot_lines) {
+	const char* label = YYGetString(arg, 0);
+	RValue* values = &arg[1]; // = YYGetArray<Float>(arg, 1);
+	const char* overlay = YYGetString(arg, 2);
+	GMDEFAULT("");
+	double width = YYGetReal(arg, 3);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 4);
+	GMDEFAULT(0);
+	int stride = YYGetReal(arg, 5);
+	GMDEFAULT(4);
+
+	s_Lines.clear();
+	for (int i = 0; GET_RValue(&s_Copy, values, NULL, i); i++) {
+		s_Lines.push_back(s_Copy.val);
+	}
+
+	Result.kind = VALUE_UNDEFINED;
+	ImGui::PlotLines(label, s_Lines.data(), s_Lines.size(), 0, overlay, FLT_MAX, FLT_MAX, ImVec2(width, height), stride);
+	return;
+}
+
+GMFUNC(__imgui_plot_histogram) {
+	const char* label = YYGetString(arg, 0);
+	RValue* values = &arg[1]; // = YYGetArray<Float>(arg, 1);
+	const char* overlay = YYGetString(arg, 2);
+	GMDEFAULT("");
+	double width = YYGetReal(arg, 3);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 4);
+	GMDEFAULT(0);
+	int stride = YYGetReal(arg, 5);
+	GMDEFAULT(4);
+
+	s_Lines.clear();
+	for (int i = 0; GET_RValue(&s_Copy, values, NULL, i); i++) {
+		s_Lines.push_back(s_Copy.val);
+	}
+
+	Result.kind = VALUE_UNDEFINED;
+	ImGui::PlotHistogram(label, s_Lines.data(), s_Lines.size(), 0, overlay, FLT_MAX, FLT_MAX, ImVec2(width, height), stride);
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] MenuItem, BeginMenu, EndMenu, etc.
+//-------------------------------------------------------------------------
+// - BeginMenuBar()
+// - EndMenuBar()
+// - BeginMainMenuBar()
+// - EndMainMenuBar()
+// - BeginMenu()
+// - EndMenu()
+// - MenuItem()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_begin_menu_bar) {
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginMenuBar();
+	return;
+}
+
+GMFUNC(__imgui_end_menu_bar) {
+	ImGui::EndMenuBar();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_begin_main_menu_bar) {
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginMainMenuBar();
+	return;
+}
+
+GMFUNC(__imgui_end_main_menu_bar) {
+	ImGui::EndMainMenuBar();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_begin_menu) {
+	const char* label = YYGetString(arg, 0);
+	bool enabled = YYGetBool(arg, 1);
+	GMDEFAULT(true);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginMenu(label, enabled);
+	return;
+}
+
+GMFUNC(__imgui_end_menu) {
+	ImGui::EndMenu();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_menu_item) {
+	const char* label = YYGetString(arg, 0);
+	RValue* shortcut = &arg[1]; //YYGetString(arg, 1);
+	GMDEFAULT(undefined);
+	bool enabled = YYGetBool(arg, 2);
+	GMDEFAULT(true);
+	bool selected = YYGetBool(arg, 3);
+	GMDEFAULT(false);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::MenuItem(label, shortcut->kind != VALUE_UNDEFINED ? shortcut->GetString() : NULL, selected, enabled);
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: BeginTabBar, EndTabBar, etc.
+//-------------------------------------------------------------------------
+// - BeginTabBar()
+// - EndTabBar()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_begin_tab_bar) {
+	const char* id = YYGetString(arg, 0);
+	int64 flags = YYGetInt64(arg, 1);
+	GMDEFAULT(ImGuiTabBarFlags.None);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginTabBar(id, (ImGuiTabBarFlags)flags);
+	return;
+}
+
+GMFUNC(__imgui_end_tab_bar) {
+	ImGui::EndTabBar();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+//-------------------------------------------------------------------------
+// [SECTION] Widgets: BeginTabItem, EndTabItem, etc.
+//-------------------------------------------------------------------------
+// - BeginTabItem()
+// - EndTabItem()
+// - TabItemButton()
+// - SetTabItemClosed()
+//-------------------------------------------------------------------------
+GMFUNC(__imgui_begin_tab_item) {
+	const char* label = YYGetString(arg, 0);
+	bool open = YYGetBool(arg, 1);// YYGetBool(arg, 1);
+	GMDEFAULT(undefined);
+	int64 flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiTabItemFlags.None);
+	int64 ret_mask = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiReturnFlags.Visible);
+
+	bool ret = ImGui::BeginTabItem(label, (arg[1].kind == VALUE_UNDEFINED) ? NULL : &open, (ImGuiTabItemFlags)flags);
+	Result.kind = VALUE_REAL;
+	Result.val = ((open << 1) | (int)ret) & ret_mask;
+	return;
+}
+
+GMFUNC(__imgui_end_tab_item) {
+	ImGui::EndTabItem();
+	Result.kind = VALUE_UNDEFINED;
+	return;
+}
+
+GMFUNC(__imgui_tab_item_button) {
+	const char* label = YYGetString(arg, 0);
+	int64 flags = YYGetInt64(arg, 1);
+	GMDEFAULT(ImGuiTabItemFlags.None);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::TabItemButton(label, (ImGuiTabItemFlags)flags);
+	return;
+}
+
+GMFUNC(__imgui_set_tab_item_closed) {
+	const char* label = YYGetString(arg, 0);
+	ImGui::SetTabItemClosed(label);
+	Result.kind = VALUE_UNDEFINED;
 	return;
 }
 

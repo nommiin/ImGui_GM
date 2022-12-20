@@ -303,9 +303,9 @@ enum ImGuiColorEditFlags
 };
 
 enum ImGuiReturnFlags {
-	Show = 1 << 0,
+	Visible = 1 << 0,
 	Open = 1 << 1,
-	Both = ImGuiReturnFlags.Show | ImGuiReturnFlags.Open
+	Both = ImGuiReturnFlags.Visible | ImGuiReturnFlags.Open
 }
 
 enum ImGuiStyleVar
@@ -443,4 +443,32 @@ enum ImGuiMouseCursor
     Hand,              // (Unused by Dear ImGui functions. Use for e.g. hyperlinks)
     NotAllowed,        // When hovering something with disallowed interaction. Usually a crossed circle.
     COUNT
+};
+
+enum ImGuiTabBarFlags
+{
+    None                           = 0,
+    Reorderable                    = 1 << 0,   // Allow manually dragging tabs to re-order them + New tabs are appended at the end of list
+    AutoSelectNewTabs              = 1 << 1,   // Automatically select new tabs when they appear
+    TabListPopupButton             = 1 << 2,   // Disable buttons to open the tab list popup
+    NoCloseWithMiddleMouseButton   = 1 << 3,   // Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You can still repro this behavior on user's side with if (IsItemHovered() && IsMouseClicked(2)) *p_open = false.
+    NoTabListScrollingButtons      = 1 << 4,   // Disable scrolling buttons (apply when fitting policy is FittingPolicyScroll)
+    NoTooltip                      = 1 << 5,   // Disable tooltips when hovering a tab
+    FittingPolicyResizeDown        = 1 << 6,   // Resize tabs when they don't fit
+    FittingPolicyScroll            = 1 << 7,   // Add scroll buttons when tabs don't fit
+    FittingPolicyMask_             = ImGuiTabBarFlags.FittingPolicyResizeDown | ImGuiTabBarFlags.FittingPolicyScroll,
+    FittingPolicyDefault_          = ImGuiTabBarFlags.FittingPolicyResizeDown,
+};
+
+enum ImGuiTabItemFlags
+{
+    None                          = 0,
+    UnsavedDocument               = 1 << 0,   // Display a dot next to the title + tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
+    SetSelected                   = 1 << 1,   // Trigger flag to programmatically make the tab selected when calling BeginTabItem()
+    NoCloseWithMiddleMouseButton  = 1 << 2,   // Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You can still repro this behavior on user's side with if (IsItemHovered() && IsMouseClicked(2)) *p_open = false.
+    NoPushId                      = 1 << 3,   // Don't call PushID(tab->ID)/PopID() on BeginTabItem()/EndTabItem()
+    NoTooltip                     = 1 << 4,   // Disable tooltip for the given tab
+    NoReorder                     = 1 << 5,   // Disable reordering this tab or having another tab cross over this tab
+    Leading                       = 1 << 6,   // Enforce the tab position to the left of the tab bar (after the tab list popup button)
+    Trailing                      = 1 << 7,   // Enforce the tab position to the right of the tab bar (before the scrolling buttons)
 };
