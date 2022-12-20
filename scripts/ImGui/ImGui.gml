@@ -1332,11 +1332,12 @@ function ImGui() constructor {
         return __imgui_surface(surf, width, height, blend, alpha, texture_get_uvs(tex));
     }
 
-    /// @function Buffer(ind, size)
+    /// @function Buffer(title, ind, size)
+    /// @argument {String} title
     /// @argument {Real} ind
     /// @argument {Real} [size=buffer_get_size[ind]]
-    static Buffer = function(ind, size=buffer_get_size(ind)) {
-        return __imgui_buffer(ind, size);
+    static Buffer = function(title, ind, size=buffer_get_size(ind)) {
+        return __imgui_buffer(title, ind, size);
     }
 
     /// @function BeginTooltip()

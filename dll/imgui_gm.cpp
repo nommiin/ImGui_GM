@@ -2336,15 +2336,17 @@ GMFUNC(__imgui_surface) {
 	return;
 }
 
+// TODO: This function just draws a standalone window, would be nice to build MemoryEditors from GM!
 static MemoryEditor buffer_edit;
 GMFUNC(__imgui_buffer) {
-	double ind = YYGetReal(arg, 0);
-	double size = YYGetReal(arg, 1);
-	GMDEFAULT(buffer_get_size(#arg0));
+	const char* title = YYGetString(arg, 0);
+	double ind = YYGetReal(arg, 1);
+	double size = YYGetReal(arg, 2);
+	GMDEFAULT(buffer_get_size(#arg1));
 	GMOVERRIDE(Buffer);
 
 	void* buff = BufferGet(BufferGetFromGML(ind));
-	buffer_edit.DrawWindow("Buffer", buff, size);
+	buffer_edit.DrawWindow(title, buff, size);
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
