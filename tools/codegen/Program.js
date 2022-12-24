@@ -1,10 +1,7 @@
 const fs = require("node:fs");
-const Logger = require("./Logger");
 const FileEditor = require("./FileEditor");
 const Scanner = require("./Scanner");
-const TokenReader = require("./TokenReader");
 const Processor = require("./Processor");
-const Token = require("./Token");
 
 class Program {
     /**
@@ -26,23 +23,17 @@ class Program {
             throw `Could not parse wrapper, file is empty`
         }
 
-        const scanner = new Scanner(`
-            function test(_arg) {
-                console.log("hewwo" + _arg);
-            }
-
-            var a = test(32);
-        `);// file.Content);
+        const scanner = new Scanner(file.Content);
         if (scanner.Tokens.length === 0) {
             throw `Could not parse wrapper, token list is empty`;
         }
 
-        const reader = new Processor(scanner.Tokens).getCpp();
-        if (reader.Tokens.length === 0) {
+        const tokens = new Processor(scanner.Tokens).get();
+        if (tokens.length === 0) {
             throw `Could not parse wrapper, processed token list is empty`;
         }
 
-        fs.writeFileSync("wrapper_tokens.json", JSON.stringify(reader.Tokens, undefined, 4), {encoding: "utf-8"});
+        fs.writeFileSync("wrapper_tokens.json", JSON.stringify(tokens, undefined, 4), {encoding: "utf-8"});
         return;
         let func = {};
         while (!reader.end()) {
