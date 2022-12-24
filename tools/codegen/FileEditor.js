@@ -1,4 +1,4 @@
-const fs = require("node:fs"), path = require("node:path"), crypto = require("node:crypto"), Logger = require("./util/Logger"), Configuration = require("./Configuration");
+const fs = require("node:fs"), path = require("node:path"), crypto = require("node:crypto"), Logger = require("./Logger"), Configuration = require("./Configuration");
 
 class FileEditor {
     /**
