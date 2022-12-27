@@ -1,3 +1,4 @@
+const Configuration = require("./Configuration");
 const Token = require("./Token"), Logger = require("./Logger");
 
 class Scanner {
@@ -90,6 +91,7 @@ class Scanner {
             case "^": this.match("="); break;
             case ":": this.match(":"); break;
             case "*": this.match("="); break;
+            case ";": if (!Configuration.KEEP_SEMICOLONS) return undefined;
             case "&": if (!this.match("&")) this.match("="); break;
             case "|": if (!this.match("|")) this.match("="); break;
             case "+": if (!this.match("=")) this.match("+"); break;
@@ -97,8 +99,10 @@ class Scanner {
             case "<": if (!this.match("<=")) if (!this.match("<")) this.match("="); break;
             case ">": if (!this.match(">=")) if (!this.match(">")) this.match("="); break;
             case "-": if (!this.match(">*")) if (!this.match(">")) if (!this.match("=")) this.match("-"); break;
+            // i'm not supporting spaceship operators, sorry
 
             case "\"": {
+                const line_base = this.Line;
                 while ((this.peek() !== "\"" || this.peek(-1) === "\\") && !this.end()) {
                     if (this.GML) {
                         if (this.peek() === "\n") {
@@ -109,7 +113,7 @@ class Scanner {
                 }
 
                 if (this.end()) {
-                    throw "Unterminated string!";
+                    throw `Could not find terminating double-quote for string at Ln ${line_base}`;
                 }
 
                 this.advance();
@@ -119,13 +123,14 @@ class Scanner {
             }
 
             case "'": {
+                const line_base = this.Line;
                 while (this.peek() !== "'" && !this.end()) {
                     if (this.peek() === "\n") {this.Line++; this.LineStart = this.Index;}
                     this.advance();
                 }
 
                 if (this.end()) {
-                    throw "Unterminated char!";
+                    throw `Could not find terminating quote for char at Ln ${line_base}`;
                 }
 
                 this.advance();
@@ -142,7 +147,7 @@ class Scanner {
                             break;
                         }
                     }
-                    const ret = this.token("Comment");
+                    const ret = (Configuration.KEEP_COMMENTS ? this.token("Comment") : undefined);
                     this.LineStart = this.Index;
                     return ret;
                 } else if (this.match("*")) {
@@ -154,7 +159,7 @@ class Scanner {
                     }
                     const ret = this.token("CommentMultiline");
                     this.LineStart = this.Index;
-                    return ret;
+                    return (Configuration.KEEP_COMMENTS ? ret : undefined);
                 }
                 this.match("=");
                 break;

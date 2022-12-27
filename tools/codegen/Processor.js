@@ -112,7 +112,22 @@ class Processor {
         }
 
         switch (token.Type) {
-            
+            case "Identifier": {
+                const next = reader.peek();
+                if (next) {
+                    if (next.Type === Token.name("()")) {
+                        const more = reader.peek(1);
+                        if (more && more.Type === Token.name("{}")) {
+                            token.Type = "FunctionDef";
+                        } else {
+                            token.Type = "FunctionCall";
+                        }
+                        token.Children = next.Children;
+                        reader.advance();
+                        return token;
+                    }
+                }
+            }
         }
         return token;
     }
@@ -135,3 +150,4 @@ class Processor {
 }
 
 module.exports = Processor;
+if (!global["__codegen_main"]) if (!global["__codegen_warn"]) {global["__codegen_warn"]=1;console.error("Please execute the program by running main.js");}

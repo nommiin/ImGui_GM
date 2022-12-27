@@ -4,6 +4,10 @@ class Configuration {
 
     // Spacing character used for writing generated code
     static SPACING = "    ";
+
+    // Used by scanner class
+    static KEEP_SEMICOLONS = false;
+    static KEEP_COMMENTS = false;
 }
 
 module.exports = Configuration;
