@@ -77,7 +77,7 @@ class Scanner {
 
     token_auto(fallback=undefined) {
         const literal = this.Content.slice(this.Start, this.Index), name = Token.name(literal) ?? fallback;
-        if (!name) throw `Could not determine type for token at Ln ${this.Line}, Col ${this.Start - this.LineStart}`;
+        if (!name) throw `Could not determine type for token at line ${this.Line} (${this.Start - this.LineStart})`;
         return new Token(name, literal, this.Start, this.Start - this.LineStart, this.Line);
     }
 
@@ -113,7 +113,7 @@ class Scanner {
                 }
 
                 if (this.end()) {
-                    throw `Could not find terminating double-quote for string at Ln ${line_base}`;
+                    throw `Could not find terminating double-quote for string at line ${line_base}`;
                 }
 
                 this.advance();
@@ -130,7 +130,7 @@ class Scanner {
                 }
 
                 if (this.end()) {
-                    throw `Could not find terminating quote for char at Ln ${line_base}`;
+                    throw `Could not find terminating quote for char at line ${line_base}`;
                 }
 
                 this.advance();
@@ -193,11 +193,11 @@ class Scanner {
     number(char) {
         let type = "Number";
         if (this.match("b")) {
-            if (char !== "0") throw `Binary literal must start with 0`;
+            if (char !== "0") throw `Binary literal at line ${this.Line} must start with 0`;
             type = "NumberBinary";
         } else {
             if (this.match("x")) {
-                if (char !== "0") throw `Hexadecimal literal must start with 0`;
+                if (char !== "0") throw `Hexadecimal literal at line ${this.Line} must start with 0`;
 
                 while (!this.end()) {
                     const next = this.peek(), code = next.charCodeAt(0);

@@ -9,6 +9,6 @@ try {
     Logger.info(`Script execution completed successfully in ${Math.round(performance.now() - start)}ms`);
     process.exit(0);
 } catch (e) {
-    Logger.error(e);
+    Logger.error(`An error has occured:\n- ${e}`);
     process.exit(1);
 }

@@ -2,6 +2,11 @@ const fs = require("node:fs");
 const FileEditor = require("./FileEditor");
 const Scanner = require("./Scanner");
 const Processor = require("./Processor");
+const TokenReader = require("./TokenReader");
+const Logger = require("./Logger");
+const Configuration = require("./Configuration");
+const Wrapper = require("./Wrapper");
+const Token = require("./Token");
 
 class Program {
     /**
@@ -33,100 +38,108 @@ class Program {
             throw `Could not parse wrapper, processed token list is empty`;
         }
 
-        fs.writeFileSync("wrapper_tokens.json", JSON.stringify(tokens, undefined, 4), {encoding: "utf-8"});
-        return;
-        let func = {};
+        const reader = new TokenReader(tokens), wrapper_keyword = Configuration.WRAPPER_DEF, functions = [];
         while (!reader.end()) {
-            const token = reader.advance();
-            if (token.Type !== "FunctionDef" || token.Literal !== "GMFUNC") continue;
+            const token = reader.advance(), wrapper_args = token.Children;
+            if (token.Type !== "FunctionDef" || token.Literal !== wrapper_keyword || !wrapper_args) continue;
+            if (wrapper_args.length !== 1) throw `Could not parse wrapper, ${wrapper_keyword} explicitly requires 1 argument at line ${token.Line}`;
+
+            const wrapper = new Wrapper(wrapper_args[0].Literal), body = reader.advance();
+            if (!body.Children || body.Children.length === 0) throw `Could not parse wrapper, ${wrapper_keyword} at line ${token.Line} does not contain any tokens`;
             
-            const name = token.Children[0].Literal, next = reader.advance();
-            if (next.Type !== "BracePair") continue; //throw `Could not parse GMFUNC, expected curly braces following arguments`;
+            let arg_current = 0;
+            let arg_protect = true;
+            const args = new TokenReader(body.Children);
+            while (!args.end()) {
+                const token = args.advance();
+                switch (token.Type) {
+                    case "FunctionCall": {
+                        // check for C++ call
+                        const prev = args.previous();
+                        if (prev.Type === Token.name("::")) {
+                            const more = args.previous(2);
+                            if (more.Type === "Identifier" && more.Literal === "ImGui") {
+                                wrapper.calls(token.Literal);
+                            }
+                        } else {
+                            // normal call, probs
+                            const func = token.Literal;
+                            if (func.startsWith("YYGet")) {
+                                const yy_args = token.Children.filter(e => e.Type !== Token.name(","));
+                                if (yy_args.length < 2) {
+                                    Logger.warning(`Expected 2 arguments for a call to ${func} at line ${token.Line} but got ${yy_args.length}, skipping this argument`);
+                                    continue; 
+                                }
 
-            let ind = -1;
-            for(let i = 0; i < next.Children.length; i++) {
-                const inner = next.Children[i];
-                console.log(inner.Literal);
-            }
-            console.log(name.Literal);
+                                const base = yy_args[0].Literal;
+                                if (base !== "arg") Logger.warning(`Expected "arg" as first argument in call to ${func} at line ${token.Line} but got "${base}"`);
+                                const ind = yy_args[1];
+                                if (ind.Type !== "Number") {
+                                    Logger.warning(`Expected Number for second argument in call to ${func} at line ${token.Line} but got ${ind.Type} (${ind.Literal})`);
+                                    Logger.warning(`Argument index protection has been disabled for ${wrapper.Name}`);
+                                    arg_protect = false;
+                                }
 
-            func[name] = {
+                                if (arg_protect) {
+                                    let arg_read = -1;
+                                    try {
+                                        arg_read = parseInt(ind.Literal);
+                                    } catch (e) {
+                                        throw `Could not parse wrapper, failed to parse second argument as integer for ${func} at line ${token.Line} (${e})`;
+                                    }
 
-            }
-        }
+                                    if ((arg_read - arg_current) < 0) throw `Argument index protection triggered, found argument skip backwards from ${arg_current} to ${arg_read} at line ${token.Line}`;
 
-        return [];
+                                    const diff = (arg_read - arg_current);
+                                    if (diff > 1) throw `Argument index protection triggered, found argument skip forward from ${arg_current} to ${arg_read} at line ${token.Line}`;
+                                    
 
+                                    arg_current = arg_read;
+                                    /*
+                                    try {
 
-        //fs.writeFileSync("wrapper_tokens.json", JSON.stringify(reader.Tokens, undefined, 4), {encoding: "utf-8"});
-
-        //console.log(`got ${reader.Length} tokens`);
-        /*
-        while (!tokens.end()) {
-            const prev = tokens.previous(), token = tokens.advance();
-            if (token.Type !== "Identifier" || token.Literal !== "GMFUNC") continue;
-
-            // Ignore for #define
-            if (prev.Type === "PreprocessorDirective" && prev.Literal === "#define") continue;
-
-            // Get name for GameMaker
-            const args = tokens.between_nested("(", ")");
-            if (args.length !== 1) {
-                throw `Could not parse GMFUNC directive at line ${token.Line}, explicitly requires 1 argument (got ${args.length})`;
-            }
-
-            // Copy tokens to return keyword
-            const name = args[0], content = tokens.between_nested("{", "}");
-            if (!content) {
-                throw `Could not parse GMFUNC directive at line ${token.Line}, find to read tokens between curly braces`;
-            }
-
-            // Infer types and look at directives
-            const reader = new TokenReader(content);
-            while (!reader.end()) {
-                const token = reader.advance();
-                if (token.Type !== "Identifier") continue;
-
-                switch (token.Literal) {
-                    case "GMDEFAULT":
-                    case "GMHIDDEN":
-                    case "GMPASSTHROUGH":
-                    case "GMINJECT":
-                    case "GMOVERRIDE": {
-                        const args = reader.between_nested("(", ")").map(e => e.Literal).join("");
-                        console.log(`GOT: ${token.Literal} w/ args: ${args}`);
+                                    }
+                                    try {
+                                        const arg_ind = parseInt(ind.Literal), diff = (arg_ind - arg_current);
+                                    } catch (e) {
+                                        
+                                    }
+                                        if (diff > 1) throw `Argument index protection triggered, found argument skip from ${arg_current} to ${arg_ind} at line ${token.Line}`;
+                                        //console.log("diff: " + (arg_ind - arg_current));
+                                        arg_current = arg_ind;
+                                    } catch (e) {
+                                        arg_protect = false;
+                                    }*/
+                                }
+                            }
+                        }
                         break;
                     }
 
-                    default: {
-                        if (token.Literal.startsWith("YYGet")) {
-                            const args = reader.between_nested("(", ")").map(e => e.Literal).join("");
-                            console.log(`YYGET: ${token.Literal} w/ args: ${args}`);
-                        }
+                    case "BinaryAnd": {
+                        const next = args.peek();
+                        if (next.Type === "Identifier" && next.Literal === "arg") {
+                            //console.log("maybe arg access");
+                        } 
+                        break;
                     }
                 }
+                
             }
 
-            tokens.Index += reader.Length;
+            functions.push(wrapper);
+            /*
+            const func_name = args[0].Literal, func_body = reader.advance();
+            console.log(`body contains ${func_body.Children.length} tokens`);
 
-            console.log(`Found: ${name.Literal}, first: ${JSON.stringify(content[0])}`);
-            //console.log(a.map(e => `${e.Type} = ${e.Literal}`));
-        }*/
-        /*
-        for(let i = 0; i < tokens.length; i++) {
-            const token = tokens[i];
-            if (token.Type !== "Identifier") {
-                continue;
-            }
+            functions.push({
+                Name: func_name
+            });*/
+        }
 
-            switch (token.Literal) {
-                case "GMFUNC": {
-                    
-                    break;
-                }
-            }
-
-        }*/
+        Logger.info(`Parsed wrapper file and retrieved ${functions.length} definitions`);
+        if (functions.length === 0) Logger.warning(`Ensure that you are using the correct wrapper keyword (WRAPPER_DEF = "${wrapper_keyword}" in Configuration.js)`);
+        return functions;
     }
 }
 
