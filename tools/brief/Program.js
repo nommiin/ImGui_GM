@@ -1,4 +1,3 @@
-const fs = require("node:fs");
 const FileEditor = require("./FileEditor");
 const Scanner = require("./Scanner");
 const Processor = require("./Processor");
@@ -8,9 +7,12 @@ const Configuration = require("./Configuration");
 const Wrapper = require("./Wrapper");
 const Token = require("./Token");
 
+/**
+ * Written by Nommiin - https://github.com/Nommiin
+ */ 
 class Program {
     /**
-     * Entry point for codegen tool, see Configuration.js for options
+     * Entry point for tool, see Configuration.js for options
      * @param {string} wrapper Path to wrapper .cpp file
      * @param {string} extension Path to extension .yy file
      * @param {string} script Path to ImGui .gml script
@@ -45,6 +47,7 @@ class Program {
             if (wrapper_args.length !== 1) throw `Could not parse wrapper, ${wrapper_keyword} explicitly requires 1 argument at line ${token.Line}`;
 
             const wrapper = new Wrapper(wrapper_args[0].Literal), body = reader.advance();
+            if (!body || body.Type !== Token.name("{}")) throw `Could not parse wrapper, ${wrapper_keyword} at line ${token.Line} is not followed by a ${Token.name("{}")} token`;
             if (!body.Children || body.Children.length === 0) throw `Could not parse wrapper, ${wrapper_keyword} at line ${token.Line} does not contain any tokens`;
             
             let arg_current = 0;
@@ -144,4 +147,4 @@ class Program {
 }
 
 module.exports = Program;
-if (!global["__codegen_main"]) if (!global["__codegen_warn"]) {global["__codegen_warn"]=1;console.error("Please execute the program by running main.js");}
+if (!global["__program_main"]) if (!global["__program_warn"]) {global["__program_warn"]=1;console.error("Please execute the program by running main.js");}

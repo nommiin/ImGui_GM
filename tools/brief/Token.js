@@ -1,5 +1,8 @@
 /**
- * @description Generic container for parsed token
+ * Generic container for a parsed token
+ * Token.name static method can be used to convert individual characters into token names
+ * 
+ * Written by Nommiin - https://github.com/Nommiin 
  */
 class Token {
     /**
@@ -82,4 +85,4 @@ class Token {
 }
 
 module.exports = Token;
-if (!global["__codegen_main"]) if (!global["__codegen_warn"]) {global["__codegen_warn"]=1;console.error("Please execute the program by running main.js");}
+if (!global["__program_main"]) if (!global["__program_warn"]) {global["__program_warn"]=1;console.error("Please execute the program by running main.js");}

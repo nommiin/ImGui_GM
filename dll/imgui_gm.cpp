@@ -2018,7 +2018,7 @@ static std::vector<std::string> s_Strings;
 GMFUNC(__imgui_listbox) {
 	const char* label = YYGetString(arg, 0);
 	int ind = YYGetReal(arg, 1);
-	RValue* items = &arg[2]; // = YYGetArray<String>(arg, 2);
+	RValue* items = &arg[2];
 	double height_in_items = YYGetReal(arg, 3);
 	GMDEFAULT(-1);
 
@@ -2068,7 +2068,7 @@ GMFUNC(__imgui_listbox) {
 static std::vector<float> s_Lines;
 GMFUNC(__imgui_plot_lines) {
 	const char* label = YYGetString(arg, 0);
-	RValue* values = &arg[1]; // = YYGetArray<Float>(arg, 1);
+	RValue* values = &arg[1];
 	const char* overlay = YYGetString(arg, 2);
 	GMDEFAULT("");
 	double width = YYGetReal(arg, 3);

@@ -1,12 +1,25 @@
-const fs = require("node:fs"), path = require("node:path"), crypto = require("node:crypto"), Logger = require("./Logger"), Configuration = require("./Configuration");
+const fs = require("node:fs");
+const path = require("node:path");
+const crypto = require("node:crypto");
+const Logger = require("./Logger");
+const Configuration = require("./Configuration");
 
+/**
+ * Class to handle read & writing updates to a given file, loads content upon load
+ * Use prepend(val)/append(val)/update(content) to modify the file in memory
+ * Use commit() to write changes to disk, returns if changes were made & file written
+ * 
+ * Written by Nommiin - https://github.com/Nommiin
+ */
 class FileEditor {
     /**
      * @param {string} file File to load
+     * @param {boolean} readonly If the file is immutable
      */
-    constructor(file) {
+    constructor(file, readonly=false) {
         this.File = path.normalize(file);
         this.Name = path.basename(this.File);
+        this.Immutable = readonly;
         if (!fs.existsSync(this.File)) {
             throw `Failed to load file: "${this.Name}", file does not exist at ${this.File}`;
         }
@@ -24,6 +37,7 @@ class FileEditor {
      * @param {string} value The value to write
      */
     prepend(value) {
+        if (this.Immutable) throw `Could not prepend to file: "${this.Name}", file is marked as immutable`;
         this.Content = value + this.Content;
         this.Changed = true;
     }
@@ -33,6 +47,7 @@ class FileEditor {
      * @param {string} value The value to write
      */
     append(value) {
+        if (this.Immutable) throw `Could not append to file: "${this.Name}", file is marked as immutable`;
         this.Content += value;
         this.Changed = true;
     }
@@ -43,6 +58,8 @@ class FileEditor {
      * @returns {boolean} If the value has been updated
      */
     update(value) {
+        if (this.Immutable) throw `Could not update file: "${this.Name}", file is marked as immutable`;
+
         const hash = crypto.createHash("md5").update(value).digest("hex");
         if (hash === this.Hash) {
             return false;
@@ -64,6 +81,8 @@ class FileEditor {
             return false;
         }
 
+        if (this.Immutable) throw `Could not commit file: "${this.Name}", file is marked as immutable`;
+        
         try {
             fs.writeFileSync(this.File + (Configuration.USE_TEST ? ".test" : ""), this.Content, {encoding: "utf-8"});
             this.Hash = crypto.createHash("md5").update(this.Content).digest("hex");
@@ -84,4 +103,4 @@ class FileEditor {
 }
 
 module.exports = FileEditor;
-if (!global["__codegen_main"]) if (!global["__codegen_warn"]) {global["__codegen_warn"]=1;console.error("Please execute the program by running main.js");}
+if (!global["__program_main"]) if (!global["__program_warn"]) {global["__program_warn"]=1;console.error("Please execute the program by running main.js");}

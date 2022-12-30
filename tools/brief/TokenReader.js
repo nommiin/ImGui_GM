@@ -1,3 +1,8 @@
+/**
+ * Generic class to step through and read tokens in an array
+ * 
+ * Written by Nommiin - https://github.com/Nommiin 
+ */
 class TokenReader {
     constructor(tokens) {
         this.Tokens = tokens;
@@ -24,4 +29,4 @@ class TokenReader {
 }
 
 module.exports = TokenReader;
-if (!global["__codegen_main"]) if (!global["__codegen_warn"]) {global["__codegen_warn"]=1;console.error("Please execute the program by running main.js");}
+if (!global["__program_main"]) if (!global["__program_warn"]) {global["__program_warn"]=1;console.error("Please execute the program by running main.js");}

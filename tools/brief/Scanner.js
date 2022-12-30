@@ -1,12 +1,19 @@
 const Configuration = require("./Configuration");
-const Token = require("./Token"), Logger = require("./Logger");
+const Token = require("./Token");
+const Logger = require("./Logger");
 
+/**
+ * Main scanner class, takes "content" as string and invokes this.scan upon construction
+ * Resulting tokens are stored in this.Tokens
+ * 
+ * Written by Nommiin - https://github.com/Nommiin 
+ */
 class Scanner {
     constructor(content, gml=false) {
         this.Content = content;
         this.Length = content.length;
-        this.GML = gml;
         this.Tokens = [];
+        this.GML = gml;
 
         this.Index = 0;
         this.Start = 0;
@@ -16,6 +23,7 @@ class Scanner {
         this.scan();
     }
 
+    // Shoutout to ChatGPT for the below arrays
     static Keywords = [
         "alignas",          "alignof",       "and",           "and_eq",
         "asm",              "atomic_cancel", "atomic_commit", "atomic_noexcept",
@@ -40,8 +48,9 @@ class Scanner {
         "true",             "try",           "typedef",       "typeid",
         "typename",         "union",         "unsigned",      "using",
         "virtual",          "void",          "volatile",      "wchar_t",
-        "while",            "xor",           "xor_eq",        "function",
-        "constructor"
+        "while",            "xor",           "xor_eq",
+        // GML Keywords
+        "function",         "constructor"
     ];
     static Keywords_GML_Start = Scanner.Keywords.length - 2;
 
@@ -50,6 +59,7 @@ class Scanner {
         "#endif",  "#error",  "#if",
         "#ifdef",  "#ifndef", "#include",
         "#line",   "#pragma", "#undef",
+        // GML Keywords
         "#macro",  "#region", "#endregion"
     ];
     static Directives_GML_Start = Scanner.Directives.length - 3;
@@ -70,8 +80,8 @@ class Scanner {
         return this.Tokens;
     }
 
-    token(type, literal) {
-        if (!literal) return new Token(type, this.Content.slice(this.Start, this.Index), this.Start, this.Start - this.LineStart, this.Line);
+    token(type, literal=undefined) {
+        if (literal === undefined) return new Token(type, this.Content.slice(this.Start, this.Index), this.Start, this.Start - this.LineStart, this.Line);
         return new Token(type, literal, this.Start, this.Start - this.LineStart, this.Line);
     }
 
@@ -213,8 +223,7 @@ class Scanner {
             this.advance();
             while (this.digit(this.peek())) this.advance();
         }
-        const literal = this.Content.slice(this.Start, this.Index);
-        return this.token("Number", (type === "Number" ? parseFloat(literal) : literal));
+        return this.token(type, parseFloat(this.Content.slice(this.Start, this.Index)));
     }
 
     alpha(char) {
@@ -264,4 +273,4 @@ class Scanner {
 }
 
 module.exports = Scanner;
-if (!global["__codegen_main"]) if (!global["__codegen_warn"]) {global["__codegen_warn"]=1;console.error("Please execute the program by running main.js");}
+if (!global["__program_main"]) if (!global["__program_warn"]) {global["__program_warn"]=1;console.error("Please execute the program by running main.js");}
