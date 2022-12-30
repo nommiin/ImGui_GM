@@ -118,14 +118,6 @@ class Program {
                         }
                         break;
                     }
-
-                    case "BinaryAnd": {
-                        const next = args.peek();
-                        if (next.Type === "Identifier" && next.Literal === "arg") {
-                            //console.log("maybe arg access");
-                        } 
-                        break;
-                    }
                 }
                 
             }

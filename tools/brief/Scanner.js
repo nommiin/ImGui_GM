@@ -95,13 +95,13 @@ class Scanner {
         const char = this.advance();
         switch (char) {
             case " ": case "\t": case "\r": return undefined;
+            case ";": if (!Configuration.KEEP_SEMICOLONS) return undefined;
             case "!": this.match("="); break;
             case "=": this.match("="); break;
             case "%": this.match("="); break;
             case "^": this.match("="); break;
             case ":": this.match(":"); break;
             case "*": this.match("="); break;
-            case ";": if (!Configuration.KEEP_SEMICOLONS) return undefined;
             case "&": if (!this.match("&")) this.match("="); break;
             case "|": if (!this.match("|")) this.match("="); break;
             case "+": if (!this.match("=")) this.match("+"); break;

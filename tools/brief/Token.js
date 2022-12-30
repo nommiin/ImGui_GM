@@ -20,6 +20,10 @@ class Token {
         this.Line = line;
         this.Children = undefined;
     }
+    
+    toDebug() {
+        return `L${this.Line}: ${this.Type} = ${this.Literal}`
+    }
 
     static name(val) {
         switch (val) {

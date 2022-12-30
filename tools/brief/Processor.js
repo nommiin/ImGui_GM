@@ -14,6 +14,34 @@ class Processor {
         this.Tokens = tokens;
     }
 
+    token_directives(reader, token) {
+        if (token.Type === Token.name("#")) {
+            switch (token.Literal.slice(1)) {
+                case "include": {
+                    let next = reader.advance();
+                    if (next.Type === "String") {
+                        token.Type = "IncludeProgram";
+                    } else {
+                        token.Type = "IncludeStandard";
+                        if (next.Type !== Token.name("<")) throw `Could not find opening token for ${token.Type} at line ${token.Line}`;
+
+                        let literal = "";
+                        while (!reader.end()) {
+                            const read = reader.advance();
+                            if (read.Type === Token.name(">")) break;
+                            literal += read.Literal;
+                        }
+                        token.Literal = literal;
+                        return token;
+                    }
+                    token.Literal = next.Literal;
+                    return token;
+                }
+            }
+        }
+        return token;
+    }
+
     token_group(reader, token) {
         switch (token.Type) {
             case Token.name("("):
@@ -78,32 +106,31 @@ class Processor {
         }
         return token;
     }
-
+    
     token_templates(reader, token) {
         if (token.Type === Token.name("<")) {
             const next = reader.peek();
             if (next.Type === "Keyword" || next.Type === "Identifier") {
-                console.log("potential template args at " + token.Line);
-            }
-        }
-        /*if (token.Type === Token.name(">")) {
-            const next = reader.peek();
-            if (next.Type === Token.name("()")) {
-                let found = false;
-                for(let i = reader.Index - 1; i > 0; i--) {
+                let found = false, args = [];
+                for(let i = reader.Index; i < reader.Length; i++) {
                     const find = reader.Tokens[i];
-                    if (find.Type === Token.name("<")) {
-                        find.Type = "TemplateStartArgs";
-                        found = true;
-                        break;
+                    if (find.Type === Token.name(">")) {
+                        const more = reader.Tokens[i + 1];
+                        if (more && more.Type === Token.name("()")) {
+                            reader.Index = i + 1;
+                            found = true;
+                            break;
+                        }
                     }
+                    args.push(find);
                 }
-                if (!found) throw `Could not find opening token for TemplateEndArgs (>) at line ${token.Line}`;
+                if (!found) return token;
 
-                token.Type = "TemplateEndArgs";
+                token.Type = "TemplateArgs";
+                token.Literal = args.map(e => e.Literal).join("");
                 return token;
             }
-        }*/
+        }
         return token;
     }
 
@@ -112,21 +139,10 @@ class Processor {
             case "Identifier": {
                 let next = reader.peek();
                 if (next) {
-                    if (next.Type === "TemplateStartArgs") {
-                        let found = false, args = [];
-                        while (!reader.end()) {
-                            const end = reader.advance();
-                            args.push(end);
-                            if (end) {
-                                if (end.Type === "TemplateEndArgs") {
-                                    found = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if (!found) throw `Could not find closing token for ${token.Type} at line ${token.Line}`;
-                        token.Literal += `|template=${args.map(e => e.Literal).join("")}`;
-                        next = reader.peek();
+                    if (next.Type === "TemplateArgs") {
+                        token.Literal += "|template=" + next.Literal;
+                        reader.Index++;
+                        next = reader.advance();
                     }
 
                     if (next.Type === Token.name("()")) {
@@ -161,6 +177,7 @@ class Processor {
 
     get() {
         let tokens = this.Tokens, steps = [
+            this.token_directives,
             this.token_group,
             this.token_pointers,
             this.token_templates,
