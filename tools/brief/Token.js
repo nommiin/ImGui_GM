@@ -20,9 +20,62 @@ class Token {
         this.Line = line;
         this.Children = undefined;
     }
+
+    flatten(self=true) {
+        let str = self ? this.Literal : "", pair = undefined;
+        if (self) {
+            switch (this.Type) {
+                case "FunctionCall": {
+                    str += "(";
+                    pair = ")";
+                    break;
+                }
+
+                case "BracePair": {
+                    str += "{";
+                    pair = "}";
+                    break;
+                }
+
+                case "BracketPair": {
+                    str += "[";
+                    pair = "]";
+                    break;
+                }
+
+                case "Identifier": {
+                    switch (this.Literal) {
+                        case "var": {
+                            str += " ";
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                case "Assign": {
+                    str = " " + str + " ";
+                    break;
+                }
+
+                case "Comma":
+                case "Semicolon": {
+                    pair = " ";
+                    break;
+                }
+            }
+        }
+        
+        if (this.Children) {
+            for(let i = 0; i < this.Children.length; i++) {
+                str += this.Children[i].flatten();
+            }
+        }
+        return str + (self ? pair ?? "" : "");
+    }
     
     toDebug() {
-        return `L${this.Line}: ${this.Type} = ${this.Literal}`
+        return `L${this.Line}: {T: ${this.Type}, V: ${this.Literal}}`;
     }
 
     static name(val) {

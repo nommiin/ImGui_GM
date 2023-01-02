@@ -9,16 +9,18 @@ const Logger = require("./Logger");
  * Written by Nommiin - https://github.com/Nommiin 
  */
 class Scanner {
-    constructor(content, gml=false) {
+    constructor(content, settings) {
         this.Content = content;
         this.Length = content.length;
         this.Tokens = [];
-        this.GML = gml;
+        this.GML = settings?.gml;
 
         this.Index = 0;
         this.Start = 0;
         this.Line = 1;
         this.LineStart = 0;
+
+        this.Quiet = settings?.quiet;
 
         this.scan();
     }
@@ -76,7 +78,7 @@ class Scanner {
             }
         }
         this.Tokens.push(this.token("EndFile", undefined));
-        Logger.info(`Scanned ${this.Line - 1} lines and read ${this.Tokens.length} tokens (${artifact_count} unknown tokens)`);
+        if (!this.Quiet) Logger.info(`Scanned ${this.Line - 1} lines and read ${this.Tokens.length} tokens (${artifact_count} unknown tokens)`);
         return this.Tokens;
     }
 

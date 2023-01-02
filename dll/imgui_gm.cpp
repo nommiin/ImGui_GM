@@ -25,13 +25,14 @@ static RValue s_Copy;
 
 #define GMFUNC(name) __declspec(dllexport) void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 
-// For gen-bindings.js
+// Modifiers for brief
 #define GMDEFAULT(...) /**/
 #define GMPASSTHROUGH(...) /**/
 #define GMHIDDEN(...) /**/
 #define GMPREPEND(...) /**/
 #define GMAPPEND(...) /**/
 #define GMOVERRIDE(...) /**/
+#define GMRETURN(...) /**/
 
 #define GMCOLOR3_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(alpha * 0xFF))
 #define GMCOLOR4_TO(col) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(((int)col >> 24) & 0xFF))
@@ -1423,7 +1424,6 @@ GMFUNC(__imgui_slider_float3) {
 
 	const char* label = YYGetString(arg, 0);
 	float* val = YYGetArray<float>(arg, 1, len);
-	GMDEFAULT(1);
 	double val_min = YYGetReal(arg, 2);
 	GMDEFAULT(1);
 	double val_max = YYGetReal(arg, 3);
@@ -1745,6 +1745,7 @@ GMFUNC(__imgui_input_double) {
 char INPUT_BUF[SCRATCH_BUFFER_SIZE];
 GMFUNC(__imgui_input_text) {
 	const char* label = YYGetString(arg, 0);
+	GMRETURN();
 	const char* val = YYGetString(arg, 1);
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
@@ -1758,6 +1759,7 @@ GMFUNC(__imgui_input_text) {
 
 GMFUNC(__imgui_input_text_with_hint) {
 	const char* label = YYGetString(arg, 0);
+	GMRETURN();
 	const char* hint = YYGetString(arg, 1);
 	const char* val = YYGetString(arg, 2);
 	int64 flags = YYGetInt64(arg, 3);
@@ -1772,6 +1774,7 @@ GMFUNC(__imgui_input_text_with_hint) {
 
 GMFUNC(__imgui_input_text_multiline) {
 	const char* label = YYGetString(arg, 0);
+	GMRETURN();
 	const char* val = YYGetString(arg, 1);
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
@@ -2090,7 +2093,7 @@ GMFUNC(__imgui_plot_lines) {
 
 GMFUNC(__imgui_plot_histogram) {
 	const char* label = YYGetString(arg, 0);
-	RValue* values = &arg[1]; // = YYGetArray<Float>(arg, 1);
+	RValue* values = &arg[1];
 	const char* overlay = YYGetString(arg, 2);
 	GMDEFAULT("");
 	double width = YYGetReal(arg, 3);

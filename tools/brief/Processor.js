@@ -51,13 +51,26 @@ class Processor {
                 while (!reader.end()) {
                     const next = reader.advance();
                     switch (next.Type) {
-                        case Token.name(")"): 
+                        case Token.name(")"): {
+                            if (children.length === 1) {
+                                const inner = children[0];
+                                switch (inner.Type) {
+                                    case "TypePointer": {
+                                        token.Type = "Cast";
+                                        token.Literal = inner.Literal;
+                                        return token;
+                                    }
+                                }
+                            }
+                        }
+
                         case Token.name("}"): 
                         case Token.name("]"): {
                             token.Type = token.Type.slice("Left".length) + "Pair";
                             token.Children = children;
                             return token;
                         }
+
                         default: children.push(this.token_group(reader, next));
                     }
                 }
@@ -81,7 +94,7 @@ class Processor {
                 if (prev) {
                     if (prev.Type === Token.name("&")) {
                         prev.Type = "AddressOf";
-                        prev.Literal += token.Literal;
+                        prev.Literal = token.Literal;
                         return undefined;
                     }
                 }
@@ -141,17 +154,14 @@ class Processor {
                 if (next) {
                     if (next.Type === "TemplateArgs") {
                         token.Literal += "|template=" + next.Literal;
-                        reader.Index++;
-                        next = reader.advance();
+                        reader.advance();
+                        next = reader.peek();
                     }
 
                     if (next.Type === Token.name("()")) {
                         reader.advance();
-
                         const more = reader.peek();
-                        if (more) {
-                            token.Type = "Function" + (more.Type === Token.name("{}") ? "Def" : "Call");
-                        }
+                        token.Type = "Function" + (more && more.Type === Token.name("{}") ? "Def" : "Call");
                         token.Children = next.Children;
                         return token;
                     }
@@ -165,12 +175,14 @@ class Processor {
         const reader = new TokenReader(base), tokens = [];
         while (!reader.end()) {
             const token = reader.advance();
-            if (token.Children) {
-                token.Children = this.run(callback, token.Children, ind + 1);
-            }
-
             const ret = callback.apply(this, [reader, token]);
-            if (ret) tokens.push(ret);
+            if (ret) {
+                if (ret.Children) {
+                    ret.Children = this.run(callback, ret.Children, ind + 1);
+                }
+
+                tokens.push(ret);
+            }
         }
         return tokens;
     }
@@ -178,8 +190,8 @@ class Processor {
     get() {
         let tokens = this.Tokens, steps = [
             this.token_directives,
-            this.token_group,
             this.token_pointers,
+            this.token_group,
             this.token_templates,
             this.token_functions
         ];

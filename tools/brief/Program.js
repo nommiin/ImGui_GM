@@ -1,3 +1,4 @@
+const fs = require("node:fs");
 const FileEditor = require("./FileEditor");
 const Scanner = require("./Scanner");
 const Processor = require("./Processor");
@@ -22,119 +23,97 @@ class Program {
     }
 
     /**
-     * Reads imgui_gm.cpp script and parses out context needed for GameMaker
+     * Reads imgui_gm.cpp script and parses out exported functions for GameMaker
      * @param {FileEditor} file The file editor containing the wrapper
      */
     static parseWrapper(file) {
-        if (file.Size === 0) {
-            throw `Could not parse wrapper, file is empty`
-        }
+        const tokens = new Processor(new Scanner(file.Content).Tokens).get(), wrappers = [];
+        if (tokens.length === 0) throw `Could not parse "${file.Name}", processed token list is empty`;
 
-        const scanner = new Scanner(file.Content);
-        if (scanner.Tokens.length === 0) {
-            throw `Could not parse wrapper, token list is empty`;
-        }
-
-        const tokens = new Processor(scanner.Tokens).get();
-        if (tokens.length === 0) {
-            throw `Could not parse wrapper, processed token list is empty`;
-        }
-
-        const reader = new TokenReader(tokens), wrapper_keyword = Configuration.WRAPPER_DEF, functions = [];
+        const reader = new TokenReader(tokens), keyword = Configuration.WRAPPER_DEF;
         while (!reader.end()) {
-            const token = reader.advance(), wrapper_args = token.Children;
-            if (token.Type !== "FunctionDef" || token.Literal !== wrapper_keyword || !wrapper_args) continue;
-            if (wrapper_args.length !== 1) throw `Could not parse wrapper, ${wrapper_keyword} explicitly requires 1 argument at line ${token.Line}`;
-
-            const wrapper = new Wrapper(wrapper_args[0].Literal), body = reader.advance();
-            if (!body || body.Type !== Token.name("{}")) throw `Could not parse wrapper, ${wrapper_keyword} at line ${token.Line} is not followed by a ${Token.name("{}")} token`;
-            if (!body.Children || body.Children.length === 0) throw `Could not parse wrapper, ${wrapper_keyword} at line ${token.Line} does not contain any tokens`;
-            
-            let arg_current = 0;
-            let arg_protect = true;
-            const args = new TokenReader(body.Children);
-            while (!args.end()) {
-                const token = args.advance();
-                switch (token.Type) {
-                    case "FunctionCall": {
-                        // check for C++ call
-                        const prev = args.previous();
-                        if (prev.Type === Token.name("::")) {
-                            const more = args.previous(2);
-                            if (more.Type === "Identifier" && more.Literal === "ImGui") {
-                                wrapper.calls(token.Literal);
+            const token = reader.advance();
+            if (token && (token.Type === "FunctionDef" && token.Literal === keyword)) {
+                const name = token.Children[0];
+                if (!name || name.Type !== "Identifier") throw `Could not parse "${file.Name}", expected Identifier token for ${token.Literal} at line ${token.Line}`;
+                
+                const next = reader.advance();
+                if (!next || next.Type !== Token.name("{}")) throw `Could not parse "${file.Name}", expected ${Token.name("{}")} token for ${token.Literal} at line ${token.Line}`;
+                if (!next.Children || next.Children.length === 0) throw `Could not parse "${file.Name}", expected content inside ${Token.name("{}")} for ${token.Literal} at line ${token.Line}`;
+                
+                const wrapper = new Wrapper(name.Literal, token.Line), children = new TokenReader(next.Children);
+                while (!children.end()) {
+                    const token = children.advance();
+                    const left = children.previous();
+                    switch (token.Type) {
+                        case Token.name("="): {
+                            const offset = children.peek()?.Type === "Cast" ? 1 : 0;
+                            const right = children.peek(offset);
+                            switch (left.Type) {
+                                case "Identifier": {
+                                    if (left.Literal === "kind" && children.match("Result.kind", -4)) {
+                                        wrapper.returns(right.Literal);
+                                        children.advance();
+                                        continue;
+                                    }
+    
+                                    switch (right.Type) {
+                                        case "FunctionCall": {
+                                            if (right.Literal.startsWith("YYGet")) {
+                                                const inner = right.Children.filter(e => e.Type !== Token.name(","));
+                                                if (inner.length < 2) throw `Could not parse "${file.Name}", expected at least 2 arguments for call to ${right.Literal} at line ${right.Line}`;
+    
+                                                const ident = inner[0];
+                                                if (ident.Type !== "Identifier" || ident.Literal !== "arg") throw `Could not parse "${file.Name}", expected "arg" variable but got ${ident.Literal} as first argument for call to ${right.Literal} at line ${right.Line}`;
+                                                const ind = inner[1];
+                                                if (ind.Type !== "Number") throw `Could not parse "${file.Name}", expected Number but got ${ind.Type} as second argument for call to ${right.Literal} at line ${right.Line}`;
+                                                wrapper.argument(left.Literal, ind.Literal, right.Literal);
+                                                children.advance();
+                                            }
+                                            break;
+                                        }
+    
+                                        case "Identifier": {
+                                            if (right.Literal === "arg") {
+                                                const more = children.peek(offset + 1);
+                                                if (more.Type === Token.name("[]")) {
+                                                    const inner = more.Children[0];
+                                                    if (inner.Type !== "Number") throw `Could not parse "${file.Name}", expected Number but got ${inner.Type} as index for argument array at line ${right.Line}`;
+                                                    if (left.Literal === "Result") wrapper.return_arg(inner.Literal);
+                                                    children.advance();
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
                             }
-                        } else {
-                            // normal call, probs
-                            const func = token.Literal;
-                            if (func.startsWith("YYGet")) {
-                                const yy_args = token.Children.filter(e => e.Type !== Token.name(","));
-                                if (yy_args.length < 2) {
-                                    Logger.warning(`Expected 2 arguments for a call to ${func} at line ${token.Line} but got ${yy_args.length}, skipping this argument`);
-                                    continue; 
-                                }
+                            break;
+                        }
 
-                                const base = yy_args[0].Literal;
-                                if (base !== "arg") Logger.warning(`Expected "arg" as first argument in call to ${func} at line ${token.Line} but got "${base}"`);
-                                const ind = yy_args[1];
-                                if (ind.Type !== "Number") {
-                                    Logger.warning(`Expected Number for second argument in call to ${func} at line ${token.Line} but got ${ind.Type} (${ind.Literal})`);
-                                    Logger.warning(`Argument index protection has been disabled for ${wrapper.Name}`);
-                                    arg_protect = false;
-                                }
+                        case Token.name("::"): {
+                            if (left.Type === "Identifier" && left.Literal === "ImGui") {
+                                const right = children.peek();
+                                if (right.Type !== "FunctionCall") throw `Could not parse "${file.Name}", expected FunctionCall but got ${right.Type} after scope resolution token at line ${token.Line}`;
+                                wrapper.calls(right.Literal);
+                                children.advance();
+                            }
+                            break;
+                        }
 
-                                if (arg_protect) {
-                                    let arg_read = -1;
-                                    try {
-                                        arg_read = parseInt(ind.Literal);
-                                    } catch (e) {
-                                        throw `Could not parse wrapper, failed to parse second argument as integer for ${func} at line ${token.Line} (${e})`;
-                                    }
-
-                                    if ((arg_read - arg_current) < 0) throw `Argument index protection triggered, found argument skip backwards from ${arg_current} to ${arg_read} at line ${token.Line}`;
-
-                                    const diff = (arg_read - arg_current);
-                                    if (diff > 1) throw `Argument index protection triggered, found argument skip forward from ${arg_current} to ${arg_read} at line ${token.Line}`;
-                                    
-
-                                    arg_current = arg_read;
-                                    /*
-                                    try {
-
-                                    }
-                                    try {
-                                        const arg_ind = parseInt(ind.Literal), diff = (arg_ind - arg_current);
-                                    } catch (e) {
-                                        
-                                    }
-                                        if (diff > 1) throw `Argument index protection triggered, found argument skip from ${arg_current} to ${arg_ind} at line ${token.Line}`;
-                                        //console.log("diff: " + (arg_ind - arg_current));
-                                        arg_current = arg_ind;
-                                    } catch (e) {
-                                        arg_protect = false;
-                                    }*/
-                                }
+                        case "FunctionCall": {
+                            if (token.Literal.startsWith("GM")) {
+                                wrapper.modifier(token);
                             }
                         }
-                        break;
                     }
                 }
-                
+                wrappers.push(wrapper);
             }
-
-            functions.push(wrapper);
-            /*
-            const func_name = args[0].Literal, func_body = reader.advance();
-            console.log(`body contains ${func_body.Children.length} tokens`);
-
-            functions.push({
-                Name: func_name
-            });*/
         }
-
-        Logger.info(`Parsed wrapper file and retrieved ${functions.length} definitions`);
-        if (functions.length === 0) Logger.warning(`Ensure that you are using the correct wrapper keyword (WRAPPER_DEF = "${wrapper_keyword}" in Configuration.js)`);
-        return functions;
+        Logger.info(`Successfully parsed "${file.Name}" and retrieved ${wrappers.length} wrapper definitions`);
+        return wrappers;
     }
 }
 

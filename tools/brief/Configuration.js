@@ -15,7 +15,7 @@ class Configuration {
     /**
      * @description If true, Processor will save processed tokens to "tokens.json" token; useful for debugging
      */
-    static WRITE_TOKENS = true;
+    static WRITE_TOKENS = false;
 
     /**
      * @description Spacing character used for writing generated code
@@ -24,8 +24,9 @@ class Configuration {
 
     /**
      * @description If true, scanner class will retain "Semicolon" tokens
+     *              For pretty token flattening, keep this as true
      */
-    static KEEP_SEMICOLONS = false;
+    static KEEP_SEMICOLONS = true;
 
     /**
      * @description If true, scanner class will retain "Comment" and "CommentMultiline" tokens

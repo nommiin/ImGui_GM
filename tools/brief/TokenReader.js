@@ -1,3 +1,5 @@
+const Scanner = require("./Scanner");
+
 /**
  * Generic class to step through and read tokens in an array
  * 
@@ -26,6 +28,31 @@ class TokenReader {
     advance() {
         return this.Tokens[this.Index++];
     }
+
+    match(snippet, offset=0) {
+        const tokens = new Scanner(snippet, {quiet: true}).Tokens.slice(0, -1);
+        for(let i = 0; i < tokens.length; i++) {
+            const token = this.Tokens[(this.Index + offset) + i];
+            if (tokens[i].Type !== token.Type || tokens[i].Literal !== token.Literal) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+function do_thing(tokens) {
+    let ret = [];
+    for(let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+        if (token.Type.endsWith("Pair")) token.Type = "Left" + token.Type.slice(0, -4);
+        ret.push(token);
+        if (token.Children) {
+            ret = ret.concat(do_thing(token.Children));
+            token.Children = undefined;
+        }
+    }
+    return ret;
 }
 
 module.exports = TokenReader;
