@@ -37,6 +37,11 @@ class Configuration {
      * @description Keyword/macro used for marking wrapper functions
      */
     static WRAPPER_DEF = "GMFUNC";
+
+    /**
+     * @description If true, GML writer will call forceinline for each static method
+     */
+    static FORCEINLINE = true;
 }
 
 module.exports = Configuration;

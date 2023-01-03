@@ -33,6 +33,7 @@ static RValue s_Copy;
 #define GMAPPEND(...) /**/
 #define GMOVERRIDE(...) /**/
 #define GMRETURN(...) /**/
+#define GMHINT(...) /**/
 
 #define GMCOLOR3_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(alpha * 0xFF))
 #define GMCOLOR4_TO(col) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(((int)col >> 24) & 0xFF))
@@ -466,7 +467,8 @@ GMFUNC(__imgui_set_window_font_scale) {
 }
 
 GMFUNC(__imgui_pushid) {
-	RValue* id = &arg[0]; // = YYGetString(arg, 0);
+	RValue* id = &arg[0];
+	GMHINT(String|Real);
 	if (id->kind == VALUE_STRING) {
 		ImGui::PushID(id->pRefString->m_thing);
 	}
@@ -474,6 +476,9 @@ GMFUNC(__imgui_pushid) {
 	{
 		ImGui::PushID((int)id->val);
 	}
+
+	// TODO: brief doesn't check inside of nested tokens, so we need to use GMOVERRIDE for now
+	GMOVERRIDE(PushStyleVar);
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -665,6 +670,7 @@ GMFUNC(__imgui_set_scroll_x) {
 	{
 		ImGui::SetScrollX(scroll_x);
 	}
+
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -682,6 +688,7 @@ GMFUNC(__imgui_set_scroll_y) {
 	{
 		ImGui::SetScrollY(scroll_x);
 	}
+
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -700,6 +707,7 @@ GMFUNC(__imgui_set_scroll_from_pos_x) {
 	{
 		ImGui::SetScrollFromPosX(local_x, center_x_ratio);
 	}
+
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }
@@ -1745,8 +1753,8 @@ GMFUNC(__imgui_input_double) {
 char INPUT_BUF[SCRATCH_BUFFER_SIZE];
 GMFUNC(__imgui_input_text) {
 	const char* label = YYGetString(arg, 0);
-	GMRETURN();
 	const char* val = YYGetString(arg, 1);
+	GMRETURN();
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
@@ -1759,9 +1767,9 @@ GMFUNC(__imgui_input_text) {
 
 GMFUNC(__imgui_input_text_with_hint) {
 	const char* label = YYGetString(arg, 0);
-	GMRETURN();
 	const char* hint = YYGetString(arg, 1);
 	const char* val = YYGetString(arg, 2);
+	GMRETURN();
 	int64 flags = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
@@ -1774,8 +1782,8 @@ GMFUNC(__imgui_input_text_with_hint) {
 
 GMFUNC(__imgui_input_text_multiline) {
 	const char* label = YYGetString(arg, 0);
-	GMRETURN();
 	const char* val = YYGetString(arg, 1);
+	GMRETURN();
 	int64 flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 	double width = YYGetReal(arg, 3);
@@ -2022,6 +2030,7 @@ GMFUNC(__imgui_listbox) {
 	const char* label = YYGetString(arg, 0);
 	int ind = YYGetReal(arg, 1);
 	RValue* items = &arg[2];
+	GMHINT(Array<String>)
 	double height_in_items = YYGetReal(arg, 3);
 	GMDEFAULT(-1);
 
@@ -2072,6 +2081,7 @@ static std::vector<float> s_Lines;
 GMFUNC(__imgui_plot_lines) {
 	const char* label = YYGetString(arg, 0);
 	RValue* values = &arg[1];
+	GMHINT(Array<Any>);
 	const char* overlay = YYGetString(arg, 2);
 	GMDEFAULT("");
 	double width = YYGetReal(arg, 3);
@@ -2094,6 +2104,7 @@ GMFUNC(__imgui_plot_lines) {
 GMFUNC(__imgui_plot_histogram) {
 	const char* label = YYGetString(arg, 0);
 	RValue* values = &arg[1];
+	GMHINT(Array<Any>);
 	const char* overlay = YYGetString(arg, 2);
 	GMDEFAULT("");
 	double width = YYGetReal(arg, 3);
@@ -2166,12 +2177,13 @@ GMFUNC(__imgui_end_menu) {
 
 GMFUNC(__imgui_menu_item) {
 	const char* label = YYGetString(arg, 0);
-	RValue* shortcut = &arg[1]; //YYGetString(arg, 1);
+	RValue* shortcut = &arg[1];
 	GMDEFAULT(undefined);
 	bool enabled = YYGetBool(arg, 2);
 	GMDEFAULT(true);
 	bool selected = YYGetBool(arg, 3);
 	GMDEFAULT(false);
+	GMAPPEND(show_debug_message("bruh"));
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::MenuItem(label, shortcut->kind != VALUE_UNDEFINED ? shortcut->GetString() : NULL, selected, enabled);
@@ -2261,6 +2273,7 @@ GMFUNC(__imgui_get_style_color) {
 
 GMFUNC(__imgui_get_style_color_name) {
 	int idx = YYGetReal(arg, 0);
+	Result.kind = VALUE_STRING;
 	YYCreateString(&Result, ImGui::GetStyleColorName(idx));
 	return;
 }
@@ -2289,8 +2302,9 @@ GMFUNC(__imgui_pop_style_color) {
 GMFUNC(__imgui_push_style_var) {
 	int idx = YYGetReal(arg, 0);
 	float v1 = YYGetReal(arg, 1);
-	RValue* v2 = &arg[2]; // = YYGetReal(arg, 2);
+	RValue* v2 = &arg[2];
 	GMDEFAULT(undefined);
+	GMHINT(Real);
 
 	if (v2->kind == VALUE_UNDEFINED) {
 		ImGui::PushStyleVar(idx, v1);
@@ -2299,6 +2313,7 @@ GMFUNC(__imgui_push_style_var) {
 	{
 		ImGui::PushStyleVar(idx, ImVec2(v1, (float)v2->val));
 	}
+
 	Result.kind = VALUE_UNDEFINED;
 	return;
 }

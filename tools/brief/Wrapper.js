@@ -1,6 +1,9 @@
 const Logger = require("./Logger");
+const Configuration = require("./Configuration");
 
 class Wrapper {
+    static reserved = ["x", "y", "continue", "return", "id", "repeat"];
+
     constructor(name, line) {
         this.Name = name;
         this.Line = line;
@@ -13,6 +16,55 @@ class Wrapper {
         this.End = "";
     }
 
+    finalize() {
+        if (!this.Calls) {
+            const calls = this.Name.slice("__imgui_".length).split("_");
+            this.Calls = calls.map(e => e[0].toUpperCase() + e.slice(1)).join("");
+            Logger.warning(`Calling function is unset for wrapper "${this.Name}", infering call as "${this.Calls}" from name`);
+        }
+
+        if (this.Start.length > 0) {
+            let start = this.Start;
+            this.Arguments.forEach((e, ind) => {
+                start = start.replaceAll("#arg" + ind, e.Name);
+            });
+            this.Start = start;
+        }
+
+        if (this.End.length > 0) {
+            let end = this.End;
+            this.Arguments.forEach((e, ind) => {
+                end = end.replaceAll("#arg" + ind, e.Name);
+            });
+            this.End = end;
+        }
+
+        for(let i = 0; i < this.Arguments.length; i++) {
+            const arg = this.Arguments[i];
+            if (Wrapper.reserved.includes(arg.Name)) {
+                Logger.warning(`Reserved keyword "${arg.Name}" found in arguments for wrapper "${this.Name}", renaming to "_${arg.Name}"`);
+                arg.Name = "_" + arg.Name;
+            }
+            
+            if (arg.Passthrough) {
+                let passthrough = arg.Passthrough;
+                this.Arguments.forEach((e, ind) => {
+                    passthrough = passthrough.replaceAll("#arg" + ind, e.Name);
+                });
+                arg.Passthrough = passthrough;
+            }
+
+            if (arg.Default) {
+                let def = arg.Default;
+                this.Arguments.forEach((e, ind) => {
+                    def = def.replaceAll("#arg" + ind, e.Name);
+                });
+                arg.Default = def;
+            }
+        }
+        return this;
+    }
+
     calls(name, override=false) {
         if (this.CallOverride) return;
         this.Calls = name;
@@ -22,9 +74,10 @@ class Wrapper {
     argument(name, ind, origin) {
         this.Arguments[ind] = {
             Name: name,
-            Type: origin ? Wrapper.typefunc(origin) : "Unknown",
+            Type: origin ? Wrapper.typefunc(origin) : "Any",
             Hidden: false,
-            Passthrough: undefined
+            Passthrough: undefined,
+            Default: undefined
         }
         this.ArgumentIndex = ind;
     }
@@ -101,6 +154,14 @@ class Wrapper {
                 return true;
             }
 
+            case "GMHINT": {
+                if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
+                
+                const arg = this.Arguments[this.ArgumentIndex];
+                arg.Type = token.flatten(false);
+                return true;
+            }
+
             // Ignore
             case "GMCOLOR3_TO":
             case "GMCOLOR4_TO":
@@ -108,6 +169,69 @@ class Wrapper {
         }
         Logger.warning(`Could not handle unknown modifier "${token.Literal}" for wrapper "${this.Name}" at line ${token.Line}`);
         return false;
+    }
+
+    to_extension() {
+        return {
+            resourceType: "GMExtensionFunction",
+            resourceVersion: "1.0",
+            name: this.Name,
+            externalName: this.Name,
+            help: "",
+            documentation: "",
+            kind: 1,
+            hidden: true,
+            returnType: 1,
+            argCount: 0,
+            args: []
+        };
+    }
+
+    to_jsdoc(spacing=1) {
+        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${this.Name}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
+        for(let i = 0; i < this.Arguments.length; i++) {
+            const arg = this.Arguments[i];
+            if (arg.Hidden) continue;
+            
+            str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
+            if (arg.Default) {
+                str += ` [${arg.Name}=${arg.Default}]`;
+            } else {
+                str += ` ${arg.Name}`;
+            }
+            str += "\n";
+        }
+        str += Configuration.SPACING.repeat(spacing) + `/// @return {${this.Return}}`;
+        return str;
+    }
+
+    to_gml(spacing=1) {
+        let str = Configuration.SPACING.repeat(spacing) + `static ${this.Calls} = function(` + this.Arguments.filter(e => !e.Hidden).map(e => {
+            if (!e.Default) return e.Name;
+
+            switch (e.Type) {
+                case "String": {
+                    return `${e.Name}="${e.Default}"`;
+                }
+            }
+            return `${e.Name}=${e.Default}`;
+        }).join(", ") + ") {\n";
+        if (Configuration.FORCEINLINE) str += Configuration.SPACING.repeat(spacing + 1) + `gml_pragma("forceinline");\n`;
+
+        if (this.Start.length > 0) str += Configuration.SPACING.repeat(spacing + 1) + this.Start + "\n";
+
+        const has_end = this.End.length > 0;
+        str += Configuration.SPACING.repeat(spacing + 1) + (has_end ? "var ___ret = " : "return") + " ";
+        str += `${this.Name}(`;
+        str += this.Arguments.map(e => {
+            if (e.Passthrough) {
+                return e.Passthrough;
+            }
+            return e.Name;
+        }).join(", ") + ");\n";
+        if (has_end) str += Configuration.SPACING.repeat(spacing + 1) + this.End + "\nreturn ___ret;\n";
+        str += Configuration.SPACING.repeat(spacing) + "}\n";
+        return str;
     }
 
     static typename(kind) {

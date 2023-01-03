@@ -1,3 +1,36 @@
+/************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+throw `This script has been deprecated, please use brief/main.js instead`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************************************/
 /* node.js script to do a few things:
    1. read wrapper functions from imgui_gm.cpp
    2. add function definition resources to ImGui_GM.yy

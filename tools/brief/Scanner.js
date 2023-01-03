@@ -9,18 +9,20 @@ const Logger = require("./Logger");
  * Written by Nommiin - https://github.com/Nommiin 
  */
 class Scanner {
-    constructor(content, settings) {
+    constructor(content, settings={}) {
         this.Content = content;
         this.Length = content.length;
         this.Tokens = [];
-        this.GML = settings?.gml;
+        this.GML = settings.gml ?? false;
 
         this.Index = 0;
         this.Start = 0;
         this.Line = 1;
         this.LineStart = 0;
 
-        this.Quiet = settings?.quiet;
+        this.Quiet = settings.quiet ?? false;
+        this.Comments = settings.comments ?? Configuration.KEEP_COMMENTS;
+        this.Positions = settings.positions ?? false;
 
         this.scan();
     }
@@ -69,11 +71,14 @@ class Scanner {
     scan() {
         let artifact_count = 0;
         while (!this.end()) {
+            const pos = this.Index;
             this.Start = this.Index;
+
 
             const token = this.scanToken();
             if (token) {
                 if (token.Type === "Artifact") artifact_count++;
+                if (this.Positions) token.Position = pos;
                 this.Tokens.push(token);
             }
         }
@@ -159,7 +164,7 @@ class Scanner {
                             break;
                         }
                     }
-                    const ret = (Configuration.KEEP_COMMENTS ? this.token("Comment") : undefined);
+                    const ret = (this.Comments ? this.token("Comment") : undefined);
                     this.LineStart = this.Index;
                     return ret;
                 } else if (this.match("*")) {
@@ -171,7 +176,7 @@ class Scanner {
                     }
                     const ret = this.token("CommentMultiline");
                     this.LineStart = this.Index;
-                    return (Configuration.KEEP_COMMENTS ? ret : undefined);
+                    return (this.Comments ? ret : undefined);
                 }
                 this.match("=");
                 break;
