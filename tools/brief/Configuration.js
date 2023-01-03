@@ -10,7 +10,7 @@ class Configuration {
     /**
      * @description If true, FileEditor will write changes to files with ".test" appended to their filename
      */
-    static USE_TEST = true;
+    static USE_TEST = false;
 
     /**
      * @description If true, Processor will save processed tokens to "tokens.json" token; useful for debugging
@@ -20,7 +20,7 @@ class Configuration {
     /**
      * @description Spacing character used for writing generated code
      */
-    static SPACING = "    ";
+    static SPACING = "	";
 
     /**
      * @description If true, scanner class will retain "Semicolon" tokens

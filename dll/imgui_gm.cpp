@@ -310,19 +310,15 @@ GMFUNC(__imgui_get_window_height) {
 
 GMFUNC(__imgui_get_window_pos_x) {
 	Result.kind = VALUE_REAL;
-	/*
-		ImGui::GetWindowPosX();
-	*/
 	Result.val = ImGui::GetWindowPos().x;
+	GMOVERRIDE(GetWindowPosX);
 	return;
 }
 
 GMFUNC(__imgui_get_window_pos_y) {
 	Result.kind = VALUE_REAL;
-	/*
-		ImGui::GetWindowPosY();
-	*/
 	Result.val = ImGui::GetWindowPos().y;
+	GMOVERRIDE(GetWindowPosY);
 	return;
 }
 
@@ -2183,7 +2179,6 @@ GMFUNC(__imgui_menu_item) {
 	GMDEFAULT(true);
 	bool selected = YYGetBool(arg, 3);
 	GMDEFAULT(false);
-	GMAPPEND(show_debug_message("bruh"));
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::MenuItem(label, shortcut->kind != VALUE_UNDEFINED ? shortcut->GetString() : NULL, selected, enabled);

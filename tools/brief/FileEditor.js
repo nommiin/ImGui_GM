@@ -62,6 +62,7 @@ class FileEditor {
 
         const hash = crypto.createHash("md5").update(value).digest("hex");
         if (hash === this.Hash) {
+            Logger.info(`Skipping update for file "${this.Name}", no changes have been made`);
             return false;
         }
 

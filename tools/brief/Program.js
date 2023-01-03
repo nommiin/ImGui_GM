@@ -142,7 +142,7 @@ class Program {
         wrappers.forEach(e => {
             functions.push(e.to_extension());
         });
-        extension.files[res_index] = functions;
+        extension.files[res_index].functions = functions;
 
         if (file.update(JSON.stringify(extension, undefined, 4))) file.commit();
     }
@@ -186,7 +186,7 @@ class Program {
             content.push(e.to_jsdoc() + "\n" + e.to_gml());
         });
 
-        const final = file.Content.slice(0, start) + content.join("\n") + file.Content.slice(end);
+        const final = file.Content.slice(0, start) + content.join("\n") + "\n" + Configuration.SPACING + file.Content.slice(end);
         if (file.update(final)) file.commit();
     }
 }

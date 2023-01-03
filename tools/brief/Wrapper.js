@@ -188,7 +188,7 @@ class Wrapper {
     }
 
     to_jsdoc(spacing=1) {
-        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${this.Name}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
+        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${this.Calls}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
             if (arg.Hidden) continue;
@@ -229,7 +229,7 @@ class Wrapper {
             }
             return e.Name;
         }).join(", ") + ");\n";
-        if (has_end) str += Configuration.SPACING.repeat(spacing + 1) + this.End + "\nreturn ___ret;\n";
+        if (has_end) str += Configuration.SPACING.repeat(spacing + 1) + this.End + "\n" + Configuration.SPACING.repeat(spacing + 1) + "return ___ret;\n";
         str += Configuration.SPACING.repeat(spacing) + "}\n";
         return str;
     }
