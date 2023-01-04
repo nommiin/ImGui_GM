@@ -6,7 +6,6 @@
     {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},"order":0,},
     {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":0,},
     {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
-    {"id":{"name":"ImGui_Translator","path":"scripts/ImGui_Translator/ImGui_Translator.yy",},"order":0,},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":0,},
     {"id":{"name":"sprAngy","path":"sprites/sprAngy/sprAngy.yy",},"order":0,},
     {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},"order":0,},
@@ -23,7 +22,6 @@
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Example","folderPath":"folders/Example.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy","order":0,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Experimental","folderPath":"folders/ImGui_GM/Experimental.yy","order":0,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
