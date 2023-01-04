@@ -1,5 +1,5 @@
 # ImGui_GM
-Experimental ***currently Windows only*** ImGui wrapper & bindings for GameMaker, heavily work-in-progress
+Experimental ***Windows only (at the moment)*** ImGui wrapper & bindings for GameMaker, heavily work-in-progress
 ![image](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png)
 
 
@@ -18,15 +18,14 @@ Experimental ***currently Windows only*** ImGui wrapper & bindings for GameMaker
   - ImGui_Translator/
     - [`ImGui_Translator.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Translator/ImGui_Translator.gml) for experimental ImDrawData -> vertex translation layer 
 - tools/
-  - [`gen-bindings.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/gen-bindings.js) for ImGui to GM binding generation
+  - [`brief/Program.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/gen-bindings.js) for ImGui to GM binding generation
 
 # Building
 *Using C++14 Standard, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
 
 1. Run `copy_dependencies.bat` to copy required `.cpp` and `.h` files from `thirdparty/*` into `dll/`
-2. Run `gen-bindings.js` via Node from the root directory to automatically create externals for the ImGui_GM extension and binding functions in the ImGui script
 2. Open `dll.sln` in Visual Studio (support for versions older than 2022 is unknown)
-3. Build for x64, resulting `imgui_gm.dll` file should be automatically copied to `../extensions/ImGui_GM/imgui_gm.dll`
+3. Build for x64, resulting `imgui_gm.dll` file should be automatically copied to `../extensions/ImGui_GM/imgui_gm.dll` and wrapped function bindings should be generated in `ImGui_GM.yyp`
 4. Open `ImGui_GM.yyp` and create a local package containing `ImGui_GM` (extension), `ImGui` (script), and `ImGui_Misc` (script)
 5. Import local package into your game and create a controller object that calls `ImGui.__Initialize()` once, `ImGui.__Update()` every frame, and `ImGui.__Render()` in a draw event
 
