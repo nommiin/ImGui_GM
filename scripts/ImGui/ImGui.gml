@@ -18,6 +18,14 @@ function ImGui() constructor {
 		return __imgui_end();
 	}
 
+	/// @function Text(label)
+	/// @argument {String} label
+	/// @return {Undefined}
+	static Text = function(label) {
+		gml_pragma("forceinline");
+		return __imgui_text(label);
+	}
+
 	/// @section Internal
 	/// @desc Where the (GML) magic happens, safe from code generation
 	static __State = {

@@ -8,7 +8,7 @@ const Logger = require("./Logger");
  * 
  * Written by Nommiin - https://github.com/Nommiin
  */
-const args = ["dll/imgui_gm.cpp", "extensions/ImGui_GM/ImGui_GM.yy", "scripts/ImGui/ImGui.gml"];
+const args = ["dll/", "extensions/ImGui_GM/ImGui_GM.yy", "scripts/ImGui/ImGui.gml"];
 try {
     const start = performance.now();
     if (Program.main(...args) === false) {
