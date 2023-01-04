@@ -18,12 +18,105 @@ function ImGui() constructor {
 		return __imgui_end();
 	}
 
-	/// @function Text(label)
-	/// @argument {String} label
+	/// @function Text(val)
+	/// @argument {String} val
 	/// @return {Undefined}
-	static Text = function(label) {
+	static Text = function(val) {
 		gml_pragma("forceinline");
-		return __imgui_text(label);
+		return __imgui_text(val);
+	}
+
+	/// @function TextColored(label, color, alpha)
+	/// @argument {String} label
+	/// @argument {Real} color
+	/// @argument {Real} [alpha=1]
+	/// @return {Undefined}
+	static TextColored = function(label, color, alpha=1) {
+		gml_pragma("forceinline");
+		return __imgui_text_colored(label, color, alpha);
+	}
+
+	/// @function TextDisabled(val)
+	/// @argument {String} val
+	/// @return {Undefined}
+	static TextDisabled = function(val) {
+		gml_pragma("forceinline");
+		return __imgui_text_disabled(val);
+	}
+
+	/// @function TextWrapped(val)
+	/// @argument {String} val
+	/// @return {Undefined}
+	static TextWrapped = function(val) {
+		gml_pragma("forceinline");
+		return __imgui_text_wrapped(val);
+	}
+
+	/// @function LabelText(label, val)
+	/// @argument {String} label
+	/// @argument {String} val
+	/// @return {Undefined}
+	static LabelText = function(label, val) {
+		gml_pragma("forceinline");
+		return __imgui_label_text(label, val);
+	}
+
+	/// @function BulletText(val)
+	/// @argument {String} val
+	/// @return {Undefined}
+	static BulletText = function(val) {
+		gml_pragma("forceinline");
+		return __imgui_bullet_text(val);
+	}
+
+	/// @function Button(label, width, height)
+	/// @argument {String} label
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @return {Bool}
+	static Button = function(label, width=0, height=0) {
+		gml_pragma("forceinline");
+		return __imgui_button(label, width, height);
+	}
+
+	/// @function SmallButton(label)
+	/// @argument {String} label
+	/// @return {Bool}
+	static SmallButton = function(label) {
+		gml_pragma("forceinline");
+		return __imgui_small_button(label);
+	}
+
+	/// @function InvisibleButton(_id, width, height, flags)
+	/// @argument {String} _id
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @argument {Real} [flags=ImGuiButtonFlags.None]
+	/// @return {Bool}
+	static InvisibleButton = function(_id, width=0, height=0, flags=ImGuiButtonFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_invisible_button(_id, width, height, flags);
+	}
+
+	/// @function ArrowButton()
+	/// @return {Unknown<unset>}
+	static ArrowButton = function() {
+		gml_pragma("forceinline");
+		return __imgui_arrow_button();
+	}
+
+	/// @function Image(sprite, subimg, color, alpha, width, height)
+	/// @argument {Real} sprite
+	/// @argument {Real} subimg
+	/// @argument {Real} [color=c_white]
+	/// @argument {Real} [alpha=1]
+	/// @argument {Real} [width=sprite_get_width⌊sprite⌉]
+	/// @argument {Real} [height=sprite_get_height⌊sprite⌉]
+	/// @return {Undefined}
+	static Image = function(sprite, subimg, color=c_white, alpha=1, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
+		gml_pragma("forceinline");
+		texture_set_stage(0, sprite_get_texture(sprite, subimg))
+		return __imgui_image(sprite, subimg, color, alpha, width, height, sprite_get_uvs(sprite, subimg));
 	}
 
 	/// @section Internal

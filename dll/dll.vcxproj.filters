@@ -42,7 +42,10 @@
     <ClCompile Include="imgui_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_input_gm.cpp">
+    <ClCompile Include="imgui_text_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>

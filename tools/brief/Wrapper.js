@@ -195,7 +195,7 @@ class Wrapper {
             
             str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
             if (arg.Default) {
-                str += ` [${arg.Name}=${arg.Default}]`;
+                str += ` [${arg.Name}=${Wrapper.fix(arg.Default)}]`;
             } else {
                 str += ` ${arg.Name}`;
             }
@@ -285,6 +285,11 @@ class Wrapper {
             case "Struct": return ret + "Struct";
         }
         return ret;
+    }
+
+    // Replaces parentheses with similar characters, GameMaker's IDE gets tripped up by extra parentheses in autocomplete
+    static fix(val) {
+        return val.replaceAll("(", "⌊").replaceAll(")", "⌉");
     }
 }
 

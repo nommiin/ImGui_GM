@@ -24,9 +24,10 @@
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_gm.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
-    <ClCompile Include="imgui_input_gm.cpp" />
+    <ClCompile Include="imgui_text_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="imgui_widgets_gm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,7 +144,7 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>node ..\tools\brief\main.js -vs</Command>
+      <Command>node ..\tools\brief\main.js</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>

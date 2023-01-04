@@ -1,19 +1,14 @@
-#include "Extension_Interface.h"
-#include "YYRValue.h"
-
-#include "imgui.h"
-#include "imgui_impl_dx11.h"
 #include "imgui_gm.h"
-
-YYRunnerInterface gs_runnerInterface;
-YYRunnerInterface* g_pYYRunnerInterface;
-
-ID3D11Device* g_pd3dDevice;
-ID3D11DeviceContext* g_pd3dDeviceContext;
 
 static ImGuiContext* g_ImGuiContext;
 static bool g_ImGuiInitialized = false;
 
+ID3D11Device* g_pd3dDevice;
+ID3D11DeviceContext* g_pd3dDeviceContext;
+
+
+YYRunnerInterface gs_runnerInterface;
+YYRunnerInterface* g_pYYRunnerInterface;
 GMEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions, size_t _functions_size) {
 	memcpy(&gs_runnerInterface, _pFunctions, sizeof(YYRunnerInterface));
 	g_pYYRunnerInterface = &gs_runnerInterface;
