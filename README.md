@@ -29,6 +29,12 @@ Experimental ***Windows only (at the moment)*** ImGui wrapper & bindings for Gam
 4. Open `ImGui_GM.yyp` and create a local package containing `ImGui_GM` (extension), `ImGui` (script), and `ImGui_Misc` (script)
 5. Import local package into your game and create a controller object that calls `ImGui.__Initialize()` once, `ImGui.__Update()` every frame, and `ImGui.__Render()` in a draw event
 
+# Toolchain
+I'm not sure if *toolchain* is the correct term here, but it sounds cool so I'll run with it. Here are some extra words on how the extension building works.
+
+- Upon building inside of Visual Studio, the `tools/brief/main.js` script will be called. This script collects any `.cpp` files ending in "`_gm.cpp`" (*Any uses of `GMFUNC` outside of files ending in `_gm.cpp` **will not** be read*) and parses out functions defined using the `GMFUNC` macro. These parsed functions are then added to the `extensions/ImGui_GM/ImGui_GM.yy` file and static methods are created in the `@section Binds` section of the `scripts/ImGui/ImGui.gml` file automatically. You can use the various macros to define attributes for wrapped functions and their arguments. See `tools/brief/Wrapper.js` for how various attributes are handled. 
+
+
 # Usage (GameMaker)
 ***⚠️ HEADS UP: Ensure you're using a compatible runtime, see Compatibility heading below for more info***
 

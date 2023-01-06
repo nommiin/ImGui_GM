@@ -59,3 +59,44 @@ GMFUNC(__imgui_image) {
 	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR3_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
 }
+
+GMFUNC(__imgui_checkbox) {
+	const char* label = YYGetString(arg, 0);
+	bool checked = YYGetBool(arg, 1);
+
+	ImGui::Checkbox(label, &checked);
+	Result.kind = VALUE_BOOL;
+	Result.val = checked;
+}
+
+// TODO
+GMFUNC(__imgui_checkbox_flags) {
+	ShowError("Unimplemented ImGui Function: ImGui.CheckboxFlags");
+}
+
+GMFUNC(__imgui_radio_button) {
+	const char* label = YYGetString(arg, 0);
+	bool active = YYGetBool(arg, 1);
+
+	ImGui::RadioButton(label, &active);
+	Result.kind = VALUE_BOOL;
+	Result.val = active;
+}
+
+GMFUNC(__imgui_progressbar) {
+	double frac = YYGetReal(arg, 0);
+	double width = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 2);
+	GMDEFAULT(sprite_get_height(#arg0));
+	const char* overlay = YYGetString(arg, 3);
+	GMDEFAULT("");
+	
+	ImGui::ProgressBar(frac, ImVec2(width, height), (overlay == "" ? nullptr : overlay));
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_bullet) {
+	ImGui::Bullet();
+	Result.kind = VALUE_UNDEFINED;
+}

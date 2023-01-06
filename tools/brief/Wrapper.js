@@ -41,6 +41,8 @@ class Wrapper {
 
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
+            if (!arg) throw `Could not read undefined argument at index ${i} in ${this.Name} at line ${this.Line}`;
+            
             if (Wrapper.reserved.includes(arg.Name)) {
                 Logger.warning(`Reserved keyword "${arg.Name}" found in arguments for wrapper "${this.Name}", renaming to "_${arg.Name}"`);
                 arg.Name = "_" + arg.Name;

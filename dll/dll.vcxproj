@@ -20,10 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_combo_gm.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_drag_gm.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_gm.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_input_gm.cpp" />
+    <ClCompile Include="imgui_layout_gm.cpp" />
+    <ClCompile Include="imgui_slider_gm.cpp" />
     <ClCompile Include="imgui_text_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
