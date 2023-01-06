@@ -214,6 +214,28 @@ function ImGui() constructor {
 		return __imgui_end();
 	}
 
+	/// @function InputText(label, val, flags)
+	/// @argument {String} label
+	/// @argument {String} val
+	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @return {String}
+	static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_input_text(label, val, flags);
+	}
+
+	/// @function InputTextMultiline(label, val, width, height, flags)
+	/// @argument {String} label
+	/// @argument {String} val
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @return {String}
+	static InputTextMultiline = function(label, val, width=0, height=0, flags=ImGuiInputTextFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_input_textmultiline(label, val, width, height, flags);
+	}
+
 	/// @function InputFloat(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Real} v

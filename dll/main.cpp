@@ -3,12 +3,16 @@
 static ImGuiContext* g_ImGuiContext;
 static bool g_ImGuiInitialized = false;
 
+char g_InputBuf[INPUT_SIZE];
+RValue g_Copy;
+
 ID3D11Device* g_pd3dDevice;
 ID3D11DeviceContext* g_pd3dDeviceContext;
-
+ID3D11ShaderResourceView* g_pView;
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
+
 GMEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions, size_t _functions_size) {
 	memcpy(&gs_runnerInterface, _pFunctions, sizeof(YYRunnerInterface));
 	g_pYYRunnerInterface = &gs_runnerInterface;

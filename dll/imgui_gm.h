@@ -28,28 +28,32 @@
 #define GMCOLOR4_TO(col) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(((int)col >> 24) & 0xFF))
 #define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16) | (int)((int)(col[3] * 0xFF) << 24))
 
-static RValue s_Copy;
+// Other
+#define INPUT_SIZE 4096
+extern char g_InputBuf[INPUT_SIZE];
+
+extern RValue g_Copy;
 template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {
 	RValue* arr = &arg[ind];
 	T* val = new T[len];
 	for (int i = 0; i < len; i++) {
-		GET_RValue(&s_Copy, arr, NULL, i);
-		val[i] = s_Copy.val;
+		GET_RValue(&g_Copy, arr, NULL, i);
+		val[i] = g_Copy.val;
 	}
 	return val;
 }
 template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len) {
 	for (int i = 0; i < len; i++) {
-		s_Copy.kind = VALUE_REAL;
-		s_Copy.val = arr[i];
-		SET_RValue(arg, &s_Copy, NULL, i);
+		g_Copy.kind = VALUE_REAL;
+		g_Copy.val = arr[i];
+		SET_RValue(arg, &g_Copy, NULL, i);
 	}
 	return;
 }
 
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
-static ID3D11ShaderResourceView* g_pView;
+extern ID3D11ShaderResourceView* g_pView;
 
 static inline ID3D11ShaderResourceView* GetTexture() {
 	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
