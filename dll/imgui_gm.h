@@ -24,9 +24,21 @@
 #define WriteLog(...) DebugConsoleOutput("[ImGui_GM] %s\n", __VA_ARGS__)
 
 // Helpers
-#define GMCOLOR3_TO(col, alpha) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(alpha * 0xFF))
-#define GMCOLOR4_TO(col) ImColor((int)((int)col & 0xFF), (int)(((int)col >> 8) & 0xFF), (int)(((int)col >> 16) & 0xFF), (int)(((int)col >> 24) & 0xFF))
-#define GMCOLOR_FROM(col) (double)((int)(col[0] * 0xFF) | (int)((int)(col[1] * 0xFF) << 8) | (int)((int)(col[2] * 0xFF) << 16) | (int)((int)(col[3] * 0xFF) << 24))
+static inline ImVec4 GMCOLOR_TO(int col, float alpha) { 
+	static float sc = 1 / 0xFF;
+	float r = (col & 0xFF) * sc;
+	float g = ((col >> 8) & 0xFF) * sc;
+	float b = ((col >> 16) & 0xFF) * sc;
+	return ImVec4(r, g, b, alpha);
+}
+
+static inline double GMCOLOR_FROM(ImVec4 col) {
+	int r = col.x * 0xFF;
+	int g = col.y * 0xFF;
+	int b = col.z * 0xFF;
+	int alpha = col.w * 0xFF;
+	return r | (g << 8) | (b << 16) | (alpha << 24);
+}
 
 // Other
 #define INPUT_SIZE 4096
@@ -54,7 +66,6 @@ template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len)
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 extern ID3D11ShaderResourceView* g_pView;
-
 static inline ID3D11ShaderResourceView* GetTexture() {
 	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
 	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);

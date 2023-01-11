@@ -3,6 +3,7 @@
   "resourceVersion": "1.6",
   "name": "ImGui_GM",
   "resources": [
+    {"id":{"name":"ImColor","path":"scripts/ImColor/ImColor.yy",},"order":0,},
     {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},"order":0,},
     {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":0,},
     {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
@@ -22,6 +23,7 @@
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Example","folderPath":"folders/Example.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy","order":0,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Helpers","folderPath":"folders/ImGui_GM/Helpers.yy","order":0,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},

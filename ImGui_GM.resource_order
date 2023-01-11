@@ -8,5 +8,6 @@
   "FolderOrderSettings": [
     {"name":"Example","path":"folders/Example.yy","order":4,},
     {"name":"ImGui_GM","path":"folders/ImGui_GM.yy","order":3,},
+    {"name":"Helpers","path":"folders/ImGui_GM/Helpers.yy","order":3,},
   ],
 }

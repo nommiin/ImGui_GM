@@ -15,5 +15,6 @@ GMFUNC(__imgui_end_combo) {
 }
 
 GMFUNC(__imgui_combo) {
+	GMOVERRIDE(Combo);
 	ShowError("Unimplemented ImGui Function: ImGui.Combo");
 }

@@ -1,5 +1,66 @@
 function ImGui() constructor {
 	/// @section Binds
+	/// @function ColorEdit3(label, col, flags)
+	/// @argument {String} label
+	/// @argument {Real} col
+	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @return {Real}
+	static ColorEdit3 = function(label, col, flags=ImGuiColorEditFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_color_edit3(label, col, flags);
+	}
+
+	/// @function ColorPicker3(label, col, flags)
+	/// @argument {String} label
+	/// @argument {Real} col
+	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @return {Real}
+	static ColorPicker3 = function(label, col, flags=ImGuiColorEditFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_color_picker3(label, col, flags);
+	}
+
+	/// @function ColorEdit4(label, col, flags)
+	/// @argument {String} label
+	/// @argument {ImColor} col
+	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @return {Bool}
+	static ColorEdit4 = function(label, col, flags=ImGuiColorEditFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_color_edit4(label, col, flags);
+	}
+
+	/// @function ColorPicker4(label, col, flags)
+	/// @argument {String} label
+	/// @argument {ImColor} col
+	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @return {Bool}
+	static ColorPicker4 = function(label, col, flags=ImGuiColorEditFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_color_picker4(label, col, flags);
+	}
+
+	/// @function ColorButton(desc_id, color, alpha, flags, width, height)
+	/// @argument {String} desc_id
+	/// @argument {Real} color
+	/// @argument {Real} alpha
+	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @return {Bool}
+	static ColorButton = function(desc_id, color, alpha, flags=ImGuiColorEditFlags.None, width=0, height=0) {
+		gml_pragma("forceinline");
+		return __imgui_color_button(desc_id, color, alpha, flags, width, height);
+	}
+
+	/// @function SetColorEditOptions(flags)
+	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @return {Undefined}
+	static SetColorEditOptions = function(flags=ImGuiColorEditFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_set_color_edit_options(flags);
+	}
+
 	/// @function BeginCombo(label, preview, flags)
 	/// @argument {String} label
 	/// @argument {String} preview
@@ -236,6 +297,17 @@ function ImGui() constructor {
 		return __imgui_input_textmultiline(label, val, width, height, flags);
 	}
 
+	/// @function InputTextWithHint(label, hint, val, flags)
+	/// @argument {String} label
+	/// @argument {String} hint
+	/// @argument {String} val
+	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @return {String}
+	static InputTextWithHint = function(label, hint, val, flags=ImGuiInputTextFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_input_textwithhint(label, hint, val, flags);
+	}
+
 	/// @function InputFloat(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
@@ -288,6 +360,20 @@ function ImGui() constructor {
 		return __imgui_input_float4(label, v, step, step_fast, format, flags);
 	}
 
+	/// @function InputScalarN(label, v, count, step, step_fast, format, flags)
+	/// @argument {String} label
+	/// @argument {Array<Real>} v
+	/// @argument {Real} [count=array_length⌊v⌉]
+	/// @argument {Real} [step=0]
+	/// @argument {Real} [step_fast=0]
+	/// @argument {String} [format=%.3f]
+	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @return {Bool}
+	static InputScalarN = function(label, v, count=array_length(v), step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_input_floatn(label, v, count, step, step_fast, format, flags);
+	}
+
 	/// @function InputInt(label, v, step, step_fast, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
@@ -300,40 +386,58 @@ function ImGui() constructor {
 		return __imgui_input_int(label, v, step, step_fast, flags);
 	}
 
-	/// @function InputInt2(label, v, step, step_fast, flags)
+	/// @function InputInt2(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputInt2 = function(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
+	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_input_int2(label, v, step, step_fast, flags);
+		return __imgui_input_int2(label, v, flags);
 	}
 
-	/// @function InputInt2(label, v, step, step_fast, flags)
+	/// @function InputInt2(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputInt2 = function(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
+	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_input_int3(label, v, step, step_fast, flags);
+		return __imgui_input_int3(label, v, flags);
 	}
 
-	/// @function InputInt2(label, v, step, step_fast, flags)
+	/// @function InputInt2(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputInt2 = function(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
+	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_input_int4(label, v, step, step_fast, flags);
+		return __imgui_input_int4(label, v, flags);
+	}
+
+	/// @function InputScalarN(label, v, count, flags)
+	/// @argument {String} label
+	/// @argument {Array<Real>} v
+	/// @argument {Real} [count=array_length⌊v⌉]
+	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @return {Bool}
+	static InputScalarN = function(label, v, count=array_length(v), flags=ImGuiInputTextFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_input_intn(label, v, count, flags);
+	}
+
+	/// @function InputDouble(label, v, step, step_fast, format, flags)
+	/// @argument {String} label
+	/// @argument {Real} v
+	/// @argument {Real} [step=0]
+	/// @argument {Real} [step_fast=0]
+	/// @argument {String} [format=%.6f]
+	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @return {Real}
+	static InputDouble = function(label, v, step=0, step_fast=0, format="%.6f", flags=ImGuiInputTextFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_input_double(label, v, step, step_fast, format, flags);
 	}
 
 	/// @function Spacing()
@@ -632,15 +736,15 @@ function ImGui() constructor {
 		return __imgui_radio_button(label, active);
 	}
 
-	/// @function ProgressBar(frac, width, height, overlay)
-	/// @argument {Real} frac
+	/// @function ProgressBar(_frac, width, height, overlay)
+	/// @argument {Real} _frac
 	/// @argument {Real} [width=0]
-	/// @argument {Real} [height=sprite_get_height⌊frac⌉]
+	/// @argument {Real} [height=0]
 	/// @argument {String} overlay
 	/// @return {Undefined}
-	static ProgressBar = function(frac, width=0, height=sprite_get_height(frac), overlay) {
+	static ProgressBar = function(_frac, width=0, height=0, overlay) {
 		gml_pragma("forceinline");
-		return __imgui_progressbar(frac, width, height, overlay);
+		return __imgui_progressbar(_frac, width, height, overlay);
 	}
 
 	/// @function Bullet()
@@ -710,5 +814,10 @@ function ImGui() constructor {
 	
 	static __Render = function() {
 		return __imgui_render();
+	}
+	
+	/// @section Helpers
+	static Alpha = function(col) {
+		return ((col >> 24) & 0xFF) / 0xFF;	
 	}
 };

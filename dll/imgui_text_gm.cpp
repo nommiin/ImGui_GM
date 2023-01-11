@@ -9,11 +9,11 @@ GMFUNC(__imgui_text) {
 
 GMFUNC(__imgui_text_colored) {
 	const char* val = YYGetString(arg, 0);
-	int color = YYGetReal(arg, 1);
+	double color = YYGetReal(arg, 1);
 	float alpha = YYGetReal(arg, 2);
 	GMDEFAULT(1);
 
-	ImGui::TextColored(GMCOLOR3_TO(color, alpha), val);
+	ImGui::TextColored(GMCOLOR_TO(color, alpha), val);
 	Result.kind = VALUE_UNDEFINED;
 }
 

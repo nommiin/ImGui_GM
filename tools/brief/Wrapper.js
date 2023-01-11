@@ -2,7 +2,7 @@ const Logger = require("./Logger");
 const Configuration = require("./Configuration");
 
 class Wrapper {
-    static reserved = ["x", "y", "continue", "return", "id", "repeat"];
+    static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac"];
 
     constructor(name, line) {
         this.Name = name;
@@ -144,9 +144,20 @@ class Wrapper {
                 if (inner) {
                     const ind = inner[0];
                     if (ind) {
-                        index = ind.Literal;
-                        if (index > this.ArgumentIndex) {
-                            throw `Could not handle ${token.Literal} modifier, target argument index ${index} is out of range (${this.ArgumentIndex}) at line ${token.Line}`;
+                        switch (ind.Type) {
+                            case "Number": {
+                                index = ind.Literal;
+                                if (index > this.ArgumentIndex) {
+                                    throw `Could not handle ${token.Literal} modifier, target argument index ${index} is out of range (${this.ArgumentIndex}) at line ${token.Line}`;
+                                }
+                                break;
+                            }
+                            
+                            default: {
+                                this.Return = token.flatten(false);
+                                Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -165,8 +176,7 @@ class Wrapper {
             }
 
             // Ignore
-            case "GMCOLOR3_TO":
-            case "GMCOLOR4_TO":
+            case "GMCOLOR_TO":
             case "GMCOLOR_FROM": return true;
         }
         Logger.warning(`Could not handle unknown modifier "${token.Literal}" for wrapper "${this.Name}" at line ${token.Line}`);

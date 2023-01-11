@@ -37,6 +37,7 @@ GMFUNC(__imgui_invisible_button) {
 
 // TODO: ImGuiDir?
 GMFUNC(__imgui_arrow_button) {
+	GMOVERRIDE(ArrowButton);
 	ShowError("Unimplemented ImGui Function: ImGui.ArrowButton");
 }
 
@@ -56,7 +57,7 @@ GMFUNC(__imgui_image) {
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)));
 
-	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR3_TO(color, alpha));
+	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -71,6 +72,7 @@ GMFUNC(__imgui_checkbox) {
 
 // TODO
 GMFUNC(__imgui_checkbox_flags) {
+	GMOVERRIDE(CheckboxFlags);
 	ShowError("Unimplemented ImGui Function: ImGui.CheckboxFlags");
 }
 
@@ -88,7 +90,7 @@ GMFUNC(__imgui_progressbar) {
 	double width = YYGetReal(arg, 1);
 	GMDEFAULT(0);
 	double height = YYGetReal(arg, 2);
-	GMDEFAULT(sprite_get_height(#arg0));
+	GMDEFAULT(0);
 	const char* overlay = YYGetString(arg, 3);
 	GMDEFAULT("");
 	
