@@ -6,12 +6,19 @@ GMFUNC(__imgui_begin) {
 	GMDEFAULT(undefined);
 	ImGuiWindowFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiWindowFlags.None);
-	int64 ret_mask = YYGetInt64(arg, 3);
-	GMDEFAULT(ImGuiReturnFlags.Open);
+	int64 mask = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiReturnMask.Return);
 
-	bool ret = ImGui::Begin(name, &open, flags);
+	bool* p_open = &open;
+	if (!open) {
+		if ((&arg[1])->kind == VALUE_UNDEFINED) {
+			p_open = nullptr;
+		}
+	}
+
+	bool ret = ImGui::Begin(name, p_open, flags);
 	Result.kind = VALUE_REAL;
-	Result.val = ((open << 1) | (int)ret) & ret_mask;
+	Result.val = ((open << 1) | (bool)ret) & mask;
 }
 
 GMFUNC(__imgui_end) {

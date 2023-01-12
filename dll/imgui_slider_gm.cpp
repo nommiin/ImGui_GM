@@ -18,8 +18,9 @@ GMFUNC(__imgui_slider_float) {
 }
 
 GMFUNC(__imgui_slider_float2) {
+	const int len = 2;
 	const char* label = YYGetString(arg, 0);
-	float* v = YYGetArray<float>(arg, 1, 2);
+	float* v = YYGetArray<float>(arg, 1, len);
 	float v_min = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	float v_max = YYGetReal(arg, 3);
@@ -30,12 +31,17 @@ GMFUNC(__imgui_slider_float2) {
 	GMDEFAULT(ImGuiSliderFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderFloat2(label, v, v_min, v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderFloat2(label, v, v_min, v_max, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_float3) {
+	const int len = 3;
 	const char* label = YYGetString(arg, 0);
-	float* v = YYGetArray<float>(arg, 1, 3);
+	float* v = YYGetArray<float>(arg, 1, len);
 	float v_min = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	float v_max = YYGetReal(arg, 3);
@@ -46,12 +52,17 @@ GMFUNC(__imgui_slider_float3) {
 	GMDEFAULT(ImGuiSliderFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderFloat3(label, v, v_min, v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderFloat3(label, v, v_min, v_max, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_float4) {
+	const int len = 4;
 	const char* label = YYGetString(arg, 0);
-	float* v = YYGetArray<float>(arg, 1, 1);
+	float* v = YYGetArray<float>(arg, 1, len);
 	float v_min = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	float v_max = YYGetReal(arg, 3);
@@ -62,12 +73,16 @@ GMFUNC(__imgui_slider_float4) {
 	GMDEFAULT(ImGuiSliderFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderFloat4(label, v, v_min, v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderFloat4(label, v, v_min, v_max, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_floatn) {
 	const char* label = YYGetString(arg, 0);
-	float* v = YYGetArray<float>(arg, 1, 3);
+	float* v = YYGetArray<float>(arg, 1, YYGetReal(arg, 1));
 	double count = YYGetReal(arg, 2);
 	GMDEFAULT(array_length(v));
 	float v_speed = YYGetReal(arg, 3);
@@ -83,7 +98,11 @@ GMFUNC(__imgui_slider_floatn) {
 	GMOVERRIDE(SliderFloatN);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderScalarN(label, ImGuiDataType_Float, v, count, &v_min, &v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderScalarN(label, ImGuiDataType_Float, v, count, &v_min, &v_max, format, flags)) {
+		YYSetArray(&arg[1], v, count);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_int) {
@@ -104,8 +123,9 @@ GMFUNC(__imgui_slider_int) {
 }
 
 GMFUNC(__imgui_slider_int2) {
+	const int len = 2;
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 2);
+	int* v = YYGetArray<int>(arg, 1, len);
 	int v_min = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	int v_max = YYGetReal(arg, 3);
@@ -116,12 +136,17 @@ GMFUNC(__imgui_slider_int2) {
 	GMDEFAULT(ImGuiSliderFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderInt2(label, v, v_min, v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderInt2(label, v, v_min, v_max, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_int3) {
+	const int len = 3;
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 3);
+	int* v = YYGetArray<int>(arg, 1, len);
 	int v_min = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	int v_max = YYGetReal(arg, 3);
@@ -132,12 +157,17 @@ GMFUNC(__imgui_slider_int3) {
 	GMDEFAULT(ImGuiSliderFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderInt3(label, v, v_min, v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderInt3(label, v, v_min, v_max, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_int4) {
+	const int len = 4;
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 4);
+	int* v = YYGetArray<int>(arg, 1, len);
 	int v_min = YYGetReal(arg, 2);
 	GMDEFAULT(0);
 	int v_max = YYGetReal(arg, 3);
@@ -148,12 +178,16 @@ GMFUNC(__imgui_slider_int4) {
 	GMDEFAULT(ImGuiSliderFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderInt4(label, v, v_min, v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderInt4(label, v, v_min, v_max, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_slider_intn) {
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 3);
+	int* v = YYGetArray<int>(arg, 1, YYGetReal(arg, 2));
 	double count = YYGetReal(arg, 2);
 	GMDEFAULT(array_length(v));
 	int v_min = YYGetReal(arg, 3);
@@ -167,5 +201,9 @@ GMFUNC(__imgui_slider_intn) {
 	GMOVERRIDE(SliderIntN);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::SliderScalarN(label, ImGuiDataType_S32, v, count, &v_min, &v_max, format, flags);
+	Result.val = false;
+	if (ImGui::SliderScalarN(label, ImGuiDataType_S32, v, count, &v_min, &v_max, format, flags)) {
+		YYSetArray(&arg[1], v, count);
+		Result.val = true;
+	}
 }

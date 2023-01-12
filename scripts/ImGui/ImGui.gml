@@ -43,12 +43,12 @@ function ImGui() constructor {
 	/// @function ColorButton(desc_id, color, alpha, flags, width, height)
 	/// @argument {String} desc_id
 	/// @argument {Real} color
-	/// @argument {Real} alpha
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
 	/// @return {Bool}
-	static ColorButton = function(desc_id, color, alpha, flags=ImGuiColorEditFlags.None, width=0, height=0) {
+	static ColorButton = function(desc_id, color, alpha=1, flags=ImGuiColorEditFlags.None, width=0, height=0) {
 		gml_pragma("forceinline");
 		return __imgui_color_button(desc_id, color, alpha, flags, width, height);
 	}
@@ -156,19 +156,19 @@ function ImGui() constructor {
 		return __imgui_drag_floatn(label, v, count, v_speed, v_min, v_max, format, flags);
 	}
 
-	/// @function DragFloatRange2(label, v_current_min, v_current_max, v_speed, v_min, v_max, format_max, flags)
+	/// @function DragFloatRange2(label, v, v_speed, v_min, v_max, format_min, format_max, flags)
 	/// @argument {String} label
-	/// @argument {Real} v_current_min
-	/// @argument {Real} v_current_max
+	/// @argument {Array<Real>} v
 	/// @argument {Real} [v_speed=1]
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
+	/// @argument {String} [format_min=%.3f]
 	/// @argument {String} [format_max=%.3f]
 	/// @argument {Real} [flags=ImGuiSliderFlags.None]
 	/// @return {Bool}
-	static DragFloatRange2 = function(label, v_current_min, v_current_max, v_speed=1, v_min=0, v_max=0, format_max="%.3f", flags=ImGuiSliderFlags.None) {
+	static DragFloatRange2 = function(label, v, v_speed=1, v_min=0, v_max=0, format_min="%.3f", format_max="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_drag_float_range2(label, v_current_min, v_current_max, v_speed, v_min, v_max, format_max, flags);
+		return __imgui_drag_float_range2(label, v, v_speed, v_min, v_max, format_min, format_max, flags);
 	}
 
 	/// @function DragInt(label, v, v_speed, v_min, v_max, format, flags)
@@ -242,9 +242,9 @@ function ImGui() constructor {
 		return __imgui_drag_intn(label, v, count, v_speed, v_min, v_max, format, flags);
 	}
 
-	/// @function DragIntRange2(label, v_current_min, v_current_max, v_speed, v_min, v_max, format_max, flags)
+	/// @function DragIntRange2(label, v, v_current_max, v_speed, v_min, v_max, format_max, flags)
 	/// @argument {String} label
-	/// @argument {Real} v_current_min
+	/// @argument {Array<Real>} v
 	/// @argument {Real} v_current_max
 	/// @argument {Real} [v_speed=1]
 	/// @argument {Real} [v_min=0]
@@ -252,20 +252,20 @@ function ImGui() constructor {
 	/// @argument {String} [format_max=%d]
 	/// @argument {Real} [flags=ImGuiSliderFlags.None]
 	/// @return {Bool}
-	static DragIntRange2 = function(label, v_current_min, v_current_max, v_speed=1, v_min=0, v_max=0, format_max="%d", flags=ImGuiSliderFlags.None) {
+	static DragIntRange2 = function(label, v, v_current_max, v_speed=1, v_min=0, v_max=0, format_max="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_drag_int_range2(label, v_current_min, v_current_max, v_speed, v_min, v_max, format_max, flags);
+		return __imgui_drag_int_range2(label, v, v_current_max, v_speed, v_min, v_max, format_max, flags);
 	}
 
-	/// @function Begin(name, open, flags, ret_mask)
+	/// @function Begin(name, open, flags, mask)
 	/// @argument {String} name
 	/// @argument {Bool} [open=undefined]
 	/// @argument {Real} [flags=ImGuiWindowFlags.None]
-	/// @argument {Real} [ret_mask=ImGuiReturnFlags.Open]
+	/// @argument {Real} [mask=ImGuiReturnMask.Return]
 	/// @return {Real}
-	static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, ret_mask=ImGuiReturnFlags.Open) {
+	static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
-		return __imgui_begin(name, open, flags, ret_mask);
+		return __imgui_begin(name, open, flags, mask);
 	}
 
 	/// @function End()
@@ -659,6 +659,64 @@ function ImGui() constructor {
 	static BulletText = function(val) {
 		gml_pragma("forceinline");
 		return __imgui_bullet_text(val);
+	}
+
+	/// @function TreeNode(label)
+	/// @argument {String} label
+	/// @return {Bool}
+	static TreeNode = function(label) {
+		gml_pragma("forceinline");
+		return __imgui_tree_node(label);
+	}
+
+	/// @function TreeNodeEx(label, flags)
+	/// @argument {String} label
+	/// @argument {Real} [flags=ImGuiTreeNodeFlags.None]
+	/// @return {Bool}
+	static TreeNodeEx = function(label, flags=ImGuiTreeNodeFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_tree_node_ex(label, flags);
+	}
+
+	/// @function TreePush(str_id)
+	/// @argument {String} str_id
+	/// @return {Undefined}
+	static TreePush = function(str_id) {
+		gml_pragma("forceinline");
+		return __imgui_tree_push(str_id);
+	}
+
+	/// @function TreePop()
+	/// @return {Undefined}
+	static TreePop = function() {
+		gml_pragma("forceinline");
+		return __imgui_tree_pop();
+	}
+
+	/// @function GetTreeNodeToLabelSpacing()
+	/// @return {Real}
+	static GetTreeNodeToLabelSpacing = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_tree_node_to_label_spacing();
+	}
+
+	/// @function SetNextItemOpen(is_open, cond)
+	/// @argument {Bool} is_open
+	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @return {Undefined}
+	static SetNextItemOpen = function(is_open, cond=ImGuiCond.None) {
+		gml_pragma("forceinline");
+		return __imgui_set_next_item_open(is_open, cond);
+	}
+
+	/// @function CollapsingHeader(label, flags, mask)
+	/// @argument {String} label
+	/// @argument {Real} [flags=ImGuiTreeNodeFlags.None]
+	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @return {Real}
+	static CollapsingHeader = function(label, flags=ImGuiTreeNodeFlags.None, mask=ImGuiReturnMask.Return) {
+		gml_pragma("forceinline");
+		return __imgui_collapsing_header(label, flags, mask);
 	}
 
 	/// @function Button(label, width, height)

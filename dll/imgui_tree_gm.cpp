@@ -45,11 +45,20 @@ GMFUNC(__imgui_set_next_item_open) {
 GMFUNC(__imgui_collapsing_header) {
 	const char* label = YYGetString(arg, 0);
 	bool visible = YYGetBool(arg, 1);
+	GMDEFAULT(undefined);
 	ImGuiTreeNodeFlags flags = YYGetInt64(arg, 1);
 	GMDEFAULT(ImGuiTreeNodeFlags.None);
-	double mask = YYGetInt64(arg, 2);
-	GMDEFAULT(ImGuiReturnFlags.Open);
+	int64 mask = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiReturnMask.Return);
 	
-	bool ret = ImGui::CollapsingHeader(label, &visible, flags);
+	bool* p_visible = &visible;
+	if (!visible) {
+		if ((&arg[1])->kind == VALUE_UNDEFINED) {
+			p_visible = nullptr;
+		}
+	}
 
+	bool ret = ImGui::CollapsingHeader(label, &visible, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = ((visible << 1) | (bool)ret) & mask;
 }

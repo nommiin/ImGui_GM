@@ -91,6 +91,7 @@ GMFUNC(__imgui_color_button) {
 	const char* desc_id = YYGetString(arg, 0);
 	double color = YYGetReal(arg, 1);
 	float alpha = YYGetReal(arg, 2);
+	GMDEFAULT(1);
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 	double width = YYGetReal(arg, 4);
