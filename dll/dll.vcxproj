@@ -32,6 +32,7 @@
     <ClCompile Include="imgui_slider_gm.cpp" />
     <ClCompile Include="imgui_text_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_tree_gm.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="imgui_widgets_gm.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
