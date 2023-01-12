@@ -10,6 +10,8 @@ const Token = require("./Token");
 const Util = require("./Util")
 
 /**
+ * Reads specific C++ files and automatically creates wrapped functions for GameMaker
+ * 
  * Written by Nommiin - https://github.com/Nommiin
  */ 
 class Program {
@@ -19,19 +21,34 @@ class Program {
      * @param {string} extension Path to extension .yy file
      * @param {string} script Path to ImGui .gml script
      */
-    static main(wrapper, extension, script) {
-        const wrappers = this.parseWrapper(new FileEditor(wrapper, true));
+    static main(root, extension, script) {
+        Logger.info("Retrieving wrappers...");
+        const files = fs.readdirSync(root).filter(e => e.endsWith("_gm.cpp"));
+        if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root}"`;
+        Logger.info(`Found ${files.length} wrapper files in "${root}"`);
+        
+        const wrappers = [];
+        Logger.info("Parsing wrappers...");
+        files.forEach(e => {
+            this.parseWrapper(wrappers, new FileEditor(`${root}${e}`, true));
+        });
+
+        Logger.info("Writing wrappers...");
         this.writeWrappers(wrappers, new FileEditor(extension));
+
+        Logger.info("Writing script...");
         this.writeScripts(wrappers, new FileEditor(script));
     }
 
     /**
-     * Reads imgui_gm.cpp script and parses out exported functions for GameMaker
+     * Reads imgui_gm.cpp script and parses out wrapped functions
+     * @param {Array<Wrapper>} wrappers
      * @param {FileEditor} file A file editor containing the wrapper file
      */
-    static parseWrapper(file) {
-        const tokens = new Processor(new Scanner(file.Content).Tokens).get(), wrappers = [];
+    static parseWrapper(wrappers, file) {
+        const tokens = new Processor(new Scanner(file.Content).Tokens).get();
         if (tokens.length === 0) throw `Could not parse "${file.Name}", processed token list is empty`;
+        let count = 0;
 
         const reader = new TokenReader(tokens), keyword = Configuration.WRAPPER_DEF;
         while (!reader.end()) {
@@ -119,9 +136,10 @@ class Program {
                     }
                 }
                 wrappers.push(wrapper.finalize());
+                count++;
             }
         }
-        Logger.info(`Successfully parsed "${file.Name}" and retrieved ${wrappers.length} wrapper definitions`);
+        Logger.info(`Successfully parsed "${file.Name}" and retrieved ${count} wrapper definitions`);
         return wrappers;
     }
 

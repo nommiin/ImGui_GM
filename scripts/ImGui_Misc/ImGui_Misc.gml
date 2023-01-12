@@ -302,10 +302,19 @@ enum ImGuiColorEditFlags
     // RGB = DisplayRGB, HSV = DisplayHSV, HEX = DisplayHex  // [renamed in 1.69]
 };
 
-enum ImGuiReturnFlags {
-	Visible = 1 << 0,
-	Open = 1 << 1,
-	Both = ImGuiReturnFlags.Visible | ImGuiReturnFlags.Open
+/*
+	Used for encoding multiple returns from various wrappers (ImGui.Begin, ImGui.CollapsingHeader, etc)
+	Default is ImGuiReturnFlags.Return for all functions to make wrappers work as close to the library as possible
+	
+	Return: The return value of the library function
+	Pointer: Any reference passed to the library function and modified (this varies per-function; hopefully it all makes sense)
+	Both: ^
+*/
+enum ImGuiReturnMask {
+	None = 0,            // Should be unused
+	Return = 1 << 0,
+	Pointer = 1 << 1,
+	Both = ImGuiReturnMask.Return | ImGuiReturnMask.Pointer
 }
 
 enum ImGuiStyleVar

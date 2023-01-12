@@ -20,18 +20,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_color_gm.cpp" />
+    <ClCompile Include="imgui_combo_gm.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_drag_gm.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_gm.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_input_gm.cpp" />
+    <ClCompile Include="imgui_layout_gm.cpp" />
+    <ClCompile Include="imgui_slider_gm.cpp" />
+    <ClCompile Include="imgui_text_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_tree_gm.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="imgui_widgets_gm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_gm.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
     <ClInclude Include="imgui_internal.h" />
     <ClInclude Include="imgui_memory_editor.h" />
@@ -133,6 +143,8 @@
       <PreprocessorDefinitions>OS_Windows;GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +152,20 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>node ..\tools\brief\main.js</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
