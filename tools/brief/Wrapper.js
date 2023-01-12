@@ -2,7 +2,7 @@ const Logger = require("./Logger");
 const Configuration = require("./Configuration");
 
 class Wrapper {
-    static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac"];
+    static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac", "visible"];
 
     constructor(name, line) {
         this.Name = name;

@@ -709,14 +709,15 @@ function ImGui() constructor {
 		return __imgui_set_next_item_open(is_open, cond);
 	}
 
-	/// @function CollapsingHeader(label, flags, mask)
+	/// @function CollapsingHeader(label, _visible, flags, mask)
 	/// @argument {String} label
+	/// @argument {Bool} [_visible=undefined]
 	/// @argument {Real} [flags=ImGuiTreeNodeFlags.None]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
 	/// @return {Real}
-	static CollapsingHeader = function(label, flags=ImGuiTreeNodeFlags.None, mask=ImGuiReturnMask.Return) {
+	static CollapsingHeader = function(label, _visible=undefined, flags=ImGuiTreeNodeFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
-		return __imgui_collapsing_header(label, flags, mask);
+		return __imgui_collapsing_header(label, _visible, flags, mask);
 	}
 
 	/// @function Button(label, width, height)

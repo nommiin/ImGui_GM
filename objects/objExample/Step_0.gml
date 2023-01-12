@@ -1,10 +1,14 @@
 if (ImGui.Begin("test")) {
 	
-	ImGui.ColorPicker4("ColorPicker4", col4);
-	
-	fl1 = ImGui.DragFloat("DragFloat", fl1);
-	
-	ImGui.DragFloat3("DragFloat3", fl3);
+
+	if (header1) {
+		var ret = ImGui.CollapsingHeader("Header with a close button", header1, ImGuiTreeNodeFlags.None, ImGuiReturnMask.Both);
+		header1 = ret & ImGuiReturnMask.Pointer;
+		
+		if (ret & ImGuiReturnMask.Return) {
+			ImGui.Text("hewwo");
+		}
+	}
 	
 	ImGui.End();	
 }

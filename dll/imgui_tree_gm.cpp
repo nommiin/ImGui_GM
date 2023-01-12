@@ -46,9 +46,9 @@ GMFUNC(__imgui_collapsing_header) {
 	const char* label = YYGetString(arg, 0);
 	bool visible = YYGetBool(arg, 1);
 	GMDEFAULT(undefined);
-	ImGuiTreeNodeFlags flags = YYGetInt64(arg, 1);
+	ImGuiTreeNodeFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiTreeNodeFlags.None);
-	int64 mask = YYGetInt64(arg, 2);
+	int64 mask = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiReturnMask.Return);
 	
 	bool* p_visible = &visible;
