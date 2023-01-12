@@ -13,3 +13,4 @@ fl4 = [10, 20, 30, 40];       // DragFloat4
 col1 = c_orange;
 
 header1 = true;
+demo = true;

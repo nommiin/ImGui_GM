@@ -1,5 +1,112 @@
 function ImGui() constructor {
 	/// @section Binds
+	/// @function CreateContext()
+	/// @return {Pointer}
+	static CreateContext = function() {
+		gml_pragma("forceinline");
+		return __imgui_create_context();
+	}
+
+	/// @function DestroyContext(ctx)
+	/// @argument {Pointer} ctx
+	/// @return {Undefined}
+	static DestroyContext = function(ctx) {
+		gml_pragma("forceinline");
+		return __imgui_destroy_context(ctx);
+	}
+
+	/// @function GetCurrentContext()
+	/// @return {Pointer}
+	static GetCurrentContext = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_current_context();
+	}
+
+	/// @function SetCurrentContext(ctx)
+	/// @argument {Pointer} ctx
+	/// @return {Undefined}
+	static SetCurrentContext = function(ctx) {
+		gml_pragma("forceinline");
+		return __imgui_set_current_context(ctx);
+	}
+
+	/// @function ShowDemoWindow(open)
+	/// @argument {Bool} [open=undefined]
+	/// @return {Bool}
+	static ShowDemoWindow = function(open=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_show_demo_window(open);
+	}
+
+	/// @function ShowMetricsWindow(open)
+	/// @argument {Bool} [open=undefined]
+	/// @return {Bool}
+	static ShowMetricsWindow = function(open=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_show_metrics_window(open);
+	}
+
+	/// @function ShowDebugLogWindow(open)
+	/// @argument {Bool} [open=undefined]
+	/// @return {Bool}
+	static ShowDebugLogWindow = function(open=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_show_debug_log_window(open);
+	}
+
+	/// @function ShowStackToolWindow(open)
+	/// @argument {Bool} [open=undefined]
+	/// @return {Bool}
+	static ShowStackToolWindow = function(open=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_show_stack_tool_window(open);
+	}
+
+	/// @function ShowAboutWindow(open)
+	/// @argument {Bool} [open=undefined]
+	/// @return {Bool}
+	static ShowAboutWindow = function(open=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_show_about_window(open);
+	}
+
+	/// @function ShowStyleEditor()
+	/// @return {Unknown<unset>}
+	static ShowStyleEditor = function() {
+		gml_pragma("forceinline");
+		return __imgui_show_style_editor();
+	}
+
+	/// @function ShowStyleSelector(label)
+	/// @argument {String} label
+	/// @return {Bool}
+	static ShowStyleSelector = function(label) {
+		gml_pragma("forceinline");
+		return __imgui_show_style_selector(label);
+	}
+
+	/// @function ShowFontSelector(label)
+	/// @argument {String} label
+	/// @return {Undefined}
+	static ShowFontSelector = function(label) {
+		gml_pragma("forceinline");
+		return __imgui_show_font_selector(label);
+	}
+
+	/// @function ShowUserGuide()
+	/// @return {Undefined}
+	static ShowUserGuide = function() {
+		gml_pragma("forceinline");
+		return __imgui_show_user_guide();
+	}
+
+	/// @function GetVersion()
+	/// @return {String}
+	static GetVersion = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_version();
+	}
+
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
@@ -475,6 +582,18 @@ function ImGui() constructor {
 	static Separator = function() {
 		gml_pragma("forceinline");
 		return __imgui_separator();
+	}
+
+	/// @function Selectable(label, selected, flags, width, height)
+	/// @argument {String} label
+	/// @argument {Bool} [selected=false]
+	/// @argument {Real} [flags=ImGuiSelectableFlags.None]
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @return {Bool}
+	static Selectable = function(label, selected=false, flags=ImGuiSelectableFlags.None, width=0, height=0) {
+		gml_pragma("forceinline");
+		return __imgui_selectable(label, selected, flags, width, height);
 	}
 
 	/// @function SliderFloat(label, v, v_min, v_max, format, flags)

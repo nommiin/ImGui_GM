@@ -70,7 +70,6 @@ GMFUNC(__imgui_checkbox) {
 	Result.val = checked;
 }
 
-// TODO
 GMFUNC(__imgui_checkbox_flags) {
 	GMOVERRIDE(CheckboxFlags);
 	ShowError("Unimplemented ImGui Function: ImGui.CheckboxFlags");

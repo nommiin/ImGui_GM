@@ -1,5 +1,8 @@
 if (ImGui.Begin("test")) {
 	
+	if (demo) {
+		demo = ImGui.ShowDemoWindow(demo);
+	}
 
 	if (header1) {
 		var ret = ImGui.CollapsingHeader("Header with a close button", header1, ImGuiTreeNodeFlags.None, ImGuiReturnMask.Both);

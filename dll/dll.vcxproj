@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_api_gm.cpp" />
     <ClCompile Include="imgui_color_gm.cpp" />
     <ClCompile Include="imgui_combo_gm.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
@@ -29,7 +30,9 @@
     <ClCompile Include="imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui_input_gm.cpp" />
     <ClCompile Include="imgui_layout_gm.cpp" />
+    <ClCompile Include="imgui_selectable_gm.cpp" />
     <ClCompile Include="imgui_slider_gm.cpp" />
+    <ClCompile Include="imgui_style_gm.cpp" />
     <ClCompile Include="imgui_text_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_tree_gm.cpp" />
@@ -80,7 +83,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -107,6 +110,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>imgui_gm</TargetName>
     <OutDir>..\extensions\ImGui_GM\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\extensions\ImGui_GM\</OutDir>
+    <TargetName>imgui_gm</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -173,8 +180,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OS_Windows;GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
