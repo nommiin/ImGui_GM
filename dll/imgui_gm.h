@@ -25,10 +25,9 @@
 
 // Helpers
 static inline ImVec4 GMCOLOR_TO(int col, float alpha) { 
-	static float sc = 1 / 0xFF;
-	float r = (col & 0xFF) * sc;
-	float g = ((col >> 8) & 0xFF) * sc;
-	float b = ((col >> 16) & 0xFF) * sc;
+	float r = (float)(col & 0xFF) / 0xFF;
+	float g = (float)((col >> 8) & 0xFF) / 0xFF;
+	float b = (float)((col >> 16) & 0xFF) / 0xFF;
 	return ImVec4(r, g, b, alpha);
 }
 

@@ -9,3 +9,5 @@ fl1 = 1.5;                    // DragFloat
 fl2 = [2.5, 4.5];             // DragFloat2
 fl3 = [10, 20, 30];           // DragFloat3
 fl4 = [10, 20, 30, 40];       // DragFloat4
+
+col1 = c_orange;

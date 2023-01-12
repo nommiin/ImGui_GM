@@ -1,5 +1,7 @@
 if (ImGui.Begin("test")) {
 	
+	ImGui.ColorPicker4("ColorPicker4", col4);
+	
 	fl1 = ImGui.DragFloat("DragFloat", fl1);
 	
 	ImGui.DragFloat3("DragFloat3", fl3);
