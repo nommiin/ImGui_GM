@@ -63,7 +63,6 @@ GMFUNC(__imgui_input_float) {
 
 GMFUNC(__imgui_input_float2) {
 	const int len = 2;
-
 	const char* label = YYGetString(arg, 0);
 	float* v = YYGetArray<float>(arg, 1, len);
 	float step = YYGetReal(arg, 2);
@@ -85,7 +84,6 @@ GMFUNC(__imgui_input_float2) {
 
 GMFUNC(__imgui_input_float3) {
 	const int len = 3;
-
 	const char* label = YYGetString(arg, 0);
 	float* v = YYGetArray<float>(arg, 1, len);
 	float step = YYGetReal(arg, 2);
@@ -106,6 +104,7 @@ GMFUNC(__imgui_input_float3) {
 }
 
 GMFUNC(__imgui_input_float4) {
+	const int len = 4;
 	const char* label = YYGetString(arg, 0);
 	float* v = YYGetArray<float>(arg, 1, 2);
 	float step = YYGetReal(arg, 2);
@@ -118,12 +117,16 @@ GMFUNC(__imgui_input_float4) {
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::InputFloat2(label, v, format, flags);
+	Result.val = false;
+	if (ImGui::InputFloat4(label, v, format, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_input_floatn) {
 	const char* label = YYGetString(arg, 0);
-	float* v = YYGetArray<float>(arg, 1, 2);
+	float* v = YYGetArray<float>(arg, 1, YYGetReal(arg, 2));
 	double count = YYGetReal(arg, 2);
 	GMDEFAULT(array_length(v));
 	float step = YYGetReal(arg, 3);
@@ -134,9 +137,14 @@ GMFUNC(__imgui_input_floatn) {
 	GMDEFAULT("%.3f");
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 6);
 	GMDEFAULT(ImGuiInputTextFlags.None);
+	GMOVERRIDE(InputFloatN);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::InputScalarN(label, ImGuiDataType_Float, &v, count, &step, &step_fast, format, flags);
+	Result.val = false;
+	if (ImGui::InputScalarN(label, ImGuiDataType_Float, v, count, &step, &step_fast, format, flags)) {
+		YYSetArray(&arg[1], v, count);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_input_int) {
@@ -155,45 +163,65 @@ GMFUNC(__imgui_input_int) {
 }
 
 GMFUNC(__imgui_input_int2) {
+	const int len = 2;
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 2);
+	int* v = YYGetArray<int>(arg, 1, len);
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::InputInt2(label, v, flags);
+	Result.val = false;
+	if (ImGui::InputInt2(label, v, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_input_int3) {
+	const int len = 3;
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 2);
+	int* v = YYGetArray<int>(arg, 1, len);
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::InputInt2(label, v, flags);
+	Result.val = false;
+	if (ImGui::InputInt3(label, v, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_input_int4) {
+	const int len = 4;
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 2);
+	int* v = YYGetArray<int>(arg, 1, len);
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::InputInt2(label, v, flags);
+	Result.val = false;
+	if (ImGui::InputInt4(label, v, flags)) {
+		YYSetArray(&arg[1], v, len);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_input_intn) {
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, 2);
+	int* v = YYGetArray<int>(arg, 1, YYGetReal(arg, 2));
 	double count = YYGetReal(arg, 2);
 	GMDEFAULT(array_length(v));
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiInputTextFlags.None);
+	GMOVERRIDE(InputIntN);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::InputScalarN(label, ImGuiDataType_S32, &v, count, NULL, NULL, "%d", flags);
+	Result.val = false;
+	if (ImGui::InputScalarN(label, ImGuiDataType_S32, v, count, NULL, NULL, "%d", flags)) {
+		YYSetArray(&arg[1], v, count);
+		Result.val = true;
+	}
 }
 
 GMFUNC(__imgui_input_double) {

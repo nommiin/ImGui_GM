@@ -334,7 +334,7 @@ function ImGui() constructor {
 		return __imgui_input_float2(label, v, step, step_fast, format, flags);
 	}
 
-	/// @function InputFloat2(label, v, step, step_fast, format, flags)
+	/// @function InputFloat3(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [step=0]
@@ -342,12 +342,12 @@ function ImGui() constructor {
 	/// @argument {String} [format=%.3f]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputFloat2 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloat3 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_input_float3(label, v, step, step_fast, format, flags);
 	}
 
-	/// @function InputFloat2(label, v, step, step_fast, format, flags)
+	/// @function InputFloat4(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [step=0]
@@ -355,12 +355,12 @@ function ImGui() constructor {
 	/// @argument {String} [format=%.3f]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputFloat2 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloat4 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_input_float4(label, v, step, step_fast, format, flags);
 	}
 
-	/// @function InputScalarN(label, v, count, step, step_fast, format, flags)
+	/// @function InputFloatN(label, v, count, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [count=array_length⌊v⌉]
@@ -369,7 +369,7 @@ function ImGui() constructor {
 	/// @argument {String} [format=%.3f]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputScalarN = function(label, v, count=array_length(v), step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloatN = function(label, v, count=array_length(v), step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_input_floatn(label, v, count, step, step_fast, format, flags);
 	}
@@ -396,33 +396,33 @@ function ImGui() constructor {
 		return __imgui_input_int2(label, v, flags);
 	}
 
-	/// @function InputInt2(label, v, flags)
+	/// @function InputInt3(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
+	static InputInt3 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_input_int3(label, v, flags);
 	}
 
-	/// @function InputInt2(label, v, flags)
+	/// @function InputInt4(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
+	static InputInt4 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_input_int4(label, v, flags);
 	}
 
-	/// @function InputScalarN(label, v, count, flags)
+	/// @function InputIntN(label, v, count, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
 	/// @return {Bool}
-	static InputScalarN = function(label, v, count=array_length(v), flags=ImGuiInputTextFlags.None) {
+	static InputIntN = function(label, v, count=array_length(v), flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_input_intn(label, v, count, flags);
 	}
