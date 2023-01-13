@@ -39,9 +39,6 @@
     <ClCompile Include="imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_text_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
@@ -67,6 +64,33 @@
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
     <ClCompile Include="imgui_color_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_listbox_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_menu_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_popup_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_style_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tooltips_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_window_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_api_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_docking_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_selectable_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
