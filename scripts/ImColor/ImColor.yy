@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Helpers",
-    "path": "folders/ImGui_GM/Helpers.yy",
+    "name": "ImGui_GM",
+    "path": "folders/ImGui_GM.yy",
   },
 }
