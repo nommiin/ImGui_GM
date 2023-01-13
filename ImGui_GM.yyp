@@ -8,7 +8,6 @@
     {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":0,},
     {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":0,},
-    {"id":{"name":"sprAngy","path":"sprites/sprAngy/sprAngy.yy",},"order":0,},
     {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},"order":0,},
   ],
   "defaultScriptType": 1,

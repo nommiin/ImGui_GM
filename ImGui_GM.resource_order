@@ -3,7 +3,6 @@
     {"name":"ImColor","path":"scripts/ImColor/ImColor.yy","order":4,},
     {"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy","order":2,},
     {"name":"rmExample","path":"rooms/rmExample/rmExample.yy","order":1,},
-    {"name":"sprAngy","path":"sprites/sprAngy/sprAngy.yy","order":5,},
     {"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy","order":1,},
   ],
   "FolderOrderSettings": [
