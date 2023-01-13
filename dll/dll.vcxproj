@@ -168,12 +168,8 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>node ..\tools\brief\main.js</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>
-    </PostBuildEvent>
+    <PostBuildEvent />
+    <PostBuildEvent />
     <PreBuildEvent>
       <Command>
       </Command>
@@ -182,6 +178,10 @@
       <Message>
       </Message>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>node ..\tools\brief\main.js</Command>
+      <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -202,6 +202,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent />
+    <PostBuildEvent>
+      <Command>node ..\tools\brief\main.js</Command>
+      <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

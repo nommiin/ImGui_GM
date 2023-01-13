@@ -48,7 +48,7 @@ class Wrapper {
                 arg.Name = "_" + arg.Name;
             }
             
-            if (arg.Passthrough) {
+            if (arg.Passthrough !== undefined) {
                 let passthrough = arg.Passthrough;
                 this.Arguments.forEach((e, ind) => {
                     passthrough = passthrough.replaceAll("#arg" + ind, e.Name);
@@ -56,7 +56,7 @@ class Wrapper {
                 arg.Passthrough = passthrough;
             }
 
-            if (arg.Default) {
+            if (arg.Default !== undefined) {
                 let def = arg.Default;
                 this.Arguments.forEach((e, ind) => {
                     def = def.replaceAll("#arg" + ind, e.Name);
@@ -206,7 +206,7 @@ class Wrapper {
             if (arg.Hidden) continue;
             
             str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
-            if (arg.Default) {
+            if (arg.Default !== undefined) {
                 str += ` [${arg.Name}=${Wrapper.fix(arg.Default)}]`;
             } else {
                 str += ` ${arg.Name}`;
@@ -219,7 +219,7 @@ class Wrapper {
 
     to_gml(spacing=1) {
         let str = Configuration.SPACING.repeat(spacing) + `static ${this.Calls} = function(` + this.Arguments.filter(e => !e.Hidden).map(e => {
-            if (!e.Default) return e.Name;
+            if (e.Default === undefined) return e.Name;
 
             switch (e.Type) {
                 case "String": {

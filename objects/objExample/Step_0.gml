@@ -1,10 +1,24 @@
+// Menu
 ImGui.BeginMainMenuBar();
 if (ImGui.BeginMenu("File")) {
-	var ret = ImGui.MenuItem("Open", "CTRL+O", toggle_thing, true, ImGuiReturnMask.Both);
-	toggle_thing = ret & ImGuiReturnMask.Pointer;
-	if (ret & ImGuiReturnMask.Return) {
-		show_debug_message("pressed it ^_^");	
+	if (ImGui.MenuItem("Show Example Window", "", undefined, !main_open)) {
+		main_open = true;	
+	}
+	
+	if (ImGui.MenuItem("Exit")) {
+		game_end();
 	}
 	ImGui.EndMenu();
 }
 ImGui.EndMainMenuBar();
+
+// Main Window
+if (main_open) {
+	var ret = ImGui.Begin("ImGui_GM Example", main_open, ImGuiWindowFlags.None, ImGuiReturnMask.Both);
+	main_open = ret & ImGuiReturnMask.Pointer;
+	
+	if (ret & ImGuiReturnMask.Return) {
+		
+	}
+	ImGui.End();
+}

@@ -1,4 +1,5 @@
 // All the silly stuff that's too messy for ImGui.gml
+// Used by Color*4 functions, use .Color to get BGR value for GM functions
 function ImColor(red, green, blue, alpha=1) constructor {
 	a = alpha;
 	if (blue != undefined) {

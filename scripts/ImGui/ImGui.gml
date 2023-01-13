@@ -1007,12 +1007,12 @@ function ImGui() constructor {
 
 	/// @function MenuItem(label, shortcut, selected, enabled, mask)
 	/// @argument {String} label
-	/// @argument {String} shortcut
+	/// @argument {String} [shortcut=]
 	/// @argument {Bool} [selected=undefined]
 	/// @argument {Bool} [enabled=true]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
 	/// @return {Real}
-	static MenuItem = function(label, shortcut, selected=undefined, enabled=true, mask=ImGuiReturnMask.Return) {
+	static MenuItem = function(label, shortcut="", selected=undefined, enabled=true, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
 		return __imgui_menu_item(label, shortcut, selected, enabled, mask);
 	}
@@ -1561,9 +1561,9 @@ function ImGui() constructor {
 	/// @argument {Real} _frac
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {String} overlay
+	/// @argument {String} [overlay=]
 	/// @return {Undefined}
-	static ProgressBar = function(_frac, width=0, height=0, overlay) {
+	static ProgressBar = function(_frac, width=0, height=0, overlay="") {
 		gml_pragma("forceinline");
 		return __imgui_progressbar(_frac, width, height, overlay);
 	}
