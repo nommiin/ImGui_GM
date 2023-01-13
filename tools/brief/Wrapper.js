@@ -2,7 +2,7 @@ const Logger = require("./Logger");
 const Configuration = require("./Configuration");
 
 class Wrapper {
-    static reserved = ["x", "y", "continue", "return", "id", "repeat"];
+    static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac", "visible"];
 
     constructor(name, line) {
         this.Name = name;
@@ -41,6 +41,8 @@ class Wrapper {
 
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
+            if (!arg) throw `Could not read undefined argument at index ${i} in ${this.Name} at line ${this.Line}`;
+            
             if (Wrapper.reserved.includes(arg.Name)) {
                 Logger.warning(`Reserved keyword "${arg.Name}" found in arguments for wrapper "${this.Name}", renaming to "_${arg.Name}"`);
                 arg.Name = "_" + arg.Name;
@@ -142,9 +144,20 @@ class Wrapper {
                 if (inner) {
                     const ind = inner[0];
                     if (ind) {
-                        index = ind.Literal;
-                        if (index > this.ArgumentIndex) {
-                            throw `Could not handle ${token.Literal} modifier, target argument index ${index} is out of range (${this.ArgumentIndex}) at line ${token.Line}`;
+                        switch (ind.Type) {
+                            case "Number": {
+                                index = ind.Literal;
+                                if (index > this.ArgumentIndex) {
+                                    throw `Could not handle ${token.Literal} modifier, target argument index ${index} is out of range (${this.ArgumentIndex}) at line ${token.Line}`;
+                                }
+                                break;
+                            }
+                            
+                            default: {
+                                this.Return = token.flatten(false);
+                                Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -163,8 +176,7 @@ class Wrapper {
             }
 
             // Ignore
-            case "GMCOLOR3_TO":
-            case "GMCOLOR4_TO":
+            case "GMCOLOR_TO":
             case "GMCOLOR_FROM": return true;
         }
         Logger.warning(`Could not handle unknown modifier "${token.Literal}" for wrapper "${this.Name}" at line ${token.Line}`);
@@ -195,7 +207,7 @@ class Wrapper {
             
             str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
             if (arg.Default) {
-                str += ` [${arg.Name}=${arg.Default}]`;
+                str += ` [${arg.Name}=${Wrapper.fix(arg.Default)}]`;
             } else {
                 str += ` ${arg.Name}`;
             }
@@ -285,6 +297,11 @@ class Wrapper {
             case "Struct": return ret + "Struct";
         }
         return ret;
+    }
+
+    // Replaces parentheses with similar characters, GameMaker's IDE gets tripped up by extra parentheses in autocomplete
+    static fix(val) {
+        return val.replaceAll("(", "⌊").replaceAll(")", "⌉");
     }
 }
 

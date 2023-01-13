@@ -1,15 +1,23 @@
 ImGui.__Initialize();
+col1 = c_red;                 // ColorEdit3 & TextColored
+col2 = c_blue;                // ColorPicker3
+col3 = new ImColor(c_green);  // ColorEdit4
+col4 = new ImColor(c_purple); // ColorPicker4
+col5 = c_orange;              // ColorButton
+		
+fl1 = 1.5;                    // DragFloat
+fl2 = [2.5, 4.5];             // DragFloat2
+fl3 = [10, 20, 30];           // DragFloat3
+fl4 = [10, 20, 30, 40];       // DragFloat4
 
-open = true;
-frame = 0;
-surface = -1;
+col1 = c_orange;
 
-combo = ["First Item", "Second Item", "Third Item"];
-combo_sel = 0;
+header1 = true;
+demo = true;
 
-color = c_white;
+surf = -1;
 
-text = "hiii";
+xx = 0;
+yy = 0;
 
-buff = buffer_create(32, buffer_fixed, 1);
-buffer_write(buff, buffer_string, "hewwo");
+toggle_thing = false;
