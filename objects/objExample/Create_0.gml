@@ -14,3 +14,10 @@ col1 = c_orange;
 
 header1 = true;
 demo = true;
+
+surf = -1;
+
+xx = 0;
+yy = 0;
+
+toggle_thing = false;

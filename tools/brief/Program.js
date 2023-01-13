@@ -38,6 +38,8 @@ class Program {
 
         Logger.info("Writing script...");
         this.writeScripts(wrappers, new FileEditor(script));
+
+        Logger.info(`Successfully wrote ${wrappers.length} wrappers`);
     }
 
     /**

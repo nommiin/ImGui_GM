@@ -61,6 +61,26 @@ GMFUNC(__imgui_image) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_surface) {
+	double surface = YYGetReal(arg, 0);
+	double color = YYGetReal(arg, 1);
+	GMDEFAULT(c_white);
+	float alpha = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+	double width = YYGetReal(arg, 3);
+	GMDEFAULT(surface_get_width(#arg0));
+	double height = YYGetReal(arg, 4);
+	GMDEFAULT(surface_get_height(#arg0));
+	double* uv = YYGetArray<double>(arg, 5, 4);
+	GMHIDDEN();
+	GMPASSTHROUGH(texture_get_uvs(_tex));
+	GMPREPEND(var _tex = surface_get_texture(#arg0); texture_set_stage(0, _tex));
+	GMOVERRIDE(Surface);
+
+	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_checkbox) {
 	const char* label = YYGetString(arg, 0);
 	bool checked = YYGetBool(arg, 1);

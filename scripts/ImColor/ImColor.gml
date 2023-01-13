@@ -8,8 +8,16 @@ function ImColor(red, green, blue, alpha=1) constructor {
 		r = color_get_red(red);
 		g = color_get_green(red);
 		b = color_get_blue(red);
-		if (green != undefined) {
-			a = green;	
+		
+		/*
+		TODO: this dont work
+		var msb = (red >> 24);
+		if (msb != 0) {
+			a = msb / 0xFF;
+		} else */{
+			if (green != undefined) {
+				a = green;	
+			}
 		}
 	}
 	

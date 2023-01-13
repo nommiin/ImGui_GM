@@ -45,3 +45,8 @@ GMFUNC(__imgui_bullet_text) {
 	ImGui::BulletText(val);
 	Result.kind = VALUE_UNDEFINED;
 }
+
+GMFUNC(__imgui_value) {
+	GMOVERRIDE(Value);
+	ShowError("Unimplemented ImGui Function: ImGui.Value");
+}

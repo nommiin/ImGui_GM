@@ -24,17 +24,22 @@
     <ClCompile Include="imgui_color_gm.cpp" />
     <ClCompile Include="imgui_combo_gm.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_docking_gm.cpp" />
     <ClCompile Include="imgui_drag_gm.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_gm.cpp" />
+    <ClCompile Include="imgui_window_gm.cpp" />
     <ClCompile Include="imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui_input_gm.cpp" />
     <ClCompile Include="imgui_layout_gm.cpp" />
+    <ClCompile Include="imgui_listbox_gm.cpp" />
+    <ClCompile Include="imgui_menu_gm.cpp" />
+    <ClCompile Include="imgui_popup_gm.cpp" />
     <ClCompile Include="imgui_selectable_gm.cpp" />
     <ClCompile Include="imgui_slider_gm.cpp" />
     <ClCompile Include="imgui_style_gm.cpp" />
     <ClCompile Include="imgui_text_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_tooltips_gm.cpp" />
     <ClCompile Include="imgui_tree_gm.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="imgui_widgets_gm.cpp" />
@@ -152,6 +157,10 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4244</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,6 +192,9 @@
       <PreprocessorDefinitions>OS_Windows;GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
