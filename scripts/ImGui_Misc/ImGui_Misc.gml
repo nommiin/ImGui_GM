@@ -99,6 +99,21 @@ _.__Cursor[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
 _.__Cursor[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
 _.__Cursor[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
 
+/*
+	Used for encoding multiple returns from various wrappers (ImGui.Begin, ImGui.CollapsingHeader, etc)
+	Default is ImGuiReturnFlags.Return for all functions to make wrappers work as close to the library as possible
+	
+	Return: The return value of the library function
+	Pointer: Any reference passed to the library function and modified (this varies per-function; hopefully it all makes sense)
+	Both: ^
+*/
+enum ImGuiReturnMask {
+	None = 0,            // Should be unused
+	Return = 1 << 0,
+	Pointer = 1 << 1,
+	Both = ImGuiReturnMask.Return | ImGuiReturnMask.Pointer
+}
+
 // slightly modified from imgui.h
 enum ImGuiKey
 {
@@ -301,21 +316,6 @@ enum ImGuiColorEditFlags
     // Obsolete names (will be removed)
     // RGB = DisplayRGB, HSV = DisplayHSV, HEX = DisplayHex  // [renamed in 1.69]
 };
-
-/*
-	Used for encoding multiple returns from various wrappers (ImGui.Begin, ImGui.CollapsingHeader, etc)
-	Default is ImGuiReturnFlags.Return for all functions to make wrappers work as close to the library as possible
-	
-	Return: The return value of the library function
-	Pointer: Any reference passed to the library function and modified (this varies per-function; hopefully it all makes sense)
-	Both: ^
-*/
-enum ImGuiReturnMask {
-	None = 0,            // Should be unused
-	Return = 1 << 0,
-	Pointer = 1 << 1,
-	Both = ImGuiReturnMask.Return | ImGuiReturnMask.Pointer
-}
 
 enum ImGuiStyleVar
 {
@@ -593,4 +593,38 @@ enum ImGuiHoveredFlags
     DelayNormal                   = 1 << 11,  // Return true after io.HoverDelayNormal elapsed (~0.30 sec)
     DelayShort                    = 1 << 12,  // Return true after io.HoverDelayShort elapsed (~0.10 sec)
     NoSharedDelay                 = 1 << 13,  // Disable shared delay system where moving from one item to the next keeps the previous timer for a short time (standard for tooltips with long delays)
+};
+
+enum ImGuiPopupFlags
+{
+    None                    = 0,
+    MouseButtonLeft         = 0,        // For BeginPopupContext*(): open on Left Mouse release. Guaranteed to always be == 0 (same as Left)
+    MouseButtonRight        = 1,        // For BeginPopupContext*(): open on Right Mouse release. Guaranteed to always be == 1 (same as Right)
+    MouseButtonMiddle       = 2,        // For BeginPopupContext*(): open on Middle Mouse release. Guaranteed to always be == 2 (same as Middle)
+    MouseButtonMask_        = 0x1F,
+    MouseButtonDefault_     = 1,
+    NoOpenOverExistingPopup = 1 << 5,   // For OpenPopup*(), BeginPopupContext*(): don't open if there's already a popup at the same level of the popup stack
+    NoOpenOverItems         = 1 << 6,   // For BeginPopupContextWindow(): don't return true when hovering items, only when hovering empty space
+    AnyPopupId              = 1 << 7,   // For IsPopupOpen(): ignore the ImGuiID parameter and test for any popup.
+    AnyPopupLevel           = 1 << 8,   // For IsPopupOpen(): search/test at any level of the popup stack (default test in the current level)
+    AnyPopup                = ImGuiPopupFlags.AnyPopupId | ImGuiPopupFlags.AnyPopupLevel,
+};
+
+enum ImGuiMouseButton
+{
+    Left = 0,
+    Right = 1,
+    Middle = 2,
+    COUNT = 5
+};
+
+enum ImGuiFocusedFlags
+{
+    None                          = 0,
+    ChildWindows                  = 1 << 0,   // Return true if any children of the window is focused
+    RootWindow                    = 1 << 1,   // Test from root window (top most parent of the current hierarchy)
+    AnyWindow                     = 1 << 2,   // Return true if any window is focused. Important: If you are trying to tell how to dispatch your low-level inputs, do NOT use this. Use 'io.WantCaptureMouse' instead! Please read the FAQ!
+    NoPopupHierarchy              = 1 << 3,   // Do not consider popup hierarchy (do not treat popup emitter as parent of popup) (when used with _ChildWindows or _RootWindow)
+    DockHierarchy                 = 1 << 4,   // Consider docking hierarchy (treat dockspace host as parent of docked window) (when used with _ChildWindows or _RootWindow)
+    RootAndChildWindows           = ImGuiFocusedFlags.RootWindow | ImGuiFocusedFlags.ChildWindows,
 };
