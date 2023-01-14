@@ -122,12 +122,6 @@ if (main_open) {
 			}
 		}
 		ImGui.EndChild();
-		
-		ImGui.BeginChild("Inner_Misc", 0, height, true);
-		ImGui.Text("Misc Widgets");
-		ImGui.Separator();
-		ImGui.EndChild();
-		
 	}
 	ImGui.End();
 }
