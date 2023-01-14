@@ -79,6 +79,8 @@ Also record keeping for myself, here's a rough list of missing functionality at 
 - Tables
 - Plots/Histogram
 - Config Flag editing
+- Docking (enabled by default currently, need to create wrappers for docking-related functions)
+- Viewports
 - Anything else, please [submit an issue](https://github.com/nommiin/ImGui_GM/issues) or create a thread in [the itch.io community](https://nommiiin.itch.io/imgui-gm/community)
 
 # Notes
