@@ -2931,7 +2931,15 @@
                     "args": []
                 }
             ],
-            "constants": [],
+            "constants": [
+                {
+                    "resourceType": "GMExtensionConstant",
+                    "resourceVersion": "1.0",
+                    "name": "IMGUI_GM_VERSION",
+                    "value": "\"1.0.0\"",
+                    "hidden": false
+                }
+            ],
             "ProxyFiles": [],
             "usesRunnerInterface": true,
             "order": [

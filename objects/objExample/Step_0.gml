@@ -12,8 +12,6 @@ ImGui.BeginMainMenuBar();
 if (ImGui.BeginMenu("File")) {
 	if (ImGui.MenuItem("Exit")) {
 		exit_modal = true;
-		//ImGui.OpenPopup("popup");
-		//game_end();
 	}
 	ImGui.EndMenu();
 }
