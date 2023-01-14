@@ -75,6 +75,12 @@ At the time of writing, the aforementioned changes to `static` are only avaliabl
 # Coverage
 Currently there is 204 wrapper functions on the GameMaker side of things, but there's still a decent amount of missing functionality; namely tables, viewports, and docking functions. Check out [`ImGui_GM.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml#L2) to view all wrapper functions
 
+Also record keeping for myself, here's a rough list of missing functionality at the moment:
+- Tables
+- Plots/Histogram
+- Config Flag editing
+- Anything else, please [submit an issue](https://github.com/nommiin/ImGui_GM/issues) or create a thread in [the itch.io community](https://nommiiin.itch.io/imgui-gm/community)
+
 # Notes
 - Functions like `ImGui.Begin` may not return what you expect, see ["ImGuiReturnMask Usage"](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info
 
