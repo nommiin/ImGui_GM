@@ -15,7 +15,7 @@ A Windows only ImGui wrapper for modern GameMaker, heavily work-in-progress
   - [`brief/Program.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/brief/Program.js) for ImGui to GM binding generation
 
 # Building
-*Using C++14 Standard, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
+*Using C++20, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
 
 1. Run `copy_dependencies.bat` to copy required `.cpp` and `.h` files from `thirdparty/*` into `dll/`
 2. Open `dll.sln` in Visual Studio (support for versions older than 2022 is unknown)
