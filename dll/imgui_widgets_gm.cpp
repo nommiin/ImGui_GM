@@ -35,10 +35,12 @@ GMFUNC(__imgui_invisible_button) {
 	Result.val = ImGui::InvisibleButton(id, ImVec2(width, height), flags);
 }
 
-// TODO: ImGuiDir?
 GMFUNC(__imgui_arrow_button) {
-	GMOVERRIDE(ArrowButton);
-	ShowError("Unimplemented ImGui Function: ImGui.ArrowButton");
+	const char* str_id = YYGetString(arg, 0);
+	ImGuiDir dir = YYGetInt64(arg, 1);
+	
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::ArrowButton(str_id, dir);
 }
 
 GMFUNC(__imgui_image) {

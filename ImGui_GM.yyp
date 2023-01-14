@@ -4,6 +4,7 @@
   "name": "ImGui_GM",
   "resources": [
     {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},"order":0,},
+    {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},"order":0,},
     {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":0,},
     {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":0,},

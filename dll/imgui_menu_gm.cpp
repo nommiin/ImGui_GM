@@ -52,7 +52,7 @@ GMFUNC(__imgui_menu_item) {
 		}
 	}
 
-	bool ret = ImGui::MenuItem(label, shortcut, p_selected, enabled);
+	bool ret = ImGui::MenuItem(label, (shortcut == "" ? nullptr : shortcut), p_selected, enabled);
 	Result.kind = VALUE_REAL;
 	Result.val = ((selected << 1) | (bool)ret) & mask;
 }

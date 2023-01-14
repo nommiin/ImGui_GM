@@ -48,6 +48,16 @@ GMFUNC(__imgui_unindent) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_sameline) {
+	double offset_from_start_x = YYGetReal(arg, 0);
+	GMDEFAULT(0);
+	double spacing = YYGetReal(arg, 1);
+	GMDEFAULT(-1);
+
+	ImGui::SameLine(offset_from_start_x, spacing);
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_begin_group) {
 	ImGui::BeginGroup();
 	Result.kind = VALUE_UNDEFINED;
@@ -128,4 +138,60 @@ GMFUNC(__imgui_get_frame_height) {
 GMFUNC(__imgui_get_frame_height_with_spacing) {
 	Result.kind = VALUE_REAL;
 	Result.val = ImGui::GetFrameHeightWithSpacing();
+}
+
+GMFUNC(__imgui_get_content_region_avail_x) {
+	GMOVERRIDE(GetContentRegionAvailX);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetContentRegionAvail().x;
+}
+
+GMFUNC(__imgui_get_content_region_avail_y) {
+	GMOVERRIDE(GetContentRegionAvailY);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetContentRegionAvail().y;
+}
+
+GMFUNC(__imgui_get_content_region_max_x) {
+	GMOVERRIDE(GetContentRegionMaxX);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetContentRegionMax().x;
+}
+
+GMFUNC(__imgui_get_content_region_max_y) {
+	GMOVERRIDE(GetContentRegionMaxY);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetContentRegionMax().y;
+}
+
+GMFUNC(__imgui_get_window_content_region_min_x) {
+	GMOVERRIDE(GetWindowContentRegionMinX);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetWindowContentRegionMin().x;
+}
+
+GMFUNC(__imgui_get_window_content_region_min_y) {
+	GMOVERRIDE(GetWindowContentRegionMinY);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetWindowContentRegionMin().y;
+}
+
+GMFUNC(__imgui_get_window_content_region_max_x) {
+	GMOVERRIDE(GetWindowContentRegionMaxX);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetWindowContentRegionMax().x;
+}
+
+GMFUNC(__imgui_get_window_content_region_max_y) {
+	GMOVERRIDE(GetWindowContentRegionMaxY);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetWindowContentRegionMax().y;
 }

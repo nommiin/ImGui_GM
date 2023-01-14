@@ -837,6 +837,15 @@ function ImGui() constructor {
 		return __imgui_unindent(indent_w);
 	}
 
+	/// @function SameLine(offset_from_start_x, spacing)
+	/// @argument {Real} [offset_from_start_x=0]
+	/// @argument {Real} [spacing=-1]
+	/// @return {Undefined}
+	static SameLine = function(offset_from_start_x=0, spacing=-1) {
+		gml_pragma("forceinline");
+		return __imgui_sameline(offset_from_start_x, spacing);
+	}
+
 	/// @function BeginGroup()
 	/// @return {Undefined}
 	static BeginGroup = function() {
@@ -935,6 +944,62 @@ function ImGui() constructor {
 	static GetFrameHeightWithSpacing = function() {
 		gml_pragma("forceinline");
 		return __imgui_get_frame_height_with_spacing();
+	}
+
+	/// @function GetContentRegionAvailX()
+	/// @return {Real}
+	static GetContentRegionAvailX = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_content_region_avail_x();
+	}
+
+	/// @function GetContentRegionAvailY()
+	/// @return {Real}
+	static GetContentRegionAvailY = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_content_region_avail_y();
+	}
+
+	/// @function GetContentRegionMaxX()
+	/// @return {Real}
+	static GetContentRegionMaxX = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_content_region_max_x();
+	}
+
+	/// @function GetContentRegionMaxY()
+	/// @return {Real}
+	static GetContentRegionMaxY = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_content_region_max_y();
+	}
+
+	/// @function GetWindowContentRegionMinX()
+	/// @return {Real}
+	static GetWindowContentRegionMinX = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_window_content_region_min_x();
+	}
+
+	/// @function GetWindowContentRegionMinY()
+	/// @return {Real}
+	static GetWindowContentRegionMinY = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_window_content_region_min_y();
+	}
+
+	/// @function GetWindowContentRegionMaxX()
+	/// @return {Real}
+	static GetWindowContentRegionMaxX = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_window_content_region_max_x();
+	}
+
+	/// @function GetWindowContentRegionMaxY()
+	/// @return {Real}
+	static GetWindowContentRegionMaxY = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_window_content_region_max_y();
 	}
 
 	/// @function BeginListBox(label, width, height)
@@ -1498,11 +1563,13 @@ function ImGui() constructor {
 		return __imgui_invisible_button(_id, width, height, flags);
 	}
 
-	/// @function ArrowButton()
-	/// @return {Unknown<unset>}
-	static ArrowButton = function() {
+	/// @function ArrowButton(str_id, dir)
+	/// @argument {String} str_id
+	/// @argument {Real} dir
+	/// @return {Bool}
+	static ArrowButton = function(str_id, dir) {
 		gml_pragma("forceinline");
-		return __imgui_arrow_button();
+		return __imgui_arrow_button(str_id, dir);
 	}
 
 	/// @function Image(sprite, subimg, color, alpha, width, height)
