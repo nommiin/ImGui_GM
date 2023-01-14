@@ -207,3 +207,45 @@ GMFUNC(__imgui_slider_intn) {
 		Result.val = true;
 	}
 }
+
+GMFUNC(__imgui_vslider_float) {
+	const char* label = YYGetString(arg, 0);
+	double width = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	float v = YYGetReal(arg, 3);
+	float v_min = YYGetReal(arg, 4);
+	GMDEFAULT(0);
+	float v_max = YYGetReal(arg, 5);
+	GMDEFAULT(0);
+	const char* format = YYGetString(arg, 6);
+	GMDEFAULT("%.3f");
+	ImGuiSliderFlags flags = YYGetInt64(arg, 7);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	ImGui::VSliderFloat(label, ImVec2(width, height), &v, v_min, v_max, format, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = v;
+}
+
+GMFUNC(__imgui_vslider_int) {
+	const char* label = YYGetString(arg, 0);
+	double width = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	int v = YYGetReal(arg, 3);
+	int v_min = YYGetReal(arg, 4);
+	GMDEFAULT(0);
+	int v_max = YYGetReal(arg, 5);
+	GMDEFAULT(0);
+	const char* format = YYGetString(arg, 6);
+	GMDEFAULT("%d");
+	ImGuiSliderFlags flags = YYGetInt64(arg, 7);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	ImGui::VSliderInt(label, ImVec2(width, height), &v, v_min, v_max, format, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = v;
+}

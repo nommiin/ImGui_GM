@@ -1315,6 +1315,36 @@ function ImGui() constructor {
 		return __imgui_slider_intn(label, v, count, v_min, v_max, format, flags);
 	}
 
+	/// @function VSliderFloat(label, width, height, v, v_min, v_max, format, flags)
+	/// @argument {String} label
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @argument {Real} v
+	/// @argument {Real} [v_min=0]
+	/// @argument {Real} [v_max=0]
+	/// @argument {String} [format=%.3f]
+	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @return {Real}
+	static VSliderFloat = function(label, width=0, height=0, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_vslider_float(label, width, height, v, v_min, v_max, format, flags);
+	}
+
+	/// @function VSliderInt(label, width, height, v, v_min, v_max, format, flags)
+	/// @argument {String} label
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @argument {Real} v
+	/// @argument {Real} [v_min=0]
+	/// @argument {Real} [v_max=0]
+	/// @argument {String} [format=%d]
+	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @return {Real}
+	static VSliderInt = function(label, width=0, height=0, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_vslider_int(label, width, height, v, v_min, v_max, format, flags);
+	}
+
 	/// @function StyleColorsDark()
 	/// @return {Undefined}
 	static StyleColorsDark = function() {

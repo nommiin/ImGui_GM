@@ -7,21 +7,28 @@ if (!surface_exists(surf)) {
 }
 
 // Menu
-var a = false;
+var exit_modal = false;
 ImGui.BeginMainMenuBar();
 if (ImGui.BeginMenu("File")) {
 	if (ImGui.MenuItem("Exit")) {
-		a = true;
+		exit_modal = true;
 		//ImGui.OpenPopup("popup");
 		//game_end();
 	}
 	ImGui.EndMenu();
 }
 
-if (a) ImGui.OpenPopup("popup");
-if (ImGui.BeginPopupModal("popup", true)) {
-	ImGui.Text("epicness");
+if (exit_modal) ImGui.OpenPopup("Exit?");
+
+ImGui.SetNextWindowPos(window_get_width() / 2, window_get_height () / 2, ImGuiCond.Appearing, 0.5, 0.5);
+if (ImGui.BeginPopupModal("Exit?", undefined, ImGuiWindowFlags.NoResize)) {
+	ImGui.Text("Are you sure you want to exit?");
+	ImGui.Separator();
+	if (ImGui.Button("Yes")) game_end();
+	ImGui.SameLine();
+	if (ImGui.Button("Nevermind")) ImGui.CloseCurrentPopup();
 	ImGui.EndPopup();	
+	
 }
 
 if (ImGui.BeginMenu("Windows")) {
@@ -50,7 +57,6 @@ if (main_open) {
 		ImGui.TextDisabled("ImGui::TextDisabled");
 		ImGui.LabelText("A Label", "ImGui::LabelText");
 		ImGui.BulletText("ImGui::BulletText");
-		ImGui.Text("Right-Click");
 		ImGui.EndChild();
 		
 		ImGui.SameLine();
@@ -62,6 +68,9 @@ if (main_open) {
 		if (ImGui.SmallButton("ImGui::SmallButton")) show_message_async("nice, you pressed the smaller button");
 		if (ImGui.InvisibleButton("ImGui::InvisibleButton", ImGui.GetContentRegionAvailX(), 24)) show_message_async("nice, you pressed the super secret invisible button");
 		if (ImGui.ArrowButton("ImGui::ArrowButton", dir)) dir = (dir + 1) % 4;
+		ImGui.SameLine();
+		ImGui.Text("Direction: " + string(dir));
+		ImGui.ColorButton("ImGui::ColorButton", c_orange, 0.5);
 		ImGui.EndChild();
 		
 		ImGui.BeginChild("Inner_Textured", width / 2, height, true);
@@ -82,6 +91,43 @@ if (main_open) {
 		surface_reset_target();
 		ImGui.Surface(surf);
 		ImGui.EndChild();
+		
+		ImGui.SameLine();
+		
+		ImGui.BeginChild("Inner_Tree", 0, height, true);
+		ImGui.Text("Tree");
+		ImGui.Separator();
+		if (ImGui.TreeNode("ImGui::TreeNode")) {
+			ImGui.Text("Hello!\nThis is some content inside of a tree node :)");
+			ImGui.TreePop();
+		}
+		
+		if (ImGui.TreeNode("Another Node")) {
+			ImGui.Text("This is another tree node, for the sake of example!");
+			ImGui.Image(sprExample, 0, c_red, 1, sprite_get_width(sprExample) / 2, sprite_get_height(sprExample) / 2);
+			ImGui.TreePop();
+		}
+		
+		var ret = ImGui.CollapsingHeader("ImGui::CollapsingHeader", header_visible, undefined, ImGuiReturnMask.Both);
+		header_visible = ret & ImGuiReturnMask.Pointer;
+		if (ret & ImGuiReturnMask.Return) {
+			ImGui.TextColored("hewwo", c_aqua, 0.5);
+			ImGui.Text("You can click the X icon at the side of the header to hide it!");
+			ImGui.TreePop();	
+		}
+		
+		if (!header_visible) {
+			if (ImGui.Button("Restore Header")) {
+				header_visible = true;		
+			}
+		}
+		ImGui.EndChild();
+		
+		ImGui.BeginChild("Inner_Misc", 0, height, true);
+		ImGui.Text("Misc Widgets");
+		ImGui.Separator();
+		ImGui.EndChild();
+		
 	}
 	ImGui.End();
 }
