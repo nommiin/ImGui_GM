@@ -211,9 +211,7 @@ GMFUNC(__imgui_slider_intn) {
 GMFUNC(__imgui_vslider_float) {
 	const char* label = YYGetString(arg, 0);
 	double width = YYGetReal(arg, 1);
-	GMDEFAULT(0);
 	double height = YYGetReal(arg, 2);
-	GMDEFAULT(0);
 	float v = YYGetReal(arg, 3);
 	float v_min = YYGetReal(arg, 4);
 	GMDEFAULT(0);
@@ -232,9 +230,7 @@ GMFUNC(__imgui_vslider_float) {
 GMFUNC(__imgui_vslider_int) {
 	const char* label = YYGetString(arg, 0);
 	double width = YYGetReal(arg, 1);
-	GMDEFAULT(0);
 	double height = YYGetReal(arg, 2);
-	GMDEFAULT(0);
 	int v = YYGetReal(arg, 3);
 	int v_min = YYGetReal(arg, 4);
 	GMDEFAULT(0);
