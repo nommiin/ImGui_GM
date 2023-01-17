@@ -22,6 +22,9 @@ class Program {
      * @param {string} script Path to ImGui .gml script
      */
     static main(root, extension, script) {
+        Logger.info("Reading ImGui header...");
+        const api = this.parseHeader(new FileEditor(root + "imgui.h"));
+
         Logger.info("Retrieving wrappers...");
         const files = fs.readdirSync(root).filter(e => e.endsWith("_gm.cpp"));
         if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root}"`;
@@ -38,8 +41,44 @@ class Program {
 
         Logger.info("Writing script...");
         this.writeScripts(wrappers, new FileEditor(script));
-
         Logger.info(`Successfully wrote ${wrappers.length} wrappers`);
+
+        if (Configuration.WRITE_REPORT) {
+            Logger.info("Writing coverage report...");
+            this.writeReport(api, wrappers, new FileEditor("COVERAGE.md"));
+        }
+    }
+
+    /**
+     * Naively parses imgui.h to retrieve API functions 
+     * @param {FileEditor} file A file editor containing the ImGui header file
+     */
+    static parseHeader(file) {
+        const tokens = new Processor(new Scanner(file.Content).Tokens).get(), functions = [];
+        if (tokens.length === 0) throw `Could not parse "${file.Name}", processed token list is empty`;
+        let count = 0;
+
+        const reader = TokenReader.flat(tokens);
+        while (!reader.end()) {
+            const token = reader.advance();
+            if (token && (token.Type === "Identifier")) {
+                if (token.Literal !== "IMGUI_API") continue;
+
+                const type = reader.advance();
+                if (type.Type !== "Keyword") continue;
+
+                const func = reader.advance(), name = func.Literal;
+                if (name.startsWith("_") || name[0] != name[0].toUpperCase()) continue;
+
+                functions.push({
+                    Name: name,
+                    Type: type.Literal,
+                    Line: token.Line
+                });
+            }
+        }
+        Logger.info(`Successfully parsed "${file.Name}" and retrieved ${functions.length} API function definitions`);
+        return functions;
     }
 
     /**
@@ -63,7 +102,7 @@ class Program {
                 if (!next || next.Type !== Token.name("{}")) throw `Could not parse "${file.Name}", expected ${Token.name("{}")} token for ${token.Literal} at line ${token.Line}`;
                 if (!next.Children || next.Children.length === 0) throw `Could not parse "${file.Name}", expected content inside ${Token.name("{}")} for ${token.Literal} at line ${token.Line}`;
                 
-                const wrapper = new Wrapper(name.Literal, token.Line);
+                const wrapper = new Wrapper(name.Literal, file.Name, token.Line);
                 const children = new TokenReader(next.Children);
                 while (!children.end()) {
                     const token = children.advance();
@@ -208,6 +247,29 @@ class Program {
 
         const final = file.Content.slice(0, start) + content.join("\n") + "\n" + Configuration.SPACING + file.Content.slice(end);
         if (file.update(final)) file.commit();
+    }
+
+    /**
+     * 
+     * @param {Array<object>} api 
+     * @param {Array<Wrapper>} wrappers 
+     * @param {FileEditor} file A file editor containing the GML script file
+     */
+    static writeReport(api, wrappers, file) {
+        let content = `# About\nThis is an automatically generated file that keeps track of of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
+        api.forEach(e => {
+            if (wrappers.find(w => w.Calls === e.Name)) {
+                count++;
+            }
+        });
+        content += `${count} out of ${api.length} API functions wrapped (**${Math.round(100 * (count / api.length))}% complete**)\n\n`;
+        content += "| Function | Wrapped | Link |\n";
+        content += "| -------- | ------- | ---- |\n";
+        api.forEach(e => {
+            const wrapper = wrappers.find(w => w.Calls === e.Name);
+            content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} |\n`;
+        });
+        if (file.update(content)) file.commit();
     }
 }
 

@@ -6,7 +6,7 @@ GMFUNC(__imgui_begin_menubar) {
 }
 
 GMFUNC(__imgui_end_menubar) {
-	ImGui::EndMainMenuBar();
+	ImGui::EndMenuBar();
 	Result.kind = VALUE_UNDEFINED;
 }
 

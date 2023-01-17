@@ -4,8 +4,9 @@ const Configuration = require("./Configuration");
 class Wrapper {
     static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac", "visible"];
 
-    constructor(name, line) {
+    constructor(name, file, line) {
         this.Name = name;
+        this.File = file;
         this.Line = line;
         this.Calls = undefined;
         this.CallOverride = false;
