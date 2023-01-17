@@ -39,20 +39,15 @@ class TokenReader {
         }
         return true;
     }
-}
 
-function do_thing(tokens) {
-    let ret = [];
-    for(let i = 0; i < tokens.length; i++) {
-        const token = tokens[i];
-        if (token.Type.endsWith("Pair")) token.Type = "Left" + token.Type.slice(0, -4);
-        ret.push(token);
-        if (token.Children) {
-            ret = ret.concat(do_thing(token.Children));
-            token.Children = undefined;
+    // returns a new TokenReader containing flattened tokens (no children, all sequential)
+    static flat(input) {
+        const tokens = [];
+        for(let i = 0; i < input.length; i++) {
+            tokens.push(...input[i].flat());
         }
+        return new TokenReader(tokens);
     }
-    return ret;
 }
 
 module.exports = TokenReader;

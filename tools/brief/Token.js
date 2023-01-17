@@ -21,6 +21,18 @@ class Token {
         this.Children = undefined;
     }
 
+    flat() {
+        const tokens = [this];
+        if (this.Children) {
+            for(let i = 0; i < this.Children.length; i++) {
+                tokens.push(...this.Children[i].flat());
+            }
+            this.Children = undefined;
+        }
+        return tokens;
+    }
+
+    // turns token & children into string
     flatten(self=true) {
         let str = self ? this.Literal : "", pair = undefined;
         if (self) {
