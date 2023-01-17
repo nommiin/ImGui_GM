@@ -23,6 +23,10 @@ class Processor {
                         token.Type = "IncludeProgram";
                     } else {
                         token.Type = "IncludeStandard";
+                        if (next.Type === "Identifier") {
+                            token.Literal = next.Literal;
+                            return token;
+                        }
                         if (next.Type !== Token.name("<")) throw `Could not find opening token for ${token.Type} at line ${token.Line}`;
 
                         let literal = "";
@@ -107,10 +111,12 @@ class Processor {
                     if (next.Type === Token.name("*")) {
                         token.Type = "TypePointer";
                         token.Literal += next.Literal;
+                        next.Type = undefined;
                         reader.advance();
                     } else if (next.Type === Token.name("&")) {
                         token.Type = "Dereference";
                         token.Literal += next.Literal;
+                        next.Type = undefined;
                         reader.advance();
                     } 
                     return token;
