@@ -256,7 +256,7 @@ class Program {
      * @param {FileEditor} file A file editor containing the GML script file
      */
     static writeReport(api, wrappers, file) {
-        let content = `# About\nThis is an automatically generated file that keeps track of of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
+        let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
         api.forEach(e => {
             if (wrappers.find(w => w.Calls === e.Name)) {
                 count++;

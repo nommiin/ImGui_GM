@@ -1,5 +1,5 @@
 # About
-This is an automatically generated file that keeps track of of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
+This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
 204 out of 437 API functions wrapped (**47% complete**)
