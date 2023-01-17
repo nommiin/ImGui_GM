@@ -2,6 +2,9 @@
 A Windows only ImGui wrapper for modern GameMaker, heavily work-in-progress
 ![image](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png)
 
+# Release
+The [itch.io page](https://nommiiin.itch.io/imgui-gm) has pre-built packages for GameMaker
+
 # Reference
 - dll/
   - [`main.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
@@ -15,7 +18,7 @@ A Windows only ImGui wrapper for modern GameMaker, heavily work-in-progress
   - [`brief/Program.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/brief/Program.js) for ImGui to GM binding generation
 
 # Building
-*Using C++14 Standard, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
+*Using C++20, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
 
 1. Run `copy_dependencies.bat` to copy required `.cpp` and `.h` files from `thirdparty/*` into `dll/`
 2. Open `dll.sln` in Visual Studio (support for versions older than 2022 is unknown)
@@ -74,6 +77,14 @@ At the time of writing, the aforementioned changes to `static` are only avaliabl
 
 # Coverage
 Currently there is 204 wrapper functions on the GameMaker side of things, but there's still a decent amount of missing functionality; namely tables, viewports, and docking functions. Check out [`ImGui_GM.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml#L2) to view all wrapper functions
+
+Also record keeping for myself, here's a rough list of missing functionality at the moment:
+- Tables
+- Plots/Histogram
+- Config Flag editing
+- Docking (enabled by default currently, need to create wrappers for docking-related functions)
+- Viewports
+- Anything else, please [submit an issue](https://github.com/nommiin/ImGui_GM/issues) or create a thread in [the itch.io community](https://nommiiin.itch.io/imgui-gm/community)
 
 # Notes
 - Functions like `ImGui.Begin` may not return what you expect, see ["ImGuiReturnMask Usage"](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info
