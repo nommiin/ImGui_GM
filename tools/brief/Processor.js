@@ -176,6 +176,20 @@ class Processor {
         }
         return token;
     }
+    
+    token_const(reader, token) {
+        if (token.Type === "Keyword" && token.Literal === "const") {
+            const next = reader.peek();
+            switch (next.Type) {
+                case "TypePointer":
+                case "Dereference": {
+                    next.Literal = token.Literal + " " + next.Literal;
+                    return undefined;
+                }
+            }
+        }
+        return token;
+    }
 
     run(callback, base, ind=0) {
         const reader = new TokenReader(base), tokens = [];
@@ -199,7 +213,8 @@ class Processor {
             this.token_pointers,
             this.token_group,
             this.token_templates,
-            this.token_functions
+            this.token_functions,
+            this.token_const
         ];
         for(let i = 0; i < steps.length; i++) tokens = this.run(steps[i], tokens);
         Logger.info(`Successfully processed ${this.Tokens.length} tokens and retrieved ${tokens.length} tokens`);
