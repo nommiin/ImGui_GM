@@ -362,3 +362,8 @@ GMFUNC(__imgui_push_button_repeat) {
 	ImGui::PushButtonRepeat(repeat);
 	Result.kind = VALUE_UNDEFINED;
 }
+
+GMFUNC(__imgui_pop_button_repeat) {
+	ImGui::PopButtonRepeat();
+	Result.kind = VALUE_UNDEFINED;
+}

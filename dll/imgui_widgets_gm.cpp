@@ -93,8 +93,13 @@ GMFUNC(__imgui_checkbox) {
 }
 
 GMFUNC(__imgui_checkbox_flags) {
-	GMOVERRIDE(CheckboxFlags);
-	ShowError("Unimplemented ImGui Function: ImGui.CheckboxFlags");
+	const char* label = YYGetString(arg, 0);
+	int64 flags = YYGetInt64(arg, 1);
+	int64 flags_value = YYGetInt64(arg, 2);
+
+	ImGui::CheckboxFlags(label, &flags, flags_value);
+	Result.kind = VALUE_INT64;
+	Result.val = flags;
 }
 
 GMFUNC(__imgui_radio_button) {

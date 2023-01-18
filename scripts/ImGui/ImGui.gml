@@ -362,6 +362,13 @@ function ImGui() constructor {
 		return __imgui_push_button_repeat(_repeat);
 	}
 
+	/// @function PopButtonRepeat()
+	/// @return {Undefined}
+	static PopButtonRepeat = function() {
+		gml_pragma("forceinline");
+		return __imgui_pop_button_repeat();
+	}
+
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
@@ -902,6 +909,15 @@ function ImGui() constructor {
 		return __imgui_get_cursor_screen_pos_y();
 	}
 
+	/// @function SetCursorScreenPos(_x, _y)
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @return {Undefined}
+	static SetCursorScreenPos = function(_x, _y) {
+		gml_pragma("forceinline");
+		return __imgui_set_cursor_screen_pos(_x, _y);
+	}
+
 	/// @function SetCursorPosX(local_x)
 	/// @argument {Real} local_x
 	/// @return {Undefined}
@@ -1002,6 +1018,63 @@ function ImGui() constructor {
 		return __imgui_get_window_content_region_max_y();
 	}
 
+	/// @function PushItemWidth(item_width)
+	/// @argument {Real} item_width
+	/// @return {Undefined}
+	static PushItemWidth = function(item_width) {
+		gml_pragma("forceinline");
+		return __imgui_push_item_width(item_width);
+	}
+
+	/// @function PopItemWidth()
+	/// @return {Undefined}
+	static PopItemWidth = function() {
+		gml_pragma("forceinline");
+		return __imgui_pop_item_width();
+	}
+
+	/// @function SetNextItemWidth(item_width)
+	/// @argument {Real} item_width
+	/// @return {Undefined}
+	static SetNextItemWidth = function(item_width) {
+		gml_pragma("forceinline");
+		return __imgui_set_next_item_width(item_width);
+	}
+
+	/// @function CalcItemWidth()
+	/// @return {Real}
+	static CalcItemWidth = function() {
+		gml_pragma("forceinline");
+		return __imgui_calc_item_width();
+	}
+
+	/// @function PushTextWrapPos(wrap_local_pos_x)
+	/// @argument {Real} [wrap_local_pos_x=0]
+	/// @return {Undefined}
+	static PushTextWrapPos = function(wrap_local_pos_x=0) {
+		gml_pragma("forceinline");
+		return __imgui_push_text_wrap_pos(wrap_local_pos_x);
+	}
+
+	/// @function PushClipRect(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect)
+	/// @argument {Real} clip_min_x
+	/// @argument {Real} clip_min_y
+	/// @argument {Real} clip_max_x
+	/// @argument {Real} clip_max_y
+	/// @argument {Bool} intersect_with_current_clip_rect
+	/// @return {Undefined}
+	static PushClipRect = function(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) {
+		gml_pragma("forceinline");
+		return __imgui_push_clip_rect(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect);
+	}
+
+	/// @function PopClipRect()
+	/// @return {Undefined}
+	static PopClipRect = function() {
+		gml_pragma("forceinline");
+		return __imgui_pop_clip_rect();
+	}
+
 	/// @function BeginListBox(label, width, height)
 	/// @argument {String} label
 	/// @argument {Real} [width=0]
@@ -1033,9 +1106,9 @@ function ImGui() constructor {
 		return __imgui_begin_menubar();
 	}
 
-	/// @function EndMainMenuBar()
+	/// @function EndMenuBar()
 	/// @return {Undefined}
-	static EndMainMenuBar = function() {
+	static EndMenuBar = function() {
 		gml_pragma("forceinline");
 		return __imgui_end_menubar();
 	}
@@ -1345,6 +1418,19 @@ function ImGui() constructor {
 		return __imgui_vslider_int(label, width, height, v, v_min, v_max, format, flags);
 	}
 
+	/// @function SliderAngle(label, v_rad, v_degrees_min, v_degrees_max, format, flags)
+	/// @argument {String} label
+	/// @argument {Real} v_rad
+	/// @argument {Real} [v_degrees_min=0]
+	/// @argument {Real} [v_degrees_max=0]
+	/// @argument {String} [format=%d]
+	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @return {Real}
+	static SliderAngle = function(label, v_rad, v_degrees_min=0, v_degrees_max=0, format="%d", flags=ImGuiSliderFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_slider_angle(label, v_rad, v_degrees_min, v_degrees_max, format, flags);
+	}
+
 	/// @function StyleColorsDark()
 	/// @return {Undefined}
 	static StyleColorsDark = function() {
@@ -1638,11 +1724,14 @@ function ImGui() constructor {
 		return __imgui_checkbox(label, checked);
 	}
 
-	/// @function CheckboxFlags()
-	/// @return {Unknown<unset>}
-	static CheckboxFlags = function() {
+	/// @function CheckboxFlags(label, flags, flags_value)
+	/// @argument {String} label
+	/// @argument {Real} flags
+	/// @argument {Real} flags_value
+	/// @return {Real}
+	static CheckboxFlags = function(label, flags, flags_value) {
 		gml_pragma("forceinline");
-		return __imgui_checkbox_flags();
+		return __imgui_checkbox_flags(label, flags, flags_value);
 	}
 
 	/// @function RadioButton(label, active)
@@ -1987,10 +2076,5 @@ function ImGui() constructor {
 	
 	static __Render = function() {
 		return __imgui_render();
-	}
-	
-	/// @section Helpers
-	static Alpha = function(col) {
-		return ((col >> 24) & 0xFF) / 0xFF;	
 	}
 };

@@ -245,3 +245,20 @@ GMFUNC(__imgui_vslider_int) {
 	Result.kind = VALUE_REAL;
 	Result.val = v;
 }
+
+GMFUNC(__imgui_slider_angle) {
+	const char* label = YYGetString(arg, 0);
+	float v_rad = YYGetReal(arg, 1);
+	float v_degrees_min = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	float v_degrees_max = YYGetReal(arg, 3);
+	GMDEFAULT(0);
+	const char* format = YYGetString(arg, 4);
+	GMDEFAULT("%d");
+	ImGuiSliderFlags flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImGuiSliderFlags.None);
+
+	ImGui::SliderAngle(label, &v_rad, v_degrees_min, v_degrees_max, format, flags);
+	Result.kind = VALUE_REAL;
+	Result.val = v_rad;
+}

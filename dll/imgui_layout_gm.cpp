@@ -106,6 +106,14 @@ GMFUNC(__imgui_get_cursor_screen_pos_y) {
 	Result.val = ImGui::GetCursorScreenPos().y;
 }
 
+GMFUNC(__imgui_set_cursor_screen_pos) {
+	double x = YYGetReal(arg, 0);
+	double y = YYGetReal(arg, 1);
+
+	ImGui::SetCursorScreenPos(ImVec2(x, y));
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_set_cursor_pos_x) {
 	double local_x = YYGetReal(arg, 0);
 
@@ -194,4 +202,52 @@ GMFUNC(__imgui_get_window_content_region_max_y) {
 
 	Result.kind = VALUE_REAL;
 	Result.val = ImGui::GetWindowContentRegionMax().y;
+}
+
+GMFUNC(__imgui_push_item_width) {
+	double item_width = YYGetReal(arg, 0);
+
+	ImGui::PushItemWidth(item_width);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_pop_item_width) {
+	ImGui::PopItemWidth();
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_set_next_item_width) {
+	double item_width = YYGetReal(arg, 0);
+
+	ImGui::SetNextItemWidth(item_width);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_calc_item_width) {
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::CalcItemWidth();
+}
+
+GMFUNC(__imgui_push_text_wrap_pos) {
+	double wrap_local_pos_x = YYGetReal(arg, 0);
+	GMDEFAULT(0);
+
+	ImGui::PushTextWrapPos(wrap_local_pos_x);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_push_clip_rect) {
+	double clip_min_x = YYGetReal(arg, 0);
+	double clip_min_y = YYGetReal(arg, 1);
+	double clip_max_x = YYGetReal(arg, 2);
+	double clip_max_y = YYGetReal(arg, 3);
+	bool intersect_with_current_clip_rect = YYGetBool(arg, 4);
+
+	ImGui::PushClipRect(ImVec2(clip_min_x, clip_min_y), ImVec2(clip_max_x, clip_max_y), intersect_with_current_clip_rect);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_pop_clip_rect) {
+	ImGui::PopClipRect();
+	Result.kind = VALUE_UNDEFINED;
 }
