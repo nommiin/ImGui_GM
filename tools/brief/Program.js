@@ -289,8 +289,19 @@ class Program {
         content += "| -------- | ------- | ---- |\n";
         api.forEach(e => {
             const wrapper = wrappers.find(w => w.Calls === e.Name);
+            if (wrapper) wrapper.Found = true;
             content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} |\n`;
         });
+
+        content += `\n# Non-Standard\nBelow is a table of non-standard functions made specifically for ImGui_GM\n\n`;
+        content += "| Function | Link |\n";
+        content += "| -------- | ---- |\n";
+        wrappers.forEach(e => {
+            if (!e?.Found) {
+                content += `| ImGui.${e.Calls} | [${e.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${e.File}#L${e.Line}) |\n`;
+            }
+        });
+
         if (file.update(content)) file.commit();
     }
 }
