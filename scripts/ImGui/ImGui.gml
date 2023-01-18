@@ -354,6 +354,14 @@ function ImGui() constructor {
 		return __imgui_pop_allow_keyboard_focus();
 	}
 
+	/// @function SetKeyboardFocusHere(offset)
+	/// @argument {Real} [offset=0]
+	/// @return {Undefined}
+	static SetKeyboardFocusHere = function(offset=0) {
+		gml_pragma("forceinline");
+		return __imgui_set_keyboard_focus_here(offset);
+	}
+
 	/// @function PushButtonRepeat(_repeat)
 	/// @argument {Bool} _repeat
 	/// @return {Undefined}
@@ -367,6 +375,13 @@ function ImGui() constructor {
 	static PopButtonRepeat = function() {
 		gml_pragma("forceinline");
 		return __imgui_pop_button_repeat();
+	}
+
+	/// @function SetItemDefaultFocus()
+	/// @return {Undefined}
+	static SetItemDefaultFocus = function() {
+		gml_pragma("forceinline");
+		return __imgui_set_item_default_focus();
 	}
 
 	/// @function ColorEdit3(label, col, flags)
@@ -1511,6 +1526,165 @@ function ImGui() constructor {
 		return __imgui_get_style_color_name(idx);
 	}
 
+	/// @function BeginTable(str_id, column, flags, outer_width, outer_height, inner_width)
+	/// @argument {String} str_id
+	/// @argument {Real} column
+	/// @argument {Real} [flags=ImGuiTableFlags.None]
+	/// @argument {Real} [outer_width=0]
+	/// @argument {Real} [outer_height=0]
+	/// @argument {Real} [inner_width=0]
+	/// @return {Bool}
+	static BeginTable = function(str_id, column, flags=ImGuiTableFlags.None, outer_width=0, outer_height=0, inner_width=0) {
+		gml_pragma("forceinline");
+		return __imgui_begin_table(str_id, column, flags, outer_width, outer_height, inner_width);
+	}
+
+	/// @function EndTable()
+	/// @return {Undefined}
+	static EndTable = function() {
+		gml_pragma("forceinline");
+		return __imgui_end_table();
+	}
+
+	/// @function TableNextRow(row_flags, min_row_height)
+	/// @argument {Real} [row_flags=ImGuiTableRowFlags.None]
+	/// @argument {Real} [min_row_height=0]
+	/// @return {Undefined}
+	static TableNextRow = function(row_flags=ImGuiTableRowFlags.None, min_row_height=0) {
+		gml_pragma("forceinline");
+		return __imgui_table_next_row(row_flags, min_row_height);
+	}
+
+	/// @function TableNextColumn()
+	/// @return {Bool}
+	static TableNextColumn = function() {
+		gml_pragma("forceinline");
+		return __imgui_table_next_column();
+	}
+
+	/// @function TableSetColumnIndex(column_n)
+	/// @argument {Real} column_n
+	/// @return {Bool}
+	static TableSetColumnIndex = function(column_n) {
+		gml_pragma("forceinline");
+		return __imgui_table_set_column_index(column_n);
+	}
+
+	/// @function TableSetupColumn(label, flags, user_id)
+	/// @argument {String} label
+	/// @argument {Real} [flags=ImGuiTableColumnFlags.None]
+	/// @argument {Real} user_id
+	/// @return {Undefined}
+	static TableSetupColumn = function(label, flags=ImGuiTableColumnFlags.None, user_id) {
+		gml_pragma("forceinline");
+		return __imgui_table_setup_column(label, flags, user_id);
+	}
+
+	/// @function TableSetupScrollFreeze(cols, rows)
+	/// @argument {Real} cols
+	/// @argument {Real} rows
+	/// @return {Undefined}
+	static TableSetupScrollFreeze = function(cols, rows) {
+		gml_pragma("forceinline");
+		return __imgui_table_setup_scroll_freeze(cols, rows);
+	}
+
+	/// @function TableHeadersRow()
+	/// @return {Undefined}
+	static TableHeadersRow = function() {
+		gml_pragma("forceinline");
+		return __imgui_table_headers_row();
+	}
+
+	/// @function TableHeader(label)
+	/// @argument {String} label
+	/// @return {Undefined}
+	static TableHeader = function(label) {
+		gml_pragma("forceinline");
+		return __imgui_table_header(label);
+	}
+
+	/// @function TableGetColumnCount()
+	/// @return {Real}
+	static TableGetColumnCount = function() {
+		gml_pragma("forceinline");
+		return __imgui_table_get_column_count();
+	}
+
+	/// @function TableGetColumnIndex()
+	/// @return {Real}
+	static TableGetColumnIndex = function() {
+		gml_pragma("forceinline");
+		return __imgui_table_get_column_index();
+	}
+
+	/// @function TableGetRowIndex()
+	/// @return {Real}
+	static TableGetRowIndex = function() {
+		gml_pragma("forceinline");
+		return __imgui_table_get_row_index();
+	}
+
+	/// @function TableSetColumnEnabled(column_n, v)
+	/// @argument {Real} column_n
+	/// @argument {Bool} v
+	/// @return {Undefined}
+	static TableSetColumnEnabled = function(column_n, v) {
+		gml_pragma("forceinline");
+		return __imgui_table_set_column_enabled(column_n, v);
+	}
+
+	/// @function BeginTabBar(str_id, flags)
+	/// @argument {String} str_id
+	/// @argument {Real} [flags=ImGuiTabBarFlags.None]
+	/// @return {Bool}
+	static BeginTabBar = function(str_id, flags=ImGuiTabBarFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_begin_tab_bar(str_id, flags);
+	}
+
+	/// @function EndTabBar()
+	/// @return {Undefined}
+	static EndTabBar = function() {
+		gml_pragma("forceinline");
+		return __imgui_end_tab_bar();
+	}
+
+	/// @function BeginTabItem(label, open, flags, mask)
+	/// @argument {String} label
+	/// @argument {Bool} open
+	/// @argument {Real} flags
+	/// @argument {Real} mask
+	/// @return {Real}
+	static BeginTabItem = function(label, open, flags, mask) {
+		gml_pragma("forceinline");
+		return __imgui_begin_tab_item(label, open, flags, mask);
+	}
+
+	/// @function EndTabItem()
+	/// @return {Undefined}
+	static EndTabItem = function() {
+		gml_pragma("forceinline");
+		return __imgui_end_tab_item();
+	}
+
+	/// @function TabItemButton(label, flags)
+	/// @argument {String} label
+	/// @argument {Real} [flags=ImGuiTabItemFlags.None]
+	/// @return {Bool}
+	static TabItemButton = function(label, flags=ImGuiTabItemFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_tab_item_button(label, flags);
+	}
+
+	/// @function SetTabItemClosed(tab_or_docked_window_label)
+	/// @argument {String} tab_or_docked_window_label
+	/// @return {Undefined}
+	static SetTabItemClosed = function(tab_or_docked_window_label) {
+		gml_pragma("forceinline");
+		return __imgui_set_tab_item_closed(tab_or_docked_window_label);
+	}
+
 	/// @function Text(val)
 	/// @argument {String} val
 	/// @return {Undefined}
@@ -1796,6 +1970,24 @@ function ImGui() constructor {
 	static EndChild = function() {
 		gml_pragma("forceinline");
 		return __imgui_end_child();
+	}
+
+	/// @function BeginChildFrame(_id, width, height, flags)
+	/// @argument {Real} _id
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @argument {Real} [flags=ImGuiWindowFlags.None]
+	/// @return {Bool}
+	static BeginChildFrame = function(_id, width=0, height=0, flags=ImGuiWindowFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_begin_child_frame(_id, width, height, flags);
+	}
+
+	/// @function EndChildFrame()
+	/// @return {Undefined}
+	static EndChildFrame = function() {
+		gml_pragma("forceinline");
+		return __imgui_end_child_frame();
 	}
 
 	/// @function IsWindowAppearing()

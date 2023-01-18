@@ -46,6 +46,24 @@ GMFUNC(__imgui_end_child) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_begin_child_frame) {
+	double id = YYGetReal(arg, 0);
+	double width = YYGetReal(arg, 1);
+	GMDEFAULT(0);
+	double height = YYGetReal(arg, 2);
+	GMDEFAULT(0);
+	ImGuiWindowFlags flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiWindowFlags.None);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginChildFrame(id, ImVec2(width, height), flags);
+}
+
+GMFUNC(__imgui_end_child_frame) {
+	ImGui::EndChildFrame();
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_is_window_appearing) {
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::IsWindowAppearing();

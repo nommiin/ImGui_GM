@@ -356,6 +356,14 @@ GMFUNC(__imgui_pop_allow_keyboard_focus) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_set_keyboard_focus_here) {
+	double offset = YYGetReal(arg, 0);
+	GMDEFAULT(0);
+
+	ImGui::SetKeyboardFocusHere(offset);
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_push_button_repeat) {
 	bool repeat = YYGetBool(arg, 0);
 
@@ -365,5 +373,10 @@ GMFUNC(__imgui_push_button_repeat) {
 
 GMFUNC(__imgui_pop_button_repeat) {
 	ImGui::PopButtonRepeat();
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_set_item_default_focus) {
+	ImGui::SetItemDefaultFocus();
 	Result.kind = VALUE_UNDEFINED;
 }

@@ -56,25 +56,47 @@ class Program {
     static parseHeader(file) {
         const tokens = new Processor(new Scanner(file.Content).Tokens).get(), functions = [];
         if (tokens.length === 0) throw `Could not parse "${file.Name}", processed token list is empty`;
-        let count = 0;
-
-        const reader = TokenReader.flat(tokens);
+        
+        const reader = new TokenReader(tokens);
         while (!reader.end()) {
             const token = reader.advance();
-            if (token && (token.Type === "Identifier")) {
-                if (token.Literal !== "IMGUI_API") continue;
+            if (token && (token.Type === "Keyword")) {
+                if (token.Literal !== "namespace") continue;
 
-                const type = reader.advance();
-                if (type.Type !== "Keyword") continue;
+                const prev = reader.previous();
+                if (prev.Literal === "IMGUI_DISABLE_OBSOLETE_FUNCTIONS") continue;
+                const next = reader.advance();
+                if (next.Type !== "Identifier" || next.Literal !== "ImGui") continue;
 
-                const func = reader.advance(), name = func.Literal;
-                if (name.startsWith("_") || name[0] != name[0].toUpperCase()) continue;
+                const more = reader.advance();
+                if (more.Type !== "BracePair") continue;
+                
+                const children = new TokenReader(more.Children);
+                while (!children.end()) {
+                    const token = children.advance();
+                    if (token && (token.Type === "Identifier")) {
+                        if (token.Literal !== "IMGUI_API") continue;
 
-                functions.push({
-                    Name: name,
-                    Type: type.Literal,
-                    Line: token.Line
-                });
+                        const type = children.advance();
+                        switch (type.Type) {
+                            case "Keyword":
+                            case "Identifier":
+                            case "Dereference":
+                            case "TypePointer": break;
+                            default: {
+                                Logger.warning(`Could not handle type "${type.Type}" for IMGUI_API definition at line ${token.Line}`);
+                                continue;
+                            }
+                        }
+
+                        const func = children.advance();
+                        functions.push({
+                            Name: func.Literal,
+                            Type: type.Literal,
+                            Line: token.Line
+                        });
+                    }
+                }
             }
         }
         Logger.info(`Successfully parsed "${file.Name}" and retrieved ${functions.length} API function definitions`);
