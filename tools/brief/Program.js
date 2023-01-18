@@ -298,7 +298,7 @@ class Program {
         content += "| -------- | ---- |\n";
         wrappers.forEach(e => {
             if (!e?.Found) {
-                content += `| ImGui.${e.Calls} | [${e.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${e.File}#L${e.Line}) |\n`;
+                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${e.File}#L${e.Line}) |\n`;
             }
         });
 
