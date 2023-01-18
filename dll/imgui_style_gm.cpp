@@ -6,7 +6,7 @@ GMFUNC(__imgui_style_colors_dark) {
 }
 
 GMFUNC(__imgui_style_colors_light) {
-	ImGui::StyleColorsDark();
+	ImGui::StyleColorsLight();
 	Result.kind = VALUE_UNDEFINED;
 }
 

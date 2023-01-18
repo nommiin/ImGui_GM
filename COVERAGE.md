@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-243 out of 395 API functions wrapped (**62% complete**)
+244 out of 395 API functions wrapped (**62% complete**)
 
 | Function | Wrapped | Link |
 | -------- | ------- | ---- |
@@ -27,7 +27,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::ShowUserGuide | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L131) |
 | ImGui::GetVersion | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L136) |
 | ImGui::StyleColorsDark | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L3) |
-| ImGui::StyleColorsLight | ❌ | N/A |
+| ImGui::StyleColorsLight | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L8) |
 | ImGui::StyleColorsClassic | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L13) |
 | ImGui::Begin | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L3) |
 | ImGui::End | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L24) |

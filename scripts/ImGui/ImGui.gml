@@ -1453,9 +1453,9 @@ function ImGui() constructor {
 		return __imgui_style_colors_dark();
 	}
 
-	/// @function StyleColorsDark()
+	/// @function StyleColorsLight()
 	/// @return {Undefined}
-	static StyleColorsDark = function() {
+	static StyleColorsLight = function() {
 		gml_pragma("forceinline");
 		return __imgui_style_colors_light();
 	}
