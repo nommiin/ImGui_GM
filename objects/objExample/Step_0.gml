@@ -47,78 +47,106 @@ if (main_open) {
 		var width = ImGui.GetContentRegionAvailX(), height = 256;
 		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);
-		ImGui.Text("Text");
-		ImGui.Separator();
-		ImGui.Text("ImGui::Text");
-		ImGui.TextColored("ImGui::TextColored", col);
-		ImGui.TextWrapped("ImGui::TextWrapped - " + string_repeat("A", 24));
-		ImGui.TextDisabled("ImGui::TextDisabled");
-		ImGui.LabelText("A Label", "ImGui::LabelText");
-		ImGui.BulletText("ImGui::BulletText");
+			ImGui.Text("Text");
+			ImGui.Separator();
+			ImGui.Text("ImGui::Text");
+			ImGui.TextColored("ImGui::TextColored", col);
+			ImGui.TextWrapped("ImGui::TextWrapped - " + string_repeat("A", 24));
+			ImGui.TextDisabled("ImGui::TextDisabled");
+			ImGui.LabelText("A Label", "ImGui::LabelText");
+			ImGui.BulletText("ImGui::BulletText");
 		ImGui.EndChild();
 		
 		ImGui.SameLine();
 		
-		ImGui.BeginChild("Inner_Buttons", 0, height, true);
-		ImGui.Text("Buttons");
-		ImGui.Separator();
-		if (ImGui.Button("ImGui::Button")) show_message_async("nice, you pressed the button");
-		if (ImGui.SmallButton("ImGui::SmallButton")) show_message_async("nice, you pressed the smaller button");
-		if (ImGui.InvisibleButton("ImGui::InvisibleButton", ImGui.GetContentRegionAvailX(), 24)) show_message_async("nice, you pressed the super secret invisible button");
-		if (ImGui.ArrowButton("ImGui::ArrowButton", dir)) dir = (dir + 1) % 4;
-		ImGui.SameLine();
-		ImGui.Text("Direction: " + string(dir));
-		ImGui.ColorButton("ImGui::ColorButton", c_orange, 0.5);
-		ImGui.EndChild();
+		ImGui.BeginChild("Inner_Buttons", width / 2, height, true);
+			ImGui.Text("Buttons");
+			ImGui.Separator();
+			if (ImGui.Button("ImGui::Button")) show_message_async("nice, you pressed the button");
+			if (ImGui.SmallButton("ImGui::SmallButton")) show_message_async("nice, you pressed the smaller button");
+			if (ImGui.InvisibleButton("ImGui::InvisibleButton", ImGui.GetContentRegionAvailX(), 24)) show_message_async("nice, you pressed the super secret invisible button");
+			if (ImGui.ArrowButton("ImGui::ArrowButton", dir)) dir = (dir + 1) % 4;
+			ImGui.SameLine();
+			ImGui.Text("Direction: " + string(dir));
+			ImGui.ColorButton("ImGui::ColorButton", c_orange, 0.5);
+			ImGui.EndChild();
 		
-		ImGui.BeginChild("Inner_Textured", width / 2, height, true);
-		ImGui.Text("Textured Widgets");
-		ImGui.Separator();
-		ImGui.Text("ImGui::Image");
-		ImGui.Image(sprExample, 0, col2);
-		if (ImGui.IsItemHovered()) {
-			ImGui.BeginTooltip();
-			ImGui.Text("Artwork by @Snoozercreation on Twitter!");
-			ImGui.EndTooltip();
-		}
-		ImGui.Text("ImGui::Surface");
-		surface_set_target(surf);
-		var xx = ImGui.GetCursorScreenPosX(), yy = ImGui.GetCursorScreenPosY();
-		var c = make_colour_hsv(255 * ((current_time % 1000) / 1000), 128, 255);
-		draw_circle_color(window_mouse_get_x() - xx, window_mouse_get_y() - yy, 4, c, c, false);
-		surface_reset_target();
-		ImGui.Surface(surf);
-		ImGui.EndChild();
-		
-		ImGui.SameLine();
-		
-		ImGui.BeginChild("Inner_Tree", 0, height, true);
-		ImGui.Text("Tree");
-		ImGui.Separator();
-		if (ImGui.TreeNode("ImGui::TreeNode")) {
-			ImGui.Text("Hello!\nThis is some content inside of a tree node :)");
-			ImGui.TreePop();
-		}
-		
-		if (ImGui.TreeNode("Another Node")) {
-			ImGui.Text("This is another tree node, for the sake of example!");
-			ImGui.Image(sprExample, 0, c_red, 1, sprite_get_width(sprExample) / 2, sprite_get_height(sprExample) / 2);
-			ImGui.TreePop();
-		}
-		
-		var ret = ImGui.CollapsingHeader("ImGui::CollapsingHeader", header_visible, undefined, ImGuiReturnMask.Both);
-		header_visible = ret & ImGuiReturnMask.Pointer;
-		if (ret & ImGuiReturnMask.Return) {
-			ImGui.TextColored("hewwo", c_aqua, 0.5);
-			ImGui.Text("You can click the X icon at the side of the header to hide it!");
-			ImGui.TreePop();	
-		}
-		
-		if (!header_visible) {
-			if (ImGui.Button("Restore Header")) {
-				header_visible = true;		
+			ImGui.BeginChild("Inner_Textured", width / 2, height, true);
+			ImGui.Text("Textured Widgets");
+			ImGui.Separator();
+			ImGui.Text("ImGui::Image");
+			ImGui.Image(sprExample, 0, col2);
+			ImGui.Surface(application_surface);
+			if (ImGui.IsItemHovered()) {
+				ImGui.BeginTooltip();
+				ImGui.Text("Artwork by @Snoozercreation on Twitter!");
+				ImGui.EndTooltip();
 			}
-		}
+			ImGui.Text("ImGui::Surface");
+			surface_set_target(surf);
+			var xx = ImGui.GetCursorScreenPosX(), yy = ImGui.GetCursorScreenPosY();
+			var c = make_colour_hsv(255 * ((current_time % 1000) / 1000), 128, 255);
+			draw_circle_color(window_mouse_get_x() - xx, window_mouse_get_y() - yy, 4, c, c, false);
+			surface_reset_target();
+			ImGui.Surface(surf);
+		ImGui.EndChild();
+		
+		ImGui.SameLine();
+		
+		ImGui.BeginChild("Inner_Tree", width / 2, height, true);
+			ImGui.Text("Tree");
+			ImGui.Separator();
+			if (ImGui.TreeNode("ImGui::TreeNode")) {
+				ImGui.Text("Hello!\nThis is some content inside of a tree node :)");
+				ImGui.TreePop();
+			}
+		
+			if (ImGui.TreeNode("Another Node")) {
+				ImGui.Text("This is another tree node, for the sake of example!");
+				ImGui.Image(sprExample, 0, c_red, 1, sprite_get_width(sprExample) / 2, sprite_get_height(sprExample) / 2);
+				ImGui.TreePop();
+			}
+		
+			var ret = ImGui.CollapsingHeader("ImGui::CollapsingHeader", header_visible, undefined, ImGuiReturnMask.Both);
+			header_visible = ret & ImGuiReturnMask.Pointer;
+			if (ret & ImGuiReturnMask.Return) {
+				ImGui.TextColored("hewwo", c_aqua, 0.5);
+				ImGui.Text("You can click the X icon at the side of the header to hide it!");
+				ImGui.TreePop();	
+			}
+		
+			if (!header_visible) {
+				if (ImGui.Button("Restore Header")) {
+					header_visible = true;		
+				}
+			}
+		ImGui.EndChild();
+		
+		ImGui.BeginChild("Inner_Inputs", width / 2, height, true);
+			ImGui.Text("Inputs");
+			ImGui.Separator();
+		
+			input_val = ImGui.InputText("ImGui::InputText", input_val);
+			input_val_ml = ImGui.InputTextMultiline("ImGui::InputTextMultiline", input_val_ml);
+			input_hint = ImGui.InputTextWithHint("ImGui::InputTextWithHint", "This input has a hint value! It disappears whenever you enter something", input_hint);
+		
+			input_int = ImGui.InputInt("ImGui::InputInt", input_int, 1, 5);
+			input_float = ImGui.InputFloat("ImGui::InputFloat", input_float, 0.1, 0.5);
+			ImGui.EndChild();
+		
+			ImGui.SameLine();
+		
+			ImGui.BeginChild("Inner_Colors", 0, height, true);
+			ImGui.Text("Colors");
+			ImGui.Separator();
+		
+			col3 = ImGui.ColorPicker3("ImGui::ColorPicker3", col3);
+			ImGui.Separator();
+			ImGui.ColorPicker4("ImGui::ColorPicker4", col4);
+			ImGui.Separator();
+			col5 = ImGui.ColorEdit3("ImGui::ColorEdit3", col5);
+			ImGui.Separator();
+			ImGui.ColorEdit4("ImGui::ColorEdit4", col6);
 		ImGui.EndChild();
 	}
 	ImGui.End();
