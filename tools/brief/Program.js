@@ -24,7 +24,7 @@ class Program {
     static main(root, extension, script) {
         Logger.info("Reading ImGui header...");
         const header = this.parseHeader(new FileEditor(root + "imgui.h"));
-        
+
         Logger.info("Retrieving wrappers...");
         const files = fs.readdirSync(root).filter(e => e.endsWith("_gm.cpp"));
         if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root}"`;
@@ -360,11 +360,8 @@ class Program {
                     continue;
                 }
                 enum_def += `${Configuration.SPACING.repeat(2)}${member} = ${value.replaceAll(name + "_", `${name}.`)},\n`;
-                /*.replaceAll(key, name + ".");
-                console.log(value);*/
             }
             enum_def += `${Configuration.SPACING}}\n\n`;
-            console.log(name);
         }
 
         const final = file.Content.slice(0, start) + content.join("\n") + enum_def + Configuration.SPACING + file.Content.slice(end);
