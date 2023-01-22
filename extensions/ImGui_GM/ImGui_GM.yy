@@ -284,7 +284,7 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_set_scroll_from_pos_x","externalName":"__imgui_set_scroll_from_pos_x","kind":1,"help":"","hidden":true,"returnType":1,"argCount":0,"args":[],"documentation":"",},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_set_scroll_from_pos_y","externalName":"__imgui_set_scroll_from_pos_y","kind":1,"help":"","hidden":true,"returnType":1,"argCount":0,"args":[],"documentation":"",},
       ],"constants":[
-        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"IMGUI_GM_VERSION","value":"\"1.0.0\"","hidden":false,},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"IMGUI_GM_VERSION","value":"\"1.0.1\"","hidden":false,},
       ],"ProxyFiles":[],"usesRunnerInterface":true,"order":[
         {"name":"__imgui_update","path":"extensions/ImGui_GM/ImGui_GM.yy",},
         {"name":"__imgui_render","path":"extensions/ImGui_GM/ImGui_GM.yy",},

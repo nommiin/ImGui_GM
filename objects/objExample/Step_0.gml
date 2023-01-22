@@ -150,8 +150,6 @@ if (main_open) {
 			ImGui.ColorEdit4("ImGui::ColorEdit4", col6);
 		ImGui.EndChild();
 		
-		ImGui.SameLine();
-		
 		ImGui.BeginChild("Inner_Table", width / 2, height, true);
 			ImGui.Text("Tables");
 			ImGui.Separator();
@@ -173,6 +171,8 @@ if (main_open) {
 				ImGui.EndTable();	
 			}
 		ImGui.EndChild();
+		
+		ImGui.SameLine();
 		
 		ImGui.BeginChild("Inner_Tabs", width / 2, height, true);
 			ImGui.Text("Tabs");
@@ -205,8 +205,6 @@ if (main_open) {
                 ImGui.EndTabBar();
             }
 		ImGui.EndChild();
-		
-		ImGui.SameLine();
 		
 		ImGui.BeginChild("Inner_Plots", width / 2, height, true);
 			ImGui.Text("Plots");
