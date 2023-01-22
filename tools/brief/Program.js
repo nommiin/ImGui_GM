@@ -23,8 +23,8 @@ class Program {
      */
     static main(root, extension, script) {
         Logger.info("Reading ImGui header...");
-        const api = this.parseHeader(new FileEditor(root + "imgui.h"));
-
+        const header = this.parseHeader(new FileEditor(root + "imgui.h"));
+        
         Logger.info("Retrieving wrappers...");
         const files = fs.readdirSync(root).filter(e => e.endsWith("_gm.cpp"));
         if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root}"`;
@@ -40,67 +40,145 @@ class Program {
         this.writeWrappers(wrappers, new FileEditor(extension));
 
         Logger.info("Writing script...");
-        this.writeScripts(wrappers, new FileEditor(script));
+        this.writeScripts(wrappers, header.enums, new FileEditor(script));
         Logger.info(`Successfully wrote ${wrappers.length} wrappers`);
 
         if (Configuration.WRITE_REPORT) {
             Logger.info("Writing coverage report...");
-            this.writeReport(api, wrappers, new FileEditor("COVERAGE.md"));
+            this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
         }
     }
 
     /**
-     * Naively parses imgui.h to retrieve API functions 
+     * Naively parses imgui.h to retrieve API functions, also collects enums
      * @param {FileEditor} file A file editor containing the ImGui header file
      */
     static parseHeader(file) {
-        const tokens = new Processor(new Scanner(file.Content).Tokens).get(), functions = [];
+        const header = {functions: [], enums: {}};
+        const tokens = new Processor(new Scanner(file.Content).Tokens).get();
         if (tokens.length === 0) throw `Could not parse "${file.Name}", processed token list is empty`;
         
         const reader = new TokenReader(tokens);
         while (!reader.end()) {
             const token = reader.advance();
             if (token && (token.Type === "Keyword")) {
-                if (token.Literal !== "namespace") continue;
+                switch (token.Literal) {
+                    case "namespace": {
+                        const prev = reader.previous();
+                        if (prev.Literal === "IMGUI_DISABLE_OBSOLETE_FUNCTIONS") continue;
+                        const next = reader.advance();
+                        if (next.Type !== "Identifier" || next.Literal !== "ImGui") continue;
+                        const more = reader.advance();
+                        if (more.Type !== "BracePair") continue;
+                        
+                        const children = new TokenReader(more.Children);
+                        while (!children.end()) {
+                            const token = children.advance();
+                            if (token && (token.Type === "Identifier")) {
+                                if (token.Literal !== "IMGUI_API") continue;
 
-                const prev = reader.previous();
-                if (prev.Literal === "IMGUI_DISABLE_OBSOLETE_FUNCTIONS") continue;
-                const next = reader.advance();
-                if (next.Type !== "Identifier" || next.Literal !== "ImGui") continue;
+                                const type = children.advance();
+                                switch (type.Type) {
+                                    case "Keyword":
+                                    case "Identifier":
+                                    case "Dereference":
+                                    case "TypePointer": break;
+                                    default: {
+                                        Logger.warning(`Could not handle type "${type.Type}" for IMGUI_API definition at line ${token.Line}`);
+                                        continue;
+                                    }
+                                }
 
-                const more = reader.advance();
-                if (more.Type !== "BracePair") continue;
-                
-                const children = new TokenReader(more.Children);
-                while (!children.end()) {
-                    const token = children.advance();
-                    if (token && (token.Type === "Identifier")) {
-                        if (token.Literal !== "IMGUI_API") continue;
-
-                        const type = children.advance();
-                        switch (type.Type) {
-                            case "Keyword":
-                            case "Identifier":
-                            case "Dereference":
-                            case "TypePointer": break;
-                            default: {
-                                Logger.warning(`Could not handle type "${type.Type}" for IMGUI_API definition at line ${token.Line}`);
-                                continue;
+                                const func = children.advance();
+                                header.functions.push({
+                                    Name: func.Literal,
+                                    Type: type.Literal,
+                                    Line: token.Line
+                                });
                             }
                         }
+                        break;
+                    }
 
-                        const func = children.advance();
-                        functions.push({
-                            Name: func.Literal,
-                            Type: type.Literal,
-                            Line: token.Line
-                        });
+                    case "enum": {
+                        const next = reader.advance();
+                        if (next.Type !== "Identifier") continue;
+                        const name = next.Literal;
+                        switch (name) {
+                            case "ImGuiKey":
+                            case "ImDrawCornerFlags_":
+                            case "ImGuiModFlags_": continue;
+                            // ImGuiKey is manually defined in ImGui_Misc, the others are obsolete/cause issues anyway
+                            // TODO: I guess?
+                        }
+
+                        const def = {};
+                        let inner;
+                        for(let i = reader.Index; i < reader.Length; i++) {
+                            const find = reader.Tokens[i];
+                            if (find.Type !== Token.name("{}")) continue;
+                            if (!find.Children) throw `Could not parse "${file.Name}", expected tokens in ${Token.name("{}")} token for ${token.Literal} at line ${token.Line}`;
+                            inner = find;
+                            reader.Index = i;
+                            break;
+                        }
+                        if (!inner) throw `Could not parse "${file.Name}", expected ${Token.name("{}")} token for enum "${name}" at line ${token.Line}`;
+                        
+                        const children = new TokenReader(inner.Children);
+                        while (!children.end()) {
+                            const token = children.advance();
+                            const prev = children.previous();
+                            switch (token.Type) {
+                                case Token.name("="): {
+                                    if (prev.Type !== "Identifier") throw `Could not parse "${file.Name}", expected Identifier token for enum "${name}" at line ${next.Line}`;
+
+                                    // TODO: .filter should probably take a function instead of copied lambda
+                                    let found = false;
+                                    for(let i = children.Index; i < children.Length; i++) {
+                                        const find = children.Tokens[i];
+                                        if (find.Type !== Token.name(",")) continue;
+                                        const inner = children.Tokens.slice(children.Index, i).filter(e => {
+                                            switch (e.Type) {
+                                                case Token.name("#"): return false;
+                                            }
+                                            return true;
+                                        });
+
+                                        found = true;
+                                        def[prev.Literal] = inner.map(e => e.Literal).join(" ");
+                                        children.Index = i + 1;
+                                        break;
+                                    }
+
+                                    if (!found) {
+                                        const inner = children.Tokens.slice(children.Index, children.Length).filter(e => {
+                                            switch (e.Type) {
+                                                case Token.name("#"): return false;
+                                            }
+                                            return true;
+                                        });
+
+                                        def[prev.Literal] = inner.map(e => e.Literal).join(" ");
+                                        children.Index = children.Length;
+                                        Logger.warning(`Reached end of enum member "${prev.Literal}" without trailing comma`);
+                                    }
+                                    break;
+                                }
+
+                                case Token.name(","): {
+                                    def[prev.Literal] = 0;
+                                    break;
+                                }
+                            }
+                        }
+                        header.enums[name] = def;
+                        break;
                     }
                 }
             }
         }
-        Logger.info(`Successfully parsed "${file.Name}" and retrieved ${functions.length} API function definitions`);
-        return functions;
+        Logger.info(`Successfully parsed "${file.Name}" and retrieved ${header.functions.length} API functions and ${Object.keys(header.enums).length} enums`);
+        return header;
     }
 
     /**
@@ -231,9 +309,10 @@ class Program {
     /**
      * 
      * @param {Array<Wrapper>} wrappers 
+     * @param {object} enums
      * @param {FileEditor} file A file editor containing the GML script file
      */
-    static writeScripts(wrappers, file) {
+    static writeScripts(wrappers, enums, file) {
         const tokens = new Scanner(file.Content, {comments: true, positions: true}).Tokens;
 
         let start = -1;
@@ -267,27 +346,50 @@ class Program {
             content.push(e.to_jsdoc() + "\n" + e.to_gml());
         });
 
-        const final = file.Content.slice(0, start) + content.join("\n") + "\n" + Configuration.SPACING + file.Content.slice(end);
+        let enum_def = `\n${Configuration.SPACING}/// @section Enums\n`;
+        for(const key in enums) {
+            const name = key.endsWith("_") ? key.slice(0, -1) : key;
+            enum_def += `${Configuration.SPACING}enum ${name} {\n`;
+            
+            const members = Object.keys(enums[key]);
+            for(let i = 0; i < members.length; i++) {
+                const value = enums[key][members[i]];
+                const member = members[i].replaceAll(name + "_", "");
+                if (value === 0) {
+                    enum_def += `${Configuration.SPACING.repeat(2)}${member},\n`;
+                    continue;
+                }
+                enum_def += `${Configuration.SPACING.repeat(2)}${member} = ${value.replaceAll(name + "_", `${name}.`)},\n`;
+                /*.replaceAll(key, name + ".");
+                console.log(value);*/
+            }
+            enum_def += `${Configuration.SPACING}}\n\n`;
+            console.log(name);
+        }
+
+        const final = file.Content.slice(0, start) + content.join("\n") + enum_def + Configuration.SPACING + file.Content.slice(end);
         if (file.update(final)) file.commit();
     }
 
     /**
      * 
-     * @param {Array<object>} api 
+     * @param {object} api 
      * @param {Array<Wrapper>} wrappers 
      * @param {FileEditor} file A file editor containing the GML script file
      */
-    static writeReport(api, wrappers, file) {
+    static writeReport(header, wrappers, file) {
+        const func = header.functions;
+
         let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
-        api.forEach(e => {
+        func.forEach(e => {
             if (wrappers.find(w => w.Calls === e.Name)) {
                 count++;
             }
         });
-        content += `${count} out of ${api.length} API functions wrapped (**${Math.round(100 * (count / api.length))}% complete**)\n\n`;
+        content += `${count} out of ${func.length} API functions wrapped (**${Math.round(100 * (count / func.length))}% complete**)\n\n`;
         content += "| Function | Wrapped | Link |\n";
         content += "| -------- | ------- | ---- |\n";
-        api.forEach(e => {
+        func.forEach(e => {
             const wrapper = wrappers.find(w => w.Calls === e.Name);
             if (wrapper) wrapper.Found = true;
             content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} |\n`;

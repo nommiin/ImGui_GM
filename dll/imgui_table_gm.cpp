@@ -84,6 +84,23 @@ GMFUNC(__imgui_table_get_column_index) {
 	Result.val = ImGui::TableGetColumnIndex();
 }
 
+GMFUNC(__imgui_table_get_column_name) {
+	double column_n = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+	GMOVERRIDE(TableGetColumnName);
+
+	Result.kind = VALUE_STRING;
+	YYCreateString(&Result, ImGui::TableGetColumnName(column_n));
+}
+
+GMFUNC(__imgui_table_get_column_flags) {
+	double column_n = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+
+	Result.kind = VALUE_INT64;
+	Result.val = ImGui::TableGetColumnFlags(column_n);
+}
+
 GMFUNC(__imgui_table_get_row_index) {
 	Result.kind = VALUE_REAL;
 	Result.val = ImGui::TableGetRowIndex();
@@ -94,5 +111,15 @@ GMFUNC(__imgui_table_set_column_enabled) {
 	bool v = YYGetBool(arg, 1);
 
 	ImGui::TableSetColumnEnabled(column_n, v);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_table_set_bg_color) {
+	ImGuiTableBgTarget target = YYGetInt64(arg, 0);
+	int col = YYGetReal(arg, 1);
+	double column_n = YYGetReal(arg, 2);
+	GMDEFAULT(-1);
+
+	ImGui::TableSetBgColor(target, (ImU32)(0xFF << 24) | ((col >> 16) & 0xFF) | ((col >> 8) & 0xFF) | (col & 0xFF), column_n);
 	Result.kind = VALUE_UNDEFINED;
 }

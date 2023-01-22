@@ -125,12 +125,27 @@ class Processor {
         }
         return token;
     }
+
+    token_numbers(reader, token) {
+        switch (token.Type) {
+            case Token.name("-"):
+            case Token.name("+"): {
+                const next = reader.peek();
+                if (next.Type === "Number") {
+                    next.Literal = token.Literal + next.Literal;
+                    return undefined;
+                }
+            }
+        }
+        return token;
+    }
     
     token_templates(reader, token) {
         if (token.Type === Token.name("<")) {
             const next = reader.peek();
             if (next.Type === "Keyword" || next.Type === "Identifier") {
-                let found = false, args = [];
+                let args = [];
+                let found = false;
                 for(let i = reader.Index; i < reader.Length; i++) {
                     const find = reader.Tokens[i];
                     if (find.Type === Token.name(">")) {
@@ -211,6 +226,7 @@ class Processor {
         let tokens = this.Tokens, steps = [
             this.token_directives,
             this.token_pointers,
+            this.token_numbers,
             this.token_group,
             this.token_templates,
             this.token_functions,

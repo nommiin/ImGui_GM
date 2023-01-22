@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-244 out of 395 API functions wrapped (**62% complete**)
+247 out of 395 API functions wrapped (**63% complete**)
 
 | Function | Wrapped | Link |
 | -------- | ------- | ---- |
@@ -276,11 +276,11 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TableGetSortSpecs | ❌ | N/A |
 | ImGui::TableGetColumnCount | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L77) |
 | ImGui::TableGetColumnIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L82) |
-| ImGui::TableGetRowIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L87) |
-| ImGui::TableGetColumnName | ❌ | N/A |
-| ImGui::TableGetColumnFlags | ❌ | N/A |
-| ImGui::TableSetColumnEnabled | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L92) |
-| ImGui::TableSetBgColor | ❌ | N/A |
+| ImGui::TableGetRowIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L104) |
+| ImGui::TableGetColumnName | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L87) |
+| ImGui::TableGetColumnFlags | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L96) |
+| ImGui::TableSetColumnEnabled | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L109) |
+| ImGui::TableSetBgColor | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L117) |
 | ImGui::Columns | ❌ | N/A |
 | ImGui::NextColumn | ❌ | N/A |
 | ImGui::GetColumnIndex | ❌ | N/A |
