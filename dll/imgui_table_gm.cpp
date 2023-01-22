@@ -48,7 +48,9 @@ GMFUNC(__imgui_table_setup_column) {
 	ImGuiTableColumnFlags flags = YYGetInt64(arg, 1);
 	GMDEFAULT(ImGuiTableColumnFlags.None);
 	double init_width_or_weight = YYGetReal(arg, 2);
+	GMDEFAULT(0);
 	double user_id = YYGetReal(arg, 2);
+	GMDEFAULT(0);
 
 	ImGui::TableSetupColumn(label, flags, init_width_or_weight, user_id);
 	Result.kind = VALUE_UNDEFINED;
@@ -120,6 +122,6 @@ GMFUNC(__imgui_table_set_bg_color) {
 	double column_n = YYGetReal(arg, 2);
 	GMDEFAULT(-1);
 
-	ImGui::TableSetBgColor(target, (ImU32)(0xFF << 24) | ((col >> 16) & 0xFF) | ((col >> 8) & 0xFF) | (col & 0xFF), column_n);
+	ImGui::TableSetBgColor(target, (ImU32)(0xFF << 24) | col, column_n);
 	Result.kind = VALUE_UNDEFINED;
 }

@@ -1573,9 +1573,9 @@ function ImGui() constructor {
 	/// @function TableSetupColumn(label, flags, user_id)
 	/// @argument {String} label
 	/// @argument {Real} [flags=ImGuiTableColumnFlags.None]
-	/// @argument {Real} user_id
+	/// @argument {Real} [user_id=0]
 	/// @return {Undefined}
-	static TableSetupColumn = function(label, flags=ImGuiTableColumnFlags.None, user_id) {
+	static TableSetupColumn = function(label, flags=ImGuiTableColumnFlags.None, user_id=0) {
 		gml_pragma("forceinline");
 		return __imgui_table_setup_column(label, flags, user_id);
 	}
@@ -1678,11 +1678,11 @@ function ImGui() constructor {
 
 	/// @function BeginTabItem(label, open, flags, mask)
 	/// @argument {String} label
-	/// @argument {Bool} open
-	/// @argument {Real} flags
-	/// @argument {Real} mask
+	/// @argument {Bool} [open=undefined]
+	/// @argument {Real} [flags=ImGuiTabItemFlags.None]
+	/// @argument {Real} [mask=ImGuiReturnMask.Return]
 	/// @return {Real}
-	static BeginTabItem = function(label, open, flags, mask) {
+	static BeginTabItem = function(label, open=undefined, flags=ImGuiTabItemFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
 		return __imgui_begin_tab_item(label, open, flags, mask);
 	}

@@ -21,3 +21,5 @@ input_hint = "";
 
 input_int = irandom(255);
 input_float = random(255);
+
+tab1 = true;

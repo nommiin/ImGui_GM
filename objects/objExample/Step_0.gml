@@ -76,12 +76,12 @@ if (main_open) {
 			ImGui.Separator();
 			ImGui.Text("ImGui::Image");
 			ImGui.Image(sprExample, 0, col2);
-			ImGui.Surface(application_surface);
 			if (ImGui.IsItemHovered()) {
 				ImGui.BeginTooltip();
 				ImGui.Text("Artwork by @Snoozercreation on Twitter!");
 				ImGui.EndTooltip();
 			}
+			//ImGui.Surface(application_surface);
 			ImGui.Text("ImGui::Surface");
 			surface_set_target(surf);
 			var xx = ImGui.GetCursorScreenPosX(), yy = ImGui.GetCursorScreenPosY();
@@ -147,6 +147,63 @@ if (main_open) {
 			col5 = ImGui.ColorEdit3("ImGui::ColorEdit3", col5);
 			ImGui.Separator();
 			ImGui.ColorEdit4("ImGui::ColorEdit4", col6);
+		ImGui.EndChild();
+		
+		ImGui.SameLine();
+		
+		ImGui.BeginChild("Inner_Table", width / 2, height, true);
+			ImGui.Text("Tables");
+			ImGui.Separator();
+			if (ImGui.BeginTable("table_test", 3)) {
+				ImGui.TableSetupColumn("One");
+				ImGui.TableSetupColumn("Two");
+				ImGui.TableSetupColumn("Three");
+				ImGui.TableHeadersRow();
+				
+					
+				for(var i = 0; i < 5; i++) {
+					ImGui.TableNextRow();
+					for(var j = 0; j < 3; j++) {
+						ImGui.TableSetColumnIndex(j);
+						ImGui.TableSetBgColor(ImGuiTableBgTarget.CellBg, make_color_hsv(255 * ((i + j) / 8), 128, 255), j);
+						ImGui.Text("Hello " + string(i + j));
+					}
+				}
+				
+				ImGui.EndTable();	
+			}
+		ImGui.EndChild();
+		
+		ImGui.BeginChild("Inner_Tabs", width / 2, height, true);
+			ImGui.Text("Tabs");
+			ImGui.Separator();
+			if (ImGui.BeginTabBar("MyTabBar"))
+            {
+				var ret = ImGui.BeginTabItem("Closable", tab1, undefined, ImGuiReturnMask.Both);
+				tab1 = ret & ImGuiReturnMask.Pointer;
+				
+				if (ret & ImGuiReturnMask.Return) {
+	                ImGui.Text("This is a closable tab!\nblah blah blah blah blah");
+	                ImGui.EndTabItem();
+				}
+				
+                if (ImGui.BeginTabItem("Avocado"))
+                {
+                    ImGui.Text("This is the Avocado tab!\nblah blah blah blah blah");
+                    ImGui.EndTabItem();
+                }
+                if (ImGui.BeginTabItem("Broccoli"))
+                {
+                    ImGui.Text("This is the Broccoli tab!\nblah blah blah blah blah");
+                    ImGui.EndTabItem();
+                }
+                if (ImGui.BeginTabItem("Cucumber"))
+                {
+                    ImGui.Text("This is the Cucumber tab!\nblah blah blah blah blah");
+                    ImGui.EndTabItem();
+                }
+                ImGui.EndTabBar();
+            }
 		ImGui.EndChild();
 	}
 	ImGui.End();

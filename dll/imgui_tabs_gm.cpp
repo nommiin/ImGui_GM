@@ -17,17 +17,20 @@ GMFUNC(__imgui_end_tab_bar) {
 GMFUNC(__imgui_begin_tab_item) {
 	const char* label = YYGetString(arg, 0);
 	bool open = YYGetBool(arg, 1);
+	GMDEFAULT(undefined);
 	ImGuiTabItemFlags flags = YYGetInt64(arg, 2);
+	GMDEFAULT(ImGuiTabItemFlags.None);
 	int64 mask = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiReturnMask.Return);
 
 	bool* p_open = &open;
 	if (!open) {
-		if ((&arg[2])->kind == VALUE_UNDEFINED) {
+		if ((&arg[1])->kind == VALUE_UNDEFINED) {
 			p_open = nullptr;
 		}
 	}
 
-	bool ret = ImGui::BeginTabItem(label, &open, flags);
+	bool ret = ImGui::BeginTabItem(label, p_open, flags);
 	Result.kind = VALUE_REAL;
 	Result.val = ((open << 1) | (bool)ret) & mask;
 }
