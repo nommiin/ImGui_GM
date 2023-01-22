@@ -1,5 +1,12 @@
 #include "imgui_gm.h"
 
+GMFUNC(__imgui_text_unformatted) {
+	const char* text = YYGetString(arg, 0);
+
+	ImGui::TextUnformatted(text, NULL);
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_text) {
 	const char* val = YYGetString(arg, 0);
 

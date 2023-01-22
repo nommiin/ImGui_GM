@@ -49,6 +49,7 @@ if (main_open) {
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);
 			ImGui.Text("Text");
 			ImGui.Separator();
+			ImGui.TextUnformatted("ImGui::TextUnformatted");
 			ImGui.Text("ImGui::Text");
 			ImGui.TextColored("ImGui::TextColored", col);
 			ImGui.TextWrapped("ImGui::TextWrapped - " + string_repeat("A", 24));
@@ -160,7 +161,6 @@ if (main_open) {
 				ImGui.TableSetupColumn("Three");
 				ImGui.TableHeadersRow();
 				
-					
 				for(var i = 0; i < 5; i++) {
 					ImGui.TableNextRow();
 					for(var j = 0; j < 3; j++) {
@@ -204,6 +204,15 @@ if (main_open) {
                 }
                 ImGui.EndTabBar();
             }
+		ImGui.EndChild();
+		
+		ImGui.SameLine();
+		
+		ImGui.BeginChild("Inner_Plots", width / 2, height, true);
+			ImGui.Text("Plots");
+			ImGui.Separator();
+			ImGui.PlotLines("Line Plot", plot_val);
+			ImGui.PlotHistogram("Histogram Plot", plot_val2, undefined, 0, "Overlay Here!", undefined, undefined, undefined, 128);
 		ImGui.EndChild();
 	}
 	ImGui.End();

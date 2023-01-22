@@ -21,5 +21,11 @@ input_hint = "";
 
 input_int = irandom(255);
 input_float = random(255);
+plot_val = [];
+plot_val2 = [];
+for(var i = 0; i < 12; i++) {
+	array_push(plot_val, irandom(255));
+	array_push(plot_val2, irandom(255));
+}
 
 tab1 = true;

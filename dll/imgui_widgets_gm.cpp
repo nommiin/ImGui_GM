@@ -120,7 +120,7 @@ GMFUNC(__imgui_progressbar) {
 	const char* overlay = YYGetString(arg, 3);
 	GMDEFAULT("");
 	
-	ImGui::ProgressBar(frac, ImVec2(width, height), (overlay == "" ? nullptr : overlay));
+	ImGui::ProgressBar(frac, ImVec2(width, height), (overlay == "" ? NULL : overlay));
 	Result.kind = VALUE_UNDEFINED;
 }
 

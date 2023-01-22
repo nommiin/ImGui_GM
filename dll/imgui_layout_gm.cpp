@@ -114,6 +114,14 @@ GMFUNC(__imgui_set_cursor_screen_pos) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_set_cursor_pos) {
+	double local_x = YYGetReal(arg, 0);
+	double local_y = YYGetReal(arg, 1);
+
+	ImGui::SetCursorPos(ImVec2(local_x, local_y));
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_set_cursor_pos_x) {
 	double local_x = YYGetReal(arg, 0);
 

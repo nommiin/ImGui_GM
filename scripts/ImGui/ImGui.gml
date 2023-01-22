@@ -933,6 +933,15 @@ function ImGui() constructor {
 		return __imgui_set_cursor_screen_pos(_x, _y);
 	}
 
+	/// @function SetCursorPos(local_x, local_y)
+	/// @argument {Real} local_x
+	/// @argument {Real} local_y
+	/// @return {Undefined}
+	static SetCursorPos = function(local_x, local_y) {
+		gml_pragma("forceinline");
+		return __imgui_set_cursor_pos(local_x, local_y);
+	}
+
 	/// @function SetCursorPosX(local_x)
 	/// @argument {Real} local_x
 	/// @return {Undefined}
@@ -1168,6 +1177,38 @@ function ImGui() constructor {
 	static MenuItem = function(label, shortcut="", selected=undefined, enabled=true, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
 		return __imgui_menu_item(label, shortcut, selected, enabled, mask);
+	}
+
+	/// @function PlotLines(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
+	/// @argument {String} label
+	/// @argument {Array<Real>} values
+	/// @argument {Real} [values_count=array_length⌊values⌉]
+	/// @argument {Real} [values_offset=0]
+	/// @argument {String} [overlay_text=]
+	/// @argument {Real} [scale_min=0]
+	/// @argument {Real} [scale_max=0]
+	/// @argument {Real} [graph_width=0]
+	/// @argument {Real} [graph_height=0]
+	/// @return {Undefined}
+	static PlotLines = function(label, values, values_count=array_length(values), values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
+		gml_pragma("forceinline");
+		return __imgui_plot_lines(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height);
+	}
+
+	/// @function PlotHistogram(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
+	/// @argument {String} label
+	/// @argument {Array<Real>} values
+	/// @argument {Real} [values_count=array_length⌊values⌉]
+	/// @argument {Real} [values_offset=0]
+	/// @argument {String} [overlay_text=]
+	/// @argument {Real} [scale_min=0]
+	/// @argument {Real} [scale_max=0]
+	/// @argument {Real} [graph_width=0]
+	/// @argument {Real} [graph_height=0]
+	/// @return {Undefined}
+	static PlotHistogram = function(label, values, values_count=array_length(values), values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
+		gml_pragma("forceinline");
+		return __imgui_plot_histogram(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height);
 	}
 
 	/// @function BeginPopup(str_id, flags)
@@ -1709,6 +1750,14 @@ function ImGui() constructor {
 	static SetTabItemClosed = function(tab_or_docked_window_label) {
 		gml_pragma("forceinline");
 		return __imgui_set_tab_item_closed(tab_or_docked_window_label);
+	}
+
+	/// @function TextUnformatted(text)
+	/// @argument {String} text
+	/// @return {Undefined}
+	static TextUnformatted = function(text) {
+		gml_pragma("forceinline");
+		return __imgui_text_unformatted(text);
 	}
 
 	/// @function Text(val)
