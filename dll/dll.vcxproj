@@ -27,6 +27,7 @@
     <ClCompile Include="imgui_docking_gm.cpp" />
     <ClCompile Include="imgui_drag_gm.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_plots_gm.cpp" />
     <ClCompile Include="imgui_table_gm.cpp" />
     <ClCompile Include="imgui_tabs_gm.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_gm.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
     <ClInclude Include="imgui_internal.h" />
     <ClInclude Include="imgui_memory_editor.h" />
     <ClInclude Include="imstb_rectpack.h" />

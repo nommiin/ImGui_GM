@@ -2959,20 +2959,22 @@ function ImGui() constructor {
 	static __Initialize = function() {
 		var info = os_get_info(), pointers = {
 			Device: info[? "video_d3d11_device"],
-			Context: info[? "video_d3d11_context"]
+			Context: info[? "video_d3d11_context"],
+			Window: window_handle()
 		};
+		
 		ds_map_destroy(info);
 		return __imgui_initialize(pointers);
 	}
 	
 	static __Update = function() {
-		var _w = window_get_width(), _h = window_get_height();
+		var _w = display_get_width(), _h = display_get_height();
 		__State.Display.Width = _w;
 		__State.Display.Height = _h;
 		__State.Engine.Time = delta_time / 1_000_000;
 		__State.Engine.Framerate = game_get_speed(gamespeed_fps);
 		
-		if (window_has_focus()) {
+		//if (window_has_focus()) {
 			for(var i = ImGuiKey.NamedKey_BEGIN; i < ImGuiKey.NamedKey_END; i++) {
 				var key = __Mapping[i];
 				if (key > -1) __imgui_key(i, keyboard_check_direct(key));
@@ -2981,17 +2983,20 @@ function ImGui() constructor {
 			__imgui_key(ImGuiKey.ImGuiMod_Shift, keyboard_check_direct(vk_lshift));
 			__imgui_key(ImGuiKey.ImGuiMod_Alt, keyboard_check_direct(vk_lalt));
 			if (__imgui_input(keyboard_string)) keyboard_string = "";
-			
+			for(var i = 0; i < 3; i++) __imgui_mouse(i, device_mouse_check_button(0, i + 1));
+				if (mouse_wheel_up()) __imgui_mouse_wheel(0, 1);
+				else if (mouse_wheel_down()) __imgui_mouse_wheel(0, -1);
+			/*
 			var _x = window_get_x(), _y = window_get_y();
-			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + window_get_width(), _y + window_get_height())) {
-				__State.Input.Mouse.X = window_mouse_get_x();
-				__State.Input.Mouse.Y = window_mouse_get_y();
+			if (true) {//point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + window_get_width(), _y + window_get_height())) {
+				__State.Input.Mouse.X = display_mouse_get_x();
+				__State.Input.Mouse.Y = display_mouse_get_y();
 				for(var i = 0; i < 3; i++) __imgui_mouse(i, device_mouse_check_button(0, i + 1));
 				if (mouse_wheel_up()) __imgui_mouse_wheel(0, 1);
 				else if (mouse_wheel_down()) __imgui_mouse_wheel(0, -1);
 				window_set_cursor(__Cursor[__imgui_mouse_cursor() + 1]);
-			}
-		}
+			}*/
+		//}
 		return __imgui_update(__State);
 	}
 	
