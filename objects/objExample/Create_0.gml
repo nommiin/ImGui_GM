@@ -1,8 +1,10 @@
 ImGui.__Initialize();
+ImGui.ConfigFlagToggle(ImGuiConfigFlags.DockingEnable);	
+
 randomize();
 
 main_open = true;
-demo_open = false;
+demo_open = true;
 header_visible = true;
 
 col = c_blue;                     // for TextColored

@@ -31,7 +31,6 @@ GMFUNC(__imgui_initialize) {
 	ImGui::StyleColorsDark();
 
 	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 
 	Result.kind = VALUE_BOOL;

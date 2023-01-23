@@ -1,3 +1,6 @@
+// Docking
+ImGui.DockSpaceOverViewport();
+
 // Setup
 if (!surface_exists(surf)) {
 	surf = surface_create(128, 128);
@@ -221,8 +224,6 @@ if (main_open) {
 			var space_id = ImGui.GetID("DockSpace");
 			ImGui.DockSpace(space_id);
 		ImGui.EndChild();
-		
-		ImGui.DockSpaceOverViewport();
 	}
 	ImGui.End();
 }

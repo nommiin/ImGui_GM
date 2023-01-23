@@ -384,6 +384,29 @@ function ImGui() constructor {
 		return __imgui_set_item_default_focus();
 	}
 
+	/// @function ConfigFlagsGet()
+	/// @return {Real}
+	static ConfigFlagsGet = function() {
+		gml_pragma("forceinline");
+		return __imgui_config_flags_get();
+	}
+
+	/// @function ConfigFlagsSet(flags)
+	/// @argument {Real} flags
+	/// @return {Unknown<unset>}
+	static ConfigFlagsSet = function(flags) {
+		gml_pragma("forceinline");
+		return __imgui_config_flags_set(flags);
+	}
+
+	/// @function ConfigFlagToggle(flag)
+	/// @argument {Real} flag
+	/// @return {Bool}
+	static ConfigFlagToggle = function(flag) {
+		gml_pragma("forceinline");
+		return __imgui_config_flag_toggle(flag);
+	}
+
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col

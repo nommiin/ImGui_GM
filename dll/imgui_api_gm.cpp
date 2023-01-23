@@ -380,3 +380,29 @@ GMFUNC(__imgui_set_item_default_focus) {
 	ImGui::SetItemDefaultFocus();
 	Result.kind = VALUE_UNDEFINED;
 }
+
+GMFUNC(__imgui_config_flags_get) {
+	GMOVERRIDE(ConfigFlagsGet);
+
+	ImGuiIO& io = ImGui::GetIO();
+	Result.kind = VALUE_INT64;
+	Result.val = io.ConfigFlags;
+}
+
+GMFUNC(__imgui_config_flags_set) {
+	GMOVERRIDE(ConfigFlagsSet);
+	ImGuiConfigFlags flags = YYGetInt64(arg, 0);
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags = flags;
+}
+
+GMFUNC(__imgui_config_flag_toggle) {
+	GMOVERRIDE(ConfigFlagToggle);
+	ImGuiConfigFlags flag = YYGetInt64(arg, 0);
+
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags ^= flag;
+	Result.kind = VALUE_BOOL;
+	Result.val = io.ConfigFlags & flag;
+}
