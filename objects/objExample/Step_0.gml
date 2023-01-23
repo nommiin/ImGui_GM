@@ -206,12 +206,23 @@ if (main_open) {
             }
 		ImGui.EndChild();
 		
+		ImGui.SameLine();
+		
 		ImGui.BeginChild("Inner_Plots", width / 2, height, true);
 			ImGui.Text("Plots");
 			ImGui.Separator();
 			ImGui.PlotLines("Line Plot", plot_val);
 			ImGui.PlotHistogram("Histogram Plot", plot_val2, undefined, 0, "Overlay Here!", undefined, undefined, undefined, 128);
 		ImGui.EndChild();
+		
+		ImGui.BeginChild("Inner_Dock", width / 2, height, true);
+			ImGui.Text("Dock Space");
+			ImGui.Separator();
+			var space_id = ImGui.GetID("DockSpace");
+			ImGui.DockSpace(space_id);
+		ImGui.EndChild();
+		
+		ImGui.DockSpaceOverViewport();
 	}
 	ImGui.End();
 }

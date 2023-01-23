@@ -376,6 +376,25 @@ class Program {
      */
     static writeReport(header, wrappers, file) {
         const func = header.functions;
+        const notes = {
+            "NewFrame": "Handled internally by [__imgui_update function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L63)",
+            "Render": "Handled internally by [__imgui_render function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L69)",
+            "GetWindowPos": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "GetWindowSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
+            "GetContentRegionAvail": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "GetContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "GetWindowContentRegionMin": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "GetWindowContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "PushFont": "Fonts are currently unimplemented",
+            "GetCursorStartPos": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "TextV": "Unsupported, use `string` function in GameMaker",
+            "TextColoredV": "Unsupported, use `string` function in GameMaker",
+            "TextWrappedV": "Unsupported, use `string` function in GameMaker",
+            "LabelTextV": "Unsupported, use `string` function in GameMaker",
+            "BulletTextV": "Unsupported, use `string` function in GameMaker",
+        };
+        // i know
 
         let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
         func.forEach(e => {
@@ -384,12 +403,12 @@ class Program {
             }
         });
         content += `${count} out of ${func.length} API functions wrapped (**${Math.round(100 * (count / func.length))}% complete**)\n\n`;
-        content += "| Function | Wrapped | Link |\n";
-        content += "| -------- | ------- | ---- |\n";
+        content += "| Function | Wrapped | Link | Notes |\n";
+        content += "| -------- | ------- | ---- | ----- |\n";
         func.forEach(e => {
             const wrapper = wrappers.find(w => w.Calls === e.Name);
             if (wrapper) wrapper.Found = true;
-            content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} |\n`;
+            content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
         });
 
         content += `\n# Non-Standard\nBelow is a table of non-standard functions made specifically for ImGui_GM\n\n`;

@@ -469,6 +469,55 @@ function ImGui() constructor {
 		return __imgui_combo();
 	}
 
+	/// @function DockSpace(_id, width, height, flags)
+	/// @argument {Real} _id
+	/// @argument {Real} [width=0]
+	/// @argument {Real} [height=0]
+	/// @argument {Real} [flags=ImGuiDockNodeFlags.None]
+	/// @return {Real}
+	static DockSpace = function(_id, width=0, height=0, flags=ImGuiDockNodeFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_dock_space(_id, width, height, flags);
+	}
+
+	/// @function DockSpaceOverViewport(flags)
+	/// @argument {Real} [flags=ImGuiDockNodeFlags.None]
+	/// @return {Real}
+	static DockSpaceOverViewport = function(flags=ImGuiDockNodeFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_dock_space_over_viewport(flags);
+	}
+
+	/// @function SetNextWindowDockID(dock_id, cond)
+	/// @argument {Real} dock_id
+	/// @argument {Real} cond
+	/// @return {Undefined}
+	static SetNextWindowDockID = function(dock_id, cond) {
+		gml_pragma("forceinline");
+		return __imgui_set_next_window_dock_id(dock_id, cond);
+	}
+
+	/// @function SetNextWindowClass()
+	/// @return {Unknown<unset>}
+	static SetNextWindowClass = function() {
+		gml_pragma("forceinline");
+		return __imgui_set_next_window_class();
+	}
+
+	/// @function GetWindowDockID()
+	/// @return {Real}
+	static GetWindowDockID = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_window_dock_id();
+	}
+
+	/// @function IsWindowDocked()
+	/// @return {Bool}
+	static IsWindowDocked = function() {
+		gml_pragma("forceinline");
+		return __imgui_is_window_docked();
+	}
+
 	/// @function DragFloat(label, v, v_speed, v_min, v_max, format, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
@@ -1078,6 +1127,13 @@ function ImGui() constructor {
 	static PushTextWrapPos = function(wrap_local_pos_x=0) {
 		gml_pragma("forceinline");
 		return __imgui_push_text_wrap_pos(wrap_local_pos_x);
+	}
+
+	/// @function PopTextWrapPos()
+	/// @return {Undefined}
+	static PopTextWrapPos = function() {
+		gml_pragma("forceinline");
+		return __imgui_pop_text_wrap_pos();
 	}
 
 	/// @function PushClipRect(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect)
@@ -2887,7 +2943,7 @@ function ImGui() constructor {
 	}
 	
 	static __Update = function() {
-		var _w = display_get_width(), _h = display_get_height();
+		var _w = window_get_width(), _h = window_get_height();
 		__State.Display.Width = _w;
 		__State.Display.Height = _h;
 		__State.Engine.Time = delta_time / 1_000_000;
