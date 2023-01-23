@@ -244,6 +244,11 @@ GMFUNC(__imgui_push_text_wrap_pos) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_pop_text_wrap_pos) {
+	ImGui::PopTextWrapPos();
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_push_clip_rect) {
 	double clip_min_x = YYGetReal(arg, 0);
 	double clip_min_y = YYGetReal(arg, 1);
