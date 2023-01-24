@@ -9,6 +9,7 @@ RValue g_Copy;
 ID3D11Device* g_pd3dDevice;
 ID3D11DeviceContext* g_pd3dDeviceContext;
 ID3D11ShaderResourceView* g_pView;
+void* g_pHandle;
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
@@ -25,16 +26,14 @@ GMFUNC(__imgui_initialize) {
 	RValue* info = YYGetStruct(arg, 0);
 	g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "Device")->ptr);
 	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "Context")->ptr);
+	g_pHandle = (void*)(YYStructGetMember(info, "Handle")->ptr);
 
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;
 	ImGui::StyleColorsDark();
 
-	ImGuiIO& io = ImGui::GetIO();
-	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
+	Result.val = ImGui_ImplGM_Init(g_pHandle) && ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 }
 
 GMFUNC(__imgui_update) {
@@ -42,23 +41,8 @@ GMFUNC(__imgui_update) {
 	if (state == nullptr) ShowError("Could not call update function when state struct is null");
 	if (!g_ImGuiInitialized) ShowError("Could not call update function when ImGui_GM is not initialized");
 
-	RValue* display = YYStructGetMember(state, "Display");
-	RValue* input = YYStructGetMember(state, "Input");
-	RValue* engine = YYStructGetMember(state, "Engine");
-	RValue* mouse = YYStructGetMember(input, "Mouse");
-	RValue* display_width = YYStructGetMember(display, "Width");
-	RValue* display_height = YYStructGetMember(display, "Height");
-	RValue* mouse_x = YYStructGetMember(mouse, "X");
-	RValue* mouse_y = YYStructGetMember(mouse, "Y");
-	RValue* framerate = YYStructGetMember(engine, "Framerate");
-	RValue* time = YYStructGetMember(engine, "Time");
+	ImGui_ImplGM_NewFrame(state);
 	ImGui_ImplDX11_NewFrame();
-
-	ImGuiIO& io = ImGui::GetIO();
-	io.DisplaySize = ImVec2(display_width->val, display_height->val);
-	io.MousePos = ImVec2(mouse_x->val, mouse_y->val);
-	io.Framerate = framerate->val;
-	io.DeltaTime = time->val;
 	ImGui::NewFrame();
 }
 

@@ -2959,7 +2959,8 @@ function ImGui() constructor {
 	static __Initialize = function() {
 		var info = os_get_info(), pointers = {
 			Device: info[? "video_d3d11_device"],
-			Context: info[? "video_d3d11_context"]
+			Context: info[? "video_d3d11_context"],
+			Handle: window_handle()
 		};
 		ds_map_destroy(info);
 		return __imgui_initialize(pointers);

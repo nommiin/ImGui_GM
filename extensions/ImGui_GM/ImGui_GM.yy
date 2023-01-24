@@ -19,7 +19,7 @@
   "extensionVersion": "0.0.1",
   "files": [
     {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[
-        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"IMGUI_GM_VERSION","hidden":false,"value":"\"1.0.1\"",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"IMGUI_GM_VERSION","hidden":false,"value":"\"1.0.4\"",},
       ],"copyToTargets":-1,"filename":"imgui_gm.dll","final":"","functions":[
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_initialize","argCount":0,"args":[],"documentation":"/// @function __imgui_initialize(info)\r\n/// @argument {ds_map} info - Operating system info","externalName":"__imgui_initialize","help":"","hidden":false,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_update","argCount":0,"args":[],"documentation":"","externalName":"__imgui_update","help":"","hidden":false,"kind":1,"returnType":1,},
@@ -29,7 +29,6 @@
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_mouse_wheel","argCount":0,"args":[],"documentation":"","externalName":"__imgui_mouse_wheel","help":"","hidden":false,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_mouse_cursor","argCount":0,"args":[],"documentation":"","externalName":"__imgui_mouse_cursor","help":"","hidden":false,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_input","argCount":0,"args":[],"documentation":"","externalName":"__imgui_input","help":"","hidden":false,"kind":1,"returnType":1,},
-        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_docking_toggle","argCount":0,"args":[],"documentation":"","externalName":"__imgui_docking_toggle","help":"","hidden":true,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_create_context","argCount":0,"args":[],"documentation":"","externalName":"__imgui_create_context","help":"","hidden":true,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_destroy_context","argCount":0,"args":[],"documentation":"","externalName":"__imgui_destroy_context","help":"","hidden":true,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_get_current_context","argCount":0,"args":[],"documentation":"","externalName":"__imgui_get_current_context","help":"","hidden":true,"kind":1,"returnType":1,},

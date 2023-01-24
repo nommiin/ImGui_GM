@@ -33,6 +33,8 @@ class Program {
         const wrappers = [];
         Logger.info("Parsing wrappers...");
         files.forEach(e => {
+            if (e.startsWith("imgui_impl_gm")) return;
+
             this.parseWrapper(wrappers, new FileEditor(`${root}${e}`, true));
         });
 
