@@ -20,6 +20,7 @@
 #define GMAPPEND(...) /**/
 #define GMOVERRIDE(...) /**/
 #define GMRETURN(...) /**/
+#define GMRETURNS(...) /**/
 #define GMHINT(...) /**/
 #define GMEXPORT __declspec(dllexport)
 #define GMFUNC(name) GMEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)

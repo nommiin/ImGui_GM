@@ -50,6 +50,7 @@ GMFUNC(__imgui_accept_drag_drop_payload) {
 		COPY_RValue(&Result, (RValue*)payload->Data);
 		DsMapClear(g_KeepAlive);
 	}
+	GMRETURNS(Any|Undefined);
 }
 
 GMFUNC(__imgui_get_drag_drop_payload) {
@@ -60,6 +61,7 @@ GMFUNC(__imgui_get_drag_drop_payload) {
 		COPY_RValue(&Result, (RValue*)payload->Data);
 		DsMapClear(g_KeepAlive);
 	}
+	GMRETURNS(Any|Undefined);
 }
 
 GMFUNC(__imgui_get_payload_keepalive) {

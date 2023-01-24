@@ -1300,14 +1300,14 @@ function ImGui() constructor {
 	/// @function AcceptDragDropPayload(type, flags)
 	/// @argument {String} type
 	/// @argument {Real} [flags=ImGuiDragDropFlags.None]
-	/// @return {Undefined}
+	/// @return {Any|Undefined}
 	static AcceptDragDropPayload = function(type, flags=ImGuiDragDropFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_accept_drag_drop_payload(type, flags);
 	}
 
 	/// @function GetDragDropPayload()
-	/// @return {Undefined}
+	/// @return {Any|Undefined}
 	static GetDragDropPayload = function() {
 		gml_pragma("forceinline");
 		return __imgui_get_drag_drop_payload();

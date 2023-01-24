@@ -168,6 +168,12 @@ class Wrapper {
                 return true;
             }
 
+            case "GMRETURNS": {
+                this.Return = token.flatten(false);
+                Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
+                break;
+            }
+
             case "GMHINT": {
                 if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
                 
