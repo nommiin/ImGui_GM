@@ -399,7 +399,7 @@ class Program {
         let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
         func.forEach(e => {
             if (e.Name.endsWith("V") && !e.Name.endsWith("HSV")) {
-                notes[e.Name] = "Unsupported, use `string` function in GameMaker";
+                notes[e.Name] = "Unsupported, use `string` function in GameMaker for string formatting";
             }
 
             if (wrappers.find(w => w.Calls === e.Name)) {

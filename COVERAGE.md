@@ -135,17 +135,17 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetID | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L160) | N/A |
 | ImGui::TextUnformatted | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L3) | N/A |
 | ImGui::Text | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L10) | N/A |
-| ImGui::TextV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::TextColored | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L17) | N/A |
-| ImGui::TextColoredV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TextColoredV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::TextDisabled | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L27) | N/A |
-| ImGui::TextDisabledV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TextDisabledV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::TextWrapped | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L34) | N/A |
-| ImGui::TextWrappedV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TextWrappedV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::LabelText | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L41) | N/A |
-| ImGui::LabelTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::LabelTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BulletText | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L49) | N/A |
-| ImGui::BulletTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::BulletTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::Button | ✅ | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L7) | N/A |
 | ImGui::SmallButton | ✅ | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L18) | N/A |
 | ImGui::InvisibleButton | ✅ | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L25) | N/A |
@@ -213,13 +213,13 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TreeNode | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L3) | N/A |
 | ImGui::TreeNode | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L3) | N/A |
 | ImGui::TreeNode | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L3) | N/A |
-| ImGui::TreeNodeV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
-| ImGui::TreeNodeV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TreeNodeV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
+| ImGui::TreeNodeV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::TreeNodeEx | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L10) | N/A |
 | ImGui::TreeNodeEx | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L10) | N/A |
 | ImGui::TreeNodeEx | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L10) | N/A |
-| ImGui::TreeNodeExV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
-| ImGui::TreeNodeExV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TreeNodeExV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
+| ImGui::TreeNodeExV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::TreePush | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L19) | N/A |
 | ImGui::TreePush | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L19) | N/A |
 | ImGui::TreePop | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L26) | N/A |
@@ -252,7 +252,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::BeginTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L3) | N/A |
 | ImGui::EndTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L8) | N/A |
 | ImGui::SetTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L13) | N/A |
-| ImGui::SetTooltipV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::SetTooltipV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BeginPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L3) | N/A |
 | ImGui::BeginPopupModal | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L12) | N/A |
 | ImGui::EndPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L33) | N/A |
@@ -307,7 +307,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::LogFinish | ❌ | N/A | N/A |
 | ImGui::LogButtons | ❌ | N/A | N/A |
 | ImGui::LogText | ❌ | N/A | N/A |
-| ImGui::LogTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::LogTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BeginDragDropSource | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L3) | N/A |
 | ImGui::SetDragDropPayload | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L26) | N/A |
 | ImGui::EndDragDropSource | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L11) | N/A |
