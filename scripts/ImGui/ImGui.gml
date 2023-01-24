@@ -1313,6 +1313,13 @@ function ImGui() constructor {
 		return __imgui_get_drag_drop_payload();
 	}
 
+	/// @function GetPayloadKeepAlive()
+	/// @return {Real}
+	static GetPayloadKeepAlive = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_payload_keepalive();
+	}
+
 	/// @function PlotLines(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
 	/// @argument {String} label
 	/// @argument {Array<Real>} values

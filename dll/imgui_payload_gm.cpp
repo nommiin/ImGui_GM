@@ -61,3 +61,10 @@ GMFUNC(__imgui_get_drag_drop_payload) {
 		DsMapClear(g_KeepAlive);
 	}
 }
+
+GMFUNC(__imgui_get_payload_keepalive) {
+	GMOVERRIDE(GetPayloadKeepAlive);
+
+	Result.kind = VALUE_REAL;
+	Result.val = g_KeepAlive;
+}
