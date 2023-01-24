@@ -30,4 +30,11 @@ for(var i = 0; i < 12; i++) {
 	array_push(plot_val2, irandom(255));
 }
 
+drag_mode = 0;
+drag_names = [
+	"Bobby", "Beatrice", "Betty",
+	"Brianna", "Barry", "Bernard",
+	"Bibi", "Blaine", "Bryn"
+];
+
 tab1 = true;

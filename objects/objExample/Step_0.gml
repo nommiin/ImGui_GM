@@ -224,6 +224,66 @@ if (main_open) {
 			var space_id = ImGui.GetID("DockSpace");
 			ImGui.DockSpace(space_id);
 		ImGui.EndChild();
+		
+		ImGui.SameLine();
+		
+		ImGui.BeginChild("Inner_DragDrop", width / 2, height, true);
+			ImGui.Text("Drag and Drop");
+			ImGui.Separator();
+			if (ImGui.RadioButton("Copy", drag_mode == 0)) {drag_mode = 0;} ImGui.SameLine();
+			if (ImGui.RadioButton("Move", drag_mode == 1)) {drag_mode = 1;} ImGui.SameLine();
+			if (ImGui.RadioButton("Swap", drag_mode == 2)) {drag_mode = 2;}
+			
+			for(var i = 0; i < array_length(drag_names); i++) {
+				ImGui.PushID(i);
+				if (i % 3 != 0) {
+					ImGui.SameLine();	
+				}
+				
+				ImGui.Button(drag_names[i], 60, 60);
+				if (ImGui.BeginDragDropSource()) {
+					ImGui.SetDragDropPayload("DND_DEMO_CELL", i);
+					
+					var verb = "Copy";
+					switch (drag_mode) {
+						case 1: verb = "Move"; break;
+						case 2: verb = "Swap"; break;
+					}
+					ImGui.Text(verb + " " + string(drag_names[i]));
+					ImGui.EndDragDropSource();	
+				}
+				
+				if (ImGui.BeginDragDropTarget()) {
+					var payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL");
+					if (payload) {
+						switch (drag_mode) {
+							// Copy
+							case 0: {
+								drag_names[i] = drag_names[payload];
+								break;
+							}
+							
+							// Move
+							case 1: {
+								drag_names[i] = drag_names[payload];
+								drag_names[payload] = "";
+								break;
+							}
+							
+							// Swap
+							case 2: {
+								var temp = drag_names[i];
+								drag_names[i] = drag_names[payload];
+								drag_names[payload] = temp;
+								break;	
+							}
+						}	
+					}
+					ImGui.EndDragDropTarget();	
+				}
+				ImGui.PopID();
+			}
+		ImGui.EndChild();
 	}
 	ImGui.End();
 }

@@ -106,9 +106,8 @@ GMFUNC(__imgui_radio_button) {
 	const char* label = YYGetString(arg, 0);
 	bool active = YYGetBool(arg, 1);
 
-	ImGui::RadioButton(label, &active);
 	Result.kind = VALUE_BOOL;
-	Result.val = active;
+	Result.val = ImGui::RadioButton(label, active);
 }
 
 GMFUNC(__imgui_progressbar) {

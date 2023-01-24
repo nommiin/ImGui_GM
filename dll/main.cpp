@@ -3,6 +3,7 @@
 static ImGuiContext* g_ImGuiContext;
 static bool g_ImGuiInitialized = false;
 
+int g_KeepAlive;
 char g_InputBuf[INPUT_SIZE];
 RValue g_Copy;
 
@@ -27,6 +28,7 @@ GMFUNC(__imgui_initialize) {
 	g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "Device")->ptr);
 	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "Context")->ptr);
 	g_pHandle = (void*)(YYStructGetMember(info, "Handle")->ptr);
+	g_KeepAlive = CreateDsMap(0);
 
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;

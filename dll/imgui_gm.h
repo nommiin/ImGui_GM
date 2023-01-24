@@ -48,6 +48,7 @@ static inline double GMCOLOR_FROM(ImVec4 col) {
 #define INPUT_SIZE 4096
 extern char g_InputBuf[INPUT_SIZE];
 
+extern int g_KeepAlive;
 extern RValue g_Copy;
 template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {
 	RValue* arr = &arg[ind];

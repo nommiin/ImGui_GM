@@ -1258,6 +1258,61 @@ function ImGui() constructor {
 		return __imgui_menu_item(label, shortcut, selected, enabled, mask);
 	}
 
+	/// @function BeginDragDropSource(flags)
+	/// @argument {Real} [flags=ImGuiDragDropFlags.None]
+	/// @return {Bool}
+	static BeginDragDropSource = function(flags=ImGuiDragDropFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_begin_drag_drop_source(flags);
+	}
+
+	/// @function EndDragDropSource()
+	/// @return {Undefined}
+	static EndDragDropSource = function() {
+		gml_pragma("forceinline");
+		return __imgui_end_drag_drop_source();
+	}
+
+	/// @function BeginDragDropTarget()
+	/// @return {Bool}
+	static BeginDragDropTarget = function() {
+		gml_pragma("forceinline");
+		return __imgui_begin_drag_drop_target();
+	}
+
+	/// @function EndDragDropTarget()
+	/// @return {Undefined}
+	static EndDragDropTarget = function() {
+		gml_pragma("forceinline");
+		return __imgui_end_drag_drop_target();
+	}
+
+	/// @function SetDragDropPayload(type, data, cond)
+	/// @argument {String} type
+	/// @argument {Any} data
+	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @return {Bool}
+	static SetDragDropPayload = function(type, data, cond=ImGuiCond.None) {
+		gml_pragma("forceinline");
+		return __imgui_set_drag_drop_payload(type, data, cond);
+	}
+
+	/// @function AcceptDragDropPayload(type, flags)
+	/// @argument {String} type
+	/// @argument {Real} [flags=ImGuiDragDropFlags.None]
+	/// @return {Undefined}
+	static AcceptDragDropPayload = function(type, flags=ImGuiDragDropFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_accept_drag_drop_payload(type, flags);
+	}
+
+	/// @function GetDragDropPayload()
+	/// @return {Undefined}
+	static GetDragDropPayload = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_drag_drop_payload();
+	}
+
 	/// @function PlotLines(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
 	/// @argument {String} label
 	/// @argument {Array<Real>} values
