@@ -342,10 +342,10 @@ class Program {
 
         if (start === -1) throw `Could not parse "${file.Name}", could not find "Binds" @section comment`;
         if (end === -1) throw `Could not parse "${file.Name}", could not find "Internal" @section comment`;
-
+        
         const content = [];
         wrappers.forEach(e => {
-            content.push(e.to_jsdoc() + "\n" + e.to_gml());
+            content.push(e.to_jsdoc(enums) + "\n" + e.to_gml());
         });
 
         let enum_def = `\n${Configuration.SPACING}/// @section Enums\n`;

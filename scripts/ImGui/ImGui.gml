@@ -1,6 +1,7 @@
 function ImGui() constructor {
 	/// @section Binds
 	/// @function CreateContext()
+	/// @context ImGui
 	/// @return {Pointer}
 	static CreateContext = function() {
 		gml_pragma("forceinline");
@@ -9,6 +10,7 @@ function ImGui() constructor {
 
 	/// @function DestroyContext(ctx)
 	/// @argument {Pointer} ctx
+	/// @context ImGui
 	/// @return {Undefined}
 	static DestroyContext = function(ctx) {
 		gml_pragma("forceinline");
@@ -16,6 +18,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCurrentContext()
+	/// @context ImGui
 	/// @return {Pointer}
 	static GetCurrentContext = function() {
 		gml_pragma("forceinline");
@@ -24,6 +27,7 @@ function ImGui() constructor {
 
 	/// @function SetCurrentContext(ctx)
 	/// @argument {Pointer} ctx
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetCurrentContext = function(ctx) {
 		gml_pragma("forceinline");
@@ -32,6 +36,7 @@ function ImGui() constructor {
 
 	/// @function ShowDemoWindow(open)
 	/// @argument {Bool} [open=undefined]
+	/// @context ImGui
 	/// @return {Bool}
 	static ShowDemoWindow = function(open=undefined) {
 		gml_pragma("forceinline");
@@ -40,6 +45,7 @@ function ImGui() constructor {
 
 	/// @function ShowMetricsWindow(open)
 	/// @argument {Bool} [open=undefined]
+	/// @context ImGui
 	/// @return {Bool}
 	static ShowMetricsWindow = function(open=undefined) {
 		gml_pragma("forceinline");
@@ -48,6 +54,7 @@ function ImGui() constructor {
 
 	/// @function ShowDebugLogWindow(open)
 	/// @argument {Bool} [open=undefined]
+	/// @context ImGui
 	/// @return {Bool}
 	static ShowDebugLogWindow = function(open=undefined) {
 		gml_pragma("forceinline");
@@ -56,6 +63,7 @@ function ImGui() constructor {
 
 	/// @function ShowStackToolWindow(open)
 	/// @argument {Bool} [open=undefined]
+	/// @context ImGui
 	/// @return {Bool}
 	static ShowStackToolWindow = function(open=undefined) {
 		gml_pragma("forceinline");
@@ -64,6 +72,7 @@ function ImGui() constructor {
 
 	/// @function ShowAboutWindow(open)
 	/// @argument {Bool} [open=undefined]
+	/// @context ImGui
 	/// @return {Bool}
 	static ShowAboutWindow = function(open=undefined) {
 		gml_pragma("forceinline");
@@ -71,6 +80,7 @@ function ImGui() constructor {
 	}
 
 	/// @function ShowStyleEditor()
+	/// @context ImGui
 	/// @return {Undefined}
 	static ShowStyleEditor = function() {
 		gml_pragma("forceinline");
@@ -79,6 +89,7 @@ function ImGui() constructor {
 
 	/// @function ShowStyleSelector(label)
 	/// @argument {String} label
+	/// @context ImGui
 	/// @return {Bool}
 	static ShowStyleSelector = function(label) {
 		gml_pragma("forceinline");
@@ -87,6 +98,7 @@ function ImGui() constructor {
 
 	/// @function ShowFontSelector(label)
 	/// @argument {String} label
+	/// @context ImGui
 	/// @return {Undefined}
 	static ShowFontSelector = function(label) {
 		gml_pragma("forceinline");
@@ -94,6 +106,7 @@ function ImGui() constructor {
 	}
 
 	/// @function ShowUserGuide()
+	/// @context ImGui
 	/// @return {Undefined}
 	static ShowUserGuide = function() {
 		gml_pragma("forceinline");
@@ -101,6 +114,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetVersion()
+	/// @context ImGui
 	/// @return {String}
 	static GetVersion = function() {
 		gml_pragma("forceinline");
@@ -109,6 +123,7 @@ function ImGui() constructor {
 
 	/// @function PushID(_id)
 	/// @argument {String|Real} _id
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushID = function(_id) {
 		gml_pragma("forceinline");
@@ -116,6 +131,7 @@ function ImGui() constructor {
 	}
 
 	/// @function PopID()
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopID = function() {
 		gml_pragma("forceinline");
@@ -124,6 +140,7 @@ function ImGui() constructor {
 
 	/// @function GetID(str_id)
 	/// @argument {String} str_id
+	/// @context ImGui
 	/// @return {Real}
 	static GetID = function(str_id) {
 		gml_pragma("forceinline");
@@ -132,6 +149,7 @@ function ImGui() constructor {
 
 	/// @function BeginDisabled(disabled)
 	/// @argument {Bool} [disabled=true]
+	/// @context ImGui
 	/// @return {Undefined}
 	static BeginDisabled = function(disabled=true) {
 		gml_pragma("forceinline");
@@ -139,6 +157,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndDisabled()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndDisabled = function() {
 		gml_pragma("forceinline");
@@ -146,7 +165,8 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemHovered(flags)
-	/// @argument {Real} [flags=ImGuiHoveredFlags.None]
+	/// @argument {Enum.ImGuiHoveredFlags} [flags=ImGuiHoveredFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemHovered = function(flags=ImGuiHoveredFlags.None) {
 		gml_pragma("forceinline");
@@ -154,6 +174,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemActive()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemActive = function() {
 		gml_pragma("forceinline");
@@ -161,6 +182,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemFocused()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemFocused = function() {
 		gml_pragma("forceinline");
@@ -168,7 +190,8 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemClicked(mouse_button)
-	/// @argument {Real} [mouse_button=ImGuiMouseButton.Left]
+	/// @argument {Enum.ImGuiMouseButton} [mouse_button=ImGuiMouseButton.Left]
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemClicked = function(mouse_button=ImGuiMouseButton.Left) {
 		gml_pragma("forceinline");
@@ -176,6 +199,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemVisible()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemVisible = function() {
 		gml_pragma("forceinline");
@@ -183,6 +207,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemEdited()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemEdited = function() {
 		gml_pragma("forceinline");
@@ -190,6 +215,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemActivated()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemActivated = function() {
 		gml_pragma("forceinline");
@@ -197,6 +223,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemDeactivated()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemDeactivated = function() {
 		gml_pragma("forceinline");
@@ -204,6 +231,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemDeactivatedAfterEdit()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemDeactivatedAfterEdit = function() {
 		gml_pragma("forceinline");
@@ -211,6 +239,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsItemToggledOpen()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsItemToggledOpen = function() {
 		gml_pragma("forceinline");
@@ -218,6 +247,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsAnyItemHovered()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsAnyItemHovered = function() {
 		gml_pragma("forceinline");
@@ -225,6 +255,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsAnyItemActive()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsAnyItemActive = function() {
 		gml_pragma("forceinline");
@@ -232,6 +263,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsAnyItemFocused()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsAnyItemFocused = function() {
 		gml_pragma("forceinline");
@@ -239,6 +271,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemID()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemID = function() {
 		gml_pragma("forceinline");
@@ -246,6 +279,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemRectMinX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMinX = function() {
 		gml_pragma("forceinline");
@@ -253,6 +287,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemRectMinY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMinY = function() {
 		gml_pragma("forceinline");
@@ -260,6 +295,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemRectMaxX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMaxX = function() {
 		gml_pragma("forceinline");
@@ -267,6 +303,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemRectMaxY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMaxY = function() {
 		gml_pragma("forceinline");
@@ -274,6 +311,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemRectSizeX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectSizeX = function() {
 		gml_pragma("forceinline");
@@ -281,6 +319,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetItemRectSizeY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectSizeY = function() {
 		gml_pragma("forceinline");
@@ -288,6 +327,7 @@ function ImGui() constructor {
 	}
 
 	/// @function SetItemAllowOverlap()
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetItemAllowOverlap = function() {
 		gml_pragma("forceinline");
@@ -299,6 +339,7 @@ function ImGui() constructor {
 	/// @argument {Real} y1
 	/// @argument {Real} x2
 	/// @argument {Real} y2
+	/// @context ImGui
 	/// @return {Bool}
 	static IsRectVisible = function(x1, y1, x2, y2) {
 		gml_pragma("forceinline");
@@ -306,6 +347,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetTime()
+	/// @context ImGui
 	/// @return {Real}
 	static GetTime = function() {
 		gml_pragma("forceinline");
@@ -313,6 +355,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetFrameCount()
+	/// @context ImGui
 	/// @return {Real}
 	static GetFrameCount = function() {
 		gml_pragma("forceinline");
@@ -323,6 +366,7 @@ function ImGui() constructor {
 	/// @argument {String} text
 	/// @argument {Bool} [hide_text_after_double_hash=false]
 	/// @argument {Real} [wrap_width=-1]
+	/// @context ImGui
 	/// @return {Real}
 	static CalcTextWidth = function(text, hide_text_after_double_hash=false, wrap_width=-1) {
 		gml_pragma("forceinline");
@@ -333,6 +377,7 @@ function ImGui() constructor {
 	/// @argument {String} text
 	/// @argument {Bool} [hide_text_after_double_hash=false]
 	/// @argument {Real} [wrap_width=-1]
+	/// @context ImGui
 	/// @return {Real}
 	static CalcTextHeight = function(text, hide_text_after_double_hash=false, wrap_width=-1) {
 		gml_pragma("forceinline");
@@ -341,6 +386,7 @@ function ImGui() constructor {
 
 	/// @function PushAllowKeyboardFocus(allow_keyboard_focus)
 	/// @argument {Bool} allow_keyboard_focus
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushAllowKeyboardFocus = function(allow_keyboard_focus) {
 		gml_pragma("forceinline");
@@ -348,6 +394,7 @@ function ImGui() constructor {
 	}
 
 	/// @function PopAllowKeyboardFocus()
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopAllowKeyboardFocus = function() {
 		gml_pragma("forceinline");
@@ -356,6 +403,7 @@ function ImGui() constructor {
 
 	/// @function SetKeyboardFocusHere(offset)
 	/// @argument {Real} [offset=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetKeyboardFocusHere = function(offset=0) {
 		gml_pragma("forceinline");
@@ -364,6 +412,7 @@ function ImGui() constructor {
 
 	/// @function PushButtonRepeat(_repeat)
 	/// @argument {Bool} _repeat
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushButtonRepeat = function(_repeat) {
 		gml_pragma("forceinline");
@@ -371,6 +420,7 @@ function ImGui() constructor {
 	}
 
 	/// @function PopButtonRepeat()
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopButtonRepeat = function() {
 		gml_pragma("forceinline");
@@ -378,6 +428,7 @@ function ImGui() constructor {
 	}
 
 	/// @function SetItemDefaultFocus()
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetItemDefaultFocus = function() {
 		gml_pragma("forceinline");
@@ -385,6 +436,7 @@ function ImGui() constructor {
 	}
 
 	/// @function ConfigFlagsGet()
+	/// @context ImGui
 	/// @return {Real}
 	static ConfigFlagsGet = function() {
 		gml_pragma("forceinline");
@@ -393,6 +445,7 @@ function ImGui() constructor {
 
 	/// @function ConfigFlagsSet(flags)
 	/// @argument {Real} flags
+	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static ConfigFlagsSet = function(flags) {
 		gml_pragma("forceinline");
@@ -401,6 +454,7 @@ function ImGui() constructor {
 
 	/// @function ConfigFlagToggle(flag)
 	/// @argument {Real} flag
+	/// @context ImGui
 	/// @return {Bool}
 	static ConfigFlagToggle = function(flag) {
 		gml_pragma("forceinline");
@@ -408,6 +462,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetMainViewport()
+	/// @context ImGui
 	/// @return {Pointer}
 	static GetMainViewport = function() {
 		gml_pragma("forceinline");
@@ -417,7 +472,8 @@ function ImGui() constructor {
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
-	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Enum.ImGuiCol} [flags=ImGuiColorEditFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static ColorEdit3 = function(label, col, flags=ImGuiColorEditFlags.None) {
 		gml_pragma("forceinline");
@@ -427,7 +483,8 @@ function ImGui() constructor {
 	/// @function ColorPicker3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
-	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Enum.ImGuiCol} [flags=ImGuiColorEditFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static ColorPicker3 = function(label, col, flags=ImGuiColorEditFlags.None) {
 		gml_pragma("forceinline");
@@ -437,7 +494,8 @@ function ImGui() constructor {
 	/// @function ColorEdit4(label, col, flags)
 	/// @argument {String} label
 	/// @argument {ImColor} col
-	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Enum.ImGuiCol} [flags=ImGuiColorEditFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static ColorEdit4 = function(label, col, flags=ImGuiColorEditFlags.None) {
 		gml_pragma("forceinline");
@@ -447,7 +505,8 @@ function ImGui() constructor {
 	/// @function ColorPicker4(label, col, flags)
 	/// @argument {String} label
 	/// @argument {ImColor} col
-	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Enum.ImGuiCol} [flags=ImGuiColorEditFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static ColorPicker4 = function(label, col, flags=ImGuiColorEditFlags.None) {
 		gml_pragma("forceinline");
@@ -458,9 +517,10 @@ function ImGui() constructor {
 	/// @argument {String} desc_id
 	/// @argument {Real} color
 	/// @argument {Real} [alpha=1]
-	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Enum.ImGuiCol} [flags=ImGuiColorEditFlags.None]
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
+	/// @context ImGui
 	/// @return {Bool}
 	static ColorButton = function(desc_id, color, alpha=1, flags=ImGuiColorEditFlags.None, width=0, height=0) {
 		gml_pragma("forceinline");
@@ -468,7 +528,8 @@ function ImGui() constructor {
 	}
 
 	/// @function SetColorEditOptions(flags)
-	/// @argument {Real} [flags=ImGuiColorEditFlags.None]
+	/// @argument {Enum.ImGuiCol} [flags=ImGuiColorEditFlags.None]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetColorEditOptions = function(flags=ImGuiColorEditFlags.None) {
 		gml_pragma("forceinline");
@@ -479,6 +540,7 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {String} preview
 	/// @argument {Real} flags
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginCombo = function(label, preview, flags) {
 		gml_pragma("forceinline");
@@ -486,6 +548,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndCombo()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndCombo = function() {
 		gml_pragma("forceinline");
@@ -493,6 +556,7 @@ function ImGui() constructor {
 	}
 
 	/// @function Combo()
+	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static Combo = function() {
 		gml_pragma("forceinline");
@@ -503,7 +567,8 @@ function ImGui() constructor {
 	/// @argument {Real} _id
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {Real} [flags=ImGuiDockNodeFlags.None]
+	/// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static DockSpace = function(_id, width=0, height=0, flags=ImGuiDockNodeFlags.None) {
 		gml_pragma("forceinline");
@@ -511,7 +576,8 @@ function ImGui() constructor {
 	}
 
 	/// @function DockSpaceOverViewport(flags)
-	/// @argument {Real} [flags=ImGuiDockNodeFlags.None]
+	/// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static DockSpaceOverViewport = function(flags=ImGuiDockNodeFlags.None) {
 		gml_pragma("forceinline");
@@ -521,6 +587,7 @@ function ImGui() constructor {
 	/// @function SetNextWindowDockID(dock_id, cond)
 	/// @argument {Real} dock_id
 	/// @argument {Real} cond
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowDockID = function(dock_id, cond) {
 		gml_pragma("forceinline");
@@ -528,6 +595,7 @@ function ImGui() constructor {
 	}
 
 	/// @function SetNextWindowClass()
+	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static SetNextWindowClass = function() {
 		gml_pragma("forceinline");
@@ -535,6 +603,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowDockID()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowDockID = function() {
 		gml_pragma("forceinline");
@@ -542,6 +611,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsWindowDocked()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowDocked = function() {
 		gml_pragma("forceinline");
@@ -555,7 +625,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static DragFloat = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -569,7 +640,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragFloat2 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -583,7 +655,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragFloat3 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -597,7 +670,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragFloat4 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -612,7 +686,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragFloatN = function(label, v, count=array_length(v), v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -627,7 +702,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format_min=%.3f]
 	/// @argument {String} [format_max=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragFloatRange2 = function(label, v, v_speed=1, v_min=0, v_max=0, format_min="%.3f", format_max="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -641,7 +717,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static DragInt = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -655,7 +732,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragInt2 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -669,7 +747,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragInt3 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -683,7 +762,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragInt4 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -698,7 +778,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragIntN = function(label, v, count=array_length(v), v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -713,7 +794,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format_max=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static DragIntRange2 = function(label, v, v_current_max, v_speed=1, v_min=0, v_max=0, format_max="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -723,7 +805,8 @@ function ImGui() constructor {
 	/// @function InputText(label, val, flags)
 	/// @argument {String} label
 	/// @argument {String} val
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {String}
 	static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -735,7 +818,8 @@ function ImGui() constructor {
 	/// @argument {String} val
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {String}
 	static InputTextMultiline = function(label, val, width=0, height=0, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -746,7 +830,8 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {String} hint
 	/// @argument {String} val
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {String}
 	static InputTextWithHint = function(label, hint, val, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -759,7 +844,8 @@ function ImGui() constructor {
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static InputFloat = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -772,7 +858,8 @@ function ImGui() constructor {
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputFloat2 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -785,7 +872,8 @@ function ImGui() constructor {
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputFloat3 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -798,7 +886,8 @@ function ImGui() constructor {
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputFloat4 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -812,7 +901,8 @@ function ImGui() constructor {
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputFloatN = function(label, v, count=array_length(v), step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -824,7 +914,8 @@ function ImGui() constructor {
 	/// @argument {Real} v
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static InputInt = function(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -834,7 +925,8 @@ function ImGui() constructor {
 	/// @function InputInt2(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -844,7 +936,8 @@ function ImGui() constructor {
 	/// @function InputInt3(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputInt3 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -854,7 +947,8 @@ function ImGui() constructor {
 	/// @function InputInt4(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputInt4 = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -865,7 +959,8 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
 	/// @argument {Real} [count=array_length⌊v⌉]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InputIntN = function(label, v, count=array_length(v), flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -878,7 +973,8 @@ function ImGui() constructor {
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.6f]
-	/// @argument {Real} [flags=ImGuiInputTextFlags.None]
+	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static InputDouble = function(label, v, step=0, step_fast=0, format="%.6f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
@@ -886,6 +982,7 @@ function ImGui() constructor {
 	}
 
 	/// @function Spacing()
+	/// @context ImGui
 	/// @return {Undefined}
 	static Spacing = function() {
 		gml_pragma("forceinline");
@@ -895,6 +992,7 @@ function ImGui() constructor {
 	/// @function Dummy(width, height)
 	/// @argument {Real} width
 	/// @argument {Real} height
+	/// @context ImGui
 	/// @return {Undefined}
 	static Dummy = function(width, height) {
 		gml_pragma("forceinline");
@@ -902,6 +1000,7 @@ function ImGui() constructor {
 	}
 
 	/// @function NewLine()
+	/// @context ImGui
 	/// @return {Undefined}
 	static NewLine = function() {
 		gml_pragma("forceinline");
@@ -909,6 +1008,7 @@ function ImGui() constructor {
 	}
 
 	/// @function AlignTextToFramePadding()
+	/// @context ImGui
 	/// @return {Undefined}
 	static AlignTextToFramePadding = function() {
 		gml_pragma("forceinline");
@@ -916,6 +1016,7 @@ function ImGui() constructor {
 	}
 
 	/// @function Separator()
+	/// @context ImGui
 	/// @return {Undefined}
 	static Separator = function() {
 		gml_pragma("forceinline");
@@ -924,6 +1025,7 @@ function ImGui() constructor {
 
 	/// @function Indent(indent_w)
 	/// @argument {Real} [indent_w=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static Indent = function(indent_w=0) {
 		gml_pragma("forceinline");
@@ -932,6 +1034,7 @@ function ImGui() constructor {
 
 	/// @function Unindent(indent_w)
 	/// @argument {Real} [indent_w=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static Unindent = function(indent_w=0) {
 		gml_pragma("forceinline");
@@ -941,6 +1044,7 @@ function ImGui() constructor {
 	/// @function SameLine(offset_from_start_x, spacing)
 	/// @argument {Real} [offset_from_start_x=0]
 	/// @argument {Real} [spacing=-1]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SameLine = function(offset_from_start_x=0, spacing=-1) {
 		gml_pragma("forceinline");
@@ -948,6 +1052,7 @@ function ImGui() constructor {
 	}
 
 	/// @function BeginGroup()
+	/// @context ImGui
 	/// @return {Undefined}
 	static BeginGroup = function() {
 		gml_pragma("forceinline");
@@ -955,6 +1060,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndGroup()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndGroup = function() {
 		gml_pragma("forceinline");
@@ -962,6 +1068,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCursorPosX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetCursorPosX = function() {
 		gml_pragma("forceinline");
@@ -969,6 +1076,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCursorPosY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetCursorPosY = function() {
 		gml_pragma("forceinline");
@@ -976,6 +1084,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCursorStartPosX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetCursorStartPosX = function() {
 		gml_pragma("forceinline");
@@ -983,6 +1092,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCursorStartPosY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetCursorStartPosY = function() {
 		gml_pragma("forceinline");
@@ -990,6 +1100,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCursorScreenPosX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetCursorScreenPosX = function() {
 		gml_pragma("forceinline");
@@ -997,6 +1108,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetCursorScreenPosY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetCursorScreenPosY = function() {
 		gml_pragma("forceinline");
@@ -1006,6 +1118,7 @@ function ImGui() constructor {
 	/// @function SetCursorScreenPos(_x, _y)
 	/// @argument {Real} _x
 	/// @argument {Real} _y
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorScreenPos = function(_x, _y) {
 		gml_pragma("forceinline");
@@ -1015,6 +1128,7 @@ function ImGui() constructor {
 	/// @function SetCursorPos(local_x, local_y)
 	/// @argument {Real} local_x
 	/// @argument {Real} local_y
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorPos = function(local_x, local_y) {
 		gml_pragma("forceinline");
@@ -1023,6 +1137,7 @@ function ImGui() constructor {
 
 	/// @function SetCursorPosX(local_x)
 	/// @argument {Real} local_x
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorPosX = function(local_x) {
 		gml_pragma("forceinline");
@@ -1031,6 +1146,7 @@ function ImGui() constructor {
 
 	/// @function SetCursorPosY(local_y)
 	/// @argument {Real} local_y
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorPosY = function(local_y) {
 		gml_pragma("forceinline");
@@ -1038,6 +1154,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetTextLineHeight()
+	/// @context ImGui
 	/// @return {Real}
 	static GetTextLineHeight = function() {
 		gml_pragma("forceinline");
@@ -1045,6 +1162,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetTextLineHeightWithSpacing()
+	/// @context ImGui
 	/// @return {Real}
 	static GetTextLineHeightWithSpacing = function() {
 		gml_pragma("forceinline");
@@ -1052,6 +1170,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetFrameHeight()
+	/// @context ImGui
 	/// @return {Real}
 	static GetFrameHeight = function() {
 		gml_pragma("forceinline");
@@ -1059,6 +1178,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetFrameHeightWithSpacing()
+	/// @context ImGui
 	/// @return {Real}
 	static GetFrameHeightWithSpacing = function() {
 		gml_pragma("forceinline");
@@ -1066,6 +1186,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetContentRegionAvailX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionAvailX = function() {
 		gml_pragma("forceinline");
@@ -1073,6 +1194,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetContentRegionAvailY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionAvailY = function() {
 		gml_pragma("forceinline");
@@ -1080,6 +1202,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetContentRegionMaxX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionMaxX = function() {
 		gml_pragma("forceinline");
@@ -1087,6 +1210,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetContentRegionMaxY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionMaxY = function() {
 		gml_pragma("forceinline");
@@ -1094,6 +1218,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowContentRegionMinX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMinX = function() {
 		gml_pragma("forceinline");
@@ -1101,6 +1226,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowContentRegionMinY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMinY = function() {
 		gml_pragma("forceinline");
@@ -1108,6 +1234,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowContentRegionMaxX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMaxX = function() {
 		gml_pragma("forceinline");
@@ -1115,6 +1242,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowContentRegionMaxY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMaxY = function() {
 		gml_pragma("forceinline");
@@ -1123,6 +1251,7 @@ function ImGui() constructor {
 
 	/// @function PushItemWidth(item_width)
 	/// @argument {Real} item_width
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushItemWidth = function(item_width) {
 		gml_pragma("forceinline");
@@ -1130,6 +1259,7 @@ function ImGui() constructor {
 	}
 
 	/// @function PopItemWidth()
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopItemWidth = function() {
 		gml_pragma("forceinline");
@@ -1138,6 +1268,7 @@ function ImGui() constructor {
 
 	/// @function SetNextItemWidth(item_width)
 	/// @argument {Real} item_width
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextItemWidth = function(item_width) {
 		gml_pragma("forceinline");
@@ -1145,6 +1276,7 @@ function ImGui() constructor {
 	}
 
 	/// @function CalcItemWidth()
+	/// @context ImGui
 	/// @return {Real}
 	static CalcItemWidth = function() {
 		gml_pragma("forceinline");
@@ -1153,6 +1285,7 @@ function ImGui() constructor {
 
 	/// @function PushTextWrapPos(wrap_local_pos_x)
 	/// @argument {Real} [wrap_local_pos_x=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushTextWrapPos = function(wrap_local_pos_x=0) {
 		gml_pragma("forceinline");
@@ -1160,6 +1293,7 @@ function ImGui() constructor {
 	}
 
 	/// @function PopTextWrapPos()
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopTextWrapPos = function() {
 		gml_pragma("forceinline");
@@ -1172,6 +1306,7 @@ function ImGui() constructor {
 	/// @argument {Real} clip_max_x
 	/// @argument {Real} clip_max_y
 	/// @argument {Bool} intersect_with_current_clip_rect
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushClipRect = function(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) {
 		gml_pragma("forceinline");
@@ -1179,6 +1314,7 @@ function ImGui() constructor {
 	}
 
 	/// @function PopClipRect()
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopClipRect = function() {
 		gml_pragma("forceinline");
@@ -1189,6 +1325,7 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginListBox = function(label, width=0, height=0) {
 		gml_pragma("forceinline");
@@ -1196,6 +1333,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndListBox()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndListBox = function() {
 		gml_pragma("forceinline");
@@ -1203,6 +1341,7 @@ function ImGui() constructor {
 	}
 
 	/// @function ListBox()
+	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static ListBox = function() {
 		gml_pragma("forceinline");
@@ -1210,6 +1349,7 @@ function ImGui() constructor {
 	}
 
 	/// @function BeginMenuBar()
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginMenuBar = function() {
 		gml_pragma("forceinline");
@@ -1217,6 +1357,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndMenuBar()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndMenuBar = function() {
 		gml_pragma("forceinline");
@@ -1224,6 +1365,7 @@ function ImGui() constructor {
 	}
 
 	/// @function BeginMainMenuBar()
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginMainMenuBar = function() {
 		gml_pragma("forceinline");
@@ -1231,6 +1373,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndMainMenuBar()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndMainMenuBar = function() {
 		gml_pragma("forceinline");
@@ -1240,6 +1383,7 @@ function ImGui() constructor {
 	/// @function BeginMenu(label, enabled)
 	/// @argument {String} label
 	/// @argument {Bool} [enabled=true]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginMenu = function(label, enabled=true) {
 		gml_pragma("forceinline");
@@ -1247,6 +1391,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndMenu()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndMenu = function() {
 		gml_pragma("forceinline");
@@ -1259,6 +1404,7 @@ function ImGui() constructor {
 	/// @argument {Bool} [selected=undefined]
 	/// @argument {Bool} [enabled=true]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @context ImGui
 	/// @return {Real}
 	static MenuItem = function(label, shortcut="", selected=undefined, enabled=true, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
@@ -1266,7 +1412,8 @@ function ImGui() constructor {
 	}
 
 	/// @function BeginDragDropSource(flags)
-	/// @argument {Real} [flags=ImGuiDragDropFlags.None]
+	/// @argument {Enum.ImGuiDragDropFlags} [flags=ImGuiDragDropFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginDragDropSource = function(flags=ImGuiDragDropFlags.None) {
 		gml_pragma("forceinline");
@@ -1274,6 +1421,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndDragDropSource()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndDragDropSource = function() {
 		gml_pragma("forceinline");
@@ -1281,6 +1429,7 @@ function ImGui() constructor {
 	}
 
 	/// @function BeginDragDropTarget()
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginDragDropTarget = function() {
 		gml_pragma("forceinline");
@@ -1288,6 +1437,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndDragDropTarget()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndDragDropTarget = function() {
 		gml_pragma("forceinline");
@@ -1297,7 +1447,8 @@ function ImGui() constructor {
 	/// @function SetDragDropPayload(type, data, cond)
 	/// @argument {String} type
 	/// @argument {Any} data
-	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SetDragDropPayload = function(type, data, cond=ImGuiCond.None) {
 		gml_pragma("forceinline");
@@ -1306,7 +1457,8 @@ function ImGui() constructor {
 
 	/// @function AcceptDragDropPayload(type, flags)
 	/// @argument {String} type
-	/// @argument {Real} [flags=ImGuiDragDropFlags.None]
+	/// @argument {Enum.ImGuiDragDropFlags} [flags=ImGuiDragDropFlags.None]
+	/// @context ImGui
 	/// @return {Any|Undefined}
 	static AcceptDragDropPayload = function(type, flags=ImGuiDragDropFlags.None) {
 		gml_pragma("forceinline");
@@ -1314,6 +1466,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetDragDropPayload()
+	/// @context ImGui
 	/// @return {Any|Undefined}
 	static GetDragDropPayload = function() {
 		gml_pragma("forceinline");
@@ -1321,6 +1474,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetPayloadKeepAlive()
+	/// @context ImGui
 	/// @return {Real}
 	static GetPayloadKeepAlive = function() {
 		gml_pragma("forceinline");
@@ -1337,6 +1491,7 @@ function ImGui() constructor {
 	/// @argument {Real} [scale_max=0]
 	/// @argument {Real} [graph_width=0]
 	/// @argument {Real} [graph_height=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static PlotLines = function(label, values, values_count=array_length(values), values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
 		gml_pragma("forceinline");
@@ -1353,6 +1508,7 @@ function ImGui() constructor {
 	/// @argument {Real} [scale_max=0]
 	/// @argument {Real} [graph_width=0]
 	/// @argument {Real} [graph_height=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static PlotHistogram = function(label, values, values_count=array_length(values), values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
 		gml_pragma("forceinline");
@@ -1361,7 +1517,8 @@ function ImGui() constructor {
 
 	/// @function BeginPopup(str_id, flags)
 	/// @argument {String} str_id
-	/// @argument {Real} [flags=ImGuiWindowFlags.None]
+	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopup = function(str_id, flags=ImGuiWindowFlags.None) {
 		gml_pragma("forceinline");
@@ -1371,8 +1528,9 @@ function ImGui() constructor {
 	/// @function BeginPopupModal(name, open, flags, mask)
 	/// @argument {String} name
 	/// @argument {Bool} [open=undefined]
-	/// @argument {Real} [flags=ImGuiWindowFlags.None]
+	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @context ImGui
 	/// @return {Real}
 	static BeginPopupModal = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
@@ -1380,6 +1538,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndPopup()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndPopup = function() {
 		gml_pragma("forceinline");
@@ -1388,7 +1547,8 @@ function ImGui() constructor {
 
 	/// @function OpenPopup(str_id, flags)
 	/// @argument {String} str_id
-	/// @argument {Real} [flags=ImGuiPopupFlags.None]
+	/// @argument {Enum.ImGuiPopupFlags} [flags=ImGuiPopupFlags.None]
+	/// @context ImGui
 	/// @return {Undefined}
 	static OpenPopup = function(str_id, flags=ImGuiPopupFlags.None) {
 		gml_pragma("forceinline");
@@ -1397,7 +1557,8 @@ function ImGui() constructor {
 
 	/// @function OpenPopupOnItemClick(str_id, flags)
 	/// @argument {String} [str_id=undefined]
-	/// @argument {Real} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @argument {Enum.ImGuiPopupFlags} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @context ImGui
 	/// @return {Undefined}
 	static OpenPopupOnItemClick = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
 		gml_pragma("forceinline");
@@ -1405,6 +1566,7 @@ function ImGui() constructor {
 	}
 
 	/// @function CloseCurrentPopup()
+	/// @context ImGui
 	/// @return {Undefined}
 	static CloseCurrentPopup = function() {
 		gml_pragma("forceinline");
@@ -1413,7 +1575,8 @@ function ImGui() constructor {
 
 	/// @function BeginPopupContextItem(str_id, flags)
 	/// @argument {String} [str_id=undefined]
-	/// @argument {Real} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @argument {Enum.ImGuiPopupFlags} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopupContextItem = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
 		gml_pragma("forceinline");
@@ -1422,7 +1585,8 @@ function ImGui() constructor {
 
 	/// @function BeginPopupContextWindow(str_id, flags)
 	/// @argument {String} [str_id=undefined]
-	/// @argument {Real} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @argument {Enum.ImGuiPopupFlags} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopupContextWindow = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
 		gml_pragma("forceinline");
@@ -1431,7 +1595,8 @@ function ImGui() constructor {
 
 	/// @function BeginPopupContextVoid(str_id, flags)
 	/// @argument {String} [str_id=undefined]
-	/// @argument {Real} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @argument {Enum.ImGuiPopupFlags} [flags=ImGuiPopupFlags.MouseButtonRight]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopupContextVoid = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
 		gml_pragma("forceinline");
@@ -1440,7 +1605,8 @@ function ImGui() constructor {
 
 	/// @function IsPopupOpen(str_id, flags)
 	/// @argument {String} str_id
-	/// @argument {Real} [flags=ImGuiPopupFlags.None]
+	/// @argument {Enum.ImGuiPopupFlags} [flags=ImGuiPopupFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static IsPopupOpen = function(str_id, flags=ImGuiPopupFlags.None) {
 		gml_pragma("forceinline");
@@ -1450,9 +1616,10 @@ function ImGui() constructor {
 	/// @function Selectable(label, selected, flags, width, height)
 	/// @argument {String} label
 	/// @argument {Bool} [selected=false]
-	/// @argument {Real} [flags=ImGuiSelectableFlags.None]
+	/// @argument {Enum.ImGuiSelectableFlags} [flags=ImGuiSelectableFlags.None]
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
+	/// @context ImGui
 	/// @return {Bool}
 	static Selectable = function(label, selected=false, flags=ImGuiSelectableFlags.None, width=0, height=0) {
 		gml_pragma("forceinline");
@@ -1465,7 +1632,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static SliderFloat = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1478,7 +1646,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloat2 = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1491,7 +1660,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloat3 = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1504,7 +1674,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloat4 = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1519,7 +1690,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloatN = function(label, v, count=array_length(v), v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1532,7 +1704,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static SliderInt = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1545,7 +1718,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderInt2 = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1558,7 +1732,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderInt3 = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1571,7 +1746,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderInt4 = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1585,7 +1761,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static SliderIntN = function(label, v, count=array_length(v), v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1600,7 +1777,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static VSliderFloat = function(label, width, height, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1615,7 +1793,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static VSliderInt = function(label, width, height, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1628,7 +1807,8 @@ function ImGui() constructor {
 	/// @argument {Real} [v_degrees_min=0]
 	/// @argument {Real} [v_degrees_max=0]
 	/// @argument {String} [format=%d]
-	/// @argument {Real} [flags=ImGuiSliderFlags.None]
+	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
+	/// @context ImGui
 	/// @return {Real}
 	static SliderAngle = function(label, v_rad, v_degrees_min=0, v_degrees_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
@@ -1636,6 +1816,7 @@ function ImGui() constructor {
 	}
 
 	/// @function StyleColorsDark()
+	/// @context ImGui
 	/// @return {Undefined}
 	static StyleColorsDark = function() {
 		gml_pragma("forceinline");
@@ -1643,6 +1824,7 @@ function ImGui() constructor {
 	}
 
 	/// @function StyleColorsLight()
+	/// @context ImGui
 	/// @return {Undefined}
 	static StyleColorsLight = function() {
 		gml_pragma("forceinline");
@@ -1650,6 +1832,7 @@ function ImGui() constructor {
 	}
 
 	/// @function StyleColorsClassic()
+	/// @context ImGui
 	/// @return {Undefined}
 	static StyleColorsClassic = function() {
 		gml_pragma("forceinline");
@@ -1660,6 +1843,7 @@ function ImGui() constructor {
 	/// @argument {Real} idx
 	/// @argument {Real} col
 	/// @argument {Real} alpha
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushStyleColor = function(idx, col, alpha) {
 		gml_pragma("forceinline");
@@ -1668,6 +1852,7 @@ function ImGui() constructor {
 
 	/// @function PopStyleColor(count)
 	/// @argument {Real} [count=1]
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopStyleColor = function(count=1) {
 		gml_pragma("forceinline");
@@ -1678,6 +1863,7 @@ function ImGui() constructor {
 	/// @argument {Real} idx
 	/// @argument {Real} val
 	/// @argument {Any} [val2=undefined]
+	/// @context ImGui
 	/// @return {Undefined}
 	static PushStyleVar = function(idx, val, val2=undefined) {
 		gml_pragma("forceinline");
@@ -1686,6 +1872,7 @@ function ImGui() constructor {
 
 	/// @function PopStyleVar(count)
 	/// @argument {Real} [count=1]
+	/// @context ImGui
 	/// @return {Undefined}
 	static PopStyleVar = function(count=1) {
 		gml_pragma("forceinline");
@@ -1693,6 +1880,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetFontSize()
+	/// @context ImGui
 	/// @return {Real}
 	static GetFontSize = function() {
 		gml_pragma("forceinline");
@@ -1701,6 +1889,7 @@ function ImGui() constructor {
 
 	/// @function GetStyleColor(idx)
 	/// @argument {Real} idx
+	/// @context ImGui
 	/// @return {Real}
 	static GetStyleColor = function(idx) {
 		gml_pragma("forceinline");
@@ -1709,6 +1898,7 @@ function ImGui() constructor {
 
 	/// @function GetStyleColorName(idx)
 	/// @argument {Real} idx
+	/// @context ImGui
 	/// @return {String}
 	static GetStyleColorName = function(idx) {
 		gml_pragma("forceinline");
@@ -1718,10 +1908,11 @@ function ImGui() constructor {
 	/// @function BeginTable(str_id, column, flags, outer_width, outer_height, inner_width)
 	/// @argument {String} str_id
 	/// @argument {Real} column
-	/// @argument {Real} [flags=ImGuiTableFlags.None]
+	/// @argument {Enum.ImGuiTableFlags} [flags=ImGuiTableFlags.None]
 	/// @argument {Real} [outer_width=0]
 	/// @argument {Real} [outer_height=0]
 	/// @argument {Real} [inner_width=0]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginTable = function(str_id, column, flags=ImGuiTableFlags.None, outer_width=0, outer_height=0, inner_width=0) {
 		gml_pragma("forceinline");
@@ -1729,6 +1920,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndTable()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndTable = function() {
 		gml_pragma("forceinline");
@@ -1736,8 +1928,9 @@ function ImGui() constructor {
 	}
 
 	/// @function TableNextRow(row_flags, min_row_height)
-	/// @argument {Real} [row_flags=ImGuiTableRowFlags.None]
+	/// @argument {Enum.ImGuiTableRowFlags} [row_flags=ImGuiTableRowFlags.None]
 	/// @argument {Real} [min_row_height=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableNextRow = function(row_flags=ImGuiTableRowFlags.None, min_row_height=0) {
 		gml_pragma("forceinline");
@@ -1745,6 +1938,7 @@ function ImGui() constructor {
 	}
 
 	/// @function TableNextColumn()
+	/// @context ImGui
 	/// @return {Bool}
 	static TableNextColumn = function() {
 		gml_pragma("forceinline");
@@ -1753,6 +1947,7 @@ function ImGui() constructor {
 
 	/// @function TableSetColumnIndex(column_n)
 	/// @argument {Real} column_n
+	/// @context ImGui
 	/// @return {Bool}
 	static TableSetColumnIndex = function(column_n) {
 		gml_pragma("forceinline");
@@ -1761,8 +1956,9 @@ function ImGui() constructor {
 
 	/// @function TableSetupColumn(label, flags, user_id)
 	/// @argument {String} label
-	/// @argument {Real} [flags=ImGuiTableColumnFlags.None]
+	/// @argument {Enum.ImGuiTableColumnFlags} [flags=ImGuiTableColumnFlags.None]
 	/// @argument {Real} [user_id=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetupColumn = function(label, flags=ImGuiTableColumnFlags.None, user_id=0) {
 		gml_pragma("forceinline");
@@ -1772,6 +1968,7 @@ function ImGui() constructor {
 	/// @function TableSetupScrollFreeze(cols, rows)
 	/// @argument {Real} cols
 	/// @argument {Real} rows
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetupScrollFreeze = function(cols, rows) {
 		gml_pragma("forceinline");
@@ -1779,6 +1976,7 @@ function ImGui() constructor {
 	}
 
 	/// @function TableHeadersRow()
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableHeadersRow = function() {
 		gml_pragma("forceinline");
@@ -1787,6 +1985,7 @@ function ImGui() constructor {
 
 	/// @function TableHeader(label)
 	/// @argument {String} label
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableHeader = function(label) {
 		gml_pragma("forceinline");
@@ -1794,6 +1993,7 @@ function ImGui() constructor {
 	}
 
 	/// @function TableGetColumnCount()
+	/// @context ImGui
 	/// @return {Real}
 	static TableGetColumnCount = function() {
 		gml_pragma("forceinline");
@@ -1801,6 +2001,7 @@ function ImGui() constructor {
 	}
 
 	/// @function TableGetColumnIndex()
+	/// @context ImGui
 	/// @return {Real}
 	static TableGetColumnIndex = function() {
 		gml_pragma("forceinline");
@@ -1809,6 +2010,7 @@ function ImGui() constructor {
 
 	/// @function TableGetColumnName(column_n)
 	/// @argument {Real} [column_n=-1]
+	/// @context ImGui
 	/// @return {String}
 	static TableGetColumnName = function(column_n=-1) {
 		gml_pragma("forceinline");
@@ -1817,6 +2019,7 @@ function ImGui() constructor {
 
 	/// @function TableGetColumnFlags(column_n)
 	/// @argument {Real} [column_n=-1]
+	/// @context ImGui
 	/// @return {Real}
 	static TableGetColumnFlags = function(column_n=-1) {
 		gml_pragma("forceinline");
@@ -1824,6 +2027,7 @@ function ImGui() constructor {
 	}
 
 	/// @function TableGetRowIndex()
+	/// @context ImGui
 	/// @return {Real}
 	static TableGetRowIndex = function() {
 		gml_pragma("forceinline");
@@ -1833,6 +2037,7 @@ function ImGui() constructor {
 	/// @function TableSetColumnEnabled(column_n, v)
 	/// @argument {Real} column_n
 	/// @argument {Bool} v
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetColumnEnabled = function(column_n, v) {
 		gml_pragma("forceinline");
@@ -1843,6 +2048,7 @@ function ImGui() constructor {
 	/// @argument {Real} target
 	/// @argument {Real} col
 	/// @argument {Real} [column_n=-1]
+	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetBgColor = function(target, col, column_n=-1) {
 		gml_pragma("forceinline");
@@ -1853,6 +2059,7 @@ function ImGui() constructor {
 	/// @argument {Real} [count=1]
 	/// @argument {String} [_id=]
 	/// @argument {Bool} [border=true]
+	/// @context ImGui
 	/// @return {Undefined}
 	static Columns = function(count=1, _id="", border=true) {
 		gml_pragma("forceinline");
@@ -1860,6 +2067,7 @@ function ImGui() constructor {
 	}
 
 	/// @function NextColumn()
+	/// @context ImGui
 	/// @return {Undefined}
 	static NextColumn = function() {
 		gml_pragma("forceinline");
@@ -1867,6 +2075,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetColumnIndex()
+	/// @context ImGui
 	/// @return {Real}
 	static GetColumnIndex = function() {
 		gml_pragma("forceinline");
@@ -1875,6 +2084,7 @@ function ImGui() constructor {
 
 	/// @function GetColumnWidth(column_index)
 	/// @argument {Real} [column_index=-1]
+	/// @context ImGui
 	/// @return {Real}
 	static GetColumnWidth = function(column_index=-1) {
 		gml_pragma("forceinline");
@@ -1884,6 +2094,7 @@ function ImGui() constructor {
 	/// @function SetColumnWidth(column_index, width)
 	/// @argument {Real} column_index
 	/// @argument {Real} width
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetColumnWidth = function(column_index, width) {
 		gml_pragma("forceinline");
@@ -1892,6 +2103,7 @@ function ImGui() constructor {
 
 	/// @function GetColumnOffset(column_index)
 	/// @argument {Real} [column_index=-1]
+	/// @context ImGui
 	/// @return {Real}
 	static GetColumnOffset = function(column_index=-1) {
 		gml_pragma("forceinline");
@@ -1901,6 +2113,7 @@ function ImGui() constructor {
 	/// @function SetColumnOffset(column_index, offset_x)
 	/// @argument {Real} column_index
 	/// @argument {Real} offset_x
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetColumnOffset = function(column_index, offset_x) {
 		gml_pragma("forceinline");
@@ -1908,6 +2121,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetColumnsCount()
+	/// @context ImGui
 	/// @return {Real}
 	static GetColumnsCount = function() {
 		gml_pragma("forceinline");
@@ -1916,7 +2130,8 @@ function ImGui() constructor {
 
 	/// @function BeginTabBar(str_id, flags)
 	/// @argument {String} str_id
-	/// @argument {Real} [flags=ImGuiTabBarFlags.None]
+	/// @argument {Enum.ImGuiTabBarFlags} [flags=ImGuiTabBarFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginTabBar = function(str_id, flags=ImGuiTabBarFlags.None) {
 		gml_pragma("forceinline");
@@ -1924,6 +2139,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndTabBar()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndTabBar = function() {
 		gml_pragma("forceinline");
@@ -1933,8 +2149,9 @@ function ImGui() constructor {
 	/// @function BeginTabItem(label, open, flags, mask)
 	/// @argument {String} label
 	/// @argument {Bool} [open=undefined]
-	/// @argument {Real} [flags=ImGuiTabItemFlags.None]
+	/// @argument {Enum.ImGuiTabItemFlags} [flags=ImGuiTabItemFlags.None]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @context ImGui
 	/// @return {Real}
 	static BeginTabItem = function(label, open=undefined, flags=ImGuiTabItemFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
@@ -1942,6 +2159,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndTabItem()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndTabItem = function() {
 		gml_pragma("forceinline");
@@ -1950,7 +2168,8 @@ function ImGui() constructor {
 
 	/// @function TabItemButton(label, flags)
 	/// @argument {String} label
-	/// @argument {Real} [flags=ImGuiTabItemFlags.None]
+	/// @argument {Enum.ImGuiTabItemFlags} [flags=ImGuiTabItemFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static TabItemButton = function(label, flags=ImGuiTabItemFlags.None) {
 		gml_pragma("forceinline");
@@ -1959,6 +2178,7 @@ function ImGui() constructor {
 
 	/// @function SetTabItemClosed(tab_or_docked_window_label)
 	/// @argument {String} tab_or_docked_window_label
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetTabItemClosed = function(tab_or_docked_window_label) {
 		gml_pragma("forceinline");
@@ -1967,6 +2187,7 @@ function ImGui() constructor {
 
 	/// @function TextUnformatted(text)
 	/// @argument {String} text
+	/// @context ImGui
 	/// @return {Undefined}
 	static TextUnformatted = function(text) {
 		gml_pragma("forceinline");
@@ -1975,6 +2196,7 @@ function ImGui() constructor {
 
 	/// @function Text(val)
 	/// @argument {String} val
+	/// @context ImGui
 	/// @return {Undefined}
 	static Text = function(val) {
 		gml_pragma("forceinline");
@@ -1985,6 +2207,7 @@ function ImGui() constructor {
 	/// @argument {String} val
 	/// @argument {Real} color
 	/// @argument {Real} [alpha=1]
+	/// @context ImGui
 	/// @return {Undefined}
 	static TextColored = function(val, color, alpha=1) {
 		gml_pragma("forceinline");
@@ -1993,6 +2216,7 @@ function ImGui() constructor {
 
 	/// @function TextDisabled(val)
 	/// @argument {String} val
+	/// @context ImGui
 	/// @return {Undefined}
 	static TextDisabled = function(val) {
 		gml_pragma("forceinline");
@@ -2001,6 +2225,7 @@ function ImGui() constructor {
 
 	/// @function TextWrapped(val)
 	/// @argument {String} val
+	/// @context ImGui
 	/// @return {Undefined}
 	static TextWrapped = function(val) {
 		gml_pragma("forceinline");
@@ -2010,6 +2235,7 @@ function ImGui() constructor {
 	/// @function LabelText(label, val)
 	/// @argument {String} label
 	/// @argument {String} val
+	/// @context ImGui
 	/// @return {Undefined}
 	static LabelText = function(label, val) {
 		gml_pragma("forceinline");
@@ -2018,6 +2244,7 @@ function ImGui() constructor {
 
 	/// @function BulletText(val)
 	/// @argument {String} val
+	/// @context ImGui
 	/// @return {Undefined}
 	static BulletText = function(val) {
 		gml_pragma("forceinline");
@@ -2025,6 +2252,7 @@ function ImGui() constructor {
 	}
 
 	/// @function Value()
+	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static Value = function() {
 		gml_pragma("forceinline");
@@ -2032,6 +2260,7 @@ function ImGui() constructor {
 	}
 
 	/// @function BeginTooltip()
+	/// @context ImGui
 	/// @return {Undefined}
 	static BeginTooltip = function() {
 		gml_pragma("forceinline");
@@ -2039,6 +2268,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndTooltip()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndTooltip = function() {
 		gml_pragma("forceinline");
@@ -2047,6 +2277,7 @@ function ImGui() constructor {
 
 	/// @function SetTooltip(val)
 	/// @argument {String} val
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetTooltip = function(val) {
 		gml_pragma("forceinline");
@@ -2055,6 +2286,7 @@ function ImGui() constructor {
 
 	/// @function TreeNode(label)
 	/// @argument {String} label
+	/// @context ImGui
 	/// @return {Bool}
 	static TreeNode = function(label) {
 		gml_pragma("forceinline");
@@ -2063,7 +2295,8 @@ function ImGui() constructor {
 
 	/// @function TreeNodeEx(label, flags)
 	/// @argument {String} label
-	/// @argument {Real} [flags=ImGuiTreeNodeFlags.None]
+	/// @argument {Enum.ImGuiTreeNodeFlags} [flags=ImGuiTreeNodeFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static TreeNodeEx = function(label, flags=ImGuiTreeNodeFlags.None) {
 		gml_pragma("forceinline");
@@ -2072,6 +2305,7 @@ function ImGui() constructor {
 
 	/// @function TreePush(str_id)
 	/// @argument {String} str_id
+	/// @context ImGui
 	/// @return {Undefined}
 	static TreePush = function(str_id) {
 		gml_pragma("forceinline");
@@ -2079,6 +2313,7 @@ function ImGui() constructor {
 	}
 
 	/// @function TreePop()
+	/// @context ImGui
 	/// @return {Undefined}
 	static TreePop = function() {
 		gml_pragma("forceinline");
@@ -2086,6 +2321,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetTreeNodeToLabelSpacing()
+	/// @context ImGui
 	/// @return {Real}
 	static GetTreeNodeToLabelSpacing = function() {
 		gml_pragma("forceinline");
@@ -2094,7 +2330,8 @@ function ImGui() constructor {
 
 	/// @function SetNextItemOpen(is_open, cond)
 	/// @argument {Bool} is_open
-	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextItemOpen = function(is_open, cond=ImGuiCond.None) {
 		gml_pragma("forceinline");
@@ -2104,8 +2341,9 @@ function ImGui() constructor {
 	/// @function CollapsingHeader(label, _visible, flags, mask)
 	/// @argument {String} label
 	/// @argument {Bool} [_visible=undefined]
-	/// @argument {Real} [flags=ImGuiTreeNodeFlags.None]
+	/// @argument {Enum.ImGuiTreeNodeFlags} [flags=ImGuiTreeNodeFlags.None]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @context ImGui
 	/// @return {Real}
 	static CollapsingHeader = function(label, _visible=undefined, flags=ImGuiTreeNodeFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
@@ -2116,6 +2354,7 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
+	/// @context ImGui
 	/// @return {Bool}
 	static Button = function(label, width=0, height=0) {
 		gml_pragma("forceinline");
@@ -2124,6 +2363,7 @@ function ImGui() constructor {
 
 	/// @function SmallButton(label)
 	/// @argument {String} label
+	/// @context ImGui
 	/// @return {Bool}
 	static SmallButton = function(label) {
 		gml_pragma("forceinline");
@@ -2134,7 +2374,8 @@ function ImGui() constructor {
 	/// @argument {String} _id
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {Real} [flags=ImGuiButtonFlags.None]
+	/// @argument {Enum.ImGuiButtonFlags} [flags=ImGuiButtonFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static InvisibleButton = function(_id, width=0, height=0, flags=ImGuiButtonFlags.None) {
 		gml_pragma("forceinline");
@@ -2144,6 +2385,7 @@ function ImGui() constructor {
 	/// @function ArrowButton(str_id, dir)
 	/// @argument {String} str_id
 	/// @argument {Real} dir
+	/// @context ImGui
 	/// @return {Bool}
 	static ArrowButton = function(str_id, dir) {
 		gml_pragma("forceinline");
@@ -2157,6 +2399,7 @@ function ImGui() constructor {
 	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [width=sprite_get_width⌊sprite⌉]
 	/// @argument {Real} [height=sprite_get_height⌊sprite⌉]
+	/// @context ImGui
 	/// @return {Undefined}
 	static Image = function(sprite, subimg, color=c_white, alpha=1, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
 		gml_pragma("forceinline");
@@ -2170,6 +2413,7 @@ function ImGui() constructor {
 	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [width=surface_get_width⌊surface⌉]
 	/// @argument {Real} [height=surface_get_height⌊surface⌉]
+	/// @context ImGui
 	/// @return {Undefined}
 	static Surface = function(surface, color=c_white, alpha=1, width=surface_get_width(surface), height=surface_get_height(surface)) {
 		gml_pragma("forceinline");
@@ -2180,6 +2424,7 @@ function ImGui() constructor {
 	/// @function Checkbox(label, checked)
 	/// @argument {String} label
 	/// @argument {Bool} checked
+	/// @context ImGui
 	/// @return {Bool}
 	static Checkbox = function(label, checked) {
 		gml_pragma("forceinline");
@@ -2190,6 +2435,7 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {Real} flags
 	/// @argument {Real} flags_value
+	/// @context ImGui
 	/// @return {Real}
 	static CheckboxFlags = function(label, flags, flags_value) {
 		gml_pragma("forceinline");
@@ -2199,6 +2445,7 @@ function ImGui() constructor {
 	/// @function RadioButton(label, active)
 	/// @argument {String} label
 	/// @argument {Bool} active
+	/// @context ImGui
 	/// @return {Bool}
 	static RadioButton = function(label, active) {
 		gml_pragma("forceinline");
@@ -2210,6 +2457,7 @@ function ImGui() constructor {
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
 	/// @argument {String} [overlay=]
+	/// @context ImGui
 	/// @return {Undefined}
 	static ProgressBar = function(_frac, width=0, height=0, overlay="") {
 		gml_pragma("forceinline");
@@ -2217,6 +2465,7 @@ function ImGui() constructor {
 	}
 
 	/// @function Bullet()
+	/// @context ImGui
 	/// @return {Undefined}
 	static Bullet = function() {
 		gml_pragma("forceinline");
@@ -2226,8 +2475,9 @@ function ImGui() constructor {
 	/// @function Begin(name, open, flags, mask)
 	/// @argument {String} name
 	/// @argument {Bool} [open=undefined]
-	/// @argument {Real} [flags=ImGuiWindowFlags.None]
+	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
 	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @context ImGui
 	/// @return {Real}
 	static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {
 		gml_pragma("forceinline");
@@ -2235,6 +2485,7 @@ function ImGui() constructor {
 	}
 
 	/// @function End()
+	/// @context ImGui
 	/// @return {Undefined}
 	static End = function() {
 		gml_pragma("forceinline");
@@ -2246,7 +2497,8 @@ function ImGui() constructor {
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
 	/// @argument {Bool} [border=false]
-	/// @argument {Real} [flags=ImGuiWindowFlags.None]
+	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginChild = function(str_id, width=0, height=0, border=false, flags=ImGuiWindowFlags.None) {
 		gml_pragma("forceinline");
@@ -2254,6 +2506,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndChild()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndChild = function() {
 		gml_pragma("forceinline");
@@ -2264,7 +2517,8 @@ function ImGui() constructor {
 	/// @argument {Real} _id
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {Real} [flags=ImGuiWindowFlags.None]
+	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static BeginChildFrame = function(_id, width=0, height=0, flags=ImGuiWindowFlags.None) {
 		gml_pragma("forceinline");
@@ -2272,6 +2526,7 @@ function ImGui() constructor {
 	}
 
 	/// @function EndChildFrame()
+	/// @context ImGui
 	/// @return {Undefined}
 	static EndChildFrame = function() {
 		gml_pragma("forceinline");
@@ -2279,6 +2534,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsWindowAppearing()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowAppearing = function() {
 		gml_pragma("forceinline");
@@ -2286,6 +2542,7 @@ function ImGui() constructor {
 	}
 
 	/// @function IsWindowCollapsed()
+	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowCollapsed = function() {
 		gml_pragma("forceinline");
@@ -2293,7 +2550,8 @@ function ImGui() constructor {
 	}
 
 	/// @function IsWindowFocused(flags)
-	/// @argument {Real} [flags=ImGuiFocusedFlags.None]
+	/// @argument {Enum.ImGuiFocusedFlags} [flags=ImGuiFocusedFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowFocused = function(flags=ImGuiFocusedFlags.None) {
 		gml_pragma("forceinline");
@@ -2301,7 +2559,8 @@ function ImGui() constructor {
 	}
 
 	/// @function IsWindowHovered(flags)
-	/// @argument {Real} [flags=ImGuiHoveredFlags.None]
+	/// @argument {Enum.ImGuiHoveredFlags} [flags=ImGuiHoveredFlags.None]
+	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowHovered = function(flags=ImGuiHoveredFlags.None) {
 		gml_pragma("forceinline");
@@ -2309,6 +2568,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowDpiScale()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowDpiScale = function() {
 		gml_pragma("forceinline");
@@ -2316,6 +2576,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowPosX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowPosX = function() {
 		gml_pragma("forceinline");
@@ -2323,6 +2584,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowPosY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowPosY = function() {
 		gml_pragma("forceinline");
@@ -2330,6 +2592,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowWidth()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowWidth = function() {
 		gml_pragma("forceinline");
@@ -2337,6 +2600,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetWindowHeight()
+	/// @context ImGui
 	/// @return {Real}
 	static GetWindowHeight = function() {
 		gml_pragma("forceinline");
@@ -2346,9 +2610,10 @@ function ImGui() constructor {
 	/// @function SetNextWindowPos(_x, _y, cond, pivot_x, pivot_y)
 	/// @argument {Real} _x
 	/// @argument {Real} _y
-	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 	/// @argument {Real} [pivot_x=0]
 	/// @argument {Real} [pivot_y=0]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowPos = function(_x, _y, cond=ImGuiCond.None, pivot_x=0, pivot_y=0) {
 		gml_pragma("forceinline");
@@ -2358,7 +2623,8 @@ function ImGui() constructor {
 	/// @function SetNextWindowSize(width, height, cond)
 	/// @argument {Real} width
 	/// @argument {Real} height
-	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowSize = function(width, height, cond=ImGuiCond.None) {
 		gml_pragma("forceinline");
@@ -2370,6 +2636,7 @@ function ImGui() constructor {
 	/// @argument {Real} min_height
 	/// @argument {Real} max_width
 	/// @argument {Real} max_height
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowSizeConstraints = function(min_width, min_height, max_width, max_height) {
 		gml_pragma("forceinline");
@@ -2379,6 +2646,7 @@ function ImGui() constructor {
 	/// @function SetNextWindowContentSize(width, height)
 	/// @argument {Real} width
 	/// @argument {Real} height
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowContentSize = function(width, height) {
 		gml_pragma("forceinline");
@@ -2387,7 +2655,8 @@ function ImGui() constructor {
 
 	/// @function SetNextWindowCollapsed(collapsed, cond)
 	/// @argument {Bool} collapsed
-	/// @argument {Real} [cond=ImGuiCond.None]
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowCollapsed = function(collapsed, cond=ImGuiCond.None) {
 		gml_pragma("forceinline");
@@ -2395,6 +2664,7 @@ function ImGui() constructor {
 	}
 
 	/// @function SetNextWindowFocus()
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowFocus = function() {
 		gml_pragma("forceinline");
@@ -2404,6 +2674,7 @@ function ImGui() constructor {
 	/// @function SetNextWindowScroll(scroll_x, scroll_y)
 	/// @argument {Real} scroll_x
 	/// @argument {Real} scroll_y
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowScroll = function(scroll_x, scroll_y) {
 		gml_pragma("forceinline");
@@ -2412,6 +2683,7 @@ function ImGui() constructor {
 
 	/// @function SetNextWindowBgAlpha(alpha)
 	/// @argument {Real} alpha
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowBgAlpha = function(alpha) {
 		gml_pragma("forceinline");
@@ -2419,6 +2691,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetScrollX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetScrollX = function() {
 		gml_pragma("forceinline");
@@ -2426,6 +2699,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetScrollY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetScrollY = function() {
 		gml_pragma("forceinline");
@@ -2434,6 +2708,7 @@ function ImGui() constructor {
 
 	/// @function SetScrollX(scroll_x)
 	/// @argument {Real} scroll_x
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollX = function(scroll_x) {
 		gml_pragma("forceinline");
@@ -2442,6 +2717,7 @@ function ImGui() constructor {
 
 	/// @function SetScrollY(scroll_y)
 	/// @argument {Real} scroll_y
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollY = function(scroll_y) {
 		gml_pragma("forceinline");
@@ -2449,6 +2725,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetScrollMaxX()
+	/// @context ImGui
 	/// @return {Real}
 	static GetScrollMaxX = function() {
 		gml_pragma("forceinline");
@@ -2456,6 +2733,7 @@ function ImGui() constructor {
 	}
 
 	/// @function GetScrollMaxY()
+	/// @context ImGui
 	/// @return {Real}
 	static GetScrollMaxY = function() {
 		gml_pragma("forceinline");
@@ -2464,6 +2742,7 @@ function ImGui() constructor {
 
 	/// @function SetScrollHereX(center_x_ratio)
 	/// @argument {Real} [center_x_ratio=0.5]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollHereX = function(center_x_ratio=0.5) {
 		gml_pragma("forceinline");
@@ -2472,6 +2751,7 @@ function ImGui() constructor {
 
 	/// @function SetScrollHereY(center_y_ratio)
 	/// @argument {Real} [center_y_ratio=0.5]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollHereY = function(center_y_ratio=0.5) {
 		gml_pragma("forceinline");
@@ -2481,6 +2761,7 @@ function ImGui() constructor {
 	/// @function SetScrollFromPosX(local_x, center_x_ratio)
 	/// @argument {Real} local_x
 	/// @argument {Real} [center_x_ratio=0.5]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollFromPosX = function(local_x, center_x_ratio=0.5) {
 		gml_pragma("forceinline");
@@ -2490,6 +2771,7 @@ function ImGui() constructor {
 	/// @function SetScrollFromPosY(local_y, center_y_ratio)
 	/// @argument {Real} local_y
 	/// @argument {Real} [center_y_ratio=0.5]
+	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollFromPosY = function(local_y, center_y_ratio=0.5) {
 		gml_pragma("forceinline");

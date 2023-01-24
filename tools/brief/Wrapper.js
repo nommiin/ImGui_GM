@@ -206,11 +206,21 @@ class Wrapper {
         };
     }
 
-    to_jsdoc(spacing=1) {
+    to_jsdoc(enums, spacing=1) {
         let str = Configuration.SPACING.repeat(spacing) + `/// @function ${this.Calls}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
             if (arg.Hidden) continue;
+
+            if (arg.Type === "Real" && arg.Default) {
+                for(const key in enums) {
+                    const name = key.endsWith("_") ? key.slice(0, -1) : key;
+                    if (arg.Default.startsWith(name)) {
+                        arg.Type = `Enum.${name}`;
+                        break;
+                    }
+                }
+            }
             
             str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
             if (arg.Default !== undefined) {
@@ -220,6 +230,7 @@ class Wrapper {
             }
             str += "\n";
         }
+        str += Configuration.SPACING.repeat(spacing) + `/// @context ImGui\n`;
         str += Configuration.SPACING.repeat(spacing) + `/// @return {${this.Return}}`;
         return str;
     }
