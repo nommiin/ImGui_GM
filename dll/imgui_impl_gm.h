@@ -6,3 +6,4 @@
 IMGUI_IMPL_API bool ImGui_ImplGM_Init(void* handle);
 IMGUI_IMPL_API void ImGui_ImplGM_Shutdown();
 IMGUI_IMPL_API void ImGui_ImplGM_NewFrame(RValue* state);
+IMGUI_IMPL_API void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data);

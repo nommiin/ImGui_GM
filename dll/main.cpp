@@ -42,7 +42,9 @@ GMFUNC(__imgui_update) {
 	if (!g_ImGuiInitialized) ShowError("Could not call update function when ImGui_GM is not initialized");
 
 	ImGui_ImplGM_NewFrame(state);
-	ImGui_ImplDX11_NewFrame();
+	if (IMGUIGM_NATIVE) {
+		ImGui_ImplDX11_NewFrame();
+	}
 	ImGui::NewFrame();
 }
 
@@ -50,7 +52,11 @@ GMFUNC(__imgui_render) {
 	if (!g_ImGuiInitialized) ShowError("Could not call render function when ImGui_GM is not initialized");
 
 	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	if (IMGUIGM_NATIVE) {
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+		return;
+	}
+	ImGui_ImplGM_RenderDrawData(ImGui::GetDrawData());
 }
 
 GMFUNC(__imgui_key) {

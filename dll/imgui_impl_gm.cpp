@@ -1,4 +1,4 @@
-#include "imgui.h"
+#include "imgui_gm.h"
 #include "imgui_impl_gm.h"
 #include "Extension_Interface.h"
 #include "YYRValue.h"
@@ -37,6 +37,13 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 	ImGui_ImplGM_Data* bd = ImGui_ImplGM_GetBackendData();
 	IM_ASSERT(bd != nullptr && "Did you call ImGui_ImplGM_GetBackendData()?");
 
+	// Setup font textures if using GML renderer
+	if (!IMGUIGM_NATIVE) {
+		unsigned char* pixels;
+		int width, height;
+		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+	}
+
 	RValue* display = YYStructGetMember(state, "Display");
 	RValue* input = YYStructGetMember(state, "Input");
 	RValue* engine = YYStructGetMember(state, "Engine");
@@ -52,4 +59,10 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 	io.MousePos = ImVec2(mouse_x->val, mouse_y->val);
 	io.Framerate = framerate->val;
 	io.DeltaTime = time->val;
+}
+
+void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data)
+{
+	
+	
 }

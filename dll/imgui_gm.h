@@ -8,6 +8,10 @@
 
 #include <d3d11.h>
 
+// Configuration
+// If true, ImGui_GM will render via native platform APIs (currently only Windows)
+#define IMGUIGM_NATIVE true
+
 // Modifiers for brief (see Wrapper.js)
 #define GMDEFAULT(...) /**/
 #define GMPASSTHROUGH(...) /**/
