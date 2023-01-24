@@ -1,12 +1,12 @@
 {
-  "ResourceOrderSettings": [
-    {"name":"sprExample","path":"sprites/sprExample/sprExample.yy","order":2,},
-    {"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy","order":2,},
-    {"name":"rmExample","path":"rooms/rmExample/rmExample.yy","order":1,},
-    {"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy","order":1,},
-  ],
   "FolderOrderSettings": [
-    {"name":"Example","path":"folders/Example.yy","order":4,},
-    {"name":"ImGui_GM","path":"folders/ImGui_GM.yy","order":3,},
+    {"name":"Example","order":4,"path":"folders/Example.yy",},
+    {"name":"ImGui_GM","order":3,"path":"folders/ImGui_GM.yy",},
+  ],
+  "ResourceOrderSettings": [
+    {"name":"sprExample","order":2,"path":"sprites/sprExample/sprExample.yy",},
+    {"name":"ImGui_Misc","order":2,"path":"scripts/ImGui_Misc/ImGui_Misc.yy",},
+    {"name":"rmExample","order":1,"path":"rooms/rmExample/rmExample.yy",},
+    {"name":"ImGui_GM","order":1,"path":"extensions/ImGui_GM/ImGui_GM.yy",},
   ],
 }
