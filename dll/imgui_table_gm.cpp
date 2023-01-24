@@ -125,3 +125,64 @@ GMFUNC(__imgui_table_set_bg_color) {
 	ImGui::TableSetBgColor(target, (ImU32)(0xFF << 24) | col, column_n);
 	Result.kind = VALUE_UNDEFINED;
 }
+
+// LEGACY COLUMN API
+GMFUNC(__imgui_columns) {
+	double count = YYGetReal(arg, 0);
+	GMDEFAULT(1);
+	const char* id = YYGetString(arg, 1);
+	GMDEFAULT("");
+	bool border = YYGetBool(arg, 2);
+	GMDEFAULT(true);
+
+	ImGui::Columns(count, (id == "" ? nullptr : id), border);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_next_column) {
+	ImGui::NextColumn();
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_get_column_index) {
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetColumnIndex();
+}
+
+GMFUNC(__imgui_get_column_width) {
+	double column_index = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetColumnWidth(column_index);
+}
+
+GMFUNC(__imgui_set_column_width) {
+	double column_index = YYGetReal(arg, 0);
+	double width = YYGetReal(arg, 1);
+
+	ImGui::SetColumnWidth(column_index, width);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_get_column_offset) {
+	double column_index = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetColumnOffset(column_index);
+}
+
+
+GMFUNC(__imgui_set_column_offset) {
+	double column_index = YYGetReal(arg, 0);
+	double offset_x = YYGetReal(arg, 1);
+
+	ImGui::SetColumnOffset(column_index, offset_x);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_get_columns_count) {
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::GetColumnsCount();
+}

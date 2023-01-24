@@ -407,6 +407,13 @@ function ImGui() constructor {
 		return __imgui_config_flag_toggle(flag);
 	}
 
+	/// @function GetMainViewport()
+	/// @return {Pointer}
+	static GetMainViewport = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_main_viewport();
+	}
+
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
@@ -1840,6 +1847,71 @@ function ImGui() constructor {
 	static TableSetBgColor = function(target, col, column_n=-1) {
 		gml_pragma("forceinline");
 		return __imgui_table_set_bg_color(target, col, column_n);
+	}
+
+	/// @function Columns(count, _id, border)
+	/// @argument {Real} [count=1]
+	/// @argument {String} [_id=]
+	/// @argument {Bool} [border=true]
+	/// @return {Undefined}
+	static Columns = function(count=1, _id="", border=true) {
+		gml_pragma("forceinline");
+		return __imgui_columns(count, _id, border);
+	}
+
+	/// @function NextColumn()
+	/// @return {Undefined}
+	static NextColumn = function() {
+		gml_pragma("forceinline");
+		return __imgui_next_column();
+	}
+
+	/// @function GetColumnIndex()
+	/// @return {Real}
+	static GetColumnIndex = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_column_index();
+	}
+
+	/// @function GetColumnWidth(column_index)
+	/// @argument {Real} [column_index=-1]
+	/// @return {Real}
+	static GetColumnWidth = function(column_index=-1) {
+		gml_pragma("forceinline");
+		return __imgui_get_column_width(column_index);
+	}
+
+	/// @function SetColumnWidth(column_index, width)
+	/// @argument {Real} column_index
+	/// @argument {Real} width
+	/// @return {Undefined}
+	static SetColumnWidth = function(column_index, width) {
+		gml_pragma("forceinline");
+		return __imgui_set_column_width(column_index, width);
+	}
+
+	/// @function GetColumnOffset(column_index)
+	/// @argument {Real} [column_index=-1]
+	/// @return {Real}
+	static GetColumnOffset = function(column_index=-1) {
+		gml_pragma("forceinline");
+		return __imgui_get_column_offset(column_index);
+	}
+
+	/// @function SetColumnOffset(column_index, offset_x)
+	/// @argument {Real} column_index
+	/// @argument {Real} offset_x
+	/// @return {Undefined}
+	static SetColumnOffset = function(column_index, offset_x) {
+		gml_pragma("forceinline");
+		return __imgui_set_column_offset(column_index, offset_x);
+	}
+
+	/// @function GetColumnsCount()
+	/// @return {Real}
+	static GetColumnsCount = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_columns_count();
 	}
 
 	/// @function BeginTabBar(str_id, flags)

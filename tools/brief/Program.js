@@ -388,23 +388,36 @@ class Program {
             "GetWindowContentRegionMin": "ImVec2 returns are unsupported, use X/Y wrappers",
             "GetWindowContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
             "PushFont": "Fonts are currently unimplemented",
+            "PopFont": "Fonts are currently unimplemented",
             "GetCursorStartPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "TextV": "Unsupported, use `string` function in GameMaker",
-            "TextColoredV": "Unsupported, use `string` function in GameMaker",
-            "TextWrappedV": "Unsupported, use `string` function in GameMaker",
-            "LabelTextV": "Unsupported, use `string` function in GameMaker",
-            "BulletTextV": "Unsupported, use `string` function in GameMaker",
+            "CalcTextSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
+            "GetPlatformIO": "Unsupported"
         };
         // i know
 
         let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
         func.forEach(e => {
+            if (e.Name.endsWith("V") && !e.Name.endsWith("HSV")) {
+                notes[e.Name] = "Unsupported, use `string` function in GameMaker";
+            }
+
             if (wrappers.find(w => w.Calls === e.Name)) {
                 count++;
             }
         });
-        content += `${count} out of ${func.length} API functions wrapped (**${Math.round(100 * (count / func.length))}% complete**)\n\n`;
+
+        let unsupported = 0;
+        func.forEach(e => {
+            const note = notes[e.Name];
+            if (note) {
+                // lol
+                if (note.toLowerCase().includes("unsupported")) unsupported++;
+            }
+        });
+        console.log("unsupported func count: " + unsupported);
+
+        content += `${count} out of ${func.length - unsupported} API functions wrapped (**${Math.round(100 * (count / (func.length - unsupported)))}% complete**)\n\n`;
         content += "| Function | Wrapped | Link | Notes |\n";
         content += "| -------- | ------- | ---- | ----- |\n";
         func.forEach(e => {

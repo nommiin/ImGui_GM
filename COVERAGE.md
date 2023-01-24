@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-267 out of 395 API functions wrapped (**68% complete**)
+276 out of 373 API functions wrapped (**74% complete**)
 
 | Function | Wrapped | Link | Notes |
 | -------- | ------- | ---- | ----- |
@@ -78,7 +78,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::SetScrollFromPosX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L245) | N/A |
 | ImGui::SetScrollFromPosY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L254) | N/A |
 | ImGui::PushFont | ❌ | N/A | Fonts are currently unimplemented |
-| ImGui::PopFont | ❌ | N/A | N/A |
+| ImGui::PopFont | ❌ | N/A | Fonts are currently unimplemented |
 | ImGui::PushStyleColor | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L18) | N/A |
 | ImGui::PushStyleColor | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L18) | N/A |
 | ImGui::PopStyleColor | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L27) | N/A |
@@ -139,7 +139,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TextColored | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L17) | N/A |
 | ImGui::TextColoredV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::TextDisabled | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L27) | N/A |
-| ImGui::TextDisabledV | ❌ | N/A | N/A |
+| ImGui::TextDisabledV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::TextWrapped | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L34) | N/A |
 | ImGui::TextWrappedV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::LabelText | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L41) | N/A |
@@ -213,13 +213,13 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TreeNode | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L3) | N/A |
 | ImGui::TreeNode | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L3) | N/A |
 | ImGui::TreeNode | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L3) | N/A |
-| ImGui::TreeNodeV | ❌ | N/A | N/A |
-| ImGui::TreeNodeV | ❌ | N/A | N/A |
+| ImGui::TreeNodeV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TreeNodeV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::TreeNodeEx | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L10) | N/A |
 | ImGui::TreeNodeEx | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L10) | N/A |
 | ImGui::TreeNodeEx | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L10) | N/A |
-| ImGui::TreeNodeExV | ❌ | N/A | N/A |
-| ImGui::TreeNodeExV | ❌ | N/A | N/A |
+| ImGui::TreeNodeExV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
+| ImGui::TreeNodeExV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::TreePush | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L19) | N/A |
 | ImGui::TreePush | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L19) | N/A |
 | ImGui::TreePop | ✅ | [imgui_tree_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tree_gm.cpp#L26) | N/A |
@@ -252,7 +252,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::BeginTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L3) | N/A |
 | ImGui::EndTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L8) | N/A |
 | ImGui::SetTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L13) | N/A |
-| ImGui::SetTooltipV | ❌ | N/A | N/A |
+| ImGui::SetTooltipV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::BeginPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L3) | N/A |
 | ImGui::BeginPopupModal | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L12) | N/A |
 | ImGui::EndPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L33) | N/A |
@@ -281,14 +281,14 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TableGetColumnFlags | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L98) | N/A |
 | ImGui::TableSetColumnEnabled | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L111) | N/A |
 | ImGui::TableSetBgColor | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L119) | N/A |
-| ImGui::Columns | ❌ | N/A | N/A |
-| ImGui::NextColumn | ❌ | N/A | N/A |
-| ImGui::GetColumnIndex | ❌ | N/A | N/A |
-| ImGui::GetColumnWidth | ❌ | N/A | N/A |
-| ImGui::SetColumnWidth | ❌ | N/A | N/A |
-| ImGui::GetColumnOffset | ❌ | N/A | N/A |
-| ImGui::SetColumnOffset | ❌ | N/A | N/A |
-| ImGui::GetColumnsCount | ❌ | N/A | N/A |
+| ImGui::Columns | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L130) | N/A |
+| ImGui::NextColumn | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L142) | N/A |
+| ImGui::GetColumnIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L147) | N/A |
+| ImGui::GetColumnWidth | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L152) | N/A |
+| ImGui::SetColumnWidth | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L160) | N/A |
+| ImGui::GetColumnOffset | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L168) | N/A |
+| ImGui::SetColumnOffset | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L177) | N/A |
+| ImGui::GetColumnsCount | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L185) | N/A |
 | ImGui::BeginTabBar | ✅ | [imgui_tabs_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tabs_gm.cpp#L3) | N/A |
 | ImGui::EndTabBar | ✅ | [imgui_tabs_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tabs_gm.cpp#L12) | N/A |
 | ImGui::BeginTabItem | ✅ | [imgui_tabs_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tabs_gm.cpp#L17) | N/A |
@@ -307,7 +307,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::LogFinish | ❌ | N/A | N/A |
 | ImGui::LogButtons | ❌ | N/A | N/A |
 | ImGui::LogText | ❌ | N/A | N/A |
-| ImGui::LogTextV | ❌ | N/A | N/A |
+| ImGui::LogTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker |
 | ImGui::BeginDragDropSource | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L3) | N/A |
 | ImGui::SetDragDropPayload | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L26) | N/A |
 | ImGui::EndDragDropSource | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L11) | N/A |
@@ -339,7 +339,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetItemRectMax | ❌ | N/A | N/A |
 | ImGui::GetItemRectSize | ❌ | N/A | N/A |
 | ImGui::SetItemAllowOverlap | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L298) | N/A |
-| ImGui::GetMainViewport | ❌ | N/A | N/A |
+| ImGui::GetMainViewport | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L410) | N/A |
 | ImGui::GetBackgroundDrawList | ❌ | N/A | N/A |
 | ImGui::GetForegroundDrawList | ❌ | N/A | N/A |
 | ImGui::GetBackgroundDrawList | ❌ | N/A | N/A |
@@ -354,7 +354,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetStateStorage | ❌ | N/A | N/A |
 | ImGui::BeginChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L49) | N/A |
 | ImGui::EndChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L62) | N/A |
-| ImGui::CalcTextSize | ❌ | N/A | N/A |
+| ImGui::CalcTextSize | ❌ | N/A | ImVec2 returns are unsupported, use Width/Height wrappers |
 | ImGui::ColorConvertU32ToFloat4 | ❌ | N/A | N/A |
 | ImGui::ColorConvertFloat4ToU32 | ❌ | N/A | N/A |
 | ImGui::ColorConvertRGBtoHSV | ❌ | N/A | N/A |
@@ -394,7 +394,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetAllocatorFunctions | ❌ | N/A | N/A |
 | ImGui::MemAlloc | ❌ | N/A | N/A |
 | ImGui::MemFree | ❌ | N/A | N/A |
-| ImGui::GetPlatformIO | ❌ | N/A | N/A |
+| ImGui::GetPlatformIO | ❌ | N/A | Unsupported |
 | ImGui::UpdatePlatformWindows | ❌ | N/A | N/A |
 | ImGui::RenderPlatformWindowsDefault | ❌ | N/A | N/A |
 | ImGui::DestroyPlatformWindows | ❌ | N/A | N/A |
