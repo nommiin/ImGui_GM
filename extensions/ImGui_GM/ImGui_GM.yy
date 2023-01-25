@@ -28,7 +28,7 @@
                     "resourceVersion": "1.0",
                     "name": "IMGUI_GM_VERSION",
                     "hidden": false,
-                    "value": "\"1.0.4\""
+                    "value": "\"1.0.3\""
                 }
             ],
             "copyToTargets": -1,
