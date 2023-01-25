@@ -3,7 +3,7 @@ A Windows only ImGui wrapper for modern GameMaker, heavily work-in-progress
 ![image](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png)
 
 # Release
-The [itch.io page](https://nommiiin.itch.io/imgui-gm) has pre-built packages for GameMaker
+**The [itch.io page](https://nommiiin.itch.io/imgui-gm) has pre-built packages for GameMaker**
 
 # Reference
 - dll/
