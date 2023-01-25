@@ -15,7 +15,8 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy","order":0,},
   ],
   "IncludedFiles": [
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Roboto-Regular.ttf","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Roboto-Regular.ttf","CopyToMask":-1,"filePath":"datafiles/fonts",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"LICENSE.txt","CopyToMask":-1,"filePath":"datafiles/fonts",},
   ],
   "isEcma": false,
   "MetaData": {

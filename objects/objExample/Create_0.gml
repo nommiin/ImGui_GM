@@ -41,4 +41,4 @@ drag_names = [
 tab1 = true;
 
 font_default = ImGui.AddFontDefault();
-font_roboto = ImGui.AddFontFromFile("Roboto-Regular.ttf", 16);
+font_roboto = ImGui.AddFontFromFile("fonts/Roboto-Regular.ttf", 24);

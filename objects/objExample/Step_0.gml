@@ -259,7 +259,7 @@ if (main_open) {
 				
 				if (ImGui.BeginDragDropTarget()) {
 					var payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL");
-					if (payload) {
+					if (payload != undefined) {
 						switch (drag_mode) {
 							// Copy
 							case 0: {
@@ -287,6 +287,17 @@ if (main_open) {
 				}
 				ImGui.PopID();
 			}
+		ImGui.EndChild();
+		
+		ImGui.BeginChild("Inner_Fonts", width / 2, height, true);
+			ImGui.Text("Fonts");
+			ImGui.Separator();
+			ImGui.Text("You can load TTF/OTF font files from disk!");
+			ImGui.PushFont(font_roboto);
+			ImGui.TextColored("And use them wherever!", c_aqua);
+			ImGui.Text("Pretty neat, right?!");
+			ImGui.PopFont();
+			ImGui.Text("And back to the default font ^_^");
 		ImGui.EndChild();
 	}
 	ImGui.End();
