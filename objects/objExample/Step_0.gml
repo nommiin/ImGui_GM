@@ -55,9 +55,6 @@ if (main_open) {
 	if (ret & ImGuiReturnMask.Return) {
 		var width = ImGui.GetContentRegionAvailX(), height = 256;
 		
-		var dl = new ImDrawList(ImGui.GetForegroundDrawList());
-		dl.AddLine(0, 0, 32, 32, c_red, 2);
-		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);
 			ImGui.Text("Text");
 			ImGui.Separator();
@@ -94,7 +91,12 @@ if (main_open) {
 				ImGui.Text("Artwork by @Snoozercreation on Twitter!");
 				ImGui.EndTooltip();
 			}
-			//ImGui.Surface(application_surface);
+			
+			ImGui.Text("ImGui::ImageButton");
+			if (ImGui.ImageButton("img_btn", sprExample, 0, c_white, 1, col4.Color(), col4.Alpha())) {
+				show_message_async("nice, you clicked the red panda button :O");
+			}
+			
 			ImGui.Text("ImGui::Surface");
 			surface_set_target(surf);
 			var xx = ImGui.GetCursorScreenPosX(), yy = ImGui.GetCursorScreenPosY();

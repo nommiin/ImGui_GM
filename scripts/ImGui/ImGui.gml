@@ -3005,6 +3005,24 @@ function ImGui() constructor {
 		return __imgui_image(sprite, subimg, color, alpha, width, height, sprite_get_uvs(sprite, subimg));
 	}
 
+	/// @function ImageButton(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width, height)
+	/// @argument {String} str_id
+	/// @argument {Real} sprite
+	/// @argument {Real} subimg
+	/// @argument {Real} color
+	/// @argument {Real} alpha
+	/// @argument {Real} bg_color
+	/// @argument {Real} bg_alpha
+	/// @argument {Real} [width=sprite_get_width⌊sprite⌉]
+	/// @argument {Real} [height=sprite_get_height⌊sprite⌉]
+	/// @context ImGui
+	/// @return {Bool}
+	static ImageButton = function(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
+		gml_pragma("forceinline");
+		texture_set_stage(0, sprite_get_texture(sprite, subimg))
+		return __imgui_image_button(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width, height, sprite_get_uvs(sprite, subimg));
+	}
+
 	/// @function Surface(surface, color, alpha, width, height)
 	/// @argument {Real} surface
 	/// @argument {Real} [color=c_white]

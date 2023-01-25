@@ -63,6 +63,27 @@ GMFUNC(__imgui_image) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_image_button) {
+	const char* str_id = YYGetString(arg, 0);
+	double sprite = YYGetReal(arg, 1);
+	double subimg = YYGetReal(arg, 2);
+	double color = YYGetReal(arg, 3);
+	float alpha = YYGetReal(arg, 4);
+	double bg_color = YYGetReal(arg, 5);
+	float bg_alpha = YYGetReal(arg, 6);
+	double width = YYGetReal(arg, 7);
+	GMDEFAULT(sprite_get_width(#arg1));
+	double height = YYGetReal(arg, 8);
+	GMDEFAULT(sprite_get_height(#arg1));
+	double* uv = YYGetArray<double>(arg, 9, 4);
+	GMHIDDEN();
+	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
+	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::ImageButton(str_id, GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(bg_color, bg_alpha), GMCOLOR_TO(color, alpha));
+}
+
 GMFUNC(__imgui_surface) {
 	double surface = YYGetReal(arg, 0);
 	double color = YYGetReal(arg, 1);

@@ -389,6 +389,7 @@ class Program {
             "GetWindowContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
             "PushFont": "Fonts are currently unimplemented",
             "PopFont": "Fonts are currently unimplemented",
+            "GetCursorPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "GetCursorStartPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "CalcTextSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
