@@ -231,6 +231,7 @@ if (main_open) {
 			ImGui.Text("Dock Space");
 			ImGui.Separator();
 			var space_id = ImGui.GetID("DockSpace");
+			ImGui.Text("You can drag any window into the space below to dock it!");
 			ImGui.DockSpace(space_id);
 		ImGui.EndChild();
 		
@@ -304,6 +305,8 @@ if (main_open) {
 			ImGui.PopFont();
 			ImGui.Text("And back to the default font ^_^");
 		ImGui.EndChild();
+		
+		ImGui.SameLine();
 		
 		ImGui.BeginChild("Inner_DrawLists", width / 2, height, true);
 			ImGui.Text("Drawlists");
