@@ -393,7 +393,8 @@ class Program {
             "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "CalcTextSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
             "GetPlatformIO": "Unsupported",
-            "SetDragDropPayload": "See [Drag and Drop Payloads](https://github.com/nommiin/ImGui_GM/wiki/Drag-and-Drop-Payloads) for more info on handling payloads"
+            "SetDragDropPayload": "See [Drag and Drop Payloads](https://github.com/nommiin/ImGui_GM/wiki/Drag-and-Drop-Payloads) for more info on handling payloads",
+            "GetColorU32": "Unsupported, use `ImGui.GetStyleColor`"
         };
         // i know
 

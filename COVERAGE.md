@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-276 out of 373 API functions wrapped (**74% complete**)
+276 out of 370 API functions wrapped (**75% complete**)
 
 | Function | Wrapped | Link | Notes |
 | -------- | ------- | ---- | ----- |
@@ -98,9 +98,9 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetFont | ❌ | N/A | N/A |
 | ImGui::GetFontSize | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L57) | N/A |
 | ImGui::GetFontTexUvWhitePixel | ❌ | N/A | N/A |
-| ImGui::GetColorU32 | ❌ | N/A | N/A |
-| ImGui::GetColorU32 | ❌ | N/A | N/A |
-| ImGui::GetColorU32 | ❌ | N/A | N/A |
+| ImGui::GetColorU32 | ❌ | N/A | Unsupported, use `ImGui.GetStyleColor` |
+| ImGui::GetColorU32 | ❌ | N/A | Unsupported, use `ImGui.GetStyleColor` |
+| ImGui::GetColorU32 | ❌ | N/A | Unsupported, use `ImGui.GetStyleColor` |
 | ImGui::GetStyleColorVec4 | ❌ | N/A | N/A |
 | ImGui::Separator | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L30) | N/A |
 | ImGui::SameLine | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L51) | N/A |
