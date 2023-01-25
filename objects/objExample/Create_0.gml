@@ -6,6 +6,7 @@ randomize();
 main_open = true;
 demo_open = true;
 header_visible = true;
+enable_docking = true;
 
 col = c_blue;                     // for TextColored
 col2 = c_white;                   // for Image & ColorPicker

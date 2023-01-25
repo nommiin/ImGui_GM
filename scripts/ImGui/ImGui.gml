@@ -1473,6 +1473,14 @@ function ImGui() constructor {
 		return __imgui_get_drag_drop_payload();
 	}
 
+	/// @function GetDragDropPayloadType()
+	/// @context ImGui
+	/// @return {String|Undefined}
+	static GetDragDropPayloadType = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_payload_type();
+	}
+
 	/// @function GetPayloadKeepAlive()
 	/// @context ImGui
 	/// @return {Real}

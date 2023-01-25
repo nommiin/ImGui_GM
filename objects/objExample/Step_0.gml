@@ -1,5 +1,5 @@
 // Docking
-ImGui.DockSpaceOverViewport();
+if (enable_docking) ImGui.DockSpaceOverViewport();
 
 // Setup
 if (!surface_exists(surf)) {
@@ -13,6 +13,12 @@ if (!surface_exists(surf)) {
 var exit_modal = false;
 ImGui.BeginMainMenuBar();
 if (ImGui.BeginMenu("File")) {
+	if (ImGui.MenuItem("Enable Viewport", undefined, enable_docking)) {
+		enable_docking = !enable_docking;
+	}
+	
+	ImGui.Separator();
+	
 	if (ImGui.MenuItem("Exit")) {
 		exit_modal = true;
 	}
@@ -116,7 +122,6 @@ if (main_open) {
 			if (ret & ImGuiReturnMask.Return) {
 				ImGui.TextColored("hewwo", c_aqua, 0.5);
 				ImGui.Text("You can click the X icon at the side of the header to hide it!");
-				ImGui.TreePop();	
 			}
 		
 			if (!header_visible) {
@@ -184,7 +189,6 @@ if (main_open) {
             {
 				var ret = ImGui.BeginTabItem("Closable", tab1, undefined, ImGuiReturnMask.Both);
 				tab1 = ret & ImGuiReturnMask.Pointer;
-				
 				if (ret & ImGuiReturnMask.Return) {
 	                ImGui.Text("This is a closable tab!\nblah blah blah blah blah");
 	                ImGui.EndTabItem();

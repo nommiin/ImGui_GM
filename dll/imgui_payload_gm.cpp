@@ -39,6 +39,23 @@ GMFUNC(__imgui_set_drag_drop_payload) {
 	Result.val = ImGui::SetDragDropPayload(type, &g_Payload, sizeof(RValue), cond);
 }
 
+static inline void TranslatePayload(const ImGuiPayload* payload, RValue& Result) {
+	if (payload->IsDataType(IMGUI_PAYLOAD_TYPE_COLOR_3F)) {
+		float* col = (float*)payload->Data;
+		Result.kind = VALUE_REAL;
+		Result.val = (int)(col[0] * 0xFF) | ((int)(col[1] * 0xFF) << 8) | ((int)(col[2] * 0xFF) << 16);
+	} else if (payload->IsDataType(IMGUI_PAYLOAD_TYPE_COLOR_4F)) {
+		float* col = (float*)payload->Data;
+		Result.kind = VALUE_REAL;
+		Result.val = (int)(col[0] * 0xFF) | ((int)(col[1] * 0xFF) << 8) | ((int)(col[2] * 0xFF) << 16) | ((int)(col[3] * 0xFF) << 24);
+	} else if (payload->IsDataType(IMGUI_PAYLOAD_TYPE_WINDOW)) {
+		Result.kind = VALUE_PTR;
+		Result.ptr = payload->Data;
+	} else {
+		COPY_RValue(&Result, (RValue*)payload->Data);
+	}
+}
+
 GMFUNC(__imgui_accept_drag_drop_payload) {
 	const char* type = YYGetString(arg, 0);
 	ImGuiDragDropFlags flags = YYGetInt64(arg,1);
@@ -47,7 +64,7 @@ GMFUNC(__imgui_accept_drag_drop_payload) {
 
 	Result.kind = VALUE_UNDEFINED;
 	if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(type, flags)) {
-		COPY_RValue(&Result, (RValue*)payload->Data);
+		TranslatePayload(payload, Result);
 		DsMapClear(g_KeepAlive);
 	}
 	GMRETURNS(Any|Undefined);
@@ -58,10 +75,20 @@ GMFUNC(__imgui_get_drag_drop_payload) {
 
 	Result.kind = VALUE_UNDEFINED;
 	if (const ImGuiPayload* payload = ImGui::GetDragDropPayload()) {
-		COPY_RValue(&Result, (RValue*)payload->Data);
-		DsMapClear(g_KeepAlive);
+		TranslatePayload(payload, Result);
 	}
 	GMRETURNS(Any|Undefined);
+}
+
+GMFUNC(__imgui_get_payload_type) {
+	GMOVERRIDE(GetDragDropPayloadType);
+
+	Result.kind = VALUE_UNDEFINED;
+	if (const ImGuiPayload* payload = ImGui::GetDragDropPayload()) {
+		YYCreateString(&g_Copy, payload->DataType);
+		COPY_RValue(&Result, &g_Copy);
+	}
+	GMRETURNS(String|Undefined);
 }
 
 GMFUNC(__imgui_get_payload_keepalive) {
