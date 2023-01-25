@@ -54,11 +54,6 @@ GMFUNC(__imgui_pop_style_var) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
-GMFUNC(__imgui_get_font_size) {
-	Result.kind = VALUE_REAL;
-	Result.val = ImGui::GetFontSize();
-}
-
 GMFUNC(__imgui_get_style_color) {
 	ImGuiCol idx = YYGetInt64(arg, 0);
 

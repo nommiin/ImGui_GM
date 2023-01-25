@@ -407,7 +407,6 @@ class Program {
             const wrapper = wrappers.find(w => w.Calls === e.Name)
             if (wrapper) {
                 wrapper.Arguments.forEach(a => {
-                    console.log(a.Type);
                     if (a.Type.endsWith("ImGuiReturnMask")) {
                         notes[e.Name] = "See [ImGuiReturnMask Usage](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument"
                     }
@@ -424,7 +423,6 @@ class Program {
                 if (note.toLowerCase().includes("unsupported")) unsupported++;
             }
         });
-        console.log("unsupported func count: " + unsupported);
 
         content += `${count} out of ${func.length - unsupported} API functions wrapped (**${Math.round(100 * (count / (func.length - unsupported)))}% complete**)\n\n`;
         content += "| Function | Wrapped | Link | Notes |\n";

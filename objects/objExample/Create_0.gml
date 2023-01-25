@@ -37,5 +37,8 @@ drag_names = [
 	"Brianna", "Barry", "Bernard",
 	"Bibi", "Blaine", "Bryn"
 ];
-
+ 
 tab1 = true;
+
+font_default = ImGui.AddFontDefault();
+font_roboto = ImGui.AddFontFromFile("Roboto-Regular.ttf", 16);

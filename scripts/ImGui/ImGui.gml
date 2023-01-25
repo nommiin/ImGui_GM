@@ -802,6 +802,57 @@ function ImGui() constructor {
 		return __imgui_drag_int_range2(label, v, v_current_max, v_speed, v_min, v_max, format_max, flags);
 	}
 
+	/// @function GetFont()
+	/// @context ImGui
+	/// @return {Pointer}
+	static GetFont = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_font();
+	}
+
+	/// @function GetFontSize()
+	/// @context ImGui
+	/// @return {Real}
+	static GetFontSize = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_font_size();
+	}
+
+	/// @function PushFont(ptr)
+	/// @argument {Any} [ptr=undefined]
+	/// @context ImGui
+	/// @return {Undefined}
+	static PushFont = function(ptr=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_push_font(ptr);
+	}
+
+	/// @function PopFont()
+	/// @context ImGui
+	/// @return {Undefined}
+	static PopFont = function() {
+		gml_pragma("forceinline");
+		return __imgui_pop_font();
+	}
+
+	/// @function AddFontFromFile(file, size)
+	/// @argument {String} file
+	/// @argument {Real} size
+	/// @context ImGui
+	/// @return {Pointer|Undefined}
+	static AddFontFromFile = function(file, size) {
+		gml_pragma("forceinline");
+		return __imgui_add_font_from_file(file, size);
+	}
+
+	/// @function AddFontDefault()
+	/// @context ImGui
+	/// @return {Unknown<unset>}
+	static AddFontDefault = function() {
+		gml_pragma("forceinline");
+		return __imgui_add_font_default();
+	}
+
 	/// @function InputText(label, val, flags)
 	/// @argument {String} label
 	/// @argument {String} val
@@ -1885,14 +1936,6 @@ function ImGui() constructor {
 	static PopStyleVar = function(count=1) {
 		gml_pragma("forceinline");
 		return __imgui_pop_style_var(count);
-	}
-
-	/// @function GetFontSize()
-	/// @context ImGui
-	/// @return {Real}
-	static GetFontSize = function() {
-		gml_pragma("forceinline");
-		return __imgui_get_font_size();
 	}
 
 	/// @function GetStyleColor(idx)

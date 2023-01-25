@@ -32,7 +32,6 @@ GMFUNC(__imgui_initialize) {
 
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;
-	ImGui::StyleColorsDark();
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui_ImplGM_Init(g_pHandle) && ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
