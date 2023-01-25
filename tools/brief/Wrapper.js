@@ -212,12 +212,18 @@ class Wrapper {
             const arg = this.Arguments[i];
             if (arg.Hidden) continue;
 
+            // probably shouldn't get changed here but Ah
             if (arg.Type === "Real" && arg.Default) {
-                for(const key in enums) {
-                    const name = key.endsWith("_") ? key.slice(0, -1) : key;
-                    if (arg.Default.startsWith(name)) {
-                        arg.Type = `Enum.${name}`;
-                        break;
+                // once again, Ah
+                if (arg.Default.startsWith("ImGuiReturnMask")) {
+                    arg.Type = "Enum.ImGuiReturnMask";
+                } else {
+                    for(const key in enums) {
+                        const name = key.endsWith("_") ? key.slice(0, -1) : key;
+                        if (arg.Default.startsWith(name)) {
+                            arg.Type = `Enum.${name}`;
+                            break;
+                        }
                     }
                 }
             }

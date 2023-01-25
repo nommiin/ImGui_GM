@@ -1403,7 +1403,7 @@ function ImGui() constructor {
 	/// @argument {String} [shortcut=]
 	/// @argument {Bool} [selected=undefined]
 	/// @argument {Bool} [enabled=true]
-	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @argument {Enum.ImGuiReturnMask} [mask=ImGuiReturnMask.Return]
 	/// @context ImGui
 	/// @return {Real}
 	static MenuItem = function(label, shortcut="", selected=undefined, enabled=true, mask=ImGuiReturnMask.Return) {
@@ -1537,7 +1537,7 @@ function ImGui() constructor {
 	/// @argument {String} name
 	/// @argument {Bool} [open=undefined]
 	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
-	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @argument {Enum.ImGuiReturnMask} [mask=ImGuiReturnMask.Return]
 	/// @context ImGui
 	/// @return {Real}
 	static BeginPopupModal = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {
@@ -2158,7 +2158,7 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {Bool} [open=undefined]
 	/// @argument {Enum.ImGuiTabItemFlags} [flags=ImGuiTabItemFlags.None]
-	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @argument {Enum.ImGuiReturnMask} [mask=ImGuiReturnMask.Return]
 	/// @context ImGui
 	/// @return {Real}
 	static BeginTabItem = function(label, open=undefined, flags=ImGuiTabItemFlags.None, mask=ImGuiReturnMask.Return) {
@@ -2350,7 +2350,7 @@ function ImGui() constructor {
 	/// @argument {String} label
 	/// @argument {Bool} [_visible=undefined]
 	/// @argument {Enum.ImGuiTreeNodeFlags} [flags=ImGuiTreeNodeFlags.None]
-	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @argument {Enum.ImGuiReturnMask} [mask=ImGuiReturnMask.Return]
 	/// @context ImGui
 	/// @return {Real}
 	static CollapsingHeader = function(label, _visible=undefined, flags=ImGuiTreeNodeFlags.None, mask=ImGuiReturnMask.Return) {
@@ -2484,7 +2484,7 @@ function ImGui() constructor {
 	/// @argument {String} name
 	/// @argument {Bool} [open=undefined]
 	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
-	/// @argument {Real} [mask=ImGuiReturnMask.Return]
+	/// @argument {Enum.ImGuiReturnMask} [mask=ImGuiReturnMask.Return]
 	/// @context ImGui
 	/// @return {Real}
 	static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {

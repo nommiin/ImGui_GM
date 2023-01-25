@@ -342,7 +342,7 @@ class Program {
 
         if (start === -1) throw `Could not parse "${file.Name}", could not find "Binds" @section comment`;
         if (end === -1) throw `Could not parse "${file.Name}", could not find "Internal" @section comment`;
-        
+
         const content = [];
         wrappers.forEach(e => {
             content.push(e.to_jsdoc(enums) + "\n" + e.to_gml());
@@ -392,7 +392,8 @@ class Program {
             "GetCursorStartPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
             "CalcTextSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
-            "GetPlatformIO": "Unsupported"
+            "GetPlatformIO": "Unsupported",
+            "SetDragDropPayload": "See [Drag and Drop Payloads](https://github.com/nommiin/ImGui_GM/wiki/Drag-and-Drop-Payloads) for more info on handling payloads"
         };
         // i know
 
@@ -402,7 +403,14 @@ class Program {
                 notes[e.Name] = "Unsupported, use `string` function in GameMaker for string formatting";
             }
 
-            if (wrappers.find(w => w.Calls === e.Name)) {
+            const wrapper = wrappers.find(w => w.Calls === e.Name)
+            if (wrapper) {
+                wrapper.Arguments.forEach(a => {
+                    console.log(a.Type);
+                    if (a.Type.endsWith("ImGuiReturnMask")) {
+                        notes[e.Name] = "See [ImGuiReturnMask Usage](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument"
+                    }
+                })
                 count++;
             }
         });
