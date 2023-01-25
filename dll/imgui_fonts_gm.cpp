@@ -38,7 +38,7 @@ GMFUNC(__imgui_add_font_from_file) {
 	}
 
 	GMOVERRIDE(AddFontFromFile);
-	GMRETURNS(Pointer | Undefined);
+	GMRETURNS(Pointer|Undefined);
 }
 
 GMFUNC(__imgui_add_font_default) {

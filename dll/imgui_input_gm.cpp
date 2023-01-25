@@ -126,17 +126,18 @@ GMFUNC(__imgui_input_float4) {
 
 GMFUNC(__imgui_input_floatn) {
 	const char* label = YYGetString(arg, 0);
-	float* v = YYGetArray<float>(arg, 1, YYGetReal(arg, 2));
-	double count = YYGetReal(arg, 2);
-	GMDEFAULT(array_length(v));
-	float step = YYGetReal(arg, 3);
+	float* v = YYGetArray<float>(arg, 1, YYGetReal(arg, 6));
+	float step = YYGetReal(arg, 2);
 	GMDEFAULT(0);
-	float step_fast = YYGetReal(arg, 4);
+	float step_fast = YYGetReal(arg, 3);
 	GMDEFAULT(0);
-	const char* format = YYGetString(arg, 5);
+	const char* format = YYGetString(arg, 4);
 	GMDEFAULT("%.3f");
-	ImGuiInputTextFlags flags = YYGetInt64(arg, 6);
+	ImGuiInputTextFlags flags = YYGetInt64(arg, 5);
 	GMDEFAULT(ImGuiInputTextFlags.None);
+	double count = YYGetReal(arg, 6);
+	GMHIDDEN();
+	GMPASSTHROUGH(array_length(#arg1));
 	GMOVERRIDE(InputFloatN);
 
 	Result.kind = VALUE_BOOL;
@@ -209,11 +210,12 @@ GMFUNC(__imgui_input_int4) {
 
 GMFUNC(__imgui_input_intn) {
 	const char* label = YYGetString(arg, 0);
-	int* v = YYGetArray<int>(arg, 1, YYGetReal(arg, 2));
-	double count = YYGetReal(arg, 2);
-	GMDEFAULT(array_length(v));
-	ImGuiInputTextFlags flags = YYGetInt64(arg, 3);
+	int* v = YYGetArray<int>(arg, 1, YYGetReal(arg, 3));
+	ImGuiInputTextFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
+	double count = YYGetReal(arg, 3);
+	GMHIDDEN();
+	GMPASSTHROUGH(array_length(#arg1));
 	GMOVERRIDE(InputIntN);
 
 	Result.kind = VALUE_BOOL;

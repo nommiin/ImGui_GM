@@ -678,10 +678,9 @@ function ImGui() constructor {
 		return __imgui_drag_float4(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
-	/// @function DragFloatN(label, v, count, v_speed, v_min, v_max, format, flags)
+	/// @function DragFloatN(label, v, v_speed, v_min, v_max, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Real} [v_speed=1]
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
@@ -689,9 +688,9 @@ function ImGui() constructor {
 	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static DragFloatN = function(label, v, count=array_length(v), v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
+	static DragFloatN = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_drag_floatn(label, v, count, v_speed, v_min, v_max, format, flags);
+		return __imgui_drag_floatn(label, v, v_speed, v_min, v_max, format, flags, array_length(v));
 	}
 
 	/// @function DragFloatRange2(label, v, v_speed, v_min, v_max, format_min, format_max, flags)
@@ -770,10 +769,9 @@ function ImGui() constructor {
 		return __imgui_drag_int4(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
-	/// @function DragIntN(label, v, count, v_speed, v_min, v_max, format, flags)
+	/// @function DragIntN(label, v, v_speed, v_min, v_max, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Real} [v_speed=1]
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
@@ -781,9 +779,9 @@ function ImGui() constructor {
 	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static DragIntN = function(label, v, count=array_length(v), v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
+	static DragIntN = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_drag_intn(label, v, count, v_speed, v_min, v_max, format, flags);
+		return __imgui_drag_intn(label, v, v_speed, v_min, v_max, format, flags, array_length(v));
 	}
 
 	/// @function DragIntRange2(label, v, v_current_max, v_speed, v_min, v_max, format_max, flags)
@@ -800,6 +798,561 @@ function ImGui() constructor {
 	static DragIntRange2 = function(label, v, v_current_max, v_speed=1, v_min=0, v_max=0, format_max="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
 		return __imgui_drag_int_range2(label, v, v_current_max, v_speed, v_min, v_max, format_max, flags);
+	}
+
+	/// @function GetBackgroundDrawList(viewport)
+	/// @argument {Pointer} [viewport=undefined]
+	/// @context ImGui
+	/// @return {Pointer}
+	static GetBackgroundDrawList = function(viewport=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_get_background_drawlist(viewport);
+	}
+
+	/// @function GetForegroundDrawList(viewport)
+	/// @argument {Pointer} [viewport=undefined]
+	/// @context ImGui
+	/// @return {Pointer}
+	static GetForegroundDrawList = function(viewport=undefined) {
+		gml_pragma("forceinline");
+		return __imgui_get_foreground_drawlist(viewport);
+	}
+
+	/// @function GetWindowDrawList()
+	/// @context ImGui
+	/// @return {Pointer}
+	static GetWindowDrawList = function() {
+		gml_pragma("forceinline");
+		return __imgui_get_window_drawlist();
+	}
+
+	/// @function DrawListAddLine(list, x1, y1, x2, y2, col, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} col
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddLine = function(list, x1, y1, x2, y2, col, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_line(list, x1, y1, x2, y2, col, thickness);
+	}
+
+	/// @function DrawListAddRect(list, x1, y1, x2, y2, col, rounding, flags, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} col
+	/// @argument {Real} [rounding=0]
+	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddRect = function(list, x1, y1, x2, y2, col, rounding=0, flags=ImDrawFlags.None, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, rounding, flags, thickness);
+	}
+
+	/// @function DrawListAddRectFilled(list, x1, y1, x2, y2, col, rounding, flags)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} col
+	/// @argument {Real} [rounding=0]
+	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddRectFilled = function(list, x1, y1, x2, y2, col, rounding=0, flags=ImDrawFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding, flags);
+	}
+
+	/// @function DrawListAddRectFilledMultiColor(list, x1, y1, x2, y2, col1, col2, col3, col4)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} col1
+	/// @argument {Real} col2
+	/// @argument {Real} col3
+	/// @argument {Real} col4
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddRectFilledMultiColor = function(list, x1, y1, x2, y2, col1, col2, col3, col4) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4);
+	}
+
+	/// @function DrawListAddQuad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} x4
+	/// @argument {Real} y4
+	/// @argument {Real} col
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddQuad = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness);
+	}
+
+	/// @function DrawListAddQuadFilled(list, x1, y1, x2, y2, x3, y3, x4, y4, col)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} x4
+	/// @argument {Real} y4
+	/// @argument {Real} col
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddQuadFilled = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col);
+	}
+
+	/// @function DrawListAddTriangle(list, x1, y1, x2, y2, x3, y3, col, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} col
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddTriangle = function(list, x1, y1, x2, y2, x3, y3, col, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thickness);
+	}
+
+	/// @function DrawListAddTriangleFilled(list, x1, y1, x2, y2, x3, y3, col)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} col
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddTriangleFilled = function(list, x1, y1, x2, y2, x3, y3, col) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col);
+	}
+
+	/// @function DrawListAddCircle(list, _x, _y, radius, col, num_segments, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Real} radius
+	/// @argument {Real} col
+	/// @argument {Real} [num_segments=0]
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddCircle = function(list, _x, _y, radius, col, num_segments=0, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_circle(list, _x, _y, radius, col, num_segments, thickness);
+	}
+
+	/// @function DrawListAddCircleFilled(list, _x, _y, radius, col, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Real} radius
+	/// @argument {Real} col
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddCircleFilled = function(list, _x, _y, radius, col, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, num_segments);
+	}
+
+	/// @function DrawListAddNgon(list, _x, _y, radius, col, num_segments, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Real} radius
+	/// @argument {Real} col
+	/// @argument {Real} [num_segments=0]
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddNgon = function(list, _x, _y, radius, col, num_segments=0, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_ngon(list, _x, _y, radius, col, num_segments, thickness);
+	}
+
+	/// @function DrawListAddNgonFilled(list, _x, _y, radius, col, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Real} radius
+	/// @argument {Real} col
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddNgonFilled = function(list, _x, _y, radius, col, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, num_segments);
+	}
+
+	/// @function DrawListAddText(list, _x, _y, text, col)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {String} text
+	/// @argument {Real} col
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddText = function(list, _x, _y, text, col) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_text(list, _x, _y, text, col);
+	}
+
+	/// @function DrawListAddTextFont(list, _x, _y, text, col, font, font_size, wrap_width)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {String} text
+	/// @argument {Real} col
+	/// @argument {Pointer} font
+	/// @argument {Real} font_size
+	/// @argument {Real} [wrap_width=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddTextFont = function(list, _x, _y, text, col, font, font_size, wrap_width=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_text_font(list, _x, _y, text, col, font, font_size, wrap_width);
+	}
+
+	/// @function DrawListAddPolyline(list, positions, col, flags, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Array<Real>} positions
+	/// @argument {Real} col
+	/// @argument {Enum.ImDrawFlags} flags
+	/// @argument {Real} thickness
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddPolyline = function(list, positions, col, flags, thickness) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_polyline(list, positions, col, flags, thickness, array_length(positions));
+	}
+
+	/// @function DrawListAddConvexPolyFilled(list, positions, col)
+	/// @argument {Pointer} list
+	/// @argument {Array<Real>} positions
+	/// @argument {Real} col
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddConvexPolyFilled = function(list, positions, col) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_convex_poly_filled(list, positions, col, array_length(positions));
+	}
+
+	/// @function DrawListAddBezierCubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} x4
+	/// @argument {Real} y4
+	/// @argument {Real} col
+	/// @argument {Real} thickness
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddBezierCubic = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments);
+	}
+
+	/// @function DrawListAddBezierQuadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} col
+	/// @argument {Real} thickness
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddBezierQuadratic = function(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments);
+	}
+
+	/// @function DrawListPathFillConvex(list, col)
+	/// @argument {Pointer} list
+	/// @argument {Real} col
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathFillConvex = function(list, col) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_fill_convex(list, col);
+	}
+
+	/// @function DrawListPathStroke(list, col, flags, thickness)
+	/// @argument {Pointer} list
+	/// @argument {Real} col
+	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
+	/// @argument {Real} [thickness=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathStroke = function(list, col, flags=ImDrawFlags.None, thickness=1) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_stroke(list, col, flags, thickness);
+	}
+
+	/// @function DrawListPathClear(list)
+	/// @argument {Pointer} list
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathClear = function(list) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_clear(list);
+	}
+
+	/// @function DrawListPathLineTo(list, _x, _y)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathLineTo = function(list, _x, _y) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_line_to(list, _x, _y);
+	}
+
+	/// @function DrawListPathLineToMergeDuplicate(list, _x, _y)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathLineToMergeDuplicate = function(list, _x, _y) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_line_to_merge_duplicate(list, _x, _y);
+	}
+
+	/// @function DrawListPathArcTo(list, _x, _y, radius, a_min, a_max, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Real} radius
+	/// @argument {Real} a_min
+	/// @argument {Real} a_max
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathArcTo = function(list, _x, _y, radius, a_min, a_max, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_arc_to(list, _x, _y, radius, a_min, a_max, num_segments);
+	}
+
+	/// @function DrawListPathArcToFast(list, _x, _y, radius, a_min_of_12, a_max_of_12)
+	/// @argument {Pointer} list
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Real} radius
+	/// @argument {Real} a_min_of_12
+	/// @argument {Real} a_max_of_12
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathArcToFast = function(list, _x, _y, radius, a_min_of_12, a_max_of_12) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_arc_to_fast(list, _x, _y, radius, a_min_of_12, a_max_of_12);
+	}
+
+	/// @function DrawListPathBezierCubicCurveTo(list, x2, y2, x3, y3, x4, y4, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} x4
+	/// @argument {Real} y4
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathBezierCubicCurveTo = function(list, x2, y2, x3, y3, x4, y4, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_bezier_cubic_curve_to(list, x2, y2, x3, y3, x4, y4, num_segments);
+	}
+
+	/// @function DrawListPathBezierQuadraticCurveTo(list, x2, y2, x3, y3, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathBezierQuadraticCurveTo = function(list, x2, y2, x3, y3, num_segments=0) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_bezier_quadratic_curve_to(list, x2, y2, x3, y3, num_segments);
+	}
+
+	/// @function DrawListPathRect(list, x1, y1, x2, y2, rounding, flags)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} [rounding=0]
+	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathRect = function(list, x1, y1, x2, y2, rounding=0, flags=ImDrawFlags.None) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding, flags);
+	}
+
+	/// @function DrawListAddImage(list, sprite, subimg, x1, y1, x2, y2, col)
+	/// @argument {Pointer} list
+	/// @argument {Real} sprite
+	/// @argument {Real} subimg
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} [col=c_white]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddImage = function(list, sprite, subimg, x1, y1, x2, y2, col=c_white) {
+		gml_pragma("forceinline");
+		texture_set_stage(0, sprite_get_texture(sprite, subimg))
+		return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, sprite_get_uvs(sprite, subimg));
+	}
+
+	/// @function DrawListAddImageRounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags)
+	/// @argument {Pointer} list
+	/// @argument {Real} sprite
+	/// @argument {Real} subimg
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} col
+	/// @argument {Real} rounding
+	/// @argument {Real} flags
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddImageRounded = function(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags) {
+		gml_pragma("forceinline");
+		texture_set_stage(0, sprite_get_texture(sprite, subimg))
+		return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, sprite_get_uvs(sprite, subimg));
+	}
+
+	/// @function DrawListPushClipRect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect)
+	/// @argument {Pointer} list
+	/// @argument {Real} clip_min_x
+	/// @argument {Real} clip_min_y
+	/// @argument {Real} clip_max_x
+	/// @argument {Real} clip_max_y
+	/// @argument {Bool} intersect_with_current_clip_rect
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPushClipRect = function(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_push_clip_rect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect);
+	}
+
+	/// @function DrawlistPushClipRectFullscreen(list)
+	/// @argument {Pointer} list
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawlistPushClipRectFullscreen = function(list) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_push_clip_rect_fullscreen(list);
+	}
+
+	/// @function DrawListPopClipRect(list)
+	/// @argument {Pointer} list
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPopClipRect = function(list) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_pop_clip_rect(list);
+	}
+
+	/// @function DrawListPushTextureID(list, sprite, subimg)
+	/// @argument {Pointer} list
+	/// @argument {Real} sprite
+	/// @argument {Real} subimg
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPushTextureID = function(list, sprite, subimg) {
+		gml_pragma("forceinline");
+		texture_set_stage(0, sprite_get_texture(sprite, subimg))
+		return __imgui_drawlist_push_textureid(list, sprite, subimg);
+	}
+
+	/// @function DrawListPopTextureID(list)
+	/// @argument {Pointer} list
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPopTextureID = function(list) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_pop_textureid(list);
+	}
+
+	/// @function DrawListFlagsGet(list)
+	/// @argument {Pointer} list
+	/// @context ImGui
+	/// @return {Real}
+	static DrawListFlagsGet = function(list) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_flags_get(list);
+	}
+
+	/// @function DrawListFlagsSet(list, flags)
+	/// @argument {Pointer} list
+	/// @argument {Real} flags
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListFlagsSet = function(list, flags) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_flags_set(list, flags);
+	}
+
+	/// @function DrawListFlagToggle(list, flag)
+	/// @argument {Pointer} list
+	/// @argument {Real} flag
+	/// @context ImGui
+	/// @return {Bool}
+	static DrawListFlagToggle = function(list, flag) {
+		gml_pragma("forceinline");
+		return __imgui_drawlist_flag_toggle(list, flag);
 	}
 
 	/// @function GetFont()
@@ -945,19 +1498,18 @@ function ImGui() constructor {
 		return __imgui_input_float4(label, v, step, step_fast, format, flags);
 	}
 
-	/// @function InputFloatN(label, v, count, step, step_fast, format, flags)
+	/// @function InputFloatN(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Real} [step=0]
 	/// @argument {Real} [step_fast=0]
 	/// @argument {String} [format=%.3f]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static InputFloatN = function(label, v, count=array_length(v), step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloatN = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_input_floatn(label, v, count, step, step_fast, format, flags);
+		return __imgui_input_floatn(label, v, step, step_fast, format, flags, array_length(v));
 	}
 
 	/// @function InputInt(label, v, step, step_fast, flags)
@@ -1006,16 +1558,15 @@ function ImGui() constructor {
 		return __imgui_input_int4(label, v, flags);
 	}
 
-	/// @function InputIntN(label, v, count, flags)
+	/// @function InputIntN(label, v, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static InputIntN = function(label, v, count=array_length(v), flags=ImGuiInputTextFlags.None) {
+	static InputIntN = function(label, v, flags=ImGuiInputTextFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_input_intn(label, v, count, flags);
+		return __imgui_input_intn(label, v, flags, array_length(v));
 	}
 
 	/// @function InputDouble(label, v, step, step_fast, format, flags)
@@ -1540,10 +2091,9 @@ function ImGui() constructor {
 		return __imgui_get_payload_keepalive();
 	}
 
-	/// @function PlotLines(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
+	/// @function PlotLines(label, values, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
 	/// @argument {String} label
 	/// @argument {Array<Real>} values
-	/// @argument {Real} [values_count=array_length⌊values⌉]
 	/// @argument {Real} [values_offset=0]
 	/// @argument {String} [overlay_text=]
 	/// @argument {Real} [scale_min=0]
@@ -1552,15 +2102,14 @@ function ImGui() constructor {
 	/// @argument {Real} [graph_height=0]
 	/// @context ImGui
 	/// @return {Undefined}
-	static PlotLines = function(label, values, values_count=array_length(values), values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
+	static PlotLines = function(label, values, values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
 		gml_pragma("forceinline");
-		return __imgui_plot_lines(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height);
+		return __imgui_plot_lines(label, values, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height, array_length(values));
 	}
 
-	/// @function PlotHistogram(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
+	/// @function PlotHistogram(label, values, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height)
 	/// @argument {String} label
 	/// @argument {Array<Real>} values
-	/// @argument {Real} [values_count=array_length⌊values⌉]
 	/// @argument {Real} [values_offset=0]
 	/// @argument {String} [overlay_text=]
 	/// @argument {Real} [scale_min=0]
@@ -1569,9 +2118,9 @@ function ImGui() constructor {
 	/// @argument {Real} [graph_height=0]
 	/// @context ImGui
 	/// @return {Undefined}
-	static PlotHistogram = function(label, values, values_count=array_length(values), values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
+	static PlotHistogram = function(label, values, values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
 		gml_pragma("forceinline");
-		return __imgui_plot_histogram(label, values, values_count, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height);
+		return __imgui_plot_histogram(label, values, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height, array_length(values));
 	}
 
 	/// @function BeginPopup(str_id, flags)
@@ -1741,10 +2290,9 @@ function ImGui() constructor {
 		return __imgui_slider_float4(label, v, v_min, v_max, format, flags);
 	}
 
-	/// @function SliderFloatN(label, v, count, v_speed, v_min, v_max, format, flags)
+	/// @function SliderFloatN(label, v, v_speed, v_min, v_max, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Real} [v_speed=1]
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
@@ -1752,9 +2300,9 @@ function ImGui() constructor {
 	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static SliderFloatN = function(label, v, count=array_length(v), v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
+	static SliderFloatN = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_slider_floatn(label, v, count, v_speed, v_min, v_max, format, flags);
+		return __imgui_slider_floatn(label, v, v_speed, v_min, v_max, format, flags, array_length(v));
 	}
 
 	/// @function SliderInt(label, v, v_min, v_max, format, flags)
@@ -1813,19 +2361,18 @@ function ImGui() constructor {
 		return __imgui_slider_int4(label, v, v_min, v_max, format, flags);
 	}
 
-	/// @function SliderIntN(label, v, count, v_min, v_max, format, flags)
+	/// @function SliderIntN(label, v, v_min, v_max, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [count=array_length⌊v⌉]
 	/// @argument {Real} [v_min=0]
 	/// @argument {Real} [v_max=0]
 	/// @argument {String} [format=%d]
 	/// @argument {Enum.ImGuiSliderFlags} [flags=ImGuiSliderFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static SliderIntN = function(label, v, count=array_length(v), v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
+	static SliderIntN = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
 		gml_pragma("forceinline");
-		return __imgui_slider_intn(label, v, count, v_min, v_max, format, flags);
+		return __imgui_slider_intn(label, v, v_min, v_max, format, flags, array_length(v));
 	}
 
 	/// @function VSliderFloat(label, width, height, v, v_min, v_max, format, flags)

@@ -55,6 +55,9 @@ if (main_open) {
 	if (ret & ImGuiReturnMask.Return) {
 		var width = ImGui.GetContentRegionAvailX(), height = 256;
 		
+		var dl = new ImDrawList(ImGui.GetForegroundDrawList());
+		dl.AddLine(0, 0, 32, 32, c_red, 2);
+		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);
 			ImGui.Text("Text");
 			ImGui.Separator();
@@ -219,7 +222,7 @@ if (main_open) {
 			ImGui.Text("Plots");
 			ImGui.Separator();
 			ImGui.PlotLines("Line Plot", plot_val);
-			ImGui.PlotHistogram("Histogram Plot", plot_val2, undefined, 0, "Overlay Here!", undefined, undefined, undefined, 128);
+			ImGui.PlotHistogram("Histogram Plot", plot_val2, 0, "Overlay Here!", undefined, undefined, undefined, 128);
 		ImGui.EndChild();
 		
 		ImGui.BeginChild("Inner_Dock", width / 2, height, true);
