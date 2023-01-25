@@ -304,6 +304,19 @@ if (main_open) {
 			ImGui.PopFont();
 			ImGui.Text("And back to the default font ^_^");
 		ImGui.EndChild();
+		
+		ImGui.BeginChild("Inner_DrawLists", width / 2, height, true);
+			ImGui.Text("Drawlists");
+			ImGui.Separator();
+			var list = ImGui.GetWindowDrawList(), xx = ImGui.GetCursorScreenPosX(), yy = ImGui.GetCursorScreenPosY();
+			ImGui.DrawListAddText(list, xx + (width / 4), yy + 4, "Hello from DrawListAddText!", col2);
+			ImGui.DrawListAddCircleFilled(list, xx + 52, yy + 32, 12, c_blue);
+			ImGui.DrawListAddBezierCubic(list, xx + 4, yy + 4, xx + (width / 4), yy + 24, xx + (width / 4) + 32, yy + 48, xx + (width / 4) + 24, yy + 64, c_purple, 3);
+			var ix = xx + 24, iy = yy + (height / 3), iw = sprite_get_width(sprExample2), ih = sprite_get_height(sprExample2);
+			ImGui.DrawListAddImageRounded(list, sprExample2, current_time / 100, ix - (iw / 2), iy - (ih / 2), ix + (iw / 2), iy + (ih / 2), c_white, 32, ImDrawFlags.None);
+			ImGui.DrawListAddNgonFilled(list, xx + (width / 4), yy + (height / 2), 64, c_aqua, 5);
+			
+		ImGui.EndChild();
 	}
 	ImGui.End();
 }

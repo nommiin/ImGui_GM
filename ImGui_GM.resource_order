@@ -4,6 +4,7 @@
     {"name":"ImGui_GM","order":3,"path":"folders/ImGui_GM.yy",},
   ],
   "ResourceOrderSettings": [
+    {"name":"sprExample2","order":3,"path":"sprites/sprExample2/sprExample2.yy",},
     {"name":"sprExample","order":2,"path":"sprites/sprExample/sprExample.yy",},
     {"name":"ImGui_Misc","order":2,"path":"scripts/ImGui_Misc/ImGui_Misc.yy",},
     {"name":"rmExample","order":1,"path":"rooms/rmExample/rmExample.yy",},
