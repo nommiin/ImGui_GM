@@ -206,6 +206,7 @@ class Program {
                 
                 const wrapper = new Wrapper(name.Literal, file.Name, token.Line);
                 const children = new TokenReader(next.Children);
+                let valid = true;
                 while (!children.end()) {
                     const token = children.advance();
                     const left = children.previous();
@@ -273,13 +274,21 @@ class Program {
                         }
 
                         case "FunctionCall": {
-                            if (token.Literal.startsWith("GM")) wrapper.modifier(token);
+                            if (token.Literal.startsWith("GM")) {
+                                if (!wrapper.modifier(token)) {
+                                    valid = false;
+                                    continue;
+                                }
+                            }
                             break;
                         }
                     }
                 }
-                wrappers.push(wrapper.finalize());
-                count++;
+
+                if (valid) {
+                    wrappers.push(wrapper.finalize());
+                    count++;
+                }
             }
         }
         Logger.info(`Successfully parsed "${file.Name}" and retrieved ${count} wrapper definitions`);

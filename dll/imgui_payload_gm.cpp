@@ -90,10 +90,3 @@ GMFUNC(__imgui_get_payload_type) {
 	}
 	GMRETURNS(String|Undefined);
 }
-
-GMFUNC(__imgui_get_payload_keepalive) {
-	GMOVERRIDE(GetPayloadKeepAlive);
-
-	Result.kind = VALUE_REAL;
-	Result.val = g_KeepAlive;
-}

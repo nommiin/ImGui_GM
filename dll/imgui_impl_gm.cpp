@@ -61,8 +61,37 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 	io.DeltaTime = time->val;
 }
 
-void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data)
-{
-	
-	
+static char* g_pWrite[128];
+template<typename T> inline void BufferWrite(int buffer, T val, int& offset, bool grow=true) {
+	*(T*)(&g_pWrite) = val;
+	offset = BufferWriteContent(buffer, offset, g_pWrite, sizeof(T), grow);
+}
+
+void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data) {
+	int offset = 0;
+	if (draw_data->DisplaySize.x <= 0 || draw_data->DisplaySize.y <= 0) {
+		BufferWrite<bool>(g_Buffer, false, offset);
+		return;
+	}
+
+
+	unsigned char* buffer = BufferGet(BufferGetFromGML(g_Buffer));
+	BufferWrite<bool>(g_Buffer, draw_data->Valid, offset);
+	if (draw_data->Valid) {
+		BufferWrite<unsigned int>(g_Buffer, draw_data->TotalVtxCount, offset);
+		BufferWrite<unsigned int>(g_Buffer, draw_data->TotalIdxCount, offset);
+		BufferWrite<unsigned int>(g_Buffer, draw_data->CmdListsCount, offset);
+		for (int i = 0; i < draw_data->CmdListsCount; i++) {
+			const ImDrawList* cmd_list = draw_data->CmdLists[i];
+			BufferWrite<unsigned int>(g_Buffer, cmd_list->VtxBuffer.Size, offset);
+			offset = BufferWriteContent(g_Buffer, offset, cmd_list->VtxBuffer.Data, cmd_list->VtxBuffer.Size * sizeof(ImDrawVert), true);
+			BufferWrite<unsigned int>(g_Buffer, cmd_list->IdxBuffer.Size, offset);
+			offset = BufferWriteContent(g_Buffer, offset, cmd_list->IdxBuffer.Data, cmd_list->IdxBuffer.Size * sizeof(ImDrawIdx), true);
+			BufferWrite<unsigned int>(g_Buffer, cmd_list->CmdBuffer.Size, offset);
+			for (int j = 0; j < cmd_list->CmdBuffer.Size; j++) {
+				const ImDrawCmd* cmd = &cmd_list->CmdBuffer[j];
+				offset = BufferWriteContent(g_Buffer, offset, cmd, sizeof(ImDrawCmd), true);
+			}
+		}
+	}
 }

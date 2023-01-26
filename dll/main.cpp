@@ -11,6 +11,7 @@ ID3D11Device* g_pd3dDevice;
 ID3D11DeviceContext* g_pd3dDeviceContext;
 ID3D11ShaderResourceView* g_pView;
 void* g_pHandle;
+int g_Buffer;
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
@@ -29,6 +30,7 @@ GMFUNC(__imgui_initialize) {
 	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "Context")->ptr);
 	g_pHandle = (void*)(YYStructGetMember(info, "Handle")->ptr);
 	g_KeepAlive = CreateDsMap(0);
+	g_Buffer = CreateBuffer(1024, eBuffer_Format_Grow, 1);
 
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;
@@ -57,7 +59,10 @@ GMFUNC(__imgui_render) {
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		return;
 	}
+
 	ImGui_ImplGM_RenderDrawData(ImGui::GetDrawData());
+	Result.kind = VALUE_REAL;
+	Result.val = g_Buffer;
 }
 
 GMFUNC(__imgui_key) {

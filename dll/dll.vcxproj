@@ -29,6 +29,7 @@
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_drawlist_gm.cpp" />
     <ClCompile Include="imgui_fonts_gm.cpp" />
+    <ClCompile Include="imgui_gm.cpp" />
     <ClCompile Include="imgui_impl_gm.cpp" />
     <ClCompile Include="imgui_payload_gm.cpp" />
     <ClCompile Include="imgui_plots_gm.cpp" />

@@ -99,6 +99,7 @@ class Wrapper {
             case "GMOVERRIDE": {
                 const name = token.Children[0];
                 if (!name || name.Type !== "Identifier") throw `Could not handle GMOVERRIDE modifier, expected "name" argument as Identifier at line ${token.Line}`;
+                if (name.Literal == "_") return false;
                 this.calls(name.Literal, true);
                 return true;
             }
@@ -171,7 +172,7 @@ class Wrapper {
             case "GMRETURNS": {
                 this.Return = token.flatten(false);
                 Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
-                break;
+                return true;
             }
 
             case "GMHINT": {
