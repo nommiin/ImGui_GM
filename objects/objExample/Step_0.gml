@@ -1,4 +1,12 @@
-// Docking
+/*ImGui.Begin("Hello");
+ImGui.Text("Window 1");
+ImGui.End();
+
+ImGui.Begin("Hello 2");
+ImGui.Text("Window 2");
+ImGui.End();
+
+/**/// Docking
 if (enable_docking) ImGui.DockSpaceOverViewport();
 
 // Setup

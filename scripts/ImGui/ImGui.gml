@@ -3980,25 +3980,38 @@ function ImGui() constructor {
 		}
 	};
 	
-	static Format = undefined;
+	static VtxBuffer = -1;
+	static IdxBuffer = -1;
+	static CmdBuffer = -1;
+	static VtxBuild = -1;
+	static VtxFormat = undefined;
 	
-	static __Initialize = function() {
-		if (!__imguigm_native()) {
-			vertex_format_begin();
-			vertex_format_add_position();
-			vertex_format_add_texcoord();
-			vertex_format_add_color();
-			VertexFormat = vertex_format_end();
-			VertexBuffer = vertex_create_buffer();
-		}
-		
+	static VtxSize = 4 * 6;
+	static IdxSize = 2;
+	
+	static __Initialize = function() {	
 		var info = os_get_info(), pointers = {
 			Device: info[? "video_d3d11_device"],
 			Context: info[? "video_d3d11_context"],
 			Handle: window_handle()
 		};
 		ds_map_destroy(info);
-		return __imgui_initialize(pointers);
+		
+		if (__imgui_initialize(pointers)) {
+			if (!__imguigm_native()) {
+				VtxBuffer = __imguigm_vertex_buffer();
+				IdxBuffer = __imguigm_index_buffer();
+				CmdBuffer = __imguigm_command_buffer();
+				VtxBuild = vertex_create_buffer();
+				
+				vertex_format_begin();
+				vertex_format_add_position();
+				vertex_format_add_texcoord();
+				vertex_format_add_color();
+				VtxFormat = vertex_format_end();
+			}
+		}
+		return;
 	}
 	
 	static __Update = function() {
@@ -4033,81 +4046,56 @@ function ImGui() constructor {
 	
 	static Write = false;
 	static __Render = function() {
-		var ret = __imgui_render();
+		__imgui_render();
 		if (!__imguigm_native()) {
-			buffer_seek(ret, 0, buffer_seek_start);
+			buffer_seek(CmdBuffer, 0, buffer_seek_start);
 			
-			if (buffer_read(ret, buffer_bool)) {
-				var total_vtx = buffer_read(ret, buffer_u32);
-				var total_idx = buffer_read(ret, buffer_u32);
-				var total_cmd = buffer_read(ret, buffer_u32);
+			if (buffer_read(CmdBuffer, buffer_bool)) {
+				var list_count = buffer_read(CmdBuffer, buffer_u32); 
+				var clip_x = 0;
+				var clip_y = 0;
 				
-				var vtx_offset = 0;
-				var vtx = array_create(total_vtx, undefined);
-				var idx_offset = 0;
-				var idx = array_create(total_idx, -1);
-				
-				for(var i = 0; i < total_cmd; i++) {
-					var vtx_count = buffer_read(ret, buffer_u32);
+				var idx_total = 0;
+				for(var i = 0; i < list_count; i++) {
+					var cmd_count = buffer_read(CmdBuffer, buffer_u32);
+					draw_text(4, 4 + (14 * i), string("List #{0}: {1} commands", i, cmd_count));
 					
-					for(var j = 0; j < vtx_count; j++) {
-						var _vtx = {};
-						_vtx.x = buffer_read(ret, buffer_f32);
-						_vtx.y = buffer_read(ret, buffer_f32);
-						_vtx.uv_0 = buffer_read(ret, buffer_f32);
-						_vtx.uv_1 = buffer_read(ret, buffer_f32);
-						_vtx.col = buffer_read(ret, buffer_u32);
-						vtx[vtx_offset + j] = _vtx;
-					}
-					vtx_offset += vtx_count;
-					
-					var idx_count = buffer_read(ret, buffer_u32);
-					for(var j = 0; j < idx_count; j++) {
-						idx[idx_offset + j] = buffer_read(ret, buffer_u16);
-					}
-					idx_offset += idx_count;
-					
-					
-					var cmd_count = buffer_read(ret, buffer_u32);
 					for(var j = 0; j < cmd_count; j++) {
-						var _cmd = {};
-						_cmd.clip_min_x = buffer_read(ret, buffer_f32);
-						_cmd.clip_min_y = buffer_read(ret, buffer_f32);
-						_cmd.clip_max_x = buffer_read(ret, buffer_f32);
-						_cmd.clip_max_y = buffer_read(ret, buffer_f32);
-						_cmd.texture = buffer_read(ret, buffer_u64);
-						_cmd.vtx_offset = buffer_read(ret, buffer_u32);
-						_cmd.idx_offset = buffer_read(ret, buffer_u32);
-						_cmd.elem_count = buffer_read(ret, buffer_u32);
-						_cmd.callback = buffer_read(ret, buffer_u64);
-						_cmd.callback_data = buffer_read(ret, buffer_u64);
-						buffer_read(ret, buffer_u32);
-						
-						vertex_begin(VertexBuffer, VertexFormat);
-						var idx_base = _cmd.idx_offset;
-						for(var k = 0; k < _cmd.elem_count; k++) {
-							var idx_get = idx[idx_base + k];
+						if (!buffer_read(CmdBuffer, buffer_bool)) {
+							// non-callback
+							var elem_count = buffer_read(CmdBuffer, buffer_u32);
+							var idx_offset = buffer_read(CmdBuffer, buffer_u32);
+							var clip_x1 = buffer_read(CmdBuffer, buffer_f32);
+							var clip_y1 = buffer_read(CmdBuffer, buffer_f32);
+							var clip_x2 = buffer_read(CmdBuffer, buffer_f32);
+							var clip_y2 = buffer_read(CmdBuffer, buffer_f32);
 							
-							var vtx_get = vtx[idx_get];
-							vertex_position(VertexBuffer, vtx_get.x, vtx_get.y);
-							vertex_texcoord(VertexBuffer, vtx_get.uv_0, vtx_get.uv_1);
-							vertex_argb(VertexBuffer, vtx_get.col);
+							draw_primitive_begin(pr_trianglelist);
+							for(var k = 0; k < elem_count; k++) {
+								var vtx_ind = buffer_peek(IdxBuffer, ((idx_offset + idx_total) + k) * IdxSize, buffer_u16);
+								var vtx_base = vtx_ind * VtxSize;
+								//var idx_base = idx * IdxSize;
+								
+								var _x = buffer_peek(VtxBuffer, vtx_base, buffer_f32);
+								var _y = buffer_peek(VtxBuffer, vtx_base + 4, buffer_f32);
+								var _u = buffer_peek(VtxBuffer, vtx_base + 8, buffer_f32);
+								var _v = buffer_peek(VtxBuffer, vtx_base + 12, buffer_f32);
+								var _col = buffer_peek(VtxBuffer, vtx_base + 16, buffer_u32);
+								var _alpha = buffer_peek(VtxBuffer, vtx_base + 20, buffer_f32);
+								
+								draw_vertex_texture_color(_x, _y, _u, _v, _col, _alpha);
+								
+								//var c = make_colour_hsv(255 * (k / elem_count), 128, 255);
+								//draw_circle_color(_x, _y, 2, c, c, false);
+								idx_total += elem_count;
+							}
+							draw_primitive_end();
+							
+							draw_rectangle_color(clip_x1, clip_y1, clip_x2, clip_y2, c_red, c_red, c_red, c_red, true);
 						}
-						vertex_end(VertexBuffer);
-						vertex_submit(VertexBuffer, pr_trianglelist, -1);
-						//show_debug_message(cmd);
 					}
 				}
 			}
-			//show_debug_message("ret is " + string(ret));
-			// handle buffer	
 		}
-		/*
-		if (!__imgui_native()) {
-			var buff = __imgui_render();
-		}
-		
-		
-		return __imgui_render();*/
 	}
 };

@@ -274,12 +274,7 @@ class Program {
                         }
 
                         case "FunctionCall": {
-                            if (token.Literal.startsWith("GM")) {
-                                if (!wrapper.modifier(token)) {
-                                    valid = false;
-                                    continue;
-                                }
-                            }
+                            if (token.Literal.startsWith("GM")) wrapper.modifier(token)
                             break;
                         }
                     }
@@ -354,6 +349,11 @@ class Program {
 
         const content = [];
         wrappers.forEach(e => {
+            if (e.Calls === "_") {
+                Logger.warning(`Skipping wrapper "${e.Name}", call target marked as discard`);
+                return;
+            }
+
             content.push(e.to_jsdoc(enums) + "\n" + e.to_gml());
         });
 

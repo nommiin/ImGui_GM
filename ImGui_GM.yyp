@@ -26,6 +26,7 @@
     {"id":{"name":"sprExample2","path":"sprites/sprExample2/sprExample2.yy",},"order":0,},
     {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},"order":0,},
     {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},"order":0,},
+    {"id":{"name":"shdImGui","path":"shaders/shdImGui/shdImGui.yy",},"order":0,},
     {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":0,},
     {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":0,},

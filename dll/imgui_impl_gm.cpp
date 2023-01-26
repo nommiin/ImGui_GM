@@ -67,8 +67,80 @@ template<typename T> inline void BufferWrite(int buffer, T val, int& offset, boo
 	offset = BufferWriteContent(buffer, offset, g_pWrite, sizeof(T), grow);
 }
 
-void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data) {
+void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
+	int cmd_offset = 0;
+	if (data->DisplaySize.x <= 0 || data->DisplaySize.y <= 0) {
+		BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
+		return;
+	}
+
+	BufferWrite<bool>(g_CommandBuffer, data->Valid, cmd_offset);
+	if (data->Valid) {
+		int vtx_offset = 0, idx_offset = 0;
+		BufferWrite<unsigned int>(g_CommandBuffer, data->CmdListsCount, cmd_offset);
+
+		for (int i = 0; i < data->CmdListsCount; i++) {
+			const ImDrawList* list = data->CmdLists[i];
+			BufferWrite<unsigned int>(g_CommandBuffer, list->CmdBuffer.Size, cmd_offset);
+			for (int j = 0; j < list->CmdBuffer.Size; j++) {
+				const ImDrawCmd* cmd = &list->CmdBuffer.Data[j];
+				if (cmd->UserCallback != nullptr) {
+					BufferWrite<bool>(g_CommandBuffer, true, cmd_offset);
+				} else {
+					BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
+					BufferWrite<unsigned int>(g_CommandBuffer, cmd->ElemCount, cmd_offset);
+					BufferWrite<unsigned int>(g_CommandBuffer, cmd->IdxOffset, cmd_offset);
+					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.x, cmd_offset);
+					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.y, cmd_offset);
+					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.z, cmd_offset);
+					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.w, cmd_offset);
+				}
+			}
+
+			// write vtx
+			for (int j = 0; j < list->VtxBuffer.Size; j++) {
+				const ImDrawVert* vtx = &list->VtxBuffer.Data[j];
+				BufferWrite<float>(g_VertexBuffer, vtx->pos.x, vtx_offset);
+				BufferWrite<float>(g_VertexBuffer, vtx->pos.y, vtx_offset);
+				BufferWrite<float>(g_VertexBuffer, vtx->uv.x, vtx_offset);
+				BufferWrite<float>(g_VertexBuffer, vtx->uv.y, vtx_offset);
+				BufferWrite<unsigned int>(g_VertexBuffer, vtx->col, vtx_offset);
+				BufferWrite<float>(g_VertexBuffer, (float)(vtx->col >> 24) / 0xFF, vtx_offset);
+			}
+
+			// write itx
+			idx_offset = BufferWriteContent(g_IndexBuffer, idx_offset, list->IdxBuffer.Data, sizeof(ImDrawIdx) * list->IdxBuffer.Size, true);
+		}
+	}
+
+	/*
 	int offset = 0;
+	if (data->DisplaySize.x <= 0 || data->DisplaySize.y <= 0) {
+		BufferWrite<bool>(g_RenderBuffer, false, offset);
+		return;
+	}
+
+	/*
+		g_RenderBuffer Layout:
+		bool Valid @ 0x00;
+
+	*/
+
+	/*
+		
+	
+
+	BufferWrite<bool>(g_RenderBuffer, data->Valid, offset);
+	if (data->Valid) {
+		BufferWrite<unsigned int>(g_RenderBuffer, data->TotalVtxCount, offset);
+		BufferWrite<unsigned int>(g_RenderBuffer, data->TotalIdxCount, offset);
+		BufferWrite<unsigned int>(g_RenderBuffer, data->CmdListsCount, offset);
+		for (int i = 0; i < data->CmdListsCount; i++) {
+			const ImDrawList* cmd = data->CmdLists[i];
+			BufferWrite<unsigned int>(g_RenderBuffer, cmd->VtxBuffer.Size, offset);
+		}
+	}*/
+	/*int offset = 0;
 	if (draw_data->DisplaySize.x <= 0 || draw_data->DisplaySize.y <= 0) {
 		BufferWrite<bool>(g_Buffer, false, offset);
 		return;
@@ -78,6 +150,8 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data) {
 	unsigned char* buffer = BufferGet(BufferGetFromGML(g_Buffer));
 	BufferWrite<bool>(g_Buffer, draw_data->Valid, offset);
 	if (draw_data->Valid) {
+
+		/*
 		BufferWrite<unsigned int>(g_Buffer, draw_data->TotalVtxCount, offset);
 		BufferWrite<unsigned int>(g_Buffer, draw_data->TotalIdxCount, offset);
 		BufferWrite<unsigned int>(g_Buffer, draw_data->CmdListsCount, offset);
@@ -92,6 +166,6 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data) {
 				const ImDrawCmd* cmd = &cmd_list->CmdBuffer[j];
 				offset = BufferWriteContent(g_Buffer, offset, cmd, sizeof(ImDrawCmd), true);
 			}
-		}
-	}
+		}*/
+	//}
 }
