@@ -83,9 +83,10 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 	/*
 		NOTE:
 		This sucks! I got really annoyed when trying to figure out index buffers so,
-		I just decided to copy all the verticies in other... it's really slow.
+		I just decided to copy all the verticies in order... it's really slow.
 		
 		Aside from that, sprites' subimages do not work. Nor do surface textures.
+		But it works for now!
 	*/
 
 	BufferWrite<bool>(g_CommandBuffer, data->Valid, cmd_offset);
