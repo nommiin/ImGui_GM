@@ -4013,7 +4013,7 @@ function ImGui() constructor {
 	}
 	
 	static __Font = -1;
-	
+
 	static __Update = function() {
 		var _w = window_get_width(), _h = window_get_height();
 		__State.Display.Width = _w;
@@ -4041,19 +4041,17 @@ function ImGui() constructor {
 				window_set_cursor(__Cursor[__imgui_mouse_cursor() + 1]);
 			}
 		}
-		__imgui_update(__State);
 		
+		__imgui_update(__State);
 		if (!__imguigm_native()) {
-			if (!sprite_exists(__Font)) {
-				buffer_seek(__FontBuffer, buffer_seek_start, 0);
-				var width = buffer_read(__FontBuffer, buffer_u32);
-				var height = buffer_read(__FontBuffer, buffer_u32);
-				var surf = surface_create(width, height);
-				buffer_set_surface(__FontBuffer, surf, 8);
-				__Font = sprite_create_from_surface(surf, 0, 0, width, height, false, false, 0, 0);
-				surface_free(surf);
+			if (buffer_peek(__FontBuffer, 0, buffer_bool)) {
+				if (sprite_exists(__Font)) sprite_delete(__Font);
+				var font = surface_create(buffer_peek(__FontBuffer, 1, buffer_u32), buffer_peek(__FontBuffer, 5, buffer_u32));
+				buffer_set_surface(__FontBuffer, font, 9);
+				__Font = sprite_create_from_surface(font, 0, 0, surface_get_width(font), surface_get_height(font), false, false, 0, 0);
+				surface_free(font);
+				show_debug_message("made font");
 			}
-			
 		}
 	}
 	

@@ -459,7 +459,7 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.DrawListFlagsSet(list, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L569) |
 | ImGui.DrawListFlagToggle(list, flag) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L578) |
 | ImGui.AddFontFromFile(file, size) | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L30) |
-| ImGui.AddFontDefault() | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L44) |
+| ImGui.AddFontDefault() | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L45) |
 | ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L3) |
 | ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L10) |
 | ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L17) |

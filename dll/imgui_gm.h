@@ -52,6 +52,7 @@ extern char g_InputBuf[INPUT_SIZE];
 extern int g_KeepAlive;
 extern int g_CommandBuffer;
 extern int g_FontBuffer;
+extern bool g_UpdateFont;
 
 extern RValue g_Copy;
 template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {

@@ -51,9 +51,13 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 		io.Fonts->SetTexID((ImTextureID)-2);
 
 		int offset = 0;
-		BufferWrite<unsigned int>(g_FontBuffer, width, offset, true);
-		BufferWrite<unsigned int>(g_FontBuffer, height, offset, true);
-		BufferWriteContent(g_FontBuffer, offset, pixels, width * height * 4, true);
+		BufferWrite<bool>(g_FontBuffer, g_UpdateFont, offset);
+		if (g_UpdateFont) {
+			BufferWrite<unsigned int>(g_FontBuffer, width, offset, true);
+			BufferWrite<unsigned int>(g_FontBuffer, height, offset, true);
+			BufferWriteContent(g_FontBuffer, offset, pixels, width * height * 4, true);
+			g_UpdateFont = false;
+		}
 	}
 
 	RValue* display = YYStructGetMember(state, "Display");

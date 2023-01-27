@@ -33,6 +33,7 @@ GMFUNC(__imgui_add_font_from_file) {
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImFont* font = io.Fonts->AddFontFromFileTTF(file, size)) {
+		g_UpdateFont = true;
 		Result.kind = VALUE_PTR;
 		Result.ptr = font;
 	}
@@ -44,6 +45,7 @@ GMFUNC(__imgui_add_font_from_file) {
 GMFUNC(__imgui_add_font_default) {
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImFont* font = io.Fonts->AddFontDefault()) {
+		g_UpdateFont = true;
 		Result.kind = VALUE_PTR;
 		Result.ptr = font;
 	}

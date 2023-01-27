@@ -14,6 +14,7 @@ void* g_pHandle;
 int g_KeepAlive;
 int g_CommandBuffer;
 int g_FontBuffer;
+bool g_UpdateFont;
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
@@ -38,6 +39,7 @@ GMFUNC(__imgui_initialize) {
 		static int size = 1024 * 8;
 		g_CommandBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
 		g_FontBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
+		g_UpdateFont = true;
 	}
 
 	g_ImGuiContext = ImGui::CreateContext();
