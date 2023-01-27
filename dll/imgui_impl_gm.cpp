@@ -80,6 +80,14 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 		return;
 	}
 
+	/*
+		NOTE:
+		This sucks! I got really annoyed when trying to figure out index buffers so,
+		I just decided to copy all the verticies in other... it's really slow.
+		
+		Aside from that, sprites' subimages do not work. Nor do surface textures.
+	*/
+
 	BufferWrite<bool>(g_CommandBuffer, data->Valid, cmd_offset);
 	if (data->Valid) {
 		BufferWrite<unsigned int>(g_CommandBuffer, data->CmdListsCount, cmd_offset);
@@ -102,12 +110,6 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 					for (unsigned int k = 0; k < cmd->ElemCount; k++) {
 						const ImDrawVert* vert = &list->VtxBuffer[list->IdxBuffer[cmd->IdxOffset + k]];
 						cmd_offset = BufferWriteContent(g_CommandBuffer, cmd_offset, vert, sizeof(ImDrawVert), true);
-						/*
-						BufferWrite<float>(g_CommandBuffer, vert->pos.x, cmd_offset);
-						BufferWrite<float>(g_CommandBuffer, vert->pos.y, cmd_offset);
-						BufferWrite<float>(g_CommandBuffer, vert->uv.x, cmd_offset);
-						BufferWrite<float>(g_CommandBuffer, vert->uv.y, cmd_offset);
-						BufferWrite<int>(g_CommandBuffer, vert->col, cmd_offset);*/
 					}
 				}
 			}
