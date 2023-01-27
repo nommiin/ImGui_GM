@@ -484,7 +484,7 @@ GMFUNC(__imgui_drawlist_add_image) {
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
 	GMOVERRIDE(DrawListAddImage);
 
-	list->AddImage(GetTexture(), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24));
+	list->AddImage(GetTexture(sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -507,7 +507,7 @@ GMFUNC(__imgui_drawlist_add_image_rounded) {
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
 	GMOVERRIDE(DrawListAddImageRounded);
 
-	list->AddImageRounded(GetTexture(), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24), rounding, flags);
+	list->AddImageRounded(GetTexture(sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24), rounding, flags);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -546,7 +546,7 @@ GMFUNC(__imgui_drawlist_push_textureid) {
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
 	GMOVERRIDE(DrawListPushTextureID);
 
-	list->PushTextureID(GetTexture());
+	list->PushTextureID(GetTexture(sprite));
 	Result.kind = VALUE_UNDEFINED;
 }
 

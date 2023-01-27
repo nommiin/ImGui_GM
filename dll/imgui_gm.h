@@ -50,10 +50,8 @@ static inline double GMCOLOR_FROM(ImVec4 col) {
 extern char g_InputBuf[INPUT_SIZE];
 
 extern int g_KeepAlive;
-extern int g_VertexBuffer;
-extern int g_IndexBuffer;
 extern int g_CommandBuffer;
-
+extern int g_FontBuffer;
 
 extern RValue g_Copy;
 template<typename T> static inline T* YYGetArray(RValue* arg, int ind, int len) {
@@ -77,8 +75,11 @@ template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len)
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 extern ID3D11ShaderResourceView* g_pView;
-static inline ID3D11ShaderResourceView* GetTexture() {
-	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
-	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
-	return g_pView;
+static inline ImTextureID GetTexture(int id) {
+	if (IMGUIGM_NATIVE) {
+		g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
+		g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
+		return g_pView;
+	}
+	return (id != -1 ? (ImTextureID)id : nullptr);
 }

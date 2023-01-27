@@ -59,7 +59,7 @@ GMFUNC(__imgui_image) {
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg0, #arg1)));
 
-	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
+	ImGui::Image(GetTexture(sprite), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -81,7 +81,7 @@ GMFUNC(__imgui_image_button) {
 	GMPREPEND(texture_set_stage(0, sprite_get_texture(#arg1, #arg2)));
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::ImageButton(str_id, GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(bg_color, bg_alpha), GMCOLOR_TO(color, alpha));
+	Result.val = ImGui::ImageButton(str_id, GetTexture(sprite), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(bg_color, bg_alpha), GMCOLOR_TO(color, alpha));
 }
 
 GMFUNC(__imgui_surface) {
@@ -100,7 +100,7 @@ GMFUNC(__imgui_surface) {
 	GMPREPEND(var _tex = surface_get_texture(#arg0); texture_set_stage(0, _tex));
 	GMOVERRIDE(Surface);
 
-	ImGui::Image(GetTexture(), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
+	ImGui::Image(GetTexture(-1), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
 }
 

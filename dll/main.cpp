@@ -12,9 +12,8 @@ ID3D11ShaderResourceView* g_pView;
 void* g_pHandle;
 
 int g_KeepAlive;
-int g_VertexBuffer;
-int g_IndexBuffer;
 int g_CommandBuffer;
+int g_FontBuffer;
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
@@ -29,23 +28,23 @@ GMEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
 
 GMFUNC(__imgui_initialize) {
 	RValue* info = YYGetStruct(arg, 0);
-	g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "Device")->ptr);
-	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "Context")->ptr);
 	g_pHandle = (void*)(YYStructGetMember(info, "Handle")->ptr);
 	g_KeepAlive = CreateDsMap(0);
 
-	if (!IMGUIGM_NATIVE) {
+	if (IMGUIGM_NATIVE) {
+		g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "Device")->ptr);
+		g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "Context")->ptr);
+	} else {
 		static int size = 1024 * 8;
-		g_VertexBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
-		g_IndexBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
 		g_CommandBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
+		g_FontBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
 	}
 
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui_ImplGM_Init(g_pHandle) && ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
+	Result.val = ImGui_ImplGM_Init(g_pHandle) && (!IMGUIGM_NATIVE || ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext));
 }
 
 GMFUNC(__imgui_update) {
@@ -68,7 +67,6 @@ GMFUNC(__imgui_render) {
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		return;
 	}
-
 	ImGui_ImplGM_RenderDrawData(ImGui::GetDrawData());
 }
 

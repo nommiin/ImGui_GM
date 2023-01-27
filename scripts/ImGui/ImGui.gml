@@ -3980,13 +3980,13 @@ function ImGui() constructor {
 		}
 	};
 	
-	static __Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
-	static VtxBuffer = -1;
-	static IdxBuffer = -1;
-	static CmdBuffer = -1;
+	static __CmdBuffer = -1;
+	static __FontBuffer = -1;
 	
-	static VtxFormat = undefined;
-	static VtxBuild = -1;
+	static __VtxBuffer = -1;
+	static __VtxFormat = undefined;
+	
+	static __Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
 	
 	static __Initialize = function() {	
 		var info = os_get_info(), pointers = {
@@ -3998,20 +3998,21 @@ function ImGui() constructor {
 		
 		if (__imgui_initialize(pointers)) {
 			if (!__imguigm_native()) {
-				VtxBuffer = __imguigm_vertex_buffer();
-				IdxBuffer = __imguigm_index_buffer();
-				CmdBuffer = __imguigm_command_buffer();
-				VtxBuild = vertex_create_buffer();
+				__CmdBuffer = __imguigm_command_buffer();
+				__FontBuffer = __imguigm_font_buffer();
+				__VtxBuffer = vertex_create_buffer();
 				
 				vertex_format_begin();
 				vertex_format_add_position();
 				vertex_format_add_texcoord();
 				vertex_format_add_color();
-				VtxFormat = vertex_format_end();
+				__VtxFormat = vertex_format_end();
 			}
 		}
 		return;
 	}
+	
+	static __Font = -1;
 	
 	static __Update = function() {
 		var _w = window_get_width(), _h = window_get_height();
@@ -4040,41 +4041,71 @@ function ImGui() constructor {
 				window_set_cursor(__Cursor[__imgui_mouse_cursor() + 1]);
 			}
 		}
-		return __imgui_update(__State);
+		__imgui_update(__State);
+		
+		if (!__imguigm_native()) {
+			if (!sprite_exists(__Font)) {
+				buffer_seek(__FontBuffer, buffer_seek_start, 0);
+				var width = buffer_read(__FontBuffer, buffer_u32);
+				var height = buffer_read(__FontBuffer, buffer_u32);
+				var surf = surface_create(width, height);
+				buffer_set_surface(__FontBuffer, surf, 8);
+				__Font = sprite_create_from_surface(surf, 0, 0, width, height, false, false, 0, 0);
+				surface_free(surf);
+			}
+			
+		}
 	}
 	
 	static __Render = function() {
 		__imgui_render();
 		if (!__imguigm_native()) {
-			buffer_seek(CmdBuffer, 0, buffer_seek_start);
+			buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 			
-			if (buffer_read(CmdBuffer, buffer_bool)) { // data->Valid
+			if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
 				shader_set(shdImGui);
-				var list_count = buffer_read(CmdBuffer, buffer_u32);
+				var list_count = buffer_read(__CmdBuffer, buffer_u32);
 				for(var i = 0; i < list_count; i++) {
-					var cmd_count = buffer_read(CmdBuffer, buffer_u32);
+					var cmd_count = buffer_read(__CmdBuffer, buffer_u32);
 					for(var j = 0; j < cmd_count; j++) {
-						if (!buffer_read(CmdBuffer, buffer_bool)) {
-							var clip_x1 = buffer_read(CmdBuffer, buffer_f32);
-							var clip_y1 = buffer_read(CmdBuffer, buffer_f32);
-							var clip_x2 = buffer_read(CmdBuffer, buffer_f32);
-							var clip_y2 = buffer_read(CmdBuffer, buffer_f32);
-							var vtx_count = buffer_read(CmdBuffer, buffer_u32);
-							vertex_begin(VtxBuild, VtxFormat);
+						if (!buffer_read(__CmdBuffer, buffer_bool)) {
+							var tex_id = buffer_read(__CmdBuffer, buffer_s32);
+							switch (tex_id) {
+								case -1: { // do nothing
+									break;	
+								}
+								
+								case -2: { // font
+									tex_id = sprite_get_texture(__Font, 0);
+									break;	
+								}
+								
+								default: { // possible sprite
+									tex_id = sprite_get_texture(tex_id, 0);
+									break;	
+								}
+							}
+							
+							var clip_x1 = buffer_read(__CmdBuffer, buffer_f32);
+							var clip_y1 = buffer_read(__CmdBuffer, buffer_f32);
+							var clip_x2 = buffer_read(__CmdBuffer, buffer_f32);
+							var clip_y2 = buffer_read(__CmdBuffer, buffer_f32);
+							var vtx_count = buffer_read(__CmdBuffer, buffer_u32);
+							vertex_begin(__VtxBuffer, __VtxFormat);
 							shader_set_uniform_f_array(__Uniform, [clip_x1, clip_y1, clip_x2, clip_y2]);
 							for(var k = 0; k < vtx_count; k++) {
-								var _x = buffer_read(CmdBuffer, buffer_f32);
-								var _y = buffer_read(CmdBuffer, buffer_f32);
-								var _u = buffer_read(CmdBuffer, buffer_f32);
-								var _v = buffer_read(CmdBuffer, buffer_f32);
-								var _col = buffer_read(CmdBuffer, buffer_u32);
-								var _alpha = buffer_read(CmdBuffer, buffer_f32);
-								vertex_position(VtxBuild, _x, _y);
-								vertex_texcoord(VtxBuild, _u, _v);
-								vertex_color(VtxBuild, _col, _alpha);
+								var _x = buffer_read(__CmdBuffer, buffer_f32);
+								var _y = buffer_read(__CmdBuffer, buffer_f32);
+								var _u = buffer_read(__CmdBuffer, buffer_f32);
+								var _v = buffer_read(__CmdBuffer, buffer_f32);
+								var _col = buffer_read(__CmdBuffer, buffer_u32);
+								var _alpha = (_col >> 24) / 0xFF;
+								vertex_position(__VtxBuffer, _x, _y);
+								vertex_texcoord(__VtxBuffer, _u, _v);
+								vertex_color(__VtxBuffer, _col, _alpha);
 							}
-							vertex_end(VtxBuild);
-							vertex_submit(VtxBuild, pr_trianglelist, -1);
+							vertex_end(__VtxBuffer);
+							vertex_submit(__VtxBuffer, pr_trianglelist, tex_id);
 						}
 					}
 				}

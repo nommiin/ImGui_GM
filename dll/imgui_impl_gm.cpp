@@ -3,6 +3,12 @@
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 
+static char* g_pWrite[128];
+template<typename T> inline void BufferWrite(int buffer, T val, int& offset, bool grow = true) {
+	*(T*)(&g_pWrite) = val;
+	offset = BufferWriteContent(buffer, offset, g_pWrite, sizeof(T), grow);
+}
+
 struct ImGui_ImplGM_Data {
 	ImGui_ImplGM_Data() { memset((void*)this, 0, sizeof(*this)); }
 };
@@ -42,6 +48,12 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 		unsigned char* pixels;
 		int width, height;
 		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+		io.Fonts->SetTexID((ImTextureID)-2);
+
+		int offset = 0;
+		BufferWrite<unsigned int>(g_FontBuffer, width, offset, true);
+		BufferWrite<unsigned int>(g_FontBuffer, height, offset, true);
+		BufferWriteContent(g_FontBuffer, offset, pixels, width * height * 4, true);
 	}
 
 	RValue* display = YYStructGetMember(state, "Display");
@@ -59,12 +71,6 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 	io.MousePos = ImVec2(mouse_x->val, mouse_y->val);
 	io.Framerate = framerate->val;
 	io.DeltaTime = time->val;
-}
-
-static char* g_pWrite[128];
-template<typename T> inline void BufferWrite(int buffer, T val, int& offset, bool grow=true) {
-	*(T*)(&g_pWrite) = val;
-	offset = BufferWriteContent(buffer, offset, g_pWrite, sizeof(T), grow);
 }
 
 void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
@@ -85,20 +91,23 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 				if (cmd->UserCallback != nullptr) {
 					BufferWrite<bool>(g_CommandBuffer, true, cmd_offset);
 				} else {
+					ImTextureID tex_id = cmd->GetTexID();
 					BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
+					BufferWrite<int>(g_CommandBuffer, tex_id != nullptr ? (int)tex_id : -1, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.x, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.y, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.z, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.w, cmd_offset);
 					BufferWrite<unsigned int>(g_CommandBuffer, cmd->ElemCount, cmd_offset);
-					for (int k = 0; k < cmd->ElemCount; k++) {
+					for (unsigned int k = 0; k < cmd->ElemCount; k++) {
 						const ImDrawVert* vert = &list->VtxBuffer[list->IdxBuffer[cmd->IdxOffset + k]];
+						cmd_offset = BufferWriteContent(g_CommandBuffer, cmd_offset, vert, sizeof(ImDrawVert), true);
+						/*
 						BufferWrite<float>(g_CommandBuffer, vert->pos.x, cmd_offset);
 						BufferWrite<float>(g_CommandBuffer, vert->pos.y, cmd_offset);
 						BufferWrite<float>(g_CommandBuffer, vert->uv.x, cmd_offset);
 						BufferWrite<float>(g_CommandBuffer, vert->uv.y, cmd_offset);
-						BufferWrite<int>(g_CommandBuffer, vert->col, cmd_offset);
-						BufferWrite<float>(g_CommandBuffer, (float)(vert->col >> 24) / 0xFF, cmd_offset);
+						BufferWrite<int>(g_CommandBuffer, vert->col, cmd_offset);*/
 					}
 				}
 			}

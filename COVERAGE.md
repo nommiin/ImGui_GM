@@ -463,8 +463,7 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L3) |
 | ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L10) |
 | ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L17) |
-| ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L25) |
-| ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L32) |
+| ImGui._() | [imgui_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_gm.cpp#L24) |
 | ImGui.InputFloatN(label, v, step, step_fast, format, flags, count) | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L127) |
 | ImGui.InputIntN(label, v, flags, count) | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L211) |
 | ImGui.GetCursorStartPosX() | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L81) |
