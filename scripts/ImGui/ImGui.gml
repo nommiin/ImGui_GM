@@ -3980,14 +3980,13 @@ function ImGui() constructor {
 		}
 	};
 	
+	static __Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
 	static VtxBuffer = -1;
 	static IdxBuffer = -1;
 	static CmdBuffer = -1;
-	static VtxBuild = -1;
-	static VtxFormat = undefined;
 	
-	static VtxSize = 4 * 6;
-	static IdxSize = 2;
+	static VtxFormat = undefined;
+	static VtxBuild = -1;
 	
 	static __Initialize = function() {	
 		var info = os_get_info(), pointers = {
@@ -4044,57 +4043,42 @@ function ImGui() constructor {
 		return __imgui_update(__State);
 	}
 	
-	static Write = false;
 	static __Render = function() {
 		__imgui_render();
 		if (!__imguigm_native()) {
 			buffer_seek(CmdBuffer, 0, buffer_seek_start);
 			
-			if (buffer_read(CmdBuffer, buffer_bool)) {
-				var list_count = buffer_read(CmdBuffer, buffer_u32); 
-				var clip_x = 0;
-				var clip_y = 0;
-				
-				var idx_total = 0;
+			if (buffer_read(CmdBuffer, buffer_bool)) { // data->Valid
+				shader_set(shdImGui);
+				var list_count = buffer_read(CmdBuffer, buffer_u32);
 				for(var i = 0; i < list_count; i++) {
 					var cmd_count = buffer_read(CmdBuffer, buffer_u32);
-					draw_text(4, 4 + (14 * i), string("List #{0}: {1} commands", i, cmd_count));
-					
 					for(var j = 0; j < cmd_count; j++) {
 						if (!buffer_read(CmdBuffer, buffer_bool)) {
-							// non-callback
-							var elem_count = buffer_read(CmdBuffer, buffer_u32);
-							var idx_offset = buffer_read(CmdBuffer, buffer_u32);
 							var clip_x1 = buffer_read(CmdBuffer, buffer_f32);
 							var clip_y1 = buffer_read(CmdBuffer, buffer_f32);
 							var clip_x2 = buffer_read(CmdBuffer, buffer_f32);
 							var clip_y2 = buffer_read(CmdBuffer, buffer_f32);
-							
-							draw_primitive_begin(pr_trianglelist);
-							for(var k = 0; k < elem_count; k++) {
-								var vtx_ind = buffer_peek(IdxBuffer, ((idx_offset + idx_total) + k) * IdxSize, buffer_u16);
-								var vtx_base = vtx_ind * VtxSize;
-								//var idx_base = idx * IdxSize;
-								
-								var _x = buffer_peek(VtxBuffer, vtx_base, buffer_f32);
-								var _y = buffer_peek(VtxBuffer, vtx_base + 4, buffer_f32);
-								var _u = buffer_peek(VtxBuffer, vtx_base + 8, buffer_f32);
-								var _v = buffer_peek(VtxBuffer, vtx_base + 12, buffer_f32);
-								var _col = buffer_peek(VtxBuffer, vtx_base + 16, buffer_u32);
-								var _alpha = buffer_peek(VtxBuffer, vtx_base + 20, buffer_f32);
-								
-								draw_vertex_texture_color(_x, _y, _u, _v, _col, _alpha);
-								
-								//var c = make_colour_hsv(255 * (k / elem_count), 128, 255);
-								//draw_circle_color(_x, _y, 2, c, c, false);
-								idx_total += elem_count;
+							var vtx_count = buffer_read(CmdBuffer, buffer_u32);
+							vertex_begin(VtxBuild, VtxFormat);
+							shader_set_uniform_f_array(__Uniform, [clip_x1, clip_y1, clip_x2, clip_y2]);
+							for(var k = 0; k < vtx_count; k++) {
+								var _x = buffer_read(CmdBuffer, buffer_f32);
+								var _y = buffer_read(CmdBuffer, buffer_f32);
+								var _u = buffer_read(CmdBuffer, buffer_f32);
+								var _v = buffer_read(CmdBuffer, buffer_f32);
+								var _col = buffer_read(CmdBuffer, buffer_u32);
+								var _alpha = buffer_read(CmdBuffer, buffer_f32);
+								vertex_position(VtxBuild, _x, _y);
+								vertex_texcoord(VtxBuild, _u, _v);
+								vertex_color(VtxBuild, _col, _alpha);
 							}
-							draw_primitive_end();
-							
-							draw_rectangle_color(clip_x1, clip_y1, clip_x2, clip_y2, c_red, c_red, c_red, c_red, true);
+							vertex_end(VtxBuild);
+							vertex_submit(VtxBuild, pr_trianglelist, -1);
 						}
 					}
 				}
+				shader_reset();
 			}
 		}
 	}
