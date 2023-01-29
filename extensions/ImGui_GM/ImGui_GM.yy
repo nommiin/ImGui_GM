@@ -19,7 +19,7 @@
   "extensionVersion": "1.0.4",
   "files": [
     {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[
-        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"IMGUI_GM_VERSION","hidden":false,"value":"\"1.0.3\"",},
+        {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"IMGUI_GM_VERSION","hidden":false,"value":"\"1.0.4\"",},
       ],"copyToTargets":-1,"filename":"imgui_gm.dll","final":"","functions":[
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_initialize","argCount":0,"args":[],"documentation":"/// @function __imgui_initialize(info)\r\n/// @argument {ds_map} info - Operating system info","externalName":"__imgui_initialize","help":"","hidden":false,"kind":1,"returnType":1,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"__imgui_update","argCount":0,"args":[],"documentation":"","externalName":"__imgui_update","help":"","hidden":false,"kind":1,"returnType":1,},
