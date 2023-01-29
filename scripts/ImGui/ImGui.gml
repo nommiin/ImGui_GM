@@ -4050,13 +4050,14 @@ function ImGui() constructor {
 				buffer_set_surface(__FontBuffer, font, 9);
 				__Font = sprite_create_from_surface(font, 0, 0, surface_get_width(font), surface_get_height(font), false, false, 0, 0);
 				surface_free(font);
-				show_debug_message("made font");
 			}
 		}
 	}
 	
 	static __Render = function() {
 		__imgui_render();
+		
+		// NOTE: Only used by GML renderer, enabled by setting IMGUIGM_NATIVE to false in imgui_gm.h
 		if (!__imguigm_native()) {
 			buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 			
