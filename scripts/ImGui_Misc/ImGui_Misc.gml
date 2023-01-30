@@ -157,6 +157,13 @@ enum ImGuiReturnMask {
 	Both = ImGuiReturnMask.Return | ImGuiReturnMask.Pointer
 }
 
+enum ImGuiTextureType {
+	Raw = 1 << 0,
+	Sprite = 1 << 1,
+	Surface = 1 << 2,
+	Font = 1 << 3
+}
+
 // slightly modified from imgui.h
 enum ImGuiKey
 {

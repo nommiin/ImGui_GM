@@ -48,7 +48,7 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 		unsigned char* pixels;
 		int width, height;
 		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-		io.Fonts->SetTexID((ImTextureID)-2);
+		io.Fonts->SetTexID((ImTextureID)TextureType_Font);
 
 		int offset = 0;
 		BufferWrite<bool>(g_FontBuffer, g_UpdateFont, offset);
@@ -104,9 +104,10 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 				if (cmd->UserCallback != nullptr) {
 					BufferWrite<bool>(g_CommandBuffer, true, cmd_offset);
 				} else {
-					ImTextureID tex_id = cmd->GetTexID();
 					BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
-					BufferWrite<int>(g_CommandBuffer, tex_id != nullptr ? (int)tex_id : -1, cmd_offset);
+
+					ImTextureID texture = cmd->GetTexID();
+					BufferWrite<unsigned int>(g_CommandBuffer, texture != nullptr ? (unsigned int)texture : 0, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.x, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.y, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.z, cmd_offset);

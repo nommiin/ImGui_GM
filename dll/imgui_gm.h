@@ -73,14 +73,21 @@ template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len)
 	return;
 }
 
+enum TextureType : char {
+	TextureType_Raw = 1 << 0,
+	TextureType_Sprite = 1 << 1,
+	TextureType_Surface = 1 << 2,
+	TextureType_Font = 1 << 3
+};
+
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 extern ID3D11ShaderResourceView* g_pView;
-static inline ImTextureID GetTexture(int id) {
+static inline ImTextureID GetTexture(unsigned int id, unsigned int subimg, TextureType type=TextureType_Raw) {
 	if (IMGUIGM_NATIVE) {
 		g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
 		g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
 		return g_pView;
 	}
-	return (id != -1 ? (ImTextureID)id : nullptr);
+	return (ImTextureID)((((subimg << 8) | id) << 4) | type);
 }

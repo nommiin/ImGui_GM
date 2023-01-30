@@ -4147,19 +4147,21 @@ function ImGui() constructor {
 					var cmd_count = buffer_read(__CmdBuffer, buffer_u32);
 					for(var j = 0; j < cmd_count; j++) {
 						if (!buffer_read(__CmdBuffer, buffer_bool)) {
-							var tex_id = buffer_read(__CmdBuffer, buffer_s32);
-							switch (tex_id) {
-								case -1: { // do nothing
-									break;	
+							var tex_data = buffer_read(__CmdBuffer, buffer_u32);
+							var tex_id = -1;
+							switch (tex_data & 0xF) {
+								case ImGuiTextureType.Surface: {
+									tex_id = surface_get_texture(tex_data >> 4);
+									break;
 								}
 								
-								case -2: { // font
+								case ImGuiTextureType.Font: {
 									tex_id = sprite_get_texture(__Font, 0);
 									break;	
 								}
 								
-								default: { // possible sprite
-									tex_id = sprite_get_texture(tex_id, 0);
+								case ImGuiTextureType.Sprite: {
+									tex_id = sprite_get_texture((tex_data >> 4) & 0xFF, tex_data >> 12);
 									break;	
 								}
 							}
