@@ -3982,6 +3982,7 @@ function ImGui() constructor {
 	
 	static __CmdBuffer = -1;
 	static __FontBuffer = -1;
+	static __Font = -1;
 	
 	static __VtxBuffer = -1;
 	static __VtxFormat = undefined;
@@ -4011,11 +4012,9 @@ function ImGui() constructor {
 		}
 		return;
 	}
-	
-	static __Font = -1;
 
 	static __Update = function() {
-		var _w = window_get_width(), _h = window_get_height();
+		var _w = display_get_gui_width(), _h = display_get_gui_height();
 		__State.Display.Width = _w;
 		__State.Display.Height = _h;
 		__State.Engine.Time = delta_time / 1_000_000;
