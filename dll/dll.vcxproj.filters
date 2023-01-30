@@ -102,6 +102,24 @@
     <ClCompile Include="imgui_plots_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_drawlist_gm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_fonts_gm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_gm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_gm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_payload_gm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_ext_memeditor_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h">
@@ -141,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui_gm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_gm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

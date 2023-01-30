@@ -1355,6 +1355,29 @@ function ImGui() constructor {
 		return __imgui_drawlist_flag_toggle(list, flag);
 	}
 
+	/// @function MemoryEditorShowWindow(title, buffer, offset, size)
+	/// @argument {String} title
+	/// @argument {Real} buffer
+	/// @argument {Real} [offset=0]
+	/// @argument {Real} [size=buffer_get_size⌊buffer⌉]
+	/// @context ImGui
+	/// @return {Undefined}
+	static MemoryEditorShowWindow = function(title, buffer, offset=0, size=buffer_get_size(buffer)) {
+		gml_pragma("forceinline");
+		return __imgui_memory_editor_window(title, buffer, offset, size);
+	}
+
+	/// @function MemoryEditorDrawContents(buffer, offset, size)
+	/// @argument {Real} buffer
+	/// @argument {Real} [offset=0]
+	/// @argument {Real} [size=buffer_get_size⌊buffer⌉]
+	/// @context ImGui
+	/// @return {Unknown<unset>}
+	static MemoryEditorDrawContents = function(buffer, offset=0, size=buffer_get_size(buffer)) {
+		gml_pragma("forceinline");
+		return __imgui_memory_editor_contents(buffer, offset, size);
+	}
+
 	/// @function GetFont()
 	/// @context ImGui
 	/// @return {Pointer}
@@ -3384,6 +3407,49 @@ function ImGui() constructor {
 	static SetScrollFromPosY = function(local_y, center_y_ratio=0.5) {
 		gml_pragma("forceinline");
 		return __imgui_set_scroll_from_pos_y(local_y, center_y_ratio);
+	}
+
+	/// @function SetWindowPos(_x, _y, cond)
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetWindowPos = function(_x, _y, cond=ImGuiCond.None) {
+		gml_pragma("forceinline");
+		return __imgui_set_window_pos(_x, _y, cond);
+	}
+
+	/// @function SetWindowSize(name, width, height, cond)
+	/// @argument {String} [name=]
+	/// @argument {Real} width
+	/// @argument {Real} height
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetWindowSize = function(name="", width, height, cond=ImGuiCond.None) {
+		gml_pragma("forceinline");
+		return __imgui_set_window_size(name, width, height, cond);
+	}
+
+	/// @function SetWindowCollapsed(name, collapsed, cond)
+	/// @argument {String} [name=]
+	/// @argument {Bool} collapsed
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetWindowCollapsed = function(name="", collapsed, cond=ImGuiCond.None) {
+		gml_pragma("forceinline");
+		return __imgui_set_window_collapsed(name, collapsed, cond);
+	}
+
+	/// @function SetWindowFocus(name)
+	/// @argument {String} [name=]
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetWindowFocus = function(name="") {
+		gml_pragma("forceinline");
+		return __imgui_set_window_focus(name);
 	}
 
 	/// @section Enums
