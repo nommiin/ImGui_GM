@@ -4168,22 +4168,12 @@ function ImGui() constructor {
 							var clip_y1 = buffer_read(__CmdBuffer, buffer_f32);
 							var clip_x2 = buffer_read(__CmdBuffer, buffer_f32);
 							var clip_y2 = buffer_read(__CmdBuffer, buffer_f32);
-							var vtx_count = buffer_read(__CmdBuffer, buffer_u32);
-							vertex_begin(__VtxBuffer, __VtxFormat);
 							shader_set_uniform_f_array(__Uniform, [clip_x1, clip_y1, clip_x2, clip_y2]);
-							for(var k = 0; k < vtx_count; k++) {
-								var _x = buffer_read(__CmdBuffer, buffer_f32);
-								var _y = buffer_read(__CmdBuffer, buffer_f32);
-								var _u = buffer_read(__CmdBuffer, buffer_f32);
-								var _v = buffer_read(__CmdBuffer, buffer_f32);
-								var _col = buffer_read(__CmdBuffer, buffer_u32);
-								var _alpha = (_col >> 24) / 0xFF;
-								vertex_position(__VtxBuffer, _x, _y);
-								vertex_texcoord(__VtxBuffer, _u, _v);
-								vertex_color(__VtxBuffer, _col, _alpha);
-							}
-							vertex_end(__VtxBuffer);
-							vertex_submit(__VtxBuffer, pr_trianglelist, tex_id);
+							var vtx_count = buffer_read(__CmdBuffer, buffer_u32);
+							var vtx_buff = vertex_create_buffer_from_buffer_ext(__CmdBuffer, __VtxFormat, buffer_tell(__CmdBuffer), vtx_count);
+							vertex_submit(vtx_buff, pr_trianglelist, tex_id);
+							buffer_seek(__CmdBuffer, buffer_seek_relative, 20 * vtx_count);
+							vertex_delete_buffer(vtx_buff);
 						}
 					}
 				}
