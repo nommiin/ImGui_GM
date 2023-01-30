@@ -447,7 +447,7 @@ class Program {
         content += "| Function | Link |\n";
         content += "| -------- | ---- |\n";
         wrappers.forEach(e => {
-            if (!e?.Found) {
+            if (!e?.Found && e.Calls !== "_") {
                 content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${e.File}#L${e.Line}) |\n`;
             }
         });
