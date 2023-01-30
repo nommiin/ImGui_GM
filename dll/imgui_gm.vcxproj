@@ -67,6 +67,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>..\extensions\ImGui_GM\imgui_gm.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>node ..\tools\brief\main.js</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -86,6 +89,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ImportLibrary>..\extensions\ImGui_GM\imgui_gm.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>node ..\tools\brief\main.js</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h" />

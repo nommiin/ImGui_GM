@@ -4,13 +4,6 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_impl_gm.h"
-#include "imgui_impl_dx11.h"
-
-#include <d3d11.h>
-
-// Configuration
-// If true, ImGui_GM will render via native platform APIs (currently only Windows)
-#define IMGUIGM_NATIVE true
 
 // Modifiers for brief (see Wrapper.js)
 #define GMDEFAULT(...) /**/
@@ -80,14 +73,6 @@ enum TextureType : char {
 	TextureType_Font = 1 << 3
 };
 
-extern ID3D11Device* g_pd3dDevice;
-extern ID3D11DeviceContext* g_pd3dDeviceContext;
-extern ID3D11ShaderResourceView* g_pView;
 static inline ImTextureID GetTexture(unsigned int id, unsigned int subimg, TextureType type=TextureType_Raw) {
-	if (IMGUIGM_NATIVE) {
-		g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
-		g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
-		return g_pView;
-	}
 	return (ImTextureID)((((subimg << 8) | id) << 4) | type);
 }

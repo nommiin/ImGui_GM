@@ -4064,32 +4064,22 @@ function ImGui() constructor {
 	static __Uniform = undefined;
 	
 	static __Context = __imgui_create_context();
-	
 	static __Initialize = function() {	
-		var info = os_get_info(), pointers = {
-			Device: info[? "video_d3d11_device"],
-			Context: info[? "video_d3d11_context"],
-			Handle: window_handle()
-		};
-		ds_map_destroy(info);
-		
-		if (__imgui_initialize(pointers, __Context) == pointer_null) {
+		if (__imgui_initialize(window_handle(), __Context) == pointer_null) {
 			show_error("Something failed to initialize with ImGui_GM!", true);
 			return;
 		}
 		
-		if (!__imguigm_native()) {
-			__CmdBuffer = __imguigm_command_buffer();
-			__FontBuffer = __imguigm_font_buffer();
-			__VtxBuffer = vertex_create_buffer();
-			__Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
+		__CmdBuffer = __imguigm_command_buffer();
+		__FontBuffer = __imguigm_font_buffer();
+		__VtxBuffer = vertex_create_buffer();
+		__Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
 				
-			vertex_format_begin();
-			vertex_format_add_position();
-			vertex_format_add_texcoord();
-			vertex_format_add_color();
-			__VtxFormat = vertex_format_end();
-		}
+		vertex_format_begin();
+		vertex_format_add_position();
+		vertex_format_add_texcoord();
+		vertex_format_add_color();
+		__VtxFormat = vertex_format_end();
 		return;
 	}
 
@@ -4122,14 +4112,12 @@ function ImGui() constructor {
 		}
 		
 		__imgui_update(__State);
-		if (!__imguigm_native()) {
-			if (buffer_peek(__FontBuffer, 0, buffer_bool)) {
-				if (sprite_exists(__Font)) sprite_delete(__Font);
-				var font = surface_create(buffer_peek(__FontBuffer, 1, buffer_u32), buffer_peek(__FontBuffer, 5, buffer_u32));
-				buffer_set_surface(__FontBuffer, font, 9);
-				__Font = sprite_create_from_surface(font, 0, 0, surface_get_width(font), surface_get_height(font), false, false, 0, 0);
-				surface_free(font);
-			}
+		if (buffer_peek(__FontBuffer, 0, buffer_bool)) {
+			if (sprite_exists(__Font)) sprite_delete(__Font);
+			var font = surface_create(buffer_peek(__FontBuffer, 1, buffer_u32), buffer_peek(__FontBuffer, 5, buffer_u32));
+			buffer_set_surface(__FontBuffer, font, 9);
+			__Font = sprite_create_from_surface(font, 0, 0, surface_get_width(font), surface_get_height(font), false, false, 0, 0);
+			surface_free(font);
 		}
 	}
 	
@@ -4137,50 +4125,48 @@ function ImGui() constructor {
 		__imgui_render();
 		
 		// NOTE: Only used by GML renderer, enabled by setting IMGUIGM_NATIVE to false in imgui_gm.h
-		if (!__imguigm_native()) {
-			buffer_seek(__CmdBuffer, buffer_seek_start, 0);
+		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 			
-			if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
-				shader_set(shdImGui);
-				var list_count = buffer_read(__CmdBuffer, buffer_u32);
-				for(var i = 0; i < list_count; i++) {
-					var cmd_count = buffer_read(__CmdBuffer, buffer_u32);
-					for(var j = 0; j < cmd_count; j++) {
-						if (!buffer_read(__CmdBuffer, buffer_bool)) {
-							var tex_data = buffer_read(__CmdBuffer, buffer_u32);
-							var tex_id = -1;
-							switch (tex_data & 0xF) {
-								case ImGuiTextureType.Surface: {
-									tex_id = surface_get_texture(tex_data >> 4);
-									break;
-								}
-								
-								case ImGuiTextureType.Font: {
-									tex_id = sprite_get_texture(__Font, 0);
-									break;	
-								}
-								
-								case ImGuiTextureType.Sprite: {
-									tex_id = sprite_get_texture((tex_data >> 4) & 0xFF, tex_data >> 12);
-									break;	
-								}
+		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
+			shader_set(shdImGui);
+			var list_count = buffer_read(__CmdBuffer, buffer_u32);
+			for(var i = 0; i < list_count; i++) {
+				var cmd_count = buffer_read(__CmdBuffer, buffer_u32);
+				for(var j = 0; j < cmd_count; j++) {
+					if (!buffer_read(__CmdBuffer, buffer_bool)) {
+						var tex_data = buffer_read(__CmdBuffer, buffer_u32);
+						var tex_id = -1;
+						switch (tex_data & 0xF) {
+							case ImGuiTextureType.Surface: {
+								tex_id = surface_get_texture(tex_data >> 4);
+								break;
 							}
-							
-							var clip_x1 = buffer_read(__CmdBuffer, buffer_f32);
-							var clip_y1 = buffer_read(__CmdBuffer, buffer_f32);
-							var clip_x2 = buffer_read(__CmdBuffer, buffer_f32);
-							var clip_y2 = buffer_read(__CmdBuffer, buffer_f32);
-							shader_set_uniform_f_array(__Uniform, [clip_x1, clip_y1, clip_x2, clip_y2]);
-							var vtx_count = buffer_read(__CmdBuffer, buffer_u32);
-							var vtx_buff = vertex_create_buffer_from_buffer_ext(__CmdBuffer, __VtxFormat, buffer_tell(__CmdBuffer), vtx_count);
-							vertex_submit(vtx_buff, pr_trianglelist, tex_id);
-							buffer_seek(__CmdBuffer, buffer_seek_relative, 20 * vtx_count);
-							vertex_delete_buffer(vtx_buff);
+								
+							case ImGuiTextureType.Font: {
+								tex_id = sprite_get_texture(__Font, 0);
+								break;	
+							}
+								
+							case ImGuiTextureType.Sprite: {
+								tex_id = sprite_get_texture((tex_data >> 4) & 0xFF, tex_data >> 12);
+								break;	
+							}
 						}
+						
+						var clip_x1 = buffer_read(__CmdBuffer, buffer_f32);
+						var clip_y1 = buffer_read(__CmdBuffer, buffer_f32);
+						var clip_x2 = buffer_read(__CmdBuffer, buffer_f32);
+						var clip_y2 = buffer_read(__CmdBuffer, buffer_f32);
+						shader_set_uniform_f_array(__Uniform, [clip_x1, clip_y1, clip_x2, clip_y2]);
+						var vtx_count = buffer_read(__CmdBuffer, buffer_u32);
+						var vtx_buff = vertex_create_buffer_from_buffer_ext(__CmdBuffer, __VtxFormat, buffer_tell(__CmdBuffer), vtx_count);
+						vertex_submit(vtx_buff, pr_trianglelist, tex_id);
+						buffer_seek(__CmdBuffer, buffer_seek_relative, 20 * vtx_count);
+						vertex_delete_buffer(vtx_buff);
 					}
 				}
-				shader_reset();
 			}
+			shader_reset();
 		}
 	}
 };

@@ -6,11 +6,7 @@ static bool g_ImGuiInitialized = false;
 char g_InputBuf[INPUT_SIZE];
 RValue g_Copy;
 
-ID3D11Device* g_pd3dDevice;
-ID3D11DeviceContext* g_pd3dDeviceContext;
-ID3D11ShaderResourceView* g_pView;
 void* g_pHandle;
-
 int g_KeepAlive;
 int g_CommandBuffer;
 int g_FontBuffer;
@@ -28,35 +24,19 @@ GMEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
 }
 
 GMFUNC(__imgui_initialize) {
-	RValue* info = YYGetStruct(arg, 0);
-	g_pHandle = (void*)(YYStructGetMember(info, "Handle")->ptr);
+	g_pHandle = YYGetPtr(arg, 0);
 	g_KeepAlive = CreateDsMap(0);
-	ImGuiContext* context = (ImGuiContext*)YYGetPtr(arg, 1);
-
-	if (IMGUIGM_NATIVE) {
-		g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "Device")->ptr);
-		g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "Context")->ptr);
-	} else {
-		static int size = 1024 * 8;
-		g_CommandBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
-		g_FontBuffer = CreateBuffer(size, eBuffer_Format_Grow, 1);
-		g_UpdateFont = true;
-	}
-
-	g_ImGuiContext = context;
+	g_ImGuiContext = (ImGuiContext*)YYGetPtr(arg, 1);
 	g_ImGuiInitialized = true;
+
+	g_CommandBuffer = CreateBuffer(1024 * 8, eBuffer_Format_Grow, 1);
+	g_FontBuffer = CreateBuffer(1024 * 8, eBuffer_Format_Grow, 1);
+	g_UpdateFont = true;
 
 	Result.kind = VALUE_PTR;
 	if (!ImGui_ImplGM_Init(g_pHandle)) {
 		Result.ptr = nullptr;
 		return;
-	}
-
-	if (IMGUIGM_NATIVE) {
-		if (!ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext)) {
-			Result.ptr = nullptr;
-			return;
-		}
 	}
 	Result.ptr = g_ImGuiContext;
 }
@@ -67,9 +47,6 @@ GMFUNC(__imgui_update) {
 	if (!g_ImGuiInitialized) ShowError("Could not call update function when ImGui_GM is not initialized");
 
 	ImGui_ImplGM_NewFrame(state);
-	if (IMGUIGM_NATIVE) {
-		ImGui_ImplDX11_NewFrame();
-	}
 	ImGui::NewFrame();
 }
 
@@ -77,10 +54,6 @@ GMFUNC(__imgui_render) {
 	if (!g_ImGuiInitialized) ShowError("Could not call render function when ImGui_GM is not initialized");
 
 	ImGui::Render();
-	if (IMGUIGM_NATIVE) {
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-		return;
-	}
 	ImGui_ImplGM_RenderDrawData(ImGui::GetDrawData());
 }
 

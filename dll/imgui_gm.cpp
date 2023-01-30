@@ -4,7 +4,7 @@ GMFUNC(__imguigm_native) {
 	GMOVERRIDE(_);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = IMGUIGM_NATIVE;
+	Result.val = false;
 }
 
 GMFUNC(__imguigm_command_buffer) {

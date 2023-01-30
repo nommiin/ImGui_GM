@@ -43,21 +43,18 @@ void ImGui_ImplGM_NewFrame(RValue* const state) {
 	ImGui_ImplGM_Data* bd = ImGui_ImplGM_GetBackendData();
 	IM_ASSERT(bd != nullptr && "Did you call ImGui_ImplGM_GetBackendData()?");
 
-	// Setup font textures if using GML renderer
-	if (!IMGUIGM_NATIVE) {
-		unsigned char* pixels;
-		int width, height;
-		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-		io.Fonts->SetTexID((ImTextureID)TextureType_Font);
+	unsigned char* pixels;
+	int width, height;
+	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+	io.Fonts->SetTexID((ImTextureID)TextureType_Font);
 
-		int offset = 0;
-		BufferWrite<bool>(g_FontBuffer, g_UpdateFont, offset);
-		if (g_UpdateFont) {
-			BufferWrite<unsigned int>(g_FontBuffer, width, offset, true);
-			BufferWrite<unsigned int>(g_FontBuffer, height, offset, true);
-			BufferWriteContent(g_FontBuffer, offset, pixels, width * height * 4, true);
-			g_UpdateFont = false;
-		}
+	int offset = 0;
+	BufferWrite<bool>(g_FontBuffer, g_UpdateFont, offset);
+	if (g_UpdateFont) {
+		BufferWrite<unsigned int>(g_FontBuffer, width, offset, true);
+		BufferWrite<unsigned int>(g_FontBuffer, height, offset, true);
+		BufferWriteContent(g_FontBuffer, offset, pixels, width * height * 4, true);
+		g_UpdateFont = false;
 	}
 
 	RValue* display = YYStructGetMember(state, "Display");
@@ -83,15 +80,6 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 		BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
 		return;
 	}
-
-	/*
-		NOTE:
-		This sucks! I got really annoyed when trying to figure out index buffers so,
-		I just decided to copy all the verticies in order... it's really slow.
-		
-		Aside from that, sprites' subimages do not work. Nor do surface textures.
-		But it works for now!
-	*/
 
 	BufferWrite<bool>(g_CommandBuffer, data->Valid, cmd_offset);
 	if (data->Valid) {
