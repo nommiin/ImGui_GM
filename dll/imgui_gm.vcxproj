@@ -122,7 +122,6 @@
     <ClCompile Include="imgui_ext_memeditor_gm.cpp" />
     <ClCompile Include="imgui_fonts_gm.cpp" />
     <ClCompile Include="imgui_gm.cpp" />
-    <ClCompile Include="imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui_impl_gm.cpp" />
     <ClCompile Include="imgui_input_gm.cpp" />
     <ClCompile Include="imgui_layout_gm.cpp" />

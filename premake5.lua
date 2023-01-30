@@ -7,15 +7,25 @@ project "imgui_gm"
     kind "SharedLib"
     language "C++"
     targetdir "extensions/ImGui_GM/"
-    defines { "OS_Windows", "GDKEXTENSION_EXPORTS", "__YYDEFINE_EXTENSION_FUNCTIONS__" }
+    defines { "GDKEXTENSION_EXPORTS", "__YYDEFINE_EXTENSION_FUNCTIONS__" }
 
     files {"dll/*.h", "dll/*.cpp"}
     vpaths {
         ["Header Files"] = "**.h",
         ["Source Files"] = {"**.c", "**.cpp"},
         ["Source Files/Wrappers"] = {"dll/imgui_*_gm.cpp"}
-     }
-     
+    }
+
+    filter { "action:vs*" }
+        defines "OS_Windows"
+
+    filter { "action:gmake*" }
+        defines "OS_Linux"
+        pic "on"
+        buildoptions {
+            "-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"
+        }
+
     filter "configurations:Debug"
       defines { "DEBUG" }
       symbols "On"

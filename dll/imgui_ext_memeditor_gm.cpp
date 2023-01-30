@@ -1,5 +1,5 @@
-#include "imgui_gm.h";
-#include "imgui_memory_editor.h";
+#include "imgui_gm.h"
+#include "imgui_memory_editor.h"
 
 static MemoryEditor s_Editor;
 GMFUNC(__imgui_memory_editor_window) {

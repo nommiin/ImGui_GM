@@ -7,7 +7,7 @@ GMFUNC(__imgui_input_text) {
 	ImGuiInputTextFlags flags = YYGetReal(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy_s(g_InputBuf, val);
+	strcpy(g_InputBuf, val);
 	ImGui::InputText(label, g_InputBuf, IM_ARRAYSIZE(g_InputBuf), flags);
 	YYCreateString(&g_Copy, g_InputBuf);
 	COPY_RValue(&Result, &g_Copy);
@@ -24,7 +24,7 @@ GMFUNC(__imgui_input_textmultiline) {
 	ImGuiInputTextFlags flags = YYGetReal(arg, 4);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy_s(g_InputBuf, val);
+	strcpy(g_InputBuf, val);
 	ImGui::InputTextMultiline(label, g_InputBuf, IM_ARRAYSIZE(g_InputBuf), ImVec2(width, height), flags);
 	YYCreateString(&g_Copy, g_InputBuf);
 	COPY_RValue(&Result, &g_Copy);
@@ -38,7 +38,7 @@ GMFUNC(__imgui_input_textwithhint) {
 	ImGuiInputTextFlags flags = YYGetReal(arg, 3);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy_s(g_InputBuf, val);
+	strcpy(g_InputBuf, val);
 	ImGui::InputTextWithHint(label, hint, g_InputBuf, IM_ARRAYSIZE(g_InputBuf), flags);
 	YYCreateString(&g_Copy, g_InputBuf);
 	COPY_RValue(&Result, &g_Copy);

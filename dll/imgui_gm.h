@@ -15,11 +15,18 @@
 #define GMRETURN(...) /**/
 #define GMRETURNS(...) /**/
 #define GMHINT(...) /**/
+#ifdef _WIN32
 #define GMEXPORT __declspec(dllexport)
+#elif __linux__
+#define GMEXPORT __attribute__((visibility("default")))
+#endif
+
 #define GMFUNC(name) GMEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 
+
+
 // Interface
-#define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- " __VA_ARGS__)
+#define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- ", __VA_ARGS__)
 #define WriteLog(...) DebugConsoleOutput("[ImGui_GM] %s\n", __VA_ARGS__)
 
 // Helpers
@@ -67,10 +74,10 @@ template<typename T> static inline void YYSetArray(RValue* arg, T* arr, int len)
 }
 
 enum TextureType : char {
-	TextureType_Raw = 1 << 0,
-	TextureType_Sprite = 1 << 1,
-	TextureType_Surface = 1 << 2,
-	TextureType_Font = 1 << 3
+	TextureType_Raw = 0,
+	TextureType_Sprite = 1 << 0,
+	TextureType_Surface = 1 << 1,
+	TextureType_Font = 1 << 2
 };
 
 static inline ImTextureID GetTexture(unsigned int id, unsigned int subimg, TextureType type=TextureType_Raw) {

@@ -158,10 +158,10 @@ enum ImGuiReturnMask {
 }
 
 enum ImGuiTextureType {
-	Raw = 1 << 0,
-	Sprite = 1 << 1,
-	Surface = 1 << 2,
-	Font = 1 << 3
+	Raw = 0,
+	Sprite = 1 << 0,
+	Surface = 1 << 1,
+	Font = 1 << 2
 }
 
 // slightly modified from imgui.h
