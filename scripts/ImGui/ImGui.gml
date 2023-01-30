@@ -3985,8 +3985,7 @@ function ImGui() constructor {
 	
 	static __VtxBuffer = -1;
 	static __VtxFormat = undefined;
-	
-	static __Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
+	static __Uniform = undefined;
 	
 	static __Initialize = function() {	
 		var info = os_get_info(), pointers = {
@@ -4001,6 +4000,7 @@ function ImGui() constructor {
 				__CmdBuffer = __imguigm_command_buffer();
 				__FontBuffer = __imguigm_font_buffer();
 				__VtxBuffer = vertex_create_buffer();
+				__Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
 				
 				vertex_format_begin();
 				vertex_format_add_position();
