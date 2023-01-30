@@ -34,7 +34,7 @@ GMFUNC(__imgui_initialize) {
 	g_UpdateFont = true;
 
 	Result.kind = VALUE_PTR;
-	if (!ImGui_ImplGM_Init(g_pHandle)) {
+	if (!ImGui_ImplGM_Init(g_pHandle) || !IMGUI_CHECKVERSION()) {
 		Result.ptr = nullptr;
 		return;
 	}

@@ -442,7 +442,6 @@ dll/imgui_draw.cpp
 dll/imgui_demo.cpp
 dll/imgui.h
 dll/imgui.cpp
-dll/imconfig.h
 dll/imgui_impl_dx11.cpp
 dll/imgui_impl_dx11.h
 dll/Extension_Interface.h
