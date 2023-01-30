@@ -45,8 +45,19 @@ GMFUNC(__imgui_initialize) {
 	g_ImGuiContext = ImGui::CreateContext();
 	g_ImGuiInitialized = true;
 
-	Result.kind = VALUE_BOOL;
-	Result.val = ImGui_ImplGM_Init(g_pHandle) && (!IMGUIGM_NATIVE || ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext));
+	Result.kind = VALUE_PTR;
+	if (!ImGui_ImplGM_Init(g_pHandle)) {
+		Result.ptr = nullptr;
+		return;
+	}
+
+	if (IMGUIGM_NATIVE) {
+		if (!ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext)) {
+			Result.ptr = nullptr;
+			return;
+		}
+	}
+	Result.ptr = g_ImGuiContext;
 }
 
 GMFUNC(__imgui_update) {

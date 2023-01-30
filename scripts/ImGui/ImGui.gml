@@ -4062,19 +4062,22 @@ function ImGui() constructor {
 		};
 		ds_map_destroy(info);
 		
-		if (__imgui_initialize(pointers)) {
-			if (!__imguigm_native()) {
-				__CmdBuffer = __imguigm_command_buffer();
-				__FontBuffer = __imguigm_font_buffer();
-				__VtxBuffer = vertex_create_buffer();
-				__Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
+		if (__imgui_initialize(pointers) == pointer_null) {
+			show_error("Something failed to initialize with ImGui_GM!", true);
+			return;
+		}
+		
+		if (!__imguigm_native()) {
+			__CmdBuffer = __imguigm_command_buffer();
+			__FontBuffer = __imguigm_font_buffer();
+			__VtxBuffer = vertex_create_buffer();
+			__Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
 				
-				vertex_format_begin();
-				vertex_format_add_position();
-				vertex_format_add_texcoord();
-				vertex_format_add_color();
-				__VtxFormat = vertex_format_end();
-			}
+			vertex_format_begin();
+			vertex_format_add_position();
+			vertex_format_add_texcoord();
+			vertex_format_add_color();
+			__VtxFormat = vertex_format_end();
 		}
 		return;
 	}

@@ -411,3 +411,10 @@ GMFUNC(__imgui_get_main_viewport) {
 	Result.kind = VALUE_PTR;
 	Result.ptr = ImGui::GetMainViewport();
 }
+
+GMFUNC(__imgui_log_text) {
+	const char* text = YYGetString(arg, 0);
+
+	ImGui::LogText(text);
+	Result.kind = VALUE_UNDEFINED;
+}

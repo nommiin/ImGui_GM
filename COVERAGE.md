@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-293 out of 369 API functions wrapped (**79% complete**)
+294 out of 369 API functions wrapped (**80% complete**)
 
 | Function | Wrapped | Link | Notes |
 | -------- | ------- | ---- | ----- |
@@ -306,7 +306,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::LogToClipboard | ❌ | N/A | N/A |
 | ImGui::LogFinish | ❌ | N/A | N/A |
 | ImGui::LogButtons | ❌ | N/A | N/A |
-| ImGui::LogText | ❌ | N/A | N/A |
+| ImGui::LogText | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L415) | N/A |
 | ImGui::LogTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BeginDragDropSource | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L3) | N/A |
 | ImGui::SetDragDropPayload | ✅ | [imgui_payload_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_payload_gm.cpp#L26) | See [Drag and Drop Payloads](https://github.com/nommiin/ImGui_GM/wiki/Drag-and-Drop-Payloads) for more info on handling payloads |
