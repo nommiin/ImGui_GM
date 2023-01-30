@@ -31,6 +31,7 @@ GMFUNC(__imgui_initialize) {
 	RValue* info = YYGetStruct(arg, 0);
 	g_pHandle = (void*)(YYStructGetMember(info, "Handle")->ptr);
 	g_KeepAlive = CreateDsMap(0);
+	ImGuiContext* context = (ImGuiContext*)YYGetPtr(arg, 1);
 
 	if (IMGUIGM_NATIVE) {
 		g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "Device")->ptr);
@@ -42,7 +43,7 @@ GMFUNC(__imgui_initialize) {
 		g_UpdateFont = true;
 	}
 
-	g_ImGuiContext = ImGui::CreateContext();
+	g_ImGuiContext = context;
 	g_ImGuiInitialized = true;
 
 	Result.kind = VALUE_PTR;

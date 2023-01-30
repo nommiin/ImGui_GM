@@ -469,6 +469,15 @@ function ImGui() constructor {
 		return __imgui_get_main_viewport();
 	}
 
+	/// @function LogText(text)
+	/// @argument {String} text
+	/// @context ImGui
+	/// @return {Undefined}
+	static LogText = function(text) {
+		gml_pragma("forceinline");
+		return __imgui_log_text(text);
+	}
+
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
@@ -1372,7 +1381,7 @@ function ImGui() constructor {
 	/// @argument {Real} [offset=0]
 	/// @argument {Real} [size=buffer_get_size⌊buffer⌉]
 	/// @context ImGui
-	/// @return {Unknown<unset>}
+	/// @return {Undefined}
 	static MemoryEditorDrawContents = function(buffer, offset=0, size=buffer_get_size(buffer)) {
 		gml_pragma("forceinline");
 		return __imgui_memory_editor_contents(buffer, offset, size);
@@ -4054,6 +4063,8 @@ function ImGui() constructor {
 	static __VtxFormat = undefined;
 	static __Uniform = undefined;
 	
+	static __Context = __imgui_create_context();
+	
 	static __Initialize = function() {	
 		var info = os_get_info(), pointers = {
 			Device: info[? "video_d3d11_device"],
@@ -4062,7 +4073,7 @@ function ImGui() constructor {
 		};
 		ds_map_destroy(info);
 		
-		if (__imgui_initialize(pointers) == pointer_null) {
+		if (__imgui_initialize(pointers, __Context) == pointer_null) {
 			show_error("Something failed to initialize with ImGui_GM!", true);
 			return;
 		}
