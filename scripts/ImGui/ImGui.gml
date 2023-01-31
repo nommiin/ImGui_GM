@@ -4124,16 +4124,14 @@ function ImGui() constructor {
 	static __Render = function() {
 		__imgui_render();
 		
-		// NOTE: Only used by GML renderer, enabled by setting IMGUIGM_NATIVE to false in imgui_gm.h
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
-			
 		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
 			shader_set(shdImGui);
 			var list_count = buffer_read(__CmdBuffer, buffer_u32);
 			for(var i = 0; i < list_count; i++) {
 				var cmd_count = buffer_read(__CmdBuffer, buffer_u32);
 				for(var j = 0; j < cmd_count; j++) {
-					if (!buffer_read(__CmdBuffer, buffer_bool)) {
+					if (!buffer_read(__CmdBuffer, buffer_bool)) { // UserCallback != nullptr
 						var tex_data = buffer_read(__CmdBuffer, buffer_u32);
 						var tex_id = -1;
 						switch (tex_data & 0xF) {
