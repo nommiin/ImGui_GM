@@ -95,7 +95,7 @@ void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
 					BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
 
 					ImTextureID texture = cmd->GetTexID();
-					BufferWrite<unsigned int>(g_CommandBuffer, (texture & 0b1111) != 0 ? texture : 0, cmd_offset);
+					BufferWrite<unsigned int>(g_CommandBuffer, (texture & 0xF) != TextureType_Raw ? texture : 0, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.x, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.y, cmd_offset);
 					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.z, cmd_offset);
