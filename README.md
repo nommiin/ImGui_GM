@@ -51,7 +51,7 @@ Pretty much everything is covered! Check out [COVERAGE.MD](https://github.com/no
   - [`brief/Program.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/brief/Program.js) for ImGui to GM binding generation
 
 # Building
-*Using C++20, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
+*Using premake5 5.0.0-beta2, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
 
 0. Use [Premake5](https://premake.github.io/) to generate project files (`vs2022` tested and working, others unknown) 
 1. Run `copy_dependencies.bat` to copy required `.cpp` and `.h` files from `thirdparty/*` into `dll/`
