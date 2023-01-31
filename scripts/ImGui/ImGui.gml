@@ -1259,7 +1259,6 @@ function ImGui() constructor {
 	/// @return {Undefined}
 	static DrawListAddImage = function(list, sprite, subimg, x1, y1, x2, y2, col=c_white) {
 		gml_pragma("forceinline");
-		texture_set_stage(0, sprite_get_texture(sprite, subimg))
 		return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -1278,7 +1277,6 @@ function ImGui() constructor {
 	/// @return {Undefined}
 	static DrawListAddImageRounded = function(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags) {
 		gml_pragma("forceinline");
-		texture_set_stage(0, sprite_get_texture(sprite, subimg))
 		return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -1322,7 +1320,6 @@ function ImGui() constructor {
 	/// @return {Undefined}
 	static DrawListPushTextureID = function(list, sprite, subimg) {
 		gml_pragma("forceinline");
-		texture_set_stage(0, sprite_get_texture(sprite, subimg))
 		return __imgui_drawlist_push_textureid(list, sprite, subimg);
 	}
 
@@ -3025,7 +3022,6 @@ function ImGui() constructor {
 	/// @return {Undefined}
 	static Image = function(sprite, subimg, color=c_white, alpha=1, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
 		gml_pragma("forceinline");
-		texture_set_stage(0, sprite_get_texture(sprite, subimg))
 		return __imgui_image(sprite, subimg, color, alpha, width, height, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -3043,7 +3039,6 @@ function ImGui() constructor {
 	/// @return {Bool}
 	static ImageButton = function(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
 		gml_pragma("forceinline");
-		texture_set_stage(0, sprite_get_texture(sprite, subimg))
 		return __imgui_image_button(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width, height, sprite_get_uvs(sprite, subimg));
 	}
 
