@@ -1,7 +1,14 @@
+// Version Check
+try {
+	var _get = static_get;
+} catch(e) {
+	show_error("ImGui_GM version check failiure, could not find required \"static_get\" function.\nPlease update to a newer runtime that supports this function.", true);	
+}
+show_debug_message("[ImGui_GM] Successfully passed version check");
+
 // All the silly stuff that's too messy for ImGui.gml
 // Used by Color*4 functions, use .Color to get BGR value for GM functions
 function ImColor(red, green, blue, alpha=1) constructor {
-	
 	/*
 		ImColor(c_red);
 		ImColor(c_red, 0.5);
@@ -9,7 +16,6 @@ function ImColor(red, green, blue, alpha=1) constructor {
 		ImColor(128, 255, 255, 0.5);
 		ImColor(c_red | (128 << 24)); Alpha is most-significant byte, basically RGBA int
 	*/
-	
 	a = alpha;
 	if (blue != undefined) {
 		r = red;
@@ -43,105 +49,107 @@ function ImColor(red, green, blue, alpha=1) constructor {
 #macro IMGUI_PAYLOAD_TYPE_COLOR_4F     "_COL4F"    // (GML) struct: Standard type for colors. User code may use this type.
 
 // Call static_get for the ImGui class to initialize statics, required once so everywhere else can access
-var _ = static_get(new ImGui());
-_.__Mapping = array_create(ImGuiKey.KeysData_SIZE, -1);
-_.__Mapping[ImGuiKey.None] = vk_nokey;
-_.__Mapping[ImGuiKey.Enter] = vk_enter;
-_.__Mapping[ImGuiKey.Escape] = vk_escape;
-_.__Mapping[ImGuiKey.Space] = vk_space;
-_.__Mapping[ImGuiKey.Backspace] = vk_backspace;
-_.__Mapping[ImGuiKey.Tab] = vk_tab;
-_.__Mapping[ImGuiKey.Pause] = vk_pause;
-_.__Mapping[ImGuiKey.LeftArrow] = vk_left;
-_.__Mapping[ImGuiKey.RightArrow] = vk_right;
-_.__Mapping[ImGuiKey.UpArrow] = vk_up;
-_.__Mapping[ImGuiKey.DownArrow] = vk_down;
-_.__Mapping[ImGuiKey.Home] = vk_home;
-_.__Mapping[ImGuiKey.End] = vk_end;
-_.__Mapping[ImGuiKey.Delete] = vk_delete;
-_.__Mapping[ImGuiKey.Insert] = vk_insert;
-_.__Mapping[ImGuiKey.PageUp] = vk_pageup;
-_.__Mapping[ImGuiKey.PageDown] = vk_pagedown;
-_.__Mapping[ImGuiKey.F1] = vk_f1;
-_.__Mapping[ImGuiKey.F2] = vk_f2;
-_.__Mapping[ImGuiKey.F3] = vk_f3;
-_.__Mapping[ImGuiKey.F4] = vk_f4;
-_.__Mapping[ImGuiKey.F5] = vk_f5;
-_.__Mapping[ImGuiKey.F6] = vk_f6;
-_.__Mapping[ImGuiKey.F7] = vk_f7;
-_.__Mapping[ImGuiKey.F8] = vk_f8;
-_.__Mapping[ImGuiKey.F9] = vk_f9;
-_.__Mapping[ImGuiKey.F10] = vk_f10;
-_.__Mapping[ImGuiKey.F11] = vk_f11;
-_.__Mapping[ImGuiKey.F12] = vk_f12;
-_.__Mapping[ImGuiKey.Keypad0] = vk_numpad0;
-_.__Mapping[ImGuiKey.Keypad1] = vk_numpad1;
-_.__Mapping[ImGuiKey.Keypad2] = vk_numpad2;
-_.__Mapping[ImGuiKey.Keypad3] = vk_numpad3;
-_.__Mapping[ImGuiKey.Keypad4] = vk_numpad4;
-_.__Mapping[ImGuiKey.Keypad5] = vk_numpad5;
-_.__Mapping[ImGuiKey.Keypad6] = vk_numpad6;
-_.__Mapping[ImGuiKey.Keypad7] = vk_numpad7;
-_.__Mapping[ImGuiKey.Keypad8] = vk_numpad8;
-_.__Mapping[ImGuiKey.Keypad9] = vk_numpad9;
-_.__Mapping[ImGuiKey.KeypadDivide] = vk_divide;
-_.__Mapping[ImGuiKey.KeypadMultiply] = vk_multiply;
-_.__Mapping[ImGuiKey.KeypadSubtract] = vk_subtract;
-_.__Mapping[ImGuiKey.KeypadAdd] = vk_add;
-_.__Mapping[ImGuiKey.KeypadDecimal] = vk_decimal;
-_.__Mapping[ImGuiKey.LeftShift] = vk_lshift;
-_.__Mapping[ImGuiKey.LeftCtrl] = vk_lcontrol;
-_.__Mapping[ImGuiKey.LeftAlt] = vk_lalt;
-_.__Mapping[ImGuiKey.RightShift] = vk_rshift;
-_.__Mapping[ImGuiKey.RightCtrl] = vk_rcontrol;
-_.__Mapping[ImGuiKey.RightAlt] = vk_ralt;
-_.__Mapping[ImGuiKey.ImGuiKey_1] = ord("1");
-_.__Mapping[ImGuiKey.ImGuiKey_2] = ord("2");
-_.__Mapping[ImGuiKey.ImGuiKey_3] = ord("3");
-_.__Mapping[ImGuiKey.ImGuiKey_4] = ord("4");
-_.__Mapping[ImGuiKey.ImGuiKey_5] = ord("5");
-_.__Mapping[ImGuiKey.ImGuiKey_6] = ord("6");
-_.__Mapping[ImGuiKey.ImGuiKey_7] = ord("7");
-_.__Mapping[ImGuiKey.ImGuiKey_8] = ord("8");
-_.__Mapping[ImGuiKey.ImGuiKey_9] = ord("9");
-_.__Mapping[ImGuiKey.ImGuiKey_0] = ord("0");
-_.__Mapping[ImGuiKey.A] = ord("A");
-_.__Mapping[ImGuiKey.B] = ord("B");
-_.__Mapping[ImGuiKey.C] = ord("C");
-_.__Mapping[ImGuiKey.D] = ord("D");
-_.__Mapping[ImGuiKey.E] = ord("E");
-_.__Mapping[ImGuiKey.F] = ord("F");
-_.__Mapping[ImGuiKey.G] = ord("G");
-_.__Mapping[ImGuiKey.H] = ord("H");
-_.__Mapping[ImGuiKey.I] = ord("I");
-_.__Mapping[ImGuiKey.J] = ord("J");
-_.__Mapping[ImGuiKey.K] = ord("K");
-_.__Mapping[ImGuiKey.L] = ord("L");
-_.__Mapping[ImGuiKey.M] = ord("M");
-_.__Mapping[ImGuiKey.N] = ord("N");
-_.__Mapping[ImGuiKey.O] = ord("O");
-_.__Mapping[ImGuiKey.P] = ord("P");
-_.__Mapping[ImGuiKey.Q] = ord("Q");
-_.__Mapping[ImGuiKey.R] = ord("R");
-_.__Mapping[ImGuiKey.S] = ord("S");
-_.__Mapping[ImGuiKey.T] = ord("T");
-_.__Mapping[ImGuiKey.U] = ord("U");
-_.__Mapping[ImGuiKey.V] = ord("V");
-_.__Mapping[ImGuiKey.W] = ord("W");
-_.__Mapping[ImGuiKey.X] = ord("X");
-_.__Mapping[ImGuiKey.Y] = ord("Y");
-_.__Mapping[ImGuiKey.Z] = ord("Z");
-_.__Cursor[ImGuiMouseCursor.None + 1] = cr_none;
-_.__Cursor[ImGuiMouseCursor.Arrow + 1] = cr_default;
-_.__Cursor[ImGuiMouseCursor.TextInput + 1] = cr_beam;
-_.__Cursor[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
-_.__Cursor[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
-_.__Cursor[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
-_.__Cursor[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
-_.__Cursor[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
-_.__Cursor[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
-_.__Cursor[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
+with (static_get(new ImGui())) {
+	__Mapping = array_create(ImGuiKey.KeysData_SIZE, -1);
+	__Mapping[ImGuiKey.None] = vk_nokey;
+	__Mapping[ImGuiKey.Enter] = vk_enter;
+	__Mapping[ImGuiKey.Escape] = vk_escape;
+	__Mapping[ImGuiKey.Space] = vk_space;
+	__Mapping[ImGuiKey.Backspace] = vk_backspace;
+	__Mapping[ImGuiKey.Tab] = vk_tab;
+	__Mapping[ImGuiKey.Pause] = vk_pause;
+	__Mapping[ImGuiKey.LeftArrow] = vk_left;
+	__Mapping[ImGuiKey.RightArrow] = vk_right;
+	__Mapping[ImGuiKey.UpArrow] = vk_up;
+	__Mapping[ImGuiKey.DownArrow] = vk_down;
+	__Mapping[ImGuiKey.Home] = vk_home;
+	__Mapping[ImGuiKey.End] = vk_end;
+	__Mapping[ImGuiKey.Delete] = vk_delete;
+	__Mapping[ImGuiKey.Insert] = vk_insert;
+	__Mapping[ImGuiKey.PageUp] = vk_pageup;
+	__Mapping[ImGuiKey.PageDown] = vk_pagedown;
+	__Mapping[ImGuiKey.F1] = vk_f1;
+	__Mapping[ImGuiKey.F2] = vk_f2;
+	__Mapping[ImGuiKey.F3] = vk_f3;
+	__Mapping[ImGuiKey.F4] = vk_f4;
+	__Mapping[ImGuiKey.F5] = vk_f5;
+	__Mapping[ImGuiKey.F6] = vk_f6;
+	__Mapping[ImGuiKey.F7] = vk_f7;
+	__Mapping[ImGuiKey.F8] = vk_f8;
+	__Mapping[ImGuiKey.F9] = vk_f9;
+	__Mapping[ImGuiKey.F10] = vk_f10;
+	__Mapping[ImGuiKey.F11] = vk_f11;
+	__Mapping[ImGuiKey.F12] = vk_f12;
+	__Mapping[ImGuiKey.Keypad0] = vk_numpad0;
+	__Mapping[ImGuiKey.Keypad1] = vk_numpad1;
+	__Mapping[ImGuiKey.Keypad2] = vk_numpad2;
+	__Mapping[ImGuiKey.Keypad3] = vk_numpad3;
+	__Mapping[ImGuiKey.Keypad4] = vk_numpad4;
+	__Mapping[ImGuiKey.Keypad5] = vk_numpad5;
+	__Mapping[ImGuiKey.Keypad6] = vk_numpad6;
+	__Mapping[ImGuiKey.Keypad7] = vk_numpad7;
+	__Mapping[ImGuiKey.Keypad8] = vk_numpad8;
+	__Mapping[ImGuiKey.Keypad9] = vk_numpad9;
+	__Mapping[ImGuiKey.KeypadDivide] = vk_divide;
+	__Mapping[ImGuiKey.KeypadMultiply] = vk_multiply;
+	__Mapping[ImGuiKey.KeypadSubtract] = vk_subtract;
+	__Mapping[ImGuiKey.KeypadAdd] = vk_add;
+	__Mapping[ImGuiKey.KeypadDecimal] = vk_decimal;
+	__Mapping[ImGuiKey.LeftShift] = vk_lshift;
+	__Mapping[ImGuiKey.LeftCtrl] = vk_lcontrol;
+	__Mapping[ImGuiKey.LeftAlt] = vk_lalt;
+	__Mapping[ImGuiKey.RightShift] = vk_rshift;
+	__Mapping[ImGuiKey.RightCtrl] = vk_rcontrol;
+	__Mapping[ImGuiKey.RightAlt] = vk_ralt;
+	__Mapping[ImGuiKey.ImGuiKey_1] = ord("1");
+	__Mapping[ImGuiKey.ImGuiKey_2] = ord("2");
+	__Mapping[ImGuiKey.ImGuiKey_3] = ord("3");
+	__Mapping[ImGuiKey.ImGuiKey_4] = ord("4");
+	__Mapping[ImGuiKey.ImGuiKey_5] = ord("5");
+	__Mapping[ImGuiKey.ImGuiKey_6] = ord("6");
+	__Mapping[ImGuiKey.ImGuiKey_7] = ord("7");
+	__Mapping[ImGuiKey.ImGuiKey_8] = ord("8");
+	__Mapping[ImGuiKey.ImGuiKey_9] = ord("9");
+	__Mapping[ImGuiKey.ImGuiKey_0] = ord("0");
+	__Mapping[ImGuiKey.A] = ord("A");
+	__Mapping[ImGuiKey.B] = ord("B");
+	__Mapping[ImGuiKey.C] = ord("C");
+	__Mapping[ImGuiKey.D] = ord("D");
+	__Mapping[ImGuiKey.E] = ord("E");
+	__Mapping[ImGuiKey.F] = ord("F");
+	__Mapping[ImGuiKey.G] = ord("G");
+	__Mapping[ImGuiKey.H] = ord("H");
+	__Mapping[ImGuiKey.I] = ord("I");
+	__Mapping[ImGuiKey.J] = ord("J");
+	__Mapping[ImGuiKey.K] = ord("K");
+	__Mapping[ImGuiKey.L] = ord("L");
+	__Mapping[ImGuiKey.M] = ord("M");
+	__Mapping[ImGuiKey.N] = ord("N");
+	__Mapping[ImGuiKey.O] = ord("O");
+	__Mapping[ImGuiKey.P] = ord("P");
+	__Mapping[ImGuiKey.Q] = ord("Q");
+	__Mapping[ImGuiKey.R] = ord("R");
+	__Mapping[ImGuiKey.S] = ord("S");
+	__Mapping[ImGuiKey.T] = ord("T");
+	__Mapping[ImGuiKey.U] = ord("U");
+	__Mapping[ImGuiKey.V] = ord("V");
+	__Mapping[ImGuiKey.W] = ord("W");
+	__Mapping[ImGuiKey.X] = ord("X");
+	__Mapping[ImGuiKey.Y] = ord("Y");
+	__Mapping[ImGuiKey.Z] = ord("Z");
+	__Cursor[ImGuiMouseCursor.None + 1] = cr_none;
+	__Cursor[ImGuiMouseCursor.Arrow + 1] = cr_default;
+	__Cursor[ImGuiMouseCursor.TextInput + 1] = cr_beam;
+	__Cursor[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
+	__Cursor[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
+	__Cursor[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
+	__Cursor[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
+	__Cursor[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
+	__Cursor[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
+	__Cursor[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
+}
 
+/// @section Enums
 /*
 	Used for encoding multiple returns from various wrappers (ImGui.Begin, ImGui.CollapsingHeader, etc)
 	Default is ImGuiReturnFlags.Return for all functions to make wrappers work as close to the library as possible
