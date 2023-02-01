@@ -54,11 +54,11 @@ GMFUNC(__imgui_image) {
 	GMDEFAULT(sprite_get_width(#arg0));
 	double height = YYGetReal(arg, 5);
 	GMDEFAULT(sprite_get_height(#arg0));
-	double* uv = YYGetArray<double>(arg, 6, 4);
+	double* uv = YYGetArray<double>(arg, 6, 8);
 	GMHIDDEN();
 	GMPASSTHROUGH(sprite_get_uvs(#arg0, #arg1));
 
-	ImGui::Image(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
+	ImGui::Image(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(width * uv[6], height * uv[7]), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -74,12 +74,12 @@ GMFUNC(__imgui_image_button) {
 	GMDEFAULT(sprite_get_width(#arg1));
 	double height = YYGetReal(arg, 8);
 	GMDEFAULT(sprite_get_height(#arg1));
-	double* uv = YYGetArray<double>(arg, 9, 4);
+	double* uv = YYGetArray<double>(arg, 9, 8);
 	GMHIDDEN();
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::ImageButton(str_id, GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(bg_color, bg_alpha), GMCOLOR_TO(color, alpha));
+	Result.val = ImGui::ImageButton(str_id, GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(width * uv[6], height * uv[7]), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(bg_color, bg_alpha), GMCOLOR_TO(color, alpha));
 }
 
 GMFUNC(__imgui_surface) {
@@ -92,13 +92,13 @@ GMFUNC(__imgui_surface) {
 	GMDEFAULT(surface_get_width(#arg0));
 	double height = YYGetReal(arg, 4);
 	GMDEFAULT(surface_get_height(#arg0));
-	double* uv = YYGetArray<double>(arg, 5, 4);
+	double* uv = YYGetArray<double>(arg, 5, 8);
 	GMHIDDEN();
 	GMPASSTHROUGH(texture_get_uvs(_tex));
-	GMPREPEND(var _tex = surface_get_texture(#arg0); texture_set_stage(0, _tex));
+	GMPREPEND(var _tex = surface_get_texture(#arg0););
 	GMOVERRIDE(Surface);
 
-	ImGui::Image(GetTexture(surface, 0, TextureType_Surface), ImVec2(width, height), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
+	ImGui::Image(GetTexture(surface, 0, TextureType_Surface), ImVec2(width * uv[6], height * uv[7]), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
 }
 
