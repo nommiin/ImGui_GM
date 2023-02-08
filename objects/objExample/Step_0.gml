@@ -58,9 +58,16 @@ if (main_open) {
 		ImGui.BeginChild("Inner_Internal", width, height / 2, true);
 			ImGui.Text("Internal");
 			ImGui.Separator();
-			ImGui.Text(string("Scaling Mode: {0}", (ImGui.__ScalingMode == ImGuiScalingMode.KeepAspect ? "Keep Aspect Ratio" : "Full Scale")));
+			var _str = "ImGui_GM v" + IMGUI_GM_VERSION;
+			for(var i = 0, _i = string_length(_str); i < _i; i++) {
+				var _c = make_color_hsv(255 * (i / _i), 128, 255);
+				ImGui.TextColored(string_char_at(_str, i + 1), _c);
+				if (i < _i - 1) ImGui.SameLine();
+			}
+			ImGui.TextColored("Developed by Nommiin!", c_aqua);
+			ImGui.Separator();
 			var _ = static_get(ImGui);
-			_.__Scale = max(0.5, ImGui.InputDouble("Scale", _.__Scale, 0.1, 0.25));
+			_.__Scale = max(0.5, ImGui.InputDouble("ImGui.__Scale", _.__Scale, 0.1, 0.25));
 		ImGui.EndChild();
 		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);

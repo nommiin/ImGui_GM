@@ -6,48 +6,6 @@ try {
 }
 show_debug_message("[ImGui_GM] Successfully passed version check");
 
-// Get static
-var _static = static_get(new ImGui());
-
-// EXPERIMENTAL: Read scale
-var _buffer = -1;
-try {
-	var _file = "data.win";
-	if (!file_exists(_file)) {
-		_file = undefined;
-		for(var i = 0; i < parameter_count(); i++) {
-			var _param = parameter_string(i);
-			if (string_ends_with(_param, ".win")) {
-				_file = _param;
-				break;
-			}
-		}
-	}
-	if (_file == undefined) throw "Could not find data.win parameter";
-	
-	var _base = 8;
-	var _buffer = buffer_load(_file);
-	while (true) {                                  // GEN8
-		if (buffer_peek(_buffer, _base, buffer_u32) != 944653639) {
-			_base += buffer_peek(_buffer, _base + 4, buffer_u32) + 8;
-			if (_base >= buffer_get_size(_buffer)) {
-				throw "Could not find GEN8 chunk";	
-			}
-			continue;
-		}
-		_base += (17 * buffer_sizeof(buffer_u32)) + 8;
-		break;
-	}
-	var _opt = buffer_peek(_buffer, _base, buffer_u32), _mode = (_opt >> 4) & 1;
-	if (_mode < 0 || _mode > 1) throw string("Uncertain if \"{0}\" is a valid scaling mode", _mode);
-	_static.__ScalingMode = _mode + 1;
-	show_debug_message("[ImGui_GM] Successfully retrieved scaling option: {0}", _mode);
-} catch (e) {
-	show_debug_message("[ImGui_GM] Failed to retrieve scaling option\n- {0}", e);	
-} finally {
-	if (buffer_exists(_buffer)) buffer_delete(_buffer);	
-}
-
 // All the silly stuff that's too messy for ImGui.gml
 // Used by Color*4 functions, use .Color to get BGR value for GM functions
 function ImColor(red, green, blue, alpha=1) constructor {
@@ -91,7 +49,7 @@ function ImColor(red, green, blue, alpha=1) constructor {
 #macro IMGUI_PAYLOAD_TYPE_COLOR_4F     "_COL4F"    // (GML) struct: Standard type for colors. User code may use this type.
 
 // Call static_get for the ImGui class to initialize statics, required once so everywhere else can access
-with (_static) {
+with (static_get(new ImGui())) {
 	__Mapping = array_create(ImGuiKey.KeysData_SIZE, -1);
 	__Mapping[ImGuiKey.None] = vk_nokey;
 	__Mapping[ImGuiKey.Enter] = vk_enter;

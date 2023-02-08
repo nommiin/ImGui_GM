@@ -4050,36 +4050,21 @@ function ImGui() constructor {
 		}
 	};
 	
-	enum ImGuiScalingMode {
-		Unset,
-		FullScale,
-		KeepAspect
-	}
-	
 	static __Scale = 1;
-	static __ScalingMode = ImGuiScalingMode.Unset;
 	static __Font = -1;
 	static __VtxFormat = undefined;
 	static __Uniform = undefined;
+	static __Surface = -1;
 	
 	static __CmdBuffer = -1;
 	static __FontBuffer = -1;
 	static __VtxBuffer = -1;
 	
 	static __Context = __imgui_create_context();
-	static __Initialize = function(scale=1, mode=undefined) {	
+	static __Initialize = function(scale=1) {	
 		if (__imgui_initialize(window_handle(), __Context) == pointer_null) {
 			show_error("Something failed to initialize with ImGui_GM!", true);
 			return;
-		}
-		
-		if (mode == undefined) {
-			if (__ScalingMode == ImGuiScalingMode.Unset) {
-				show_error("Could not initialize ImGui_GM, please set the __ScalingMode variable in call to ImGui.__Initialize", true);
-				return;
-			}
-		} else {
-			__ScalingMode = mode;	
 		}
 		
 		__Scale = scale;
@@ -4099,6 +4084,10 @@ function ImGui() constructor {
 	static __Update = function() {
 		__State.Display.Width = window_get_width();
 		__State.Display.Height = window_get_height();
+		
+		if (!surface_exists(__Surface)) {
+			__Surface = surface_create(window_get_width(), window_get_height());	
+		}
 		
 		__State.Engine.Time = delta_time / 1_000_000;
 		__State.Engine.Framerate = game_get_speed(gamespeed_fps);
@@ -4140,13 +4129,9 @@ function ImGui() constructor {
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
-			var restore = [application_get_position(), display_get_gui_width(), display_get_gui_height()];
-			
-			if (__ScalingMode == ImGuiScalingMode.FullScale) display_set_gui_maximize(__Scale, __Scale);
-			display_set_gui_size(window_get_width() / __Scale, window_get_height() / __Scale);
-			if (__ScalingMode == ImGuiScalingMode.KeepAspect) display_set_gui_maximize(__Scale, __Scale);
-			
 			shader_set(shdImGui);
+			surface_set_target(__Surface);
+			draw_clear_alpha(0, 0);
 			var list_count = buffer_read(__CmdBuffer, buffer_u32);
 			for(var i = 0; i < list_count; i++) {
 				var cmd_count = buffer_read(__CmdBuffer, buffer_u32);
@@ -4184,10 +4169,16 @@ function ImGui() constructor {
 					}
 				}
 			}
-			
+			surface_reset_target();
 			shader_reset();
-			display_set_gui_size(restore[1], restore[2]);
-			display_set_gui_maximize(-1, -1, restore[0][0], restore[0][1]);
+			
+			var _w = display_get_gui_width(), _h = display_get_gui_height();
+			display_set_gui_size(window_get_width(), window_get_height());
+			display_set_gui_maximize(__Scale, __Scale, 0, 0);
+			draw_surface(__Surface, 0, 0);
+			display_set_gui_size(_w, _h);
+			display_set_gui_maximize();
+			
 		}
 	}
 };
