@@ -4053,12 +4053,11 @@ function ImGui() constructor {
 	enum ImGuiScalingMode {
 		Unset,
 		FullScale,
-		KeepAspect,
-		COUNT
+		KeepAspect
 	}
 	
 	static __Scale = 1;
-	static __ScalingMode = ImGuiScalingMode.Unset; // 0 = Keep aspect ratio, 1 = Full scale
+	static __ScalingMode = ImGuiScalingMode.Unset;
 	static __Font = -1;
 	static __VtxFormat = undefined;
 	static __Uniform = undefined;
@@ -4141,7 +4140,6 @@ function ImGui() constructor {
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
-			// NOTE: If scaling mode is "Full scale", call GUI maximize first! Otherwise, call it after size
 			if (__ScalingMode == ImGuiScalingMode.FullScale) display_set_gui_maximize(__Scale, __Scale);
 			display_set_gui_size(window_get_width() / __Scale, window_get_height() / __Scale);
 			if (__ScalingMode == ImGuiScalingMode.KeepAspect) display_set_gui_maximize(__Scale, __Scale);
@@ -4188,7 +4186,6 @@ function ImGui() constructor {
 			shader_reset();
 			display_set_gui_size(-1, -1);
 			display_set_gui_maximize(-1, -1);
-			
 		}
 	}
 };
