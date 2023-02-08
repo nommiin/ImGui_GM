@@ -55,6 +55,14 @@ if (main_open) {
 	if (ret & ImGuiReturnMask.Return) {
 		var width = ImGui.GetContentRegionAvailX(), height = 256;
 		
+		ImGui.BeginChild("Inner_Internal", width, height / 2, true);
+			ImGui.Text("Internal");
+			ImGui.Separator();
+			ImGui.Text(string("Scaling Mode: {0}", (ImGui.__ScalingMode == ImGuiScalingMode.KeepAspect ? "Keep Aspect Ratio" : "Full Scale")));
+			var _ = static_get(ImGui);
+			_.__Scale = max(0.5, ImGui.InputDouble("Scale", _.__Scale, 0.1, 0.25));
+		ImGui.EndChild();
+		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);
 			ImGui.Text("Text");
 			ImGui.Separator();
@@ -79,9 +87,9 @@ if (main_open) {
 			ImGui.SameLine();
 			ImGui.Text("Direction: " + string(dir));
 			ImGui.ColorButton("ImGui::ColorButton", c_orange, 0.5);
-			ImGui.EndChild();
+		ImGui.EndChild();
 		
-			ImGui.BeginChild("Inner_Textured", width / 2, height, true);
+		ImGui.BeginChild("Inner_Textured", width / 2, height, true);
 			ImGui.Text("Textured Widgets");
 			ImGui.Separator();
 			ImGui.Text("ImGui::Image");
@@ -163,6 +171,8 @@ if (main_open) {
 			ImGui.ColorEdit4("ImGui::ColorEdit4", col6);
 		ImGui.EndChild();
 		
+		ImGui.SameLine();
+		
 		ImGui.BeginChild("Inner_Table", width / 2, height, true);
 			ImGui.Text("Tables");
 			ImGui.Separator();
@@ -184,8 +194,6 @@ if (main_open) {
 				ImGui.EndTable();	
 			}
 		ImGui.EndChild();
-		
-		ImGui.SameLine();
 		
 		ImGui.BeginChild("Inner_Tabs", width / 2, height, true);
 			ImGui.Text("Tabs");

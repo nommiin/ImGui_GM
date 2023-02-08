@@ -4050,21 +4050,40 @@ function ImGui() constructor {
 		}
 	};
 	
-	static __CmdBuffer = -1;
-	static __FontBuffer = -1;
-	static __Font = -1;
+	enum ImGuiScalingMode {
+		Unset,
+		FullScale,
+		KeepAspect,
+		COUNT
+	}
 	
-	static __VtxBuffer = -1;
+	static __Scale = 1;
+	static __ScalingMode = ImGuiScalingMode.Unset; // 0 = Keep aspect ratio, 1 = Full scale
+	static __Font = -1;
 	static __VtxFormat = undefined;
 	static __Uniform = undefined;
 	
+	static __CmdBuffer = -1;
+	static __FontBuffer = -1;
+	static __VtxBuffer = -1;
+	
 	static __Context = __imgui_create_context();
-	static __Initialize = function() {	
+	static __Initialize = function(scale=1, mode=undefined) {	
 		if (__imgui_initialize(window_handle(), __Context) == pointer_null) {
 			show_error("Something failed to initialize with ImGui_GM!", true);
 			return;
 		}
 		
+		if (mode == undefined) {
+			if (__ScalingMode == ImGuiScalingMode.Unset) {
+				show_error("Could not initialize ImGui_GM, please set the __ScalingMode variable in call to ImGui.__Initialize", true);
+				return;
+			}
+		} else {
+			__ScalingMode = mode;	
+		}
+		
+		__Scale = scale;
 		__CmdBuffer = __imguigm_command_buffer();
 		__FontBuffer = __imguigm_font_buffer();
 		__VtxBuffer = vertex_create_buffer();
@@ -4079,9 +4098,9 @@ function ImGui() constructor {
 	}
 
 	static __Update = function() {
-		var _w = display_get_gui_width(), _h = display_get_gui_height();
-		__State.Display.Width = _w;
-		__State.Display.Height = _h;
+		__State.Display.Width = window_get_width();
+		__State.Display.Height = window_get_height();
+		
 		__State.Engine.Time = delta_time / 1_000_000;
 		__State.Engine.Framerate = game_get_speed(gamespeed_fps);
 		
@@ -4097,8 +4116,9 @@ function ImGui() constructor {
 			
 			var _x = window_get_x(), _y = window_get_y();
 			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + window_get_width(), _y + window_get_height())) {
-				__State.Input.Mouse.X = window_mouse_get_x();
-				__State.Input.Mouse.Y = window_mouse_get_y();
+				__State.Input.Mouse.X = window_mouse_get_x() / __Scale;
+				__State.Input.Mouse.Y = window_mouse_get_y() / __Scale;
+				
 				for(var i = 0; i < 3; i++) __imgui_mouse(i, device_mouse_check_button(0, i + 1));
 				if (mouse_wheel_up()) __imgui_mouse_wheel(0, 1);
 				else if (mouse_wheel_down()) __imgui_mouse_wheel(0, -1);
@@ -4121,6 +4141,11 @@ function ImGui() constructor {
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
+			// NOTE: If scaling mode is "Full scale", call GUI maximize first! Otherwise, call it after size
+			if (__ScalingMode == ImGuiScalingMode.FullScale) display_set_gui_maximize(__Scale, __Scale);
+			display_set_gui_size(window_get_width() / __Scale, window_get_height() / __Scale);
+			if (__ScalingMode == ImGuiScalingMode.KeepAspect) display_set_gui_maximize(__Scale, __Scale);
+			
 			shader_set(shdImGui);
 			var list_count = buffer_read(__CmdBuffer, buffer_u32);
 			for(var i = 0; i < list_count; i++) {
@@ -4159,7 +4184,11 @@ function ImGui() constructor {
 					}
 				}
 			}
+			
 			shader_reset();
+			display_set_gui_size(-1, -1);
+			display_set_gui_maximize(-1, -1);
+			
 		}
 	}
 };
