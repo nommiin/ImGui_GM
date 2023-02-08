@@ -4140,6 +4140,8 @@ function ImGui() constructor {
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
 		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
+			var restore = [application_get_position(), display_get_gui_width(), display_get_gui_height()];
+			
 			if (__ScalingMode == ImGuiScalingMode.FullScale) display_set_gui_maximize(__Scale, __Scale);
 			display_set_gui_size(window_get_width() / __Scale, window_get_height() / __Scale);
 			if (__ScalingMode == ImGuiScalingMode.KeepAspect) display_set_gui_maximize(__Scale, __Scale);
@@ -4184,8 +4186,8 @@ function ImGui() constructor {
 			}
 			
 			shader_reset();
-			display_set_gui_size(-1, -1);
-			display_set_gui_maximize(-1, -1);
+			display_set_gui_size(restore[1], restore[2]);
+			display_set_gui_maximize(-1, -1, restore[0][0], restore[0][1]);
 		}
 	}
 };
