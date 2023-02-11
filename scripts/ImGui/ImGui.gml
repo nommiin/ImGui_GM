@@ -4176,9 +4176,8 @@ function ImGui() constructor {
 			display_set_gui_size(window_get_width(), window_get_height());
 			display_set_gui_maximize(__Scale, __Scale, 0, 0);
 			draw_surface(__Surface, 0, 0);
-			display_set_gui_size(_w, _h);
 			display_set_gui_maximize();
-			
+			display_set_gui_size(_w, _h);
 		}
 	}
 };
