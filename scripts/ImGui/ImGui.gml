@@ -4060,6 +4060,8 @@ function ImGui() constructor {
 	static __FontBuffer = -1;
 	static __VtxBuffer = -1;
 	
+	static __CursorPrev = -1;
+	
 	static __Context = __imgui_create_context();
 	static __Initialize = function(scale=1) {	
 		if (__imgui_initialize(window_handle(), __Context) == pointer_null) {
@@ -4110,7 +4112,11 @@ function ImGui() constructor {
 				for(var i = 0; i < 3; i++) __imgui_mouse(i, device_mouse_check_button(0, i + 1));
 				if (mouse_wheel_up()) __imgui_mouse_wheel(0, 1);
 				else if (mouse_wheel_down()) __imgui_mouse_wheel(0, -1);
-				window_set_cursor(__Cursor[__imgui_mouse_cursor() + 1]);
+				var _cursor = __imgui_mouse_cursor();
+				if (_cursor != __CursorPrev) {
+					window_set_cursor(__Cursor[_cursor + 1]);
+					__CursorPrev = _cursor;
+				}
 			}
 		}
 		
