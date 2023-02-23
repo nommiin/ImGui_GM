@@ -1,3 +1,4 @@
+#pragma once
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 
@@ -22,8 +23,6 @@
 #endif
 
 #define GMFUNC(name) GMEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
-
-
 
 // Interface
 #define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- ", __VA_ARGS__)

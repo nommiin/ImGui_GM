@@ -27,10 +27,11 @@ GMFUNC(__imgui_initialize) {
 	g_pHandle = YYGetPtr(arg, 0);
 	g_KeepAlive = CreateDsMap(0);
 	g_ImGuiContext = (ImGuiContext*)YYGetPtr(arg, 1);
+	double buffer_size = YYGetReal(arg, 2);
 	g_ImGuiInitialized = true;
 
-	g_CommandBuffer = CreateBuffer(1024 * 8, eBuffer_Format_Grow, 1);
-	g_FontBuffer = CreateBuffer(1024 * 8, eBuffer_Format_Grow, 1);
+	g_CommandBuffer = CreateBuffer(buffer_size, eBuffer_Format_Grow, 1);
+	g_FontBuffer = CreateBuffer(buffer_size, eBuffer_Format_Grow, 1);
 	g_UpdateFont = true;
 
 	Result.kind = VALUE_PTR;

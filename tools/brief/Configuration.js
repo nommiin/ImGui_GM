@@ -41,7 +41,7 @@ class Configuration {
     /**
      * @description If true, GML writer will call forceinline for each static method
      */
-    static FORCEINLINE = true;
+    static FORCEINLINE = false;
 
     /**
      * @description If true, program will generate a coverage report in COVERAGE.md

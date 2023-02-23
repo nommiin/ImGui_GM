@@ -1,10 +1,9 @@
-function ImGui() constructor {
+function ImGui() {
 	/// @section Binds
 	/// @function CreateContext()
 	/// @context ImGui
 	/// @return {Pointer}
 	static CreateContext = function() {
-		gml_pragma("forceinline");
 		return __imgui_create_context();
 	}
 
@@ -13,7 +12,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DestroyContext = function(ctx) {
-		gml_pragma("forceinline");
 		return __imgui_destroy_context(ctx);
 	}
 
@@ -21,7 +19,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer}
 	static GetCurrentContext = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_current_context();
 	}
 
@@ -30,7 +27,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetCurrentContext = function(ctx) {
-		gml_pragma("forceinline");
 		return __imgui_set_current_context(ctx);
 	}
 
@@ -39,7 +35,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ShowDemoWindow = function(open=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_show_demo_window(open);
 	}
 
@@ -48,7 +43,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ShowMetricsWindow = function(open=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_show_metrics_window(open);
 	}
 
@@ -57,7 +51,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ShowDebugLogWindow = function(open=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_show_debug_log_window(open);
 	}
 
@@ -66,7 +59,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ShowStackToolWindow = function(open=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_show_stack_tool_window(open);
 	}
 
@@ -75,7 +67,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ShowAboutWindow = function(open=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_show_about_window(open);
 	}
 
@@ -83,7 +74,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static ShowStyleEditor = function() {
-		gml_pragma("forceinline");
 		return __imgui_show_style_editor();
 	}
 
@@ -92,7 +82,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ShowStyleSelector = function(label) {
-		gml_pragma("forceinline");
 		return __imgui_show_style_selector(label);
 	}
 
@@ -101,7 +90,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static ShowFontSelector = function(label) {
-		gml_pragma("forceinline");
 		return __imgui_show_font_selector(label);
 	}
 
@@ -109,7 +97,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static ShowUserGuide = function() {
-		gml_pragma("forceinline");
 		return __imgui_show_user_guide();
 	}
 
@@ -117,7 +104,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String}
 	static GetVersion = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_version();
 	}
 
@@ -126,7 +112,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushID = function(_id) {
-		gml_pragma("forceinline");
 		return __imgui_push_id(_id);
 	}
 
@@ -134,7 +119,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopID = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_id();
 	}
 
@@ -143,7 +127,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetID = function(str_id) {
-		gml_pragma("forceinline");
 		return __imgui_get_id(str_id);
 	}
 
@@ -152,7 +135,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static BeginDisabled = function(disabled=true) {
-		gml_pragma("forceinline");
 		return __imgui_begin_disabled(disabled);
 	}
 
@@ -160,7 +142,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndDisabled = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_disabled();
 	}
 
@@ -169,7 +150,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemHovered = function(flags=ImGuiHoveredFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_is_item_hovered(flags);
 	}
 
@@ -177,7 +157,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemActive = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_active();
 	}
 
@@ -185,7 +164,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemFocused = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_focused();
 	}
 
@@ -194,7 +172,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemClicked = function(mouse_button=ImGuiMouseButton.Left) {
-		gml_pragma("forceinline");
 		return __imgui_is_item_clicked(mouse_button);
 	}
 
@@ -202,7 +179,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemVisible = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_visible();
 	}
 
@@ -210,7 +186,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemEdited = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_edited();
 	}
 
@@ -218,7 +193,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemActivated = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_activated();
 	}
 
@@ -226,7 +200,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemDeactivated = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_deactivated();
 	}
 
@@ -234,7 +207,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemDeactivatedAfterEdit = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_deactivated_after_edit();
 	}
 
@@ -242,7 +214,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsItemToggledOpen = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_item_toggled_open();
 	}
 
@@ -250,7 +221,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsAnyItemHovered = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_any_item_hovered();
 	}
 
@@ -258,7 +228,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsAnyItemActive = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_any_item_active();
 	}
 
@@ -266,7 +235,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsAnyItemFocused = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_any_item_focused();
 	}
 
@@ -274,7 +242,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemID = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_id();
 	}
 
@@ -282,7 +249,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMinX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_rect_min_x();
 	}
 
@@ -290,7 +256,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMinY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_rect_min_y();
 	}
 
@@ -298,7 +263,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMaxX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_rect_max_x();
 	}
 
@@ -306,7 +270,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectMaxY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_rect_max_y();
 	}
 
@@ -314,7 +277,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectSizeX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_rect_size_x();
 	}
 
@@ -322,7 +284,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetItemRectSizeY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_item_rect_size_y();
 	}
 
@@ -330,7 +291,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetItemAllowOverlap = function() {
-		gml_pragma("forceinline");
 		return __imgui_set_item_allow_overlap();
 	}
 
@@ -342,7 +302,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsRectVisible = function(x1, y1, x2, y2) {
-		gml_pragma("forceinline");
 		return __imgui_is_rect_visible(x1, y1, x2, y2);
 	}
 
@@ -350,7 +309,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetTime = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_time();
 	}
 
@@ -358,7 +316,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetFrameCount = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_frame_count();
 	}
 
@@ -369,7 +326,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static CalcTextWidth = function(text, hide_text_after_double_hash=false, wrap_width=-1) {
-		gml_pragma("forceinline");
 		return __imgui_calc_text_width(text, hide_text_after_double_hash, wrap_width);
 	}
 
@@ -380,7 +336,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static CalcTextHeight = function(text, hide_text_after_double_hash=false, wrap_width=-1) {
-		gml_pragma("forceinline");
 		return __imgui_calc_text_height(text, hide_text_after_double_hash, wrap_width);
 	}
 
@@ -389,7 +344,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushAllowKeyboardFocus = function(allow_keyboard_focus) {
-		gml_pragma("forceinline");
 		return __imgui_push_allow_keyboard_focus(allow_keyboard_focus);
 	}
 
@@ -397,7 +351,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopAllowKeyboardFocus = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_allow_keyboard_focus();
 	}
 
@@ -406,7 +359,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetKeyboardFocusHere = function(offset=0) {
-		gml_pragma("forceinline");
 		return __imgui_set_keyboard_focus_here(offset);
 	}
 
@@ -415,7 +367,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushButtonRepeat = function(_repeat) {
-		gml_pragma("forceinline");
 		return __imgui_push_button_repeat(_repeat);
 	}
 
@@ -423,7 +374,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopButtonRepeat = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_button_repeat();
 	}
 
@@ -431,7 +381,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetItemDefaultFocus = function() {
-		gml_pragma("forceinline");
 		return __imgui_set_item_default_focus();
 	}
 
@@ -439,7 +388,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static ConfigFlagsGet = function() {
-		gml_pragma("forceinline");
 		return __imgui_config_flags_get();
 	}
 
@@ -448,7 +396,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static ConfigFlagsSet = function(flags) {
-		gml_pragma("forceinline");
 		return __imgui_config_flags_set(flags);
 	}
 
@@ -457,7 +404,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ConfigFlagToggle = function(flag) {
-		gml_pragma("forceinline");
 		return __imgui_config_flag_toggle(flag);
 	}
 
@@ -465,7 +411,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer}
 	static GetMainViewport = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_main_viewport();
 	}
 
@@ -474,7 +419,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static LogText = function(text) {
-		gml_pragma("forceinline");
 		return __imgui_log_text(text);
 	}
 
@@ -485,7 +429,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static ColorEdit3 = function(label, col, flags=ImGuiColorEditFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_color_edit3(label, col, flags);
 	}
 
@@ -496,7 +439,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static ColorPicker3 = function(label, col, flags=ImGuiColorEditFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_color_picker3(label, col, flags);
 	}
 
@@ -507,7 +449,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ColorEdit4 = function(label, col, flags=ImGuiColorEditFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_color_edit4(label, col, flags);
 	}
 
@@ -518,7 +459,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ColorPicker4 = function(label, col, flags=ImGuiColorEditFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_color_picker4(label, col, flags);
 	}
 
@@ -532,7 +472,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ColorButton = function(desc_id, color, alpha=1, flags=ImGuiColorEditFlags.None, width=0, height=0) {
-		gml_pragma("forceinline");
 		return __imgui_color_button(desc_id, color, alpha, flags, width, height);
 	}
 
@@ -541,7 +480,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetColorEditOptions = function(flags=ImGuiColorEditFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_color_edit_options(flags);
 	}
 
@@ -552,7 +490,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginCombo = function(label, preview, flags) {
-		gml_pragma("forceinline");
 		return __imgui_begin_combo(label, preview, flags);
 	}
 
@@ -560,7 +497,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndCombo = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_combo();
 	}
 
@@ -568,7 +504,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static Combo = function() {
-		gml_pragma("forceinline");
 		return __imgui_combo();
 	}
 
@@ -580,7 +515,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static DockSpace = function(_id, width=0, height=0, flags=ImGuiDockNodeFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_dock_space(_id, width, height, flags);
 	}
 
@@ -589,7 +523,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static DockSpaceOverViewport = function(flags=ImGuiDockNodeFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_dock_space_over_viewport(flags);
 	}
 
@@ -599,7 +532,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowDockID = function(dock_id, cond) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_dock_id(dock_id, cond);
 	}
 
@@ -607,7 +539,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static SetNextWindowClass = function() {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_class();
 	}
 
@@ -615,7 +546,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowDockID = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_dock_id();
 	}
 
@@ -623,7 +553,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowDocked = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_window_docked();
 	}
 
@@ -638,7 +567,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static DragFloat = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_float(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -653,7 +581,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragFloat2 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_float2(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -668,7 +595,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragFloat3 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_float3(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -683,7 +609,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragFloat4 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_float4(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -698,7 +623,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragFloatN = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_floatn(label, v, v_speed, v_min, v_max, format, flags, array_length(v));
 	}
 
@@ -714,7 +638,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragFloatRange2 = function(label, v, v_speed=1, v_min=0, v_max=0, format_min="%.3f", format_max="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_float_range2(label, v, v_speed, v_min, v_max, format_min, format_max, flags);
 	}
 
@@ -729,7 +652,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static DragInt = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_int(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -744,7 +666,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragInt2 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_int2(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -759,7 +680,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragInt3 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_int3(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -774,7 +694,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragInt4 = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_int4(label, v, v_speed, v_min, v_max, format, flags);
 	}
 
@@ -789,7 +708,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragIntN = function(label, v, v_speed=1, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_intn(label, v, v_speed, v_min, v_max, format, flags, array_length(v));
 	}
 
@@ -805,7 +723,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DragIntRange2 = function(label, v, v_current_max, v_speed=1, v_min=0, v_max=0, format_max="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drag_int_range2(label, v, v_current_max, v_speed, v_min, v_max, format_max, flags);
 	}
 
@@ -814,7 +731,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer}
 	static GetBackgroundDrawList = function(viewport=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_get_background_drawlist(viewport);
 	}
 
@@ -823,7 +739,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer}
 	static GetForegroundDrawList = function(viewport=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_get_foreground_drawlist(viewport);
 	}
 
@@ -831,7 +746,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer}
 	static GetWindowDrawList = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_drawlist();
 	}
 
@@ -846,7 +760,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddLine = function(list, x1, y1, x2, y2, col, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_line(list, x1, y1, x2, y2, col, thickness);
 	}
 
@@ -863,7 +776,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddRect = function(list, x1, y1, x2, y2, col, rounding=0, flags=ImDrawFlags.None, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, rounding, flags, thickness);
 	}
 
@@ -879,7 +791,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddRectFilled = function(list, x1, y1, x2, y2, col, rounding=0, flags=ImDrawFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding, flags);
 	}
 
@@ -896,7 +807,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddRectFilledMultiColor = function(list, x1, y1, x2, y2, col1, col2, col3, col4) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4);
 	}
 
@@ -915,7 +825,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddQuad = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness);
 	}
 
@@ -933,7 +842,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddQuadFilled = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col);
 	}
 
@@ -950,7 +858,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddTriangle = function(list, x1, y1, x2, y2, x3, y3, col, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thickness);
 	}
 
@@ -966,7 +873,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddTriangleFilled = function(list, x1, y1, x2, y2, x3, y3, col) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col);
 	}
 
@@ -981,7 +887,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddCircle = function(list, _x, _y, radius, col, num_segments=0, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_circle(list, _x, _y, radius, col, num_segments, thickness);
 	}
 
@@ -995,7 +900,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddCircleFilled = function(list, _x, _y, radius, col, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, num_segments);
 	}
 
@@ -1010,7 +914,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddNgon = function(list, _x, _y, radius, col, num_segments=0, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_ngon(list, _x, _y, radius, col, num_segments, thickness);
 	}
 
@@ -1024,7 +927,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddNgonFilled = function(list, _x, _y, radius, col, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, num_segments);
 	}
 
@@ -1037,7 +939,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddText = function(list, _x, _y, text, col) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_text(list, _x, _y, text, col);
 	}
 
@@ -1053,7 +954,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddTextFont = function(list, _x, _y, text, col, font, font_size, wrap_width=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_text_font(list, _x, _y, text, col, font, font_size, wrap_width);
 	}
 
@@ -1066,7 +966,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddPolyline = function(list, positions, col, flags, thickness) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_polyline(list, positions, col, flags, thickness, array_length(positions));
 	}
 
@@ -1077,7 +976,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddConvexPolyFilled = function(list, positions, col) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_convex_poly_filled(list, positions, col, array_length(positions));
 	}
 
@@ -1097,7 +995,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddBezierCubic = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments);
 	}
 
@@ -1115,7 +1012,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddBezierQuadratic = function(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments);
 	}
 
@@ -1125,7 +1021,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathFillConvex = function(list, col) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_fill_convex(list, col);
 	}
 
@@ -1137,7 +1032,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathStroke = function(list, col, flags=ImDrawFlags.None, thickness=1) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_stroke(list, col, flags, thickness);
 	}
 
@@ -1146,7 +1040,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathClear = function(list) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_clear(list);
 	}
 
@@ -1157,7 +1050,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathLineTo = function(list, _x, _y) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_line_to(list, _x, _y);
 	}
 
@@ -1168,7 +1060,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathLineToMergeDuplicate = function(list, _x, _y) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_line_to_merge_duplicate(list, _x, _y);
 	}
 
@@ -1183,7 +1074,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathArcTo = function(list, _x, _y, radius, a_min, a_max, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_arc_to(list, _x, _y, radius, a_min, a_max, num_segments);
 	}
 
@@ -1197,7 +1087,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathArcToFast = function(list, _x, _y, radius, a_min_of_12, a_max_of_12) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_arc_to_fast(list, _x, _y, radius, a_min_of_12, a_max_of_12);
 	}
 
@@ -1213,7 +1102,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathBezierCubicCurveTo = function(list, x2, y2, x3, y3, x4, y4, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_bezier_cubic_curve_to(list, x2, y2, x3, y3, x4, y4, num_segments);
 	}
 
@@ -1227,7 +1115,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathBezierQuadraticCurveTo = function(list, x2, y2, x3, y3, num_segments=0) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_bezier_quadratic_curve_to(list, x2, y2, x3, y3, num_segments);
 	}
 
@@ -1242,7 +1129,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPathRect = function(list, x1, y1, x2, y2, rounding=0, flags=ImDrawFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding, flags);
 	}
 
@@ -1258,7 +1144,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddImage = function(list, sprite, subimg, x1, y1, x2, y2, col=c_white) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -1276,7 +1161,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListAddImageRounded = function(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -1290,7 +1174,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPushClipRect = function(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_push_clip_rect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect);
 	}
 
@@ -1299,7 +1182,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawlistPushClipRectFullscreen = function(list) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_push_clip_rect_fullscreen(list);
 	}
 
@@ -1308,7 +1190,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPopClipRect = function(list) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_pop_clip_rect(list);
 	}
 
@@ -1319,7 +1200,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPushTextureID = function(list, sprite, subimg) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_push_textureid(list, sprite, subimg);
 	}
 
@@ -1328,7 +1208,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListPopTextureID = function(list) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_pop_textureid(list);
 	}
 
@@ -1337,7 +1216,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static DrawListFlagsGet = function(list) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_flags_get(list);
 	}
 
@@ -1347,7 +1225,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static DrawListFlagsSet = function(list, flags) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_flags_set(list, flags);
 	}
 
@@ -1357,7 +1234,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static DrawListFlagToggle = function(list, flag) {
-		gml_pragma("forceinline");
 		return __imgui_drawlist_flag_toggle(list, flag);
 	}
 
@@ -1369,7 +1245,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static MemoryEditorShowWindow = function(title, buffer, offset=0, size=buffer_get_size(buffer)) {
-		gml_pragma("forceinline");
 		return __imgui_memory_editor_window(title, buffer, offset, size);
 	}
 
@@ -1380,7 +1255,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static MemoryEditorDrawContents = function(buffer, offset=0, size=buffer_get_size(buffer)) {
-		gml_pragma("forceinline");
 		return __imgui_memory_editor_contents(buffer, offset, size);
 	}
 
@@ -1388,7 +1262,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer}
 	static GetFont = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_font();
 	}
 
@@ -1396,7 +1269,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetFontSize = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_font_size();
 	}
 
@@ -1405,7 +1277,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushFont = function(ptr=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_push_font(ptr);
 	}
 
@@ -1413,7 +1284,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopFont = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_font();
 	}
 
@@ -1423,7 +1293,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Pointer|Undefined}
 	static AddFontFromFile = function(file, size) {
-		gml_pragma("forceinline");
 		return __imgui_add_font_from_file(file, size);
 	}
 
@@ -1431,7 +1300,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static AddFontDefault = function() {
-		gml_pragma("forceinline");
 		return __imgui_add_font_default();
 	}
 
@@ -1442,7 +1310,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String}
 	static InputText = function(label, val, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_text(label, val, flags);
 	}
 
@@ -1455,7 +1322,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String}
 	static InputTextMultiline = function(label, val, width=0, height=0, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_textmultiline(label, val, width, height, flags);
 	}
 
@@ -1467,7 +1333,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String}
 	static InputTextWithHint = function(label, hint, val, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_textwithhint(label, hint, val, flags);
 	}
 
@@ -1481,7 +1346,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static InputFloat = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_float(label, v, step, step_fast, format, flags);
 	}
 
@@ -1495,7 +1359,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputFloat2 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_float2(label, v, step, step_fast, format, flags);
 	}
 
@@ -1509,7 +1372,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputFloat3 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_float3(label, v, step, step_fast, format, flags);
 	}
 
@@ -1523,7 +1385,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputFloat4 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_float4(label, v, step, step_fast, format, flags);
 	}
 
@@ -1537,7 +1398,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputFloatN = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_floatn(label, v, step, step_fast, format, flags, array_length(v));
 	}
 
@@ -1550,7 +1410,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static InputInt = function(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_int(label, v, step, step_fast, flags);
 	}
 
@@ -1561,7 +1420,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputInt2 = function(label, v, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_int2(label, v, flags);
 	}
 
@@ -1572,7 +1430,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputInt3 = function(label, v, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_int3(label, v, flags);
 	}
 
@@ -1583,7 +1440,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputInt4 = function(label, v, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_int4(label, v, flags);
 	}
 
@@ -1594,7 +1450,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InputIntN = function(label, v, flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_intn(label, v, flags, array_length(v));
 	}
 
@@ -1608,7 +1463,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static InputDouble = function(label, v, step=0, step_fast=0, format="%.6f", flags=ImGuiInputTextFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_input_double(label, v, step, step_fast, format, flags);
 	}
 
@@ -1616,7 +1470,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Spacing = function() {
-		gml_pragma("forceinline");
 		return __imgui_spacing();
 	}
 
@@ -1626,7 +1479,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Dummy = function(width, height) {
-		gml_pragma("forceinline");
 		return __imgui_dummy(width, height);
 	}
 
@@ -1634,7 +1486,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static NewLine = function() {
-		gml_pragma("forceinline");
 		return __imgui_newline();
 	}
 
@@ -1642,7 +1493,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static AlignTextToFramePadding = function() {
-		gml_pragma("forceinline");
 		return __imgui_align_text_to_frame_padding();
 	}
 
@@ -1650,7 +1500,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Separator = function() {
-		gml_pragma("forceinline");
 		return __imgui_separator();
 	}
 
@@ -1659,7 +1508,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Indent = function(indent_w=0) {
-		gml_pragma("forceinline");
 		return __imgui_indent(indent_w);
 	}
 
@@ -1668,7 +1516,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Unindent = function(indent_w=0) {
-		gml_pragma("forceinline");
 		return __imgui_unindent(indent_w);
 	}
 
@@ -1678,7 +1525,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SameLine = function(offset_from_start_x=0, spacing=-1) {
-		gml_pragma("forceinline");
 		return __imgui_sameline(offset_from_start_x, spacing);
 	}
 
@@ -1686,7 +1532,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static BeginGroup = function() {
-		gml_pragma("forceinline");
 		return __imgui_begin_group();
 	}
 
@@ -1694,7 +1539,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndGroup = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_group();
 	}
 
@@ -1702,7 +1546,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetCursorPosX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_cursor_pos_x();
 	}
 
@@ -1710,7 +1553,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetCursorPosY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_cursor_pos_y();
 	}
 
@@ -1718,7 +1560,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetCursorStartPosX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_cursor_start_pos_x();
 	}
 
@@ -1726,7 +1567,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetCursorStartPosY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_cursor_start_pos_y();
 	}
 
@@ -1734,7 +1574,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetCursorScreenPosX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_cursor_screen_pos_x();
 	}
 
@@ -1742,7 +1581,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetCursorScreenPosY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_cursor_screen_pos_y();
 	}
 
@@ -1752,7 +1590,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorScreenPos = function(_x, _y) {
-		gml_pragma("forceinline");
 		return __imgui_set_cursor_screen_pos(_x, _y);
 	}
 
@@ -1762,7 +1599,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorPos = function(local_x, local_y) {
-		gml_pragma("forceinline");
 		return __imgui_set_cursor_pos(local_x, local_y);
 	}
 
@@ -1771,7 +1607,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorPosX = function(local_x) {
-		gml_pragma("forceinline");
 		return __imgui_set_cursor_pos_x(local_x);
 	}
 
@@ -1780,7 +1615,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetCursorPosY = function(local_y) {
-		gml_pragma("forceinline");
 		return __imgui_set_cursor_pos_y(local_y);
 	}
 
@@ -1788,7 +1622,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetTextLineHeight = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_text_line_height();
 	}
 
@@ -1796,7 +1629,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetTextLineHeightWithSpacing = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_text_line_height_with_spacing();
 	}
 
@@ -1804,7 +1636,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetFrameHeight = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_frame_height();
 	}
 
@@ -1812,7 +1643,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetFrameHeightWithSpacing = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_frame_height_with_spacing();
 	}
 
@@ -1820,7 +1650,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionAvailX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_content_region_avail_x();
 	}
 
@@ -1828,7 +1657,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionAvailY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_content_region_avail_y();
 	}
 
@@ -1836,7 +1664,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionMaxX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_content_region_max_x();
 	}
 
@@ -1844,7 +1671,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetContentRegionMaxY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_content_region_max_y();
 	}
 
@@ -1852,7 +1678,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMinX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_content_region_min_x();
 	}
 
@@ -1860,7 +1685,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMinY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_content_region_min_y();
 	}
 
@@ -1868,7 +1692,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMaxX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_content_region_max_x();
 	}
 
@@ -1876,7 +1699,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowContentRegionMaxY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_content_region_max_y();
 	}
 
@@ -1885,7 +1707,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushItemWidth = function(item_width) {
-		gml_pragma("forceinline");
 		return __imgui_push_item_width(item_width);
 	}
 
@@ -1893,7 +1714,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopItemWidth = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_item_width();
 	}
 
@@ -1902,7 +1722,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextItemWidth = function(item_width) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_item_width(item_width);
 	}
 
@@ -1910,7 +1729,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static CalcItemWidth = function() {
-		gml_pragma("forceinline");
 		return __imgui_calc_item_width();
 	}
 
@@ -1919,7 +1737,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushTextWrapPos = function(wrap_local_pos_x=0) {
-		gml_pragma("forceinline");
 		return __imgui_push_text_wrap_pos(wrap_local_pos_x);
 	}
 
@@ -1927,7 +1744,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopTextWrapPos = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_text_wrap_pos();
 	}
 
@@ -1940,7 +1756,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushClipRect = function(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) {
-		gml_pragma("forceinline");
 		return __imgui_push_clip_rect(clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect);
 	}
 
@@ -1948,7 +1763,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopClipRect = function() {
-		gml_pragma("forceinline");
 		return __imgui_pop_clip_rect();
 	}
 
@@ -1959,7 +1773,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginListBox = function(label, width=0, height=0) {
-		gml_pragma("forceinline");
 		return __imgui_begin_listbox(label, width, height);
 	}
 
@@ -1967,7 +1780,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndListBox = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_listbox();
 	}
 
@@ -1975,7 +1787,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static ListBox = function() {
-		gml_pragma("forceinline");
 		return __imgui_listbox();
 	}
 
@@ -1983,7 +1794,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginMenuBar = function() {
-		gml_pragma("forceinline");
 		return __imgui_begin_menubar();
 	}
 
@@ -1991,7 +1801,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndMenuBar = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_menubar();
 	}
 
@@ -1999,7 +1808,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginMainMenuBar = function() {
-		gml_pragma("forceinline");
 		return __imgui_begin_mainmenubar();
 	}
 
@@ -2007,7 +1815,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndMainMenuBar = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_mainmenubar();
 	}
 
@@ -2017,7 +1824,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginMenu = function(label, enabled=true) {
-		gml_pragma("forceinline");
 		return __imgui_begin_menu(label, enabled);
 	}
 
@@ -2025,7 +1831,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndMenu = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_menu();
 	}
 
@@ -2038,7 +1843,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static MenuItem = function(label, shortcut="", selected=undefined, enabled=true, mask=ImGuiReturnMask.Return) {
-		gml_pragma("forceinline");
 		return __imgui_menu_item(label, shortcut, selected, enabled, mask);
 	}
 
@@ -2047,7 +1851,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginDragDropSource = function(flags=ImGuiDragDropFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_begin_drag_drop_source(flags);
 	}
 
@@ -2055,7 +1858,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndDragDropSource = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_drag_drop_source();
 	}
 
@@ -2063,7 +1865,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginDragDropTarget = function() {
-		gml_pragma("forceinline");
 		return __imgui_begin_drag_drop_target();
 	}
 
@@ -2071,7 +1872,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndDragDropTarget = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_drag_drop_target();
 	}
 
@@ -2082,7 +1882,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SetDragDropPayload = function(type, data, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_drag_drop_payload(type, data, cond);
 	}
 
@@ -2092,7 +1891,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Any|Undefined}
 	static AcceptDragDropPayload = function(type, flags=ImGuiDragDropFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_accept_drag_drop_payload(type, flags);
 	}
 
@@ -2100,7 +1898,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Any|Undefined}
 	static GetDragDropPayload = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_drag_drop_payload();
 	}
 
@@ -2108,7 +1905,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String|Undefined}
 	static GetDragDropPayloadType = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_payload_type();
 	}
 
@@ -2124,7 +1920,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PlotLines = function(label, values, values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
-		gml_pragma("forceinline");
 		return __imgui_plot_lines(label, values, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height, array_length(values));
 	}
 
@@ -2140,7 +1935,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PlotHistogram = function(label, values, values_offset=0, overlay_text="", scale_min=0, scale_max=0, graph_width=0, graph_height=0) {
-		gml_pragma("forceinline");
 		return __imgui_plot_histogram(label, values, values_offset, overlay_text, scale_min, scale_max, graph_width, graph_height, array_length(values));
 	}
 
@@ -2150,7 +1944,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopup = function(str_id, flags=ImGuiWindowFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_begin_popup(str_id, flags);
 	}
 
@@ -2162,7 +1955,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static BeginPopupModal = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {
-		gml_pragma("forceinline");
 		return __imgui_begin_popup_modal(name, open, flags, mask);
 	}
 
@@ -2170,7 +1962,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndPopup = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_popup();
 	}
 
@@ -2180,7 +1971,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static OpenPopup = function(str_id, flags=ImGuiPopupFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_open_popup(str_id, flags);
 	}
 
@@ -2190,7 +1980,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static OpenPopupOnItemClick = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
-		gml_pragma("forceinline");
 		return __imgui_open_popup_on_item_click(str_id, flags);
 	}
 
@@ -2198,7 +1987,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static CloseCurrentPopup = function() {
-		gml_pragma("forceinline");
 		return __imgui_close_current_popup();
 	}
 
@@ -2208,7 +1996,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopupContextItem = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
-		gml_pragma("forceinline");
 		return __imgui_begin_popup_context_item(str_id, flags);
 	}
 
@@ -2218,7 +2005,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopupContextWindow = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
-		gml_pragma("forceinline");
 		return __imgui_begin_popup_context_window(str_id, flags);
 	}
 
@@ -2228,7 +2014,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginPopupContextVoid = function(str_id="undefined", flags=ImGuiPopupFlags.MouseButtonRight) {
-		gml_pragma("forceinline");
 		return __imgui_begin_popup_context_void(str_id, flags);
 	}
 
@@ -2238,7 +2023,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsPopupOpen = function(str_id, flags=ImGuiPopupFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_is_popup_open(str_id, flags);
 	}
 
@@ -2251,7 +2035,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static Selectable = function(label, selected=false, flags=ImGuiSelectableFlags.None, width=0, height=0) {
-		gml_pragma("forceinline");
 		return __imgui_selectable(label, selected, flags, width, height);
 	}
 
@@ -2265,7 +2048,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static SliderFloat = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_float(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2279,7 +2061,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloat2 = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_float2(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2293,7 +2074,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloat3 = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_float3(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2307,7 +2087,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloat4 = function(label, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_float4(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2322,7 +2101,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderFloatN = function(label, v, v_speed=1, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_floatn(label, v, v_speed, v_min, v_max, format, flags, array_length(v));
 	}
 
@@ -2336,7 +2114,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static SliderInt = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_int(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2350,7 +2127,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderInt2 = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_int2(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2364,7 +2140,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderInt3 = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_int3(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2378,7 +2153,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderInt4 = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_int4(label, v, v_min, v_max, format, flags);
 	}
 
@@ -2392,7 +2166,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SliderIntN = function(label, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_intn(label, v, v_min, v_max, format, flags, array_length(v));
 	}
 
@@ -2408,7 +2181,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static VSliderFloat = function(label, width, height, v, v_min=0, v_max=0, format="%.3f", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_vslider_float(label, width, height, v, v_min, v_max, format, flags);
 	}
 
@@ -2424,7 +2196,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static VSliderInt = function(label, width, height, v, v_min=0, v_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_vslider_int(label, width, height, v, v_min, v_max, format, flags);
 	}
 
@@ -2438,7 +2209,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static SliderAngle = function(label, v_rad, v_degrees_min=0, v_degrees_max=0, format="%d", flags=ImGuiSliderFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_slider_angle(label, v_rad, v_degrees_min, v_degrees_max, format, flags);
 	}
 
@@ -2446,7 +2216,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static StyleColorsDark = function() {
-		gml_pragma("forceinline");
 		return __imgui_style_colors_dark();
 	}
 
@@ -2454,7 +2223,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static StyleColorsLight = function() {
-		gml_pragma("forceinline");
 		return __imgui_style_colors_light();
 	}
 
@@ -2462,7 +2230,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static StyleColorsClassic = function() {
-		gml_pragma("forceinline");
 		return __imgui_style_colors_classic();
 	}
 
@@ -2473,7 +2240,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushStyleColor = function(idx, col, alpha) {
-		gml_pragma("forceinline");
 		return __imgui_push_style_color(idx, col, alpha);
 	}
 
@@ -2482,7 +2248,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopStyleColor = function(count=1) {
-		gml_pragma("forceinline");
 		return __imgui_pop_style_color(count);
 	}
 
@@ -2493,7 +2258,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PushStyleVar = function(idx, val, val2=undefined) {
-		gml_pragma("forceinline");
 		return __imgui_push_style_var(idx, val, val2);
 	}
 
@@ -2502,7 +2266,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static PopStyleVar = function(count=1) {
-		gml_pragma("forceinline");
 		return __imgui_pop_style_var(count);
 	}
 
@@ -2511,7 +2274,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetStyleColor = function(idx) {
-		gml_pragma("forceinline");
 		return __imgui_get_style_color(idx);
 	}
 
@@ -2520,7 +2282,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String}
 	static GetStyleColorName = function(idx) {
-		gml_pragma("forceinline");
 		return __imgui_get_style_color_name(idx);
 	}
 
@@ -2534,7 +2295,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginTable = function(str_id, column, flags=ImGuiTableFlags.None, outer_width=0, outer_height=0, inner_width=0) {
-		gml_pragma("forceinline");
 		return __imgui_begin_table(str_id, column, flags, outer_width, outer_height, inner_width);
 	}
 
@@ -2542,7 +2302,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndTable = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_table();
 	}
 
@@ -2552,7 +2311,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableNextRow = function(row_flags=ImGuiTableRowFlags.None, min_row_height=0) {
-		gml_pragma("forceinline");
 		return __imgui_table_next_row(row_flags, min_row_height);
 	}
 
@@ -2560,7 +2318,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static TableNextColumn = function() {
-		gml_pragma("forceinline");
 		return __imgui_table_next_column();
 	}
 
@@ -2569,7 +2326,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static TableSetColumnIndex = function(column_n) {
-		gml_pragma("forceinline");
 		return __imgui_table_set_column_index(column_n);
 	}
 
@@ -2580,7 +2336,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetupColumn = function(label, flags=ImGuiTableColumnFlags.None, user_id=0) {
-		gml_pragma("forceinline");
 		return __imgui_table_setup_column(label, flags, user_id);
 	}
 
@@ -2590,7 +2345,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetupScrollFreeze = function(cols, rows) {
-		gml_pragma("forceinline");
 		return __imgui_table_setup_scroll_freeze(cols, rows);
 	}
 
@@ -2598,7 +2352,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableHeadersRow = function() {
-		gml_pragma("forceinline");
 		return __imgui_table_headers_row();
 	}
 
@@ -2607,7 +2360,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableHeader = function(label) {
-		gml_pragma("forceinline");
 		return __imgui_table_header(label);
 	}
 
@@ -2615,7 +2367,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static TableGetColumnCount = function() {
-		gml_pragma("forceinline");
 		return __imgui_table_get_column_count();
 	}
 
@@ -2623,7 +2374,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static TableGetColumnIndex = function() {
-		gml_pragma("forceinline");
 		return __imgui_table_get_column_index();
 	}
 
@@ -2632,7 +2382,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {String}
 	static TableGetColumnName = function(column_n=-1) {
-		gml_pragma("forceinline");
 		return __imgui_table_get_column_name(column_n);
 	}
 
@@ -2641,7 +2390,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static TableGetColumnFlags = function(column_n=-1) {
-		gml_pragma("forceinline");
 		return __imgui_table_get_column_flags(column_n);
 	}
 
@@ -2649,7 +2397,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static TableGetRowIndex = function() {
-		gml_pragma("forceinline");
 		return __imgui_table_get_row_index();
 	}
 
@@ -2659,7 +2406,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetColumnEnabled = function(column_n, v) {
-		gml_pragma("forceinline");
 		return __imgui_table_set_column_enabled(column_n, v);
 	}
 
@@ -2670,7 +2416,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TableSetBgColor = function(target, col, column_n=-1) {
-		gml_pragma("forceinline");
 		return __imgui_table_set_bg_color(target, col, column_n);
 	}
 
@@ -2681,7 +2426,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Columns = function(count=1, _id="", border=true) {
-		gml_pragma("forceinline");
 		return __imgui_columns(count, _id, border);
 	}
 
@@ -2689,7 +2433,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static NextColumn = function() {
-		gml_pragma("forceinline");
 		return __imgui_next_column();
 	}
 
@@ -2697,7 +2440,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetColumnIndex = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_column_index();
 	}
 
@@ -2706,7 +2448,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetColumnWidth = function(column_index=-1) {
-		gml_pragma("forceinline");
 		return __imgui_get_column_width(column_index);
 	}
 
@@ -2716,7 +2457,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetColumnWidth = function(column_index, width) {
-		gml_pragma("forceinline");
 		return __imgui_set_column_width(column_index, width);
 	}
 
@@ -2725,7 +2465,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetColumnOffset = function(column_index=-1) {
-		gml_pragma("forceinline");
 		return __imgui_get_column_offset(column_index);
 	}
 
@@ -2735,7 +2474,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetColumnOffset = function(column_index, offset_x) {
-		gml_pragma("forceinline");
 		return __imgui_set_column_offset(column_index, offset_x);
 	}
 
@@ -2743,7 +2481,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetColumnsCount = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_columns_count();
 	}
 
@@ -2753,7 +2490,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginTabBar = function(str_id, flags=ImGuiTabBarFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_begin_tab_bar(str_id, flags);
 	}
 
@@ -2761,7 +2497,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndTabBar = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_tab_bar();
 	}
 
@@ -2773,7 +2508,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static BeginTabItem = function(label, open=undefined, flags=ImGuiTabItemFlags.None, mask=ImGuiReturnMask.Return) {
-		gml_pragma("forceinline");
 		return __imgui_begin_tab_item(label, open, flags, mask);
 	}
 
@@ -2781,7 +2515,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndTabItem = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_tab_item();
 	}
 
@@ -2791,7 +2524,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static TabItemButton = function(label, flags=ImGuiTabItemFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_tab_item_button(label, flags);
 	}
 
@@ -2800,7 +2532,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetTabItemClosed = function(tab_or_docked_window_label) {
-		gml_pragma("forceinline");
 		return __imgui_set_tab_item_closed(tab_or_docked_window_label);
 	}
 
@@ -2809,7 +2540,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TextUnformatted = function(text) {
-		gml_pragma("forceinline");
 		return __imgui_text_unformatted(text);
 	}
 
@@ -2818,7 +2548,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Text = function(val) {
-		gml_pragma("forceinline");
 		return __imgui_text(val);
 	}
 
@@ -2829,7 +2558,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TextColored = function(val, color, alpha=1) {
-		gml_pragma("forceinline");
 		return __imgui_text_colored(val, color, alpha);
 	}
 
@@ -2838,7 +2566,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TextDisabled = function(val) {
-		gml_pragma("forceinline");
 		return __imgui_text_disabled(val);
 	}
 
@@ -2847,7 +2574,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TextWrapped = function(val) {
-		gml_pragma("forceinline");
 		return __imgui_text_wrapped(val);
 	}
 
@@ -2857,7 +2583,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static LabelText = function(label, val) {
-		gml_pragma("forceinline");
 		return __imgui_label_text(label, val);
 	}
 
@@ -2866,7 +2591,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static BulletText = function(val) {
-		gml_pragma("forceinline");
 		return __imgui_bullet_text(val);
 	}
 
@@ -2874,7 +2598,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Unknown<unset>}
 	static Value = function() {
-		gml_pragma("forceinline");
 		return __imgui_value();
 	}
 
@@ -2882,7 +2605,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static BeginTooltip = function() {
-		gml_pragma("forceinline");
 		return __imgui_begin_tooltip();
 	}
 
@@ -2890,7 +2612,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndTooltip = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_tooltip();
 	}
 
@@ -2899,7 +2620,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetTooltip = function(val) {
-		gml_pragma("forceinline");
 		return __imgui_set_tooltip(val);
 	}
 
@@ -2908,7 +2628,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static TreeNode = function(label) {
-		gml_pragma("forceinline");
 		return __imgui_tree_node(label);
 	}
 
@@ -2918,7 +2637,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static TreeNodeEx = function(label, flags=ImGuiTreeNodeFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_tree_node_ex(label, flags);
 	}
 
@@ -2927,7 +2645,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TreePush = function(str_id) {
-		gml_pragma("forceinline");
 		return __imgui_tree_push(str_id);
 	}
 
@@ -2935,7 +2652,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static TreePop = function() {
-		gml_pragma("forceinline");
 		return __imgui_tree_pop();
 	}
 
@@ -2943,7 +2659,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetTreeNodeToLabelSpacing = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_tree_node_to_label_spacing();
 	}
 
@@ -2953,7 +2668,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextItemOpen = function(is_open, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_item_open(is_open, cond);
 	}
 
@@ -2965,7 +2679,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static CollapsingHeader = function(label, _visible=undefined, flags=ImGuiTreeNodeFlags.None, mask=ImGuiReturnMask.Return) {
-		gml_pragma("forceinline");
 		return __imgui_collapsing_header(label, _visible, flags, mask);
 	}
 
@@ -2976,7 +2689,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static Button = function(label, width=0, height=0) {
-		gml_pragma("forceinline");
 		return __imgui_button(label, width, height);
 	}
 
@@ -2985,7 +2697,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static SmallButton = function(label) {
-		gml_pragma("forceinline");
 		return __imgui_small_button(label);
 	}
 
@@ -2997,7 +2708,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static InvisibleButton = function(_id, width=0, height=0, flags=ImGuiButtonFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_invisible_button(_id, width, height, flags);
 	}
 
@@ -3007,7 +2717,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ArrowButton = function(str_id, dir) {
-		gml_pragma("forceinline");
 		return __imgui_arrow_button(str_id, dir);
 	}
 
@@ -3021,7 +2730,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Image = function(sprite, subimg, color=c_white, alpha=1, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
-		gml_pragma("forceinline");
 		return __imgui_image(sprite, subimg, color, alpha, width, height, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -3038,7 +2746,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static ImageButton = function(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
-		gml_pragma("forceinline");
 		return __imgui_image_button(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width, height, sprite_get_uvs(sprite, subimg));
 	}
 
@@ -3051,7 +2758,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Surface = function(surface, color=c_white, alpha=1, width=surface_get_width(surface), height=surface_get_height(surface)) {
-		gml_pragma("forceinline");
 		var _tex = surface_get_texture(surface); 
 		return __imgui_surface(surface, color, alpha, width, height, texture_get_uvs(_tex));
 	}
@@ -3062,7 +2768,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static Checkbox = function(label, checked) {
-		gml_pragma("forceinline");
 		return __imgui_checkbox(label, checked);
 	}
 
@@ -3073,7 +2778,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static CheckboxFlags = function(label, flags, flags_value) {
-		gml_pragma("forceinline");
 		return __imgui_checkbox_flags(label, flags, flags_value);
 	}
 
@@ -3083,7 +2787,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static RadioButton = function(label, active) {
-		gml_pragma("forceinline");
 		return __imgui_radio_button(label, active);
 	}
 
@@ -3095,7 +2798,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static ProgressBar = function(_frac, width=0, height=0, overlay="") {
-		gml_pragma("forceinline");
 		return __imgui_progressbar(_frac, width, height, overlay);
 	}
 
@@ -3103,7 +2805,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static Bullet = function() {
-		gml_pragma("forceinline");
 		return __imgui_bullet();
 	}
 
@@ -3115,7 +2816,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static Begin = function(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImGuiReturnMask.Return) {
-		gml_pragma("forceinline");
 		return __imgui_begin(name, open, flags, mask);
 	}
 
@@ -3123,7 +2823,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static End = function() {
-		gml_pragma("forceinline");
 		return __imgui_end();
 	}
 
@@ -3136,7 +2835,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginChild = function(str_id, width=0, height=0, border=false, flags=ImGuiWindowFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_begin_child(str_id, width, height, border, flags);
 	}
 
@@ -3144,7 +2842,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndChild = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_child();
 	}
 
@@ -3156,7 +2853,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static BeginChildFrame = function(_id, width=0, height=0, flags=ImGuiWindowFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_begin_child_frame(_id, width, height, flags);
 	}
 
@@ -3164,7 +2860,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static EndChildFrame = function() {
-		gml_pragma("forceinline");
 		return __imgui_end_child_frame();
 	}
 
@@ -3172,7 +2867,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowAppearing = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_window_appearing();
 	}
 
@@ -3180,7 +2874,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowCollapsed = function() {
-		gml_pragma("forceinline");
 		return __imgui_is_window_collapsed();
 	}
 
@@ -3189,7 +2882,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowFocused = function(flags=ImGuiFocusedFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_is_window_focused(flags);
 	}
 
@@ -3198,7 +2890,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Bool}
 	static IsWindowHovered = function(flags=ImGuiHoveredFlags.None) {
-		gml_pragma("forceinline");
 		return __imgui_is_window_hovered(flags);
 	}
 
@@ -3206,7 +2897,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowDpiScale = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_dpi_scale();
 	}
 
@@ -3214,7 +2904,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowPosX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_x();
 	}
 
@@ -3222,7 +2911,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowPosY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_y();
 	}
 
@@ -3230,7 +2918,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowWidth = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_width();
 	}
 
@@ -3238,7 +2925,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetWindowHeight = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_window_height();
 	}
 
@@ -3251,7 +2937,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowPos = function(_x, _y, cond=ImGuiCond.None, pivot_x=0, pivot_y=0) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_pos(_x, _y, cond, pivot_x, pivot_y);
 	}
 
@@ -3262,7 +2947,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowSize = function(width, height, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_size(width, height, cond);
 	}
 
@@ -3274,7 +2958,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowSizeConstraints = function(min_width, min_height, max_width, max_height) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_size_constraints(min_width, min_height, max_width, max_height);
 	}
 
@@ -3284,7 +2967,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowContentSize = function(width, height) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_content_size(width, height);
 	}
 
@@ -3294,7 +2976,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowCollapsed = function(collapsed, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_collapsed(collapsed, cond);
 	}
 
@@ -3302,7 +2983,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowFocus = function() {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_focus();
 	}
 
@@ -3312,7 +2992,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowScroll = function(scroll_x, scroll_y) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_scroll(scroll_x, scroll_y);
 	}
 
@@ -3321,7 +3000,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetNextWindowBgAlpha = function(alpha) {
-		gml_pragma("forceinline");
 		return __imgui_set_next_window_bgalpha(alpha);
 	}
 
@@ -3329,7 +3007,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetScrollX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_scroll_x();
 	}
 
@@ -3337,7 +3014,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetScrollY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_scroll_y();
 	}
 
@@ -3346,7 +3022,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollX = function(scroll_x) {
-		gml_pragma("forceinline");
 		return __imgui_set_scroll_x(scroll_x);
 	}
 
@@ -3355,7 +3030,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollY = function(scroll_y) {
-		gml_pragma("forceinline");
 		return __imgui_set_scroll_y(scroll_y);
 	}
 
@@ -3363,7 +3037,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetScrollMaxX = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_scroll_max_x();
 	}
 
@@ -3371,7 +3044,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Real}
 	static GetScrollMaxY = function() {
-		gml_pragma("forceinline");
 		return __imgui_get_scroll_max_y();
 	}
 
@@ -3380,7 +3052,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollHereX = function(center_x_ratio=0.5) {
-		gml_pragma("forceinline");
 		return __imgui_set_scroll_here_x(center_x_ratio);
 	}
 
@@ -3389,7 +3060,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollHereY = function(center_y_ratio=0.5) {
-		gml_pragma("forceinline");
 		return __imgui_set_scroll_here_y(center_y_ratio);
 	}
 
@@ -3399,7 +3069,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollFromPosX = function(local_x, center_x_ratio=0.5) {
-		gml_pragma("forceinline");
 		return __imgui_set_scroll_from_pos_x(local_x, center_x_ratio);
 	}
 
@@ -3409,7 +3078,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetScrollFromPosY = function(local_y, center_y_ratio=0.5) {
-		gml_pragma("forceinline");
 		return __imgui_set_scroll_from_pos_y(local_y, center_y_ratio);
 	}
 
@@ -3420,7 +3088,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetWindowPos = function(_x, _y, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_window_pos(_x, _y, cond);
 	}
 
@@ -3432,7 +3099,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetWindowSize = function(name="", width, height, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_window_size(name, width, height, cond);
 	}
 
@@ -3443,7 +3109,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetWindowCollapsed = function(name="", collapsed, cond=ImGuiCond.None) {
-		gml_pragma("forceinline");
 		return __imgui_set_window_collapsed(name, collapsed, cond);
 	}
 
@@ -3452,7 +3117,6 @@ function ImGui() constructor {
 	/// @context ImGui
 	/// @return {Undefined}
 	static SetWindowFocus = function(name="") {
-		gml_pragma("forceinline");
 		return __imgui_set_window_focus(name);
 	}
 
@@ -4064,7 +3728,7 @@ function ImGui() constructor {
 	
 	static __Context = __imgui_create_context();
 	static __Initialize = function(scale=1) {	
-		if (__imgui_initialize(window_handle(), __Context) == pointer_null) {
+		if (__imgui_initialize(window_handle(), __Context, IMGUIGM_BUFFER_SIZE) == pointer_null) {
 			show_error("Something failed to initialize with ImGui_GM!", true);
 			return;
 		}
@@ -4186,4 +3850,6 @@ function ImGui() constructor {
 			display_set_gui_size(_w, _h);
 		}
 	}
+	
+	return ImGui;
 };
