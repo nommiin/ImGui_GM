@@ -206,8 +206,8 @@ class Wrapper {
         };
     }
 
-    to_jsdoc(enums, spacing=1) {
-        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${this.Calls}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
+    to_jsdoc(enums, spacing=1, snake=false) {
+        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${!snake ? this.Calls : this.Name.slice(2)}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
             if (arg.Hidden) continue;
@@ -236,13 +236,13 @@ class Wrapper {
             }
             str += "\n";
         }
-        str += Configuration.SPACING.repeat(spacing) + `/// @context ImGui\n`;
+        if (!snake) str += Configuration.SPACING.repeat(spacing) + `/// @context ImGui\n`;
         str += Configuration.SPACING.repeat(spacing) + `/// @return {${this.Return}}`;
         return str;
     }
 
-    to_gml(spacing=1) {
-        let str = Configuration.SPACING.repeat(spacing) + `static ${this.Calls} = function(` + this.Arguments.filter(e => !e.Hidden).map(e => {
+    to_gml(spacing=1, snake=false) {
+        let str = Configuration.SPACING.repeat(spacing) + (!snake ? `static ${this.Calls} = function(` : `function ${this.Name.slice(2)}(`) + this.Arguments.filter(e => !e.Hidden).map(e => {
             if (e.Default === undefined) return e.Name;
 
             switch (e.Type) {

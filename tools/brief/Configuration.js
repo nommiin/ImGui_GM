@@ -47,6 +47,11 @@ class Configuration {
      * @description If true, program will generate a coverage report in COVERAGE.md
      */
     static WRITE_REPORT = true;
+
+    /**
+     * @description If true, program will generate a .gml script containing snake-case functions for ImGui_GM
+     */
+    static WRITE_SNAKE = true;
 }
 
 module.exports = Configuration;

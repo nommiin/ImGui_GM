@@ -49,6 +49,12 @@ class Program {
             Logger.info("Writing coverage report...");
             this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
         }
+
+        if (Configuration.WRITE_SNAKE) {
+            Logger.info("Writing snake-case script...");
+            this.writeSnakeCase(wrappers, header.enums, new FileEditor("snake_case.gml"));
+            Logger.info(`Successfully wrote ${wrappers.length} wrappers`);
+        }
     }
 
     /**
@@ -452,6 +458,19 @@ class Program {
             }
         });
 
+        if (file.update(content)) file.commit();
+    }
+
+    static writeSnakeCase(wrappers, enums, file) {
+        let content = `/**\n*  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention\n*  To use, just drop this script into your project with ImGui_GM\n*  Generated at ${new Date().toLocaleString()}\n*/\n\n`;
+        ["Initialize", "Update", "Render"].forEach(e => {
+            const name = "imgui_" + e[0].toLowerCase() + e.slice(1);
+            content += `/// @function ${name}\nfunction ${name}() {\n	return ImGui.__${e}();\n}\n\n`;
+        });
+
+        wrappers.forEach(e => {
+            content += e.to_jsdoc(enums, 0, Configuration.WRITE_SNAKE) + "\n" + e.to_gml(0, Configuration.WRITE_SNAKE) + "\n";
+        });
         if (file.update(content)) file.commit();
     }
 }
