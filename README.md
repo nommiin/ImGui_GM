@@ -33,6 +33,9 @@ if (ImGui.Begin("Test Window")) {
 
 3. See **Coverage** heading below or the ImGui script in project for ImGui -> GML wrappers
 
+# Snake Case
+Not a fan of the namespace-esque functions? Add [`snake_case.gml`](https://github.com/nommiin/ImGui_GM/blob/main/snake_case.gml) to your project! This script is automatically generated at build and includes snake case function definitions for ImGui_GM
+
 # Coverage
 Pretty much everything is covered! Check out [COVERAGE.MD](https://github.com/nommiin/ImGui_GM/blob/main/COVERAGE.md) to see a list of wrapped functions along with non-standard ImGui_GM-only functions! [The wiki](https://github.com/nommiin/ImGui_GM/wiki) also includes some info on some differences and how to use various ImGui features in GML. 
 
