@@ -3755,7 +3755,7 @@ function ImGui() {
 			__Surface = surface_create(window_get_width(), window_get_height());	
 		}
 		
-		__State.Engine.Time = delta_time / 1_000_000;
+		__State.Engine.Time = delta_time / 1000000;
 		__State.Engine.Framerate = game_get_speed(gamespeed_fps);
 		
 		if (window_has_focus()) {
