@@ -7,6 +7,12 @@ main_open = true;
 demo_open = true;
 header_visible = true;
 enable_docking = false;
+compat = true;
+try {
+	static_get(ImGui());
+} catch (e) {
+	compat = false;	
+}
 
 col = c_blue;                     // for TextColored
 col2 = c_white;                   // for Image & ColorPicker

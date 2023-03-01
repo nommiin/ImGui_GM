@@ -1,6 +1,6 @@
 {
   "resourceType": "GMProject",
-  "resourceVersion": "1.6",
+  "resourceVersion": "1.7",
   "name": "ImGui_GM",
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
@@ -11,26 +11,27 @@
   },
   "defaultScriptType": 1,
   "Folders": [
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Example","folderPath":"folders/Example.yy","order":4,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy","order":3,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Example","folderPath":"folders/Example.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"LICENSE.txt","CopyToMask":-1,"filePath":"datafiles/fonts",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Roboto-Regular.ttf","CopyToMask":-1,"filePath":"datafiles/fonts",},
   ],
   "isEcma": false,
+  "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.1.1.62",
+    "IDEVersion": "2023.200.0.299",
   },
   "resources": [
-    {"id":{"name":"sprExample2","path":"sprites/sprExample2/sprExample2.yy",},"order":3,},
-    {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},"order":0,},
-    {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},"order":2,},
-    {"id":{"name":"shdImGui","path":"shaders/shdImGui/shdImGui.yy",},"order":3,},
-    {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":2,},
-    {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
-    {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":1,},
-    {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},"order":1,},
+    {"id":{"name":"sprExample2","path":"sprites/sprExample2/sprExample2.yy",},},
+    {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},},
+    {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},},
+    {"id":{"name":"shdImGui","path":"shaders/shdImGui/shdImGui.yy",},},
+    {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},},
+    {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},},
+    {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
+    {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},},
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},

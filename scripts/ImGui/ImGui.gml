@@ -3760,7 +3760,7 @@ function ImGui() {
 		
 		if (window_has_focus()) {
 			for(var i = ImGuiKey.NamedKey_BEGIN; i < ImGuiKey.NamedKey_END; i++) {
-				var key = __Mapping[i];
+				var key = global.__IMGUI_MAPPING[i];
 				if (key > -1) __imgui_key(i, keyboard_check_direct(key));
 			}
 			__imgui_key(ImGuiKey.ImGuiMod_Ctrl, keyboard_check_direct(vk_lcontrol));
@@ -3778,7 +3778,7 @@ function ImGui() {
 				else if (mouse_wheel_down()) __imgui_mouse_wheel(0, -1);
 				var _cursor = __imgui_mouse_cursor();
 				if (_cursor != __CursorPrev) {
-					window_set_cursor(__Cursor[_cursor + 1]);
+					window_set_cursor(global.__IMGUI_CURSOR[_cursor + 1]);
 					__CursorPrev = _cursor;
 				}
 			}
@@ -3850,6 +3850,112 @@ function ImGui() {
 			display_set_gui_size(_w, _h);
 		}
 	}
-	
 	return ImGui;
 };
+
+// Version Check
+try {
+	var _get = static_get(ImGui());
+	show_debug_message("[ImGui_GM - INFO] Successfully passed version check");
+} catch(e) {
+	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
+}
+
+global.__IMGUI_MAPPING = array_create(ImGuiKey.KeysData_SIZE, -1);
+global.__IMGUI_MAPPING[ImGuiKey.None] = vk_nokey;
+global.__IMGUI_MAPPING[ImGuiKey.Enter] = vk_enter;
+global.__IMGUI_MAPPING[ImGuiKey.Escape] = vk_escape;
+global.__IMGUI_MAPPING[ImGuiKey.Space] = vk_space;
+global.__IMGUI_MAPPING[ImGuiKey.Backspace] = vk_backspace;
+global.__IMGUI_MAPPING[ImGuiKey.Tab] = vk_tab;
+global.__IMGUI_MAPPING[ImGuiKey.Pause] = vk_pause;
+global.__IMGUI_MAPPING[ImGuiKey.LeftArrow] = vk_left;
+global.__IMGUI_MAPPING[ImGuiKey.RightArrow] = vk_right;
+global.__IMGUI_MAPPING[ImGuiKey.UpArrow] = vk_up;
+global.__IMGUI_MAPPING[ImGuiKey.DownArrow] = vk_down;
+global.__IMGUI_MAPPING[ImGuiKey.Home] = vk_home;
+global.__IMGUI_MAPPING[ImGuiKey.End] = vk_end;
+global.__IMGUI_MAPPING[ImGuiKey.Delete] = vk_delete;
+global.__IMGUI_MAPPING[ImGuiKey.Insert] = vk_insert;
+global.__IMGUI_MAPPING[ImGuiKey.PageUp] = vk_pageup;
+global.__IMGUI_MAPPING[ImGuiKey.PageDown] = vk_pagedown;
+global.__IMGUI_MAPPING[ImGuiKey.F1] = vk_f1;
+global.__IMGUI_MAPPING[ImGuiKey.F2] = vk_f2;
+global.__IMGUI_MAPPING[ImGuiKey.F3] = vk_f3;
+global.__IMGUI_MAPPING[ImGuiKey.F4] = vk_f4;
+global.__IMGUI_MAPPING[ImGuiKey.F5] = vk_f5;
+global.__IMGUI_MAPPING[ImGuiKey.F6] = vk_f6;
+global.__IMGUI_MAPPING[ImGuiKey.F7] = vk_f7;
+global.__IMGUI_MAPPING[ImGuiKey.F8] = vk_f8;
+global.__IMGUI_MAPPING[ImGuiKey.F9] = vk_f9;
+global.__IMGUI_MAPPING[ImGuiKey.F10] = vk_f10;
+global.__IMGUI_MAPPING[ImGuiKey.F11] = vk_f11;
+global.__IMGUI_MAPPING[ImGuiKey.F12] = vk_f12;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad0] = vk_numpad0;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad1] = vk_numpad1;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad2] = vk_numpad2;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad3] = vk_numpad3;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad4] = vk_numpad4;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad5] = vk_numpad5;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad6] = vk_numpad6;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad7] = vk_numpad7;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad8] = vk_numpad8;
+global.__IMGUI_MAPPING[ImGuiKey.Keypad9] = vk_numpad9;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadDivide] = vk_divide;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadMultiply] = vk_multiply;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadSubtract] = vk_subtract;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadAdd] = vk_add;
+global.__IMGUI_MAPPING[ImGuiKey.KeypadDecimal] = vk_decimal;
+global.__IMGUI_MAPPING[ImGuiKey.LeftShift] = vk_lshift;
+global.__IMGUI_MAPPING[ImGuiKey.LeftCtrl] = vk_lcontrol;
+global.__IMGUI_MAPPING[ImGuiKey.LeftAlt] = vk_lalt;
+global.__IMGUI_MAPPING[ImGuiKey.RightShift] = vk_rshift;
+global.__IMGUI_MAPPING[ImGuiKey.RightCtrl] = vk_rcontrol;
+global.__IMGUI_MAPPING[ImGuiKey.RightAlt] = vk_ralt;
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_1] = ord("1");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_2] = ord("2");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_3] = ord("3");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_4] = ord("4");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_5] = ord("5");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_6] = ord("6");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_7] = ord("7");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_8] = ord("8");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_9] = ord("9");
+global.__IMGUI_MAPPING[ImGuiKey.ImGuiKey_0] = ord("0");
+global.__IMGUI_MAPPING[ImGuiKey.A] = ord("A");
+global.__IMGUI_MAPPING[ImGuiKey.B] = ord("B");
+global.__IMGUI_MAPPING[ImGuiKey.C] = ord("C");
+global.__IMGUI_MAPPING[ImGuiKey.D] = ord("D");
+global.__IMGUI_MAPPING[ImGuiKey.E] = ord("E");
+global.__IMGUI_MAPPING[ImGuiKey.F] = ord("F");
+global.__IMGUI_MAPPING[ImGuiKey.G] = ord("G");
+global.__IMGUI_MAPPING[ImGuiKey.H] = ord("H");
+global.__IMGUI_MAPPING[ImGuiKey.I] = ord("I");
+global.__IMGUI_MAPPING[ImGuiKey.J] = ord("J");
+global.__IMGUI_MAPPING[ImGuiKey.K] = ord("K");
+global.__IMGUI_MAPPING[ImGuiKey.L] = ord("L");
+global.__IMGUI_MAPPING[ImGuiKey.M] = ord("M");
+global.__IMGUI_MAPPING[ImGuiKey.N] = ord("N");
+global.__IMGUI_MAPPING[ImGuiKey.O] = ord("O");
+global.__IMGUI_MAPPING[ImGuiKey.P] = ord("P");
+global.__IMGUI_MAPPING[ImGuiKey.Q] = ord("Q");
+global.__IMGUI_MAPPING[ImGuiKey.R] = ord("R");
+global.__IMGUI_MAPPING[ImGuiKey.S] = ord("S");
+global.__IMGUI_MAPPING[ImGuiKey.T] = ord("T");
+global.__IMGUI_MAPPING[ImGuiKey.U] = ord("U");
+global.__IMGUI_MAPPING[ImGuiKey.V] = ord("V");
+global.__IMGUI_MAPPING[ImGuiKey.W] = ord("W");
+global.__IMGUI_MAPPING[ImGuiKey.X] = ord("X");
+global.__IMGUI_MAPPING[ImGuiKey.Y] = ord("Y");
+global.__IMGUI_MAPPING[ImGuiKey.Z] = ord("Z");
+global.__IMGUI_CURSOR = array_create(ImGuiMouseCursor.NotAllowed + 1, cr_none);
+global.__IMGUI_CURSOR[ImGuiMouseCursor.None + 1] = cr_none;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.Arrow + 1] = cr_default;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.TextInput + 1] = cr_beam;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
+global.__IMGUI_CURSOR[ImGuiMouseCursor.NotAllowed + 1] = cr_default;

@@ -66,8 +66,18 @@ if (main_open) {
 			}
 			ImGui.TextColored("Developed by Nommiin!", c_aqua);
 			ImGui.Separator();
-			var _ = static_get(ImGui);
-			_.__Scale = max(0.5, ImGui.InputDouble("ImGui.__Scale", _.__Scale, 0.1, 0.25));
+			if (compat) {
+				var _ = static_get(ImGui);
+				_.__Scale = max(0.5, ImGui.InputDouble("ImGui.__Scale", _.__Scale, 0.1, 0.25));
+			} else {
+				ImGui.BeginDisabled();
+				ImGui.InputDouble("ImGui.__Scale", 1);
+				ImGui.EndDisabled();
+				ImGui.TextColored("(!)", c_white, 0.5);
+				if (ImGui.IsItemHovered()) {
+					ImGui.SetTooltip("Your GameMaker runtime version (" + GM_runtime_version + ") does not support static_get\nPlease update to a newer runtime if possible!");
+				}
+			}
 		ImGui.EndChild();
 		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);
