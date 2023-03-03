@@ -11,7 +11,8 @@
     },
     "Include": [
         "scripts/**/*.*",
-        "extensions/**/*.*"
+        "extensions/**/*.*",
+        "objects/**/*.*"
     ],
     "Replace": {
         "${VersionBase}": "${Version}"

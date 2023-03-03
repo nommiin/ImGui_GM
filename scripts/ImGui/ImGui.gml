@@ -3861,15 +3861,15 @@ try {
 	var ind = asset_get_index("ImGui_");
 	if (ind == -1) {
 		if (GM_build_type == "run") {
-			var _warn = file_exists("warning.bin");
-			if (_warn) {
+			if (!file_exists("warning.bin")) {
 				var b = buffer_create(2, buffer_fixed, 1);
 				buffer_poke(b, 0, buffer_u16, 26984);
 				buffer_save(b, "warning.bin");
 				buffer_delete(b);
 			
-				var _msg = "[WARNING]\nIt looks like you're using a version of GameMaker that does not support the \"static_get\" function.\n\nTo effectively use this extension, please rename the \"ImGui\" script and function to \"ImGui_\" and uncomment the ImGui globalvar delcaration below this warning to properly access the ImGui namespace\n\nThis warning will only appear when running from the IDE display, additionally a stub file has been created in your game's save data directory to prevent this warning from displaying again.";
+				var _msg = "[WARNING]\nIt looks like you're using a version of GameMaker that does not support the \"static_get\" function.\n\nTo effectively use this extension, please rename the \"ImGui\" script and function to \"ImGui_\" and uncomment the ImGui globalvar delcaration below this warning (search: imgui_compat) to properly access the ImGui namespace\n\nThis warning will only appear when running from the IDE, additionally a stub file has been created in your game's save data directory to prevent this warning from displaying again.";
 				show_message(_msg);
+				game_end();
 			}
 		}
 	} else {
@@ -3877,10 +3877,11 @@ try {
 			NOTE: If using LTS or unsupported runtime, rename this script and constructor to ImGui_ and uncomment the below globalvar delcaration
 		*/
 		
+		// [imgui_compat]
 		//globalvar ImGui;
 		variable_global_set("ImGui", new ind());
 	}
-	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function (" + string(e) + ")");
+	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
 }
 
 global.__IMGUI_MAPPING = array_create(ImGuiKey.KeysData_SIZE, -1);

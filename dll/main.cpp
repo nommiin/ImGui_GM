@@ -16,9 +16,12 @@ YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
 
 GMEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions, size_t _functions_size) {
-	memcpy(&gs_runnerInterface, _pFunctions, sizeof(YYRunnerInterface));
+	if (_functions_size < sizeof(YYRunnerInterface)) {
+		memcpy(&gs_runnerInterface, _pFunctions, _functions_size);
+	} else {
+		memcpy(&gs_runnerInterface, _pFunctions, sizeof(YYRunnerInterface));
+	}
 	g_pYYRunnerInterface = &gs_runnerInterface;
-	if (_functions_size < sizeof(YYRunnerInterface)) ShowError("Runner interface size mismatch");
 	WriteLog("Successfully initialized runner interface");
 	return;
 }

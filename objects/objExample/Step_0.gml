@@ -66,9 +66,8 @@ if (main_open) {
 			}
 			ImGui.TextColored("Developed by Nommiin!", c_aqua);
 			ImGui.Separator();
-			if (compat) {
-				var _ = static_get(ImGui);
-				_.__Scale = max(0.5, ImGui.InputDouble("ImGui.__Scale", _.__Scale, 0.1, 0.25));
+			if (!is_undefined(_static)) {
+				_static.__Scale = max(0.5, ImGui.InputDouble("ImGui.__Scale", _static.__Scale, 0.1, 0.25));
 			} else {
 				ImGui.BeginDisabled();
 				ImGui.InputDouble("ImGui.__Scale", 1);

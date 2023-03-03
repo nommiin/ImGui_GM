@@ -7,11 +7,11 @@ main_open = true;
 demo_open = true;
 header_visible = true;
 enable_docking = false;
-compat = true;
+_static = undefined;
 try {
-	static_get(ImGui());
+	_static = static_get(ImGui);
 } catch (e) {
-	compat = false;	
+	_static = undefined;
 }
 
 col = c_blue;                     // for TextColored

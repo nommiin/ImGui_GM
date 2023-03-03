@@ -25,7 +25,7 @@
 #define GMFUNC(name) GMEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
 
 // Interface
-#define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- ", __VA_ARGS__)
+#define ShowError(...) YYError("[ImGui_GM] An error has occured:\n- %s\n", __VA_ARGS__)
 #define WriteLog(...) DebugConsoleOutput("[ImGui_GM] %s\n", __VA_ARGS__)
 
 // Helpers
