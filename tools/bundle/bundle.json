@@ -1,0 +1,19 @@
+{
+    "Base": "packaged/imgui_gm_v1_0_10.yymps",
+    "Import": [
+        "ImGui_GM.yyp",
+        "metadata.json"
+    ],
+    "Target": "packaged/imgui_gm_v${Version}.yymps",
+    "Variables": {
+        "VersionBase": "1.0.10",
+        "Version": "1.0.11"
+    },
+    "Include": [
+        "scripts/**/*.*",
+        "extensions/**/*.*"
+    ],
+    "Replace": {
+        "${VersionBase}": "${Version}"
+    }
+}
