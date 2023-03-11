@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 3/1/2023, 3:57:38 PM
+*  Generated at 3/11/2023, 4:13:54 AM
 */
 
 /// @function imgui_initialize
@@ -383,6 +383,34 @@ function imgui_get_main_viewport() {
 /// @return {Undefined}
 function imgui_log_text(text) {
 	return __imgui_log_text(text);
+}
+
+/// @function imgui_want_keyboard_capture(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Bool}
+function imgui_want_keyboard_capture(val=undefined) {
+	return __imgui_want_keyboard_capture(val);
+}
+
+/// @function imgui_want_mouse_capture(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Bool}
+function imgui_want_mouse_capture(val=undefined) {
+	return __imgui_want_mouse_capture(val);
+}
+
+/// @function imgui_want_text_input(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Bool}
+function imgui_want_text_input(val=undefined) {
+	return __imgui_want_text_input(val);
+}
+
+/// @function imgui_want_mouse_unless_popup_close(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Bool}
+function imgui_want_mouse_unless_popup_close(val=undefined) {
+	return __imgui_want_mouse_unless_popup_close(val);
 }
 
 /// @function imgui_color_edit3(label, col, flags)

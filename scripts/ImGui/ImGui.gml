@@ -422,6 +422,38 @@ function ImGui() constructor {
 		return __imgui_log_text(text);
 	}
 
+	/// @function WantKeyboardCapture(val)
+	/// @argument {Bool} [val=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static WantKeyboardCapture = function(val=undefined) {
+		return __imgui_want_keyboard_capture(val);
+	}
+
+	/// @function WantMouseCapture(val)
+	/// @argument {Bool} [val=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static WantMouseCapture = function(val=undefined) {
+		return __imgui_want_mouse_capture(val);
+	}
+
+	/// @function WantTextInput(val)
+	/// @argument {Bool} [val=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static WantTextInput = function(val=undefined) {
+		return __imgui_want_text_input(val);
+	}
+
+	/// @function WantMouseCaptureUnlessPopupClose(val)
+	/// @argument {Bool} [val=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static WantMouseCaptureUnlessPopupClose = function(val=undefined) {
+		return __imgui_want_mouse_unless_popup_close(val);
+	}
+
 	/// @function ColorEdit3(label, col, flags)
 	/// @argument {String} label
 	/// @argument {Real} col
@@ -3725,6 +3757,8 @@ function ImGui() constructor {
 	static __VtxBuffer = -1;
 	
 	static __CursorPrev = -1;
+	static __InputRequested = false;
+	static __InputStore = undefined;
 	
 	static __Context = __imgui_create_context();
 	static __Initialize = function(scale=1) {	
@@ -3766,7 +3800,19 @@ function ImGui() constructor {
 			__imgui_key(ImGuiKey.ImGuiMod_Ctrl, keyboard_check_direct(vk_lcontrol));
 			__imgui_key(ImGuiKey.ImGuiMod_Shift, keyboard_check_direct(vk_lshift));
 			__imgui_key(ImGuiKey.ImGuiMod_Alt, keyboard_check_direct(vk_lalt));
-			if (__imgui_input(keyboard_string)) keyboard_string = "";
+			if (__imgui_want_text_input(undefined)) {
+				if (!__InputRequested) {
+					__InputRequested = true;
+					__InputStore = keyboard_string;
+					keyboard_string = "";
+				}
+				if (__imgui_input(keyboard_string)) keyboard_string = "";	
+			} else {
+				if (__InputRequested) {
+					keyboard_string = __InputStore;
+					__InputRequested = false;
+				}
+			}
 			
 			var _x = window_get_x(), _y = window_get_y();
 			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + window_get_width(), _y + window_get_height())) {

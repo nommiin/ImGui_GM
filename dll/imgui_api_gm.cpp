@@ -418,3 +418,63 @@ GMFUNC(__imgui_log_text) {
 	ImGui::LogText(text);
 	Result.kind = VALUE_UNDEFINED;
 }
+
+GMFUNC(__imgui_want_keyboard_capture) {
+	GMOVERRIDE(WantKeyboardCapture);
+	RValue* val = &arg[0];
+	GMDEFAULT(undefined);
+	GMHINT(Bool);
+
+	ImGuiIO& io = ImGui::GetIO();
+	if (val->kind != VALUE_UNDEFINED) {
+		io.WantCaptureKeyboard = val->asBool();
+	}
+
+	Result.kind = VALUE_BOOL;
+	Result.val = io.WantCaptureKeyboard;
+}
+
+GMFUNC(__imgui_want_mouse_capture) {
+	GMOVERRIDE(WantMouseCapture);
+	RValue* val = &arg[0];
+	GMDEFAULT(undefined);
+	GMHINT(Bool);
+
+	ImGuiIO& io = ImGui::GetIO();
+	if (val->kind != VALUE_UNDEFINED) {
+		io.WantCaptureMouse = val->asBool();
+	}
+
+	Result.kind = VALUE_BOOL;
+	Result.val = io.WantCaptureMouse;
+}
+
+GMFUNC(__imgui_want_text_input) {
+	GMOVERRIDE(WantTextInput);
+	RValue* val = &arg[0];
+	GMDEFAULT(undefined);
+	GMHINT(Bool);
+
+	ImGuiIO& io = ImGui::GetIO();
+	if (val->kind != VALUE_UNDEFINED) {
+		io.WantTextInput = val->asBool();
+	}
+
+	Result.kind = VALUE_BOOL;
+	Result.val = io.WantTextInput;
+}
+
+GMFUNC(__imgui_want_mouse_unless_popup_close) {
+	GMOVERRIDE(WantMouseCaptureUnlessPopupClose);
+	RValue* val = &arg[0];
+	GMDEFAULT(undefined);
+	GMHINT(Bool);
+
+	ImGuiIO& io = ImGui::GetIO();
+	if (val->kind != VALUE_UNDEFINED) {
+		io.WantCaptureMouseUnlessPopupClose = val->asBool();
+	}
+
+	Result.kind = VALUE_BOOL;
+	Result.val = io.WantCaptureMouseUnlessPopupClose;
+}
