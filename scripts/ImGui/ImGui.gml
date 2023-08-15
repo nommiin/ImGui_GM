@@ -3930,7 +3930,7 @@ try {
 		
 		// [imgui_compat]
 		//globalvar ImGui;
-		variable_global_set("ImGui", new ind());
+		variable_global_set("ImGui", new ImGui_());
 	}
 	show_debug_message("[ImGui_GM - WARNING] Failed version check, it is advised that you use a runtime that supports the \"static_get\" function");
 }
