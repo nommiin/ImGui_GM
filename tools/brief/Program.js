@@ -55,6 +55,12 @@ class Program {
             this.writeSnakeCase(wrappers, header.enums, new FileEditor("snake_case.gml"));
             Logger.info(`Successfully wrote ${wrappers.length} wrappers`);
         }
+
+        if (Configuration.WRITE_DOCS) {
+            Logger.info("Writing documentation export...");
+            this.writeDocumentation(header, wrappers, new FileEditor("docs/assets/export.js"));
+            Logger.info(`Successfully wrote documentation export file`);
+        }
     }
 
     /**
@@ -471,6 +477,11 @@ class Program {
         wrappers.forEach(e => {
             content += e.to_jsdoc(enums, 0, Configuration.WRITE_SNAKE) + "\n" + e.to_gml(0, Configuration.WRITE_SNAKE) + "\n";
         });
+        if (file.update(content)) file.commit();
+    }
+
+    static writeDocumentation(wrappers, enums, file) {
+        let content = `// shrug`;
         if (file.update(content)) file.commit();
     }
 }

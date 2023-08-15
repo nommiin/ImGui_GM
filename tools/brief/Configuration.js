@@ -52,6 +52,11 @@ class Configuration {
      * @description If true, program will generate a .gml script containing snake-case functions for ImGui_GM
      */
     static WRITE_SNAKE = true;
+
+    /**
+     * @description If true, program will generate a .js file containing documentation and information for all functions
+     */
+    static WRITE_DOCS = false;
 }
 
 module.exports = Configuration;

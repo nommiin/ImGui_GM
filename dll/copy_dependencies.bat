@@ -4,7 +4,10 @@ Rem Sorry if this isn't the right way to do this
 Rem At least it works... right?
 
 copy "thirdparty\imgui\im*.cpp"
+rename "imconfig.h" "_imconfig.h"
 copy "thirdparty\imgui\im*.h"
+del "imconfig.h"
+rename "_imconfig.h" "imconfig.h"
 copy "thirdparty\imgui\backends\imgui_impl_dx11.*"
 
 set program=GameMakerStudio2-Beta

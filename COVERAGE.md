@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-294 out of 369 API functions wrapped (**80% complete**)
+291 out of 371 API functions wrapped (**78% complete**)
 
 | Function | Wrapped | Link | Notes |
 | -------- | ------- | ---- | ----- |
@@ -85,8 +85,8 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::PushStyleVar | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L35) | N/A |
 | ImGui::PushStyleVar | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L35) | N/A |
 | ImGui::PopStyleVar | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L49) | N/A |
-| ImGui::PushAllowKeyboardFocus | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L347) | N/A |
-| ImGui::PopAllowKeyboardFocus | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L354) | N/A |
+| ImGui::PushTabStop | ❌ | N/A | N/A |
+| ImGui::PopTabStop | ❌ | N/A | N/A |
 | ImGui::PushButtonRepeat | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L367) | N/A |
 | ImGui::PopButtonRepeat | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L374) | N/A |
 | ImGui::PushItemWidth | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L215) | N/A |
@@ -146,6 +146,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::LabelTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BulletText | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L49) | N/A |
 | ImGui::BulletTextV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
+| ImGui::SeparatorText | ❌ | N/A | N/A |
 | ImGui::Button | ✅ | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L7) | N/A |
 | ImGui::SmallButton | ✅ | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L18) | N/A |
 | ImGui::InvisibleButton | ✅ | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L25) | N/A |
@@ -253,6 +254,9 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::EndTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L8) | N/A |
 | ImGui::SetTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tooltips_gm.cpp#L13) | N/A |
 | ImGui::SetTooltipV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
+| ImGui::BeginItemTooltip | ❌ | N/A | N/A |
+| ImGui::SetItemTooltip | ❌ | N/A | N/A |
+| ImGui::SetItemTooltipV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BeginPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L3) | N/A |
 | ImGui::BeginPopupModal | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L12) | See [ImGuiReturnMask Usage](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::EndPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_popup_gm.cpp#L33) | N/A |
@@ -321,6 +325,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::PopClipRect | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L263) | N/A |
 | ImGui::SetItemDefaultFocus | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L379) | N/A |
 | ImGui::SetKeyboardFocusHere | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L359) | N/A |
+| ImGui::SetNextItemAllowOverlap | ❌ | N/A | N/A |
 | ImGui::IsItemHovered | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L180) | N/A |
 | ImGui::IsItemActive | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L188) | N/A |
 | ImGui::IsItemFocused | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L193) | N/A |
@@ -338,7 +343,6 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetItemRectMin | ❌ | N/A | N/A |
 | ImGui::GetItemRectMax | ❌ | N/A | N/A |
 | ImGui::GetItemRectSize | ❌ | N/A | N/A |
-| ImGui::SetItemAllowOverlap | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L298) | N/A |
 | ImGui::GetMainViewport | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L410) | N/A |
 | ImGui::GetBackgroundDrawList | ✅ | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L4) | N/A |
 | ImGui::GetForegroundDrawList | ✅ | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L18) | N/A |
@@ -365,7 +369,6 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetKeyPressedAmount | ❌ | N/A | N/A |
 | ImGui::GetKeyName | ❌ | N/A | N/A |
 | ImGui::SetNextFrameWantCaptureKeyboard | ❌ | N/A | N/A |
-| ImGui::Shortcut | ❌ | N/A | N/A |
 | ImGui::IsMouseDown | ❌ | N/A | N/A |
 | ImGui::IsMouseClicked | ❌ | N/A | N/A |
 | ImGui::IsMouseReleased | ❌ | N/A | N/A |
@@ -413,8 +416,11 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.GetItemRectMaxY() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L277) |
 | ImGui.GetItemRectSizeX() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L284) |
 | ImGui.GetItemRectSizeY() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L291) |
+| ImGui.SetItemAllowOverlap() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L298) |
 | ImGui.CalcTextWidth(text, hide_text_after_double_hash, wrap_width) | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L323) |
 | ImGui.CalcTextHeight(text, hide_text_after_double_hash, wrap_width) | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L335) |
+| ImGui.PushAllowKeyboardFocus(allow_keyboard_focus) | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L347) |
+| ImGui.PopAllowKeyboardFocus() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L354) |
 | ImGui.ConfigFlagsGet() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L384) |
 | ImGui.ConfigFlagsSet(flags) | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L392) |
 | ImGui.ConfigFlagToggle(flag) | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L400) |

@@ -3153,6 +3153,12 @@ function ImGui() constructor {
 	}
 
 	/// @section Enums
+	enum ImGuiMouseSource {
+		Mouse = 0,
+		TouchScreen,
+		Pen,
+	}
+
 	enum ImGuiWindowFlags {
 		None = 0,
 		NoTitleBar = 1 << 0,
@@ -3211,14 +3217,13 @@ function ImGui() constructor {
 		CallbackResize = 1 << 18,
 		CallbackEdit = 1 << 19,
 		EscapeClearsAll = 1 << 20,
-		AlwaysInsertMode = ImGuiInputTextFlags.AlwaysOverwrite,
 	}
 
 	enum ImGuiTreeNodeFlags {
 		None = 0,
 		Selected = 1 << 0,
 		Framed = 1 << 1,
-		AllowItemOverlap = 1 << 2,
+		AllowOverlap = 1 << 2,
 		NoTreePushOnOpen = 1 << 3,
 		NoAutoOpenOnLog = 1 << 4,
 		DefaultOpen = 1 << 5,
@@ -3231,6 +3236,7 @@ function ImGui() constructor {
 		SpanFullWidth = 1 << 12,
 		NavLeftJumpsBackHere = 1 << 13,
 		CollapsingHeader = ImGuiTreeNodeFlags.Framed | ImGuiTreeNodeFlags.NoTreePushOnOpen | ImGuiTreeNodeFlags.NoAutoOpenOnLog,
+		AllowItemOverlap = ImGuiTreeNodeFlags.AllowOverlap,
 	}
 
 	enum ImGuiPopupFlags {
@@ -3253,7 +3259,8 @@ function ImGui() constructor {
 		SpanAllColumns = 1 << 1,
 		AllowDoubleClick = 1 << 2,
 		Disabled = 1 << 3,
-		AllowItemOverlap = 1 << 4,
+		AllowOverlap = 1 << 4,
+		AllowItemOverlap = ImGuiSelectableFlags.AllowOverlap,
 	}
 
 	enum ImGuiComboFlags {
@@ -3394,14 +3401,19 @@ function ImGui() constructor {
 		DockHierarchy = 1 << 4,
 		AllowWhenBlockedByPopup = 1 << 5,
 		AllowWhenBlockedByActiveItem = 1 << 7,
-		AllowWhenOverlapped = 1 << 8,
-		AllowWhenDisabled = 1 << 9,
-		NoNavOverride = 1 << 10,
+		AllowWhenOverlappedByItem = 1 << 8,
+		AllowWhenOverlappedByWindow = 1 << 9,
+		AllowWhenDisabled = 1 << 10,
+		NoNavOverride = 1 << 11,
+		AllowWhenOverlapped = ImGuiHoveredFlags.AllowWhenOverlappedByItem | ImGuiHoveredFlags.AllowWhenOverlappedByWindow,
 		RectOnly = ImGuiHoveredFlags.AllowWhenBlockedByPopup | ImGuiHoveredFlags.AllowWhenBlockedByActiveItem | ImGuiHoveredFlags.AllowWhenOverlapped,
 		RootAndChildWindows = ImGuiHoveredFlags.RootWindow | ImGuiHoveredFlags.ChildWindows,
-		DelayNormal = 1 << 11,
-		DelayShort = 1 << 12,
-		NoSharedDelay = 1 << 13,
+		ForTooltip = 1 << 12,
+		Stationary = 1 << 13,
+		DelayNone = 1 << 14,
+		DelayShort = 1 << 15,
+		DelayNormal = 1 << 16,
+		NoSharedDelay = 1 << 17,
 	}
 
 	enum ImGuiDockNodeFlags {
@@ -3453,17 +3465,6 @@ function ImGui() constructor {
 		None = 0,
 		Ascending = 1,
 		Descending = 2,
-	}
-
-	enum ImGuiInputFlags {
-		None = 0,
-		Repeat = 1 << 0,
-		RouteFocused = 1 << 8,
-		RouteGlobalLow = 1 << 9,
-		RouteGlobal = 1 << 10,
-		RouteGlobalHigh = 1 << 11,
-		RouteAlways = 1 << 12,
-		RouteUnlessBgFocused = 1 << 13,
 	}
 
 	enum ImGuiNavInput {
@@ -3597,6 +3598,10 @@ function ImGui() constructor {
 		TabRounding,
 		ButtonTextAlign,
 		SelectableTextAlign,
+		SeparatorTextBorderSize,
+		SeparatorTextAlign,
+		SeparatorTextPadding,
+		DockingSeparatorSize,
 	}
 
 	enum ImGuiButtonFlags {
@@ -3647,7 +3652,6 @@ function ImGui() constructor {
 		NoRoundToFormat = 1 << 6,
 		NoInput = 1 << 7,
 		InvalidMask_ = 0x7000000F,
-		ClampOnInput = ImGuiSliderFlags.AlwaysClamp,
 	}
 
 	enum ImGuiMouseButton {
@@ -3721,10 +3725,11 @@ function ImGui() constructor {
 		NoFocusOnClick = 1 << 6,
 		NoInputs = 1 << 7,
 		NoRendererClear = 1 << 8,
-		TopMost = 1 << 9,
-		Minimized = 1 << 10,
-		NoAutoMerge = 1 << 11,
-		CanHostOtherWindows = 1 << 12,
+		NoAutoMerge = 1 << 9,
+		TopMost = 1 << 10,
+		CanHostOtherWindows = 1 << 11,
+		IsMinimized = 1 << 12,
+		IsFocused = 1 << 13,
 	}
 
 	/// @section Internal
