@@ -58,7 +58,7 @@ GMFUNC(__imgui_collapsing_header) {
 		}
 	}
 
-	bool ret = ImGui::CollapsingHeader(label, &visible, flags);
+	bool ret = ImGui::CollapsingHeader(label, p_visible, flags);
 	Result.kind = VALUE_REAL;
 	Result.val = ((visible << 1) | (bool)ret) & mask;
 }
