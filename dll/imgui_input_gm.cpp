@@ -80,6 +80,7 @@ GMFUNC(__imgui_input_float2) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_float3) {
@@ -101,6 +102,7 @@ GMFUNC(__imgui_input_float3) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_float4) {
@@ -122,6 +124,7 @@ GMFUNC(__imgui_input_float4) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_floatn) {
@@ -146,6 +149,7 @@ GMFUNC(__imgui_input_floatn) {
 		YYSetArray(&arg[1], v, count);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_int) {
@@ -176,6 +180,7 @@ GMFUNC(__imgui_input_int2) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_int3) {
@@ -191,6 +196,7 @@ GMFUNC(__imgui_input_int3) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_int4) {
@@ -206,6 +212,7 @@ GMFUNC(__imgui_input_int4) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_intn) {
@@ -224,6 +231,7 @@ GMFUNC(__imgui_input_intn) {
 		YYSetArray(&arg[1], v, count);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_input_double) {

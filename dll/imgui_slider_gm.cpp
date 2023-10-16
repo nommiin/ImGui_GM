@@ -36,6 +36,7 @@ GMFUNC(__imgui_slider_float2) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_float3) {
@@ -57,6 +58,7 @@ GMFUNC(__imgui_slider_float3) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_float4) {
@@ -78,6 +80,7 @@ GMFUNC(__imgui_slider_float4) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_floatn) {
@@ -104,6 +107,7 @@ GMFUNC(__imgui_slider_floatn) {
 		YYSetArray(&arg[1], v, count);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_int) {
@@ -142,6 +146,7 @@ GMFUNC(__imgui_slider_int2) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_int3) {
@@ -163,6 +168,7 @@ GMFUNC(__imgui_slider_int3) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_int4) {
@@ -184,6 +190,7 @@ GMFUNC(__imgui_slider_int4) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_slider_intn) {
@@ -208,6 +215,7 @@ GMFUNC(__imgui_slider_intn) {
 		YYSetArray(&arg[1], v, count);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_vslider_float) {

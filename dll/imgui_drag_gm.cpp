@@ -40,6 +40,7 @@ GMFUNC(__imgui_drag_float2) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_float3) {
@@ -63,6 +64,7 @@ GMFUNC(__imgui_drag_float3) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_float4) {
@@ -86,6 +88,7 @@ GMFUNC(__imgui_drag_float4) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_floatn) {
@@ -112,6 +115,7 @@ GMFUNC(__imgui_drag_floatn) {
 		YYSetArray(&arg[1], v, count);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_float_range2) {
@@ -136,6 +140,7 @@ GMFUNC(__imgui_drag_float_range2) {
 		YYSetArray(&arg[1], v, 2);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_int) {
@@ -178,6 +183,7 @@ GMFUNC(__imgui_drag_int2) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_int3) {
@@ -201,6 +207,7 @@ GMFUNC(__imgui_drag_int3) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_int4) {
@@ -224,6 +231,7 @@ GMFUNC(__imgui_drag_int4) {
 		YYSetArray(&arg[1], v, len);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_intn) {
@@ -250,6 +258,7 @@ GMFUNC(__imgui_drag_intn) {
 		YYSetArray(&arg[1], v, count);
 		Result.val = true;
 	}
+	delete[]v;
 }
 
 GMFUNC(__imgui_drag_int_range2) {
@@ -275,4 +284,5 @@ GMFUNC(__imgui_drag_int_range2) {
 		YYSetArray(&arg[1], v, 2);
 		Result.val = true;
 	}
+	delete[]v;
 }
