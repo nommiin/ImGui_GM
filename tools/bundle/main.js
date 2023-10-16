@@ -94,6 +94,7 @@ class Program {
         const out = new AdmZip();
         out.addLocalFolder(output);
         out.writeZip(this.parse(Bundle.Target ?? output + "package.yymps", e => e.replaceAll(".", "_")));
+        fs.rmSync(output, { recursive: true, force: true });
     }
 }
 
