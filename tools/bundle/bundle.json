@@ -7,7 +7,7 @@
     "Target": "packaged/imgui_gm_v${Version}.yymps",
     "Variables": {
         "VersionBase": "1.0.10",
-        "Version": "1.0.12"
+        "Version": "1.0.13"
     },
     "Include": [
         "scripts/**/*.*",
