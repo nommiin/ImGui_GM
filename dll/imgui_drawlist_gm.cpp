@@ -485,6 +485,7 @@ GMFUNC(__imgui_drawlist_add_image) {
 
 	list->AddImage(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24));
 	Result.kind = VALUE_UNDEFINED;
+	delete[]uv;
 }
 
 // TODO: AddImageQuad
@@ -507,6 +508,7 @@ GMFUNC(__imgui_drawlist_add_image_rounded) {
 
 	list->AddImageRounded(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24), rounding, flags);
 	Result.kind = VALUE_UNDEFINED;
+	delete[]uv;
 }
 
 GMFUNC(__imgui_drawlist_push_clip_rect) {

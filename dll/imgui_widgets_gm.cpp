@@ -60,6 +60,7 @@ GMFUNC(__imgui_image) {
 
 	ImGui::Image(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(width * uv[6], height * uv[7]), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
+	delete[]uv;
 }
 
 GMFUNC(__imgui_image_button) {
@@ -80,6 +81,7 @@ GMFUNC(__imgui_image_button) {
 
 	Result.kind = VALUE_BOOL;
 	Result.val = ImGui::ImageButton(str_id, GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(width * uv[6], height * uv[7]), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(bg_color, bg_alpha), GMCOLOR_TO(color, alpha));
+	delete[]uv;
 }
 
 GMFUNC(__imgui_surface) {
@@ -100,6 +102,7 @@ GMFUNC(__imgui_surface) {
 
 	ImGui::Image(GetTexture(surface, 0, TextureType_Surface), ImVec2(width * uv[6], height * uv[7]), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), GMCOLOR_TO(color, alpha));
 	Result.kind = VALUE_UNDEFINED;
+	delete[]uv;
 }
 
 GMFUNC(__imgui_checkbox) {
