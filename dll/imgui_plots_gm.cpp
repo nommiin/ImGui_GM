@@ -21,6 +21,7 @@ GMFUNC(__imgui_plot_lines) {
 
 	ImGui::PlotLines(label, values, values_count, values_offset, (overlay_text == "" ? nullptr : overlay_text), scale_min == 0 ? FLT_MAX : scale_min, scale_max == 0 ? FLT_MAX : scale_max, ImVec2(graph_width, graph_height), sizeof(float));
 	Result.kind = VALUE_UNDEFINED;
+	delete[]values;
 }
 
 GMFUNC(__imgui_plot_histogram) {
@@ -44,6 +45,7 @@ GMFUNC(__imgui_plot_histogram) {
 
 	ImGui::PlotHistogram(label, values, values_count, values_offset, (overlay_text == "" ? nullptr : overlay_text), scale_min == 0 ? FLT_MAX : scale_min, scale_max == 0 ? FLT_MAX : scale_max, ImVec2(graph_width, graph_height), sizeof(float));
 	Result.kind = VALUE_UNDEFINED;
+	delete[]values;
 }
 
 // TODO: using ImPlot would be nice!

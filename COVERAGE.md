@@ -236,8 +236,8 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::ListBox | ✅ | [imgui_listbox_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_listbox_gm.cpp#L19) | N/A |
 | ImGui::PlotLines | ✅ | [imgui_plots_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_plots_gm.cpp#L3) | N/A |
 | ImGui::PlotLines | ✅ | [imgui_plots_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_plots_gm.cpp#L3) | N/A |
-| ImGui::PlotHistogram | ✅ | [imgui_plots_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_plots_gm.cpp#L26) | N/A |
-| ImGui::PlotHistogram | ✅ | [imgui_plots_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_plots_gm.cpp#L26) | N/A |
+| ImGui::PlotHistogram | ✅ | [imgui_plots_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_plots_gm.cpp#L27) | N/A |
+| ImGui::PlotHistogram | ✅ | [imgui_plots_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_plots_gm.cpp#L27) | N/A |
 | ImGui::Value | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L56) | N/A |
 | ImGui::Value | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L56) | N/A |
 | ImGui::Value | ✅ | [imgui_text_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_text_gm.cpp#L56) | N/A |
