@@ -48,3 +48,7 @@ tab1 = true;
 
 font_default = ImGui.AddFontDefault();
 font_roboto = ImGui.AddFontFromFile("fonts/Roboto-Regular.ttf", 24);
+
+memory = debug_event("DumpMemory", true).totalUsed;
+memory_difference = 0;
+tick = 0;

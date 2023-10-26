@@ -1,3 +1,10 @@
+// Memory Usage
+if (tick++ % game_get_speed(gamespeed_fps) == 0) {
+	var memory_new = debug_event("DumpMemory", true).totalUsed;
+	memory_difference = memory_new - memory;
+	memory = memory_new;
+}
+
 /// Docking
 if (enable_docking) ImGui.DockSpaceOverViewport();
 
