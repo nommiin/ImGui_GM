@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-291 out of 371 API functions wrapped (**78% complete**)
+292 out of 371 API functions wrapped (**79% complete**)
 
 | Function | Wrapped | Link | Notes |
 | -------- | ------- | ---- | ----- |
@@ -13,7 +13,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetIO | ❌ | N/A | N/A |
 | ImGui::GetStyle | ❌ | N/A | N/A |
 | ImGui::NewFrame | ❌ | N/A | Handled internally by [__imgui_update function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L63) |
-| ImGui::EndFrame | ❌ | N/A | N/A |
+| ImGui::EndFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L29) | N/A |
 | ImGui::Render | ❌ | N/A | Handled internally by [__imgui_render function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L69) |
 | ImGui::GetDrawData | ❌ | N/A | N/A |
 | ImGui::ShowDemoWindow | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L32) | N/A |
@@ -31,52 +31,52 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::StyleColorsClassic | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L13) | N/A |
 | ImGui::Begin | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L3) | See [ImGuiReturnMask Usage](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::End | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L24) | N/A |
-| ImGui::BeginChild | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L29) | N/A |
-| ImGui::BeginChild | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L29) | N/A |
-| ImGui::EndChild | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L44) | N/A |
-| ImGui::IsWindowAppearing | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L67) | N/A |
-| ImGui::IsWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L72) | N/A |
-| ImGui::IsWindowFocused | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L77) | N/A |
-| ImGui::IsWindowHovered | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L85) | N/A |
+| ImGui::BeginChild | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L34) | N/A |
+| ImGui::BeginChild | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L34) | N/A |
+| ImGui::EndChild | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L49) | N/A |
+| ImGui::IsWindowAppearing | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L72) | N/A |
+| ImGui::IsWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L77) | N/A |
+| ImGui::IsWindowFocused | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L82) | N/A |
+| ImGui::IsWindowHovered | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L90) | N/A |
 | ImGui::GetWindowDrawList | ✅ | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L32) | N/A |
-| ImGui::GetWindowDpiScale | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L93) | N/A |
+| ImGui::GetWindowDpiScale | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L98) | N/A |
 | ImGui::GetWindowPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
 | ImGui::GetWindowSize | ❌ | N/A | ImVec2 returns are unsupported, use Width/Height wrappers |
-| ImGui::GetWindowWidth | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L112) | N/A |
-| ImGui::GetWindowHeight | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L117) | N/A |
+| ImGui::GetWindowWidth | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L117) | N/A |
+| ImGui::GetWindowHeight | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L122) | N/A |
 | ImGui::GetWindowViewport | ❌ | N/A | N/A |
-| ImGui::SetNextWindowPos | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L122) | N/A |
-| ImGui::SetNextWindowSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L136) | N/A |
-| ImGui::SetNextWindowSizeConstraints | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L146) | N/A |
-| ImGui::SetNextWindowContentSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L157) | N/A |
-| ImGui::SetNextWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L165) | N/A |
-| ImGui::SetNextWindowFocus | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L174) | N/A |
-| ImGui::SetNextWindowScroll | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L179) | N/A |
-| ImGui::SetNextWindowBgAlpha | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L187) | N/A |
+| ImGui::SetNextWindowPos | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L127) | N/A |
+| ImGui::SetNextWindowSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L141) | N/A |
+| ImGui::SetNextWindowSizeConstraints | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L151) | N/A |
+| ImGui::SetNextWindowContentSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L162) | N/A |
+| ImGui::SetNextWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L170) | N/A |
+| ImGui::SetNextWindowFocus | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L179) | N/A |
+| ImGui::SetNextWindowScroll | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L184) | N/A |
+| ImGui::SetNextWindowBgAlpha | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L192) | N/A |
 | ImGui::SetNextWindowViewport | ❌ | N/A | N/A |
-| ImGui::SetWindowPos | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L262) | N/A |
-| ImGui::SetWindowSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L272) | N/A |
-| ImGui::SetWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L289) | N/A |
-| ImGui::SetWindowFocus | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L304) | N/A |
+| ImGui::SetWindowPos | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L267) | N/A |
+| ImGui::SetWindowSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L277) | N/A |
+| ImGui::SetWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L294) | N/A |
+| ImGui::SetWindowFocus | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L309) | N/A |
 | ImGui::SetWindowFontScale | ❌ | N/A | N/A |
-| ImGui::SetWindowPos | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L262) | N/A |
-| ImGui::SetWindowSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L272) | N/A |
-| ImGui::SetWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L289) | N/A |
-| ImGui::SetWindowFocus | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L304) | N/A |
+| ImGui::SetWindowPos | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L267) | N/A |
+| ImGui::SetWindowSize | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L277) | N/A |
+| ImGui::SetWindowCollapsed | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L294) | N/A |
+| ImGui::SetWindowFocus | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L309) | N/A |
 | ImGui::GetContentRegionAvail | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
 | ImGui::GetContentRegionMax | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
 | ImGui::GetWindowContentRegionMin | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
 | ImGui::GetWindowContentRegionMax | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
-| ImGui::GetScrollX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L194) | N/A |
-| ImGui::GetScrollY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L199) | N/A |
-| ImGui::SetScrollX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L204) | N/A |
-| ImGui::SetScrollY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L211) | N/A |
-| ImGui::GetScrollMaxX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L218) | N/A |
-| ImGui::GetScrollMaxY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L223) | N/A |
-| ImGui::SetScrollHereX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L228) | N/A |
-| ImGui::SetScrollHereY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L236) | N/A |
-| ImGui::SetScrollFromPosX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L244) | N/A |
-| ImGui::SetScrollFromPosY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L253) | N/A |
+| ImGui::GetScrollX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L199) | N/A |
+| ImGui::GetScrollY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L204) | N/A |
+| ImGui::SetScrollX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L209) | N/A |
+| ImGui::SetScrollY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L216) | N/A |
+| ImGui::GetScrollMaxX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L223) | N/A |
+| ImGui::GetScrollMaxY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L228) | N/A |
+| ImGui::SetScrollHereX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L233) | N/A |
+| ImGui::SetScrollHereY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L241) | N/A |
+| ImGui::SetScrollFromPosX | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L249) | N/A |
+| ImGui::SetScrollFromPosY | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L258) | N/A |
 | ImGui::PushFont | ✅ | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L13) | Fonts are currently unimplemented |
 | ImGui::PopFont | ✅ | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L25) | Fonts are currently unimplemented |
 | ImGui::PushStyleColor | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L18) | N/A |
@@ -356,8 +356,8 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetStyleColorName | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L64) | N/A |
 | ImGui::SetStateStorage | ❌ | N/A | N/A |
 | ImGui::GetStateStorage | ❌ | N/A | N/A |
-| ImGui::BeginChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L49) | N/A |
-| ImGui::EndChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L62) | N/A |
+| ImGui::BeginChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L54) | N/A |
+| ImGui::EndChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L67) | N/A |
 | ImGui::CalcTextSize | ❌ | N/A | ImVec2 returns are unsupported, use Width/Height wrappers |
 | ImGui::ColorConvertU32ToFloat4 | ❌ | N/A | N/A |
 | ImGui::ColorConvertFloat4ToU32 | ❌ | N/A | N/A |
@@ -491,5 +491,5 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.SliderIntN(label, v, v_min, v_max, format, flags, count) | [imgui_slider_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_slider_gm.cpp#L196) |
 | ImGui.GetStyleColor(idx) | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L57) |
 | ImGui.Surface(surface, color, alpha, width, height, uv) | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L87) |
-| ImGui.GetWindowPosX() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L98) |
-| ImGui.GetWindowPosY() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L105) |
+| ImGui.GetWindowPosX() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L103) |
+| ImGui.GetWindowPosY() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L110) |

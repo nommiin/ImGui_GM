@@ -2858,6 +2858,13 @@ function ImGui() constructor {
 		return __imgui_end();
 	}
 
+	/// @function EndFrame()
+	/// @context ImGui
+	/// @return {Undefined}
+	static EndFrame = function() {
+		return __imgui_endframe();
+	}
+
 	/// @function BeginChild(str_id, width, height, border, flags)
 	/// @argument {String} str_id
 	/// @argument {Real} [width=0]
@@ -3766,7 +3773,12 @@ function ImGui() constructor {
 	static __InputStore = undefined;
 	
 	static __Context = __imgui_create_context();
-	static __Initialize = function(scale=1) {	
+	static __Initialized = false;
+	static __Initialize = function(scale=1) {
+		if (__Initialized) {
+			return;	
+		}
+		
 		if (__imgui_initialize(window_handle(), __Context, IMGUIGM_BUFFER_SIZE) == pointer_null) {
 			show_error("Something failed to initialize with ImGui_GM!", true);
 			return;
@@ -3783,6 +3795,7 @@ function ImGui() constructor {
 		vertex_format_add_texcoord();
 		vertex_format_add_color();
 		__VtxFormat = vertex_format_end();
+		__Initialized = true;
 		return;
 	}
 

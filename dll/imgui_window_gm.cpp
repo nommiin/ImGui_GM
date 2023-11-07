@@ -26,6 +26,11 @@ GMFUNC(__imgui_end) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_endframe) {
+	ImGui::EndFrame();
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_begin_child) {
 	const char* str_id = YYGetString(arg, 0);
 	double width = YYGetReal(arg, 1);

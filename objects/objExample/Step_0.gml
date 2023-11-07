@@ -84,6 +84,10 @@ if (main_open) {
 					ImGui.SetTooltip("Your GameMaker runtime version (" + GM_runtime_version + ") does not support static_get\nPlease update to a newer runtime if possible!");
 				}
 			}
+			
+			if (ImGui.SmallButton("Restart")) {
+				game_restart();	
+			}
 		ImGui.EndChild();
 		
 		ImGui.BeginChild("Inner_Text", width / 2, height, true);

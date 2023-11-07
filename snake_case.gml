@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 11/7/2023, 2:15:04 PM
+*  Generated at 11/7/2023, 2:41:50 PM
 */
 
 /// @function imgui_initialize
@@ -2594,6 +2594,12 @@ function imgui_begin(name, open=undefined, flags=ImGuiWindowFlags.None, mask=ImG
 /// @return {Undefined}
 function imgui_end() {
 	return __imgui_end();
+}
+
+/// @function imgui_endframe()
+/// @return {Undefined}
+function imgui_endframe() {
+	return __imgui_endframe();
 }
 
 /// @function imgui_begin_child(str_id, width, height, border, flags)
