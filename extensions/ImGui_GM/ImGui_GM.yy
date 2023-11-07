@@ -21,7 +21,7 @@
         {
             "resourceType": "GMExtensionFile",
             "resourceVersion": "1.0",
-            "name": "",
+            "name": "imgui_gm.dll",
             "constants": [
                 {
                     "resourceType": "GMExtensionConstant",
