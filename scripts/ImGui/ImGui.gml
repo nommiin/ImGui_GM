@@ -3879,6 +3879,22 @@ function ImGui() constructor {
 	}
 	
 	static __Render = function() {
+        static timeSinceLastError = 0;
+        if (!surface_exists(__Surface))
+        {
+            if (current_time > timeSinceLastError + 5000)
+            {
+                timeSinceLastError = current_time;
+                show_debug_message("[ImGui_GM - WARNING] Failed to render, surface " + string(__Surface) + " doesn't exist");
+            }
+            
+            return;
+        }
+        else
+        {
+            timeSinceLastError = 0;
+        }
+        
 		__imgui_render();
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
