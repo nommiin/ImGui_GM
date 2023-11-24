@@ -11,6 +11,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: |
-          npm install
-          node tools/bundle/main.js
+      - run: npm install
+        working-directory: ./tools/bundle/
+      - run: node tools/bundle/main.js
