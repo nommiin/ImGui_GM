@@ -103,7 +103,6 @@ const args = [Bundle.Base, "tools/bundle/output/"];
 try {
     if (process.cwd().endsWith("dll")) process.chdir("../");
     
-    //const start = performance.now();
     if (Program.main(...args) === false) {
         throw `An unknown error has occured`;
     }
