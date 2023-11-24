@@ -13,5 +13,4 @@ jobs:
           node-version: '14'
       - run: |
           npm install
-          node main.js
-        working-directory: ./tools/bundle/
+          node /tools/bundle/main.js
