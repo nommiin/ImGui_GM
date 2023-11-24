@@ -9,5 +9,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - run: npm install
-      - run: node tools/bundle/main.js
+      - run: npm install -g adm-zip
+      - run: npm install -g glob
+      - run: node tools/brief/main.js
