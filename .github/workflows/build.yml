@@ -13,4 +13,4 @@ jobs:
           node-version: '14'
       - run: |
           npm install
-          node ./tools/bundle/main.js
+          node tools/bundle/main.js
