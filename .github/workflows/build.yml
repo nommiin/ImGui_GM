@@ -14,4 +14,4 @@ jobs:
       - run: |
           npm install
           node main.js
-        working-directory: ./tools/brief/
+        working-directory: ./tools/bundle/
