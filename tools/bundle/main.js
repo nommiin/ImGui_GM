@@ -103,11 +103,11 @@ const args = [Bundle.Base, "tools/bundle/output/"];
 try {
     if (process.cwd().endsWith("dll")) process.chdir("../");
     
-    const start = performance.now();
+    //const start = performance.now();
     if (Program.main(...args) === false) {
         throw `An unknown error has occured`;
     }
-    Logger.info(`Script execution completed successfully in ${Math.round(performance.now() - start)}ms`);
+    Logger.info(`Script execution completed successfully in ${Math.round(0 - start)}ms`);
 } catch (e) {
     Logger.error(`An error has occured:\n- ${e}`);
     process.exit(1);
