@@ -2,9 +2,9 @@ name: build
 run-name: ${{ github.repository }} Build
 on: [push]
 jobs:
-  package:
+  run-package:
     runs-on: windows-latest
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v3
       with:
-        node-version: "18"
+        node-version: '18'
