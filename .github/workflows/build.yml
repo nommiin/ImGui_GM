@@ -10,7 +10,7 @@ jobs:
           ref: ${{ github.ref }}
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '18'
       - run: npm install
         working-directory: ./tools/bundle/
       - run: node tools/bundle/main.js
