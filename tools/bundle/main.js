@@ -106,7 +106,7 @@ try {
     if (Program.main(...args) === false) {
         throw `An unknown error has occured`;
     }
-    Logger.info(`Script execution completed successfully in ${Math.round(0 - start)}ms`);
+    Logger.info(`Script execution completed successfully in ${Math.round(0)}ms`);
 } catch (e) {
     Logger.error(`An error has occured:\n- ${e}`);
     process.exit(1);
