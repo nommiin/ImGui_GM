@@ -1,5 +1,5 @@
 name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: Package .yymps file
 on: [push]
 jobs:
   package-extension:
