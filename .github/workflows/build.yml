@@ -14,3 +14,8 @@ jobs:
       - run: npm install
         working-directory: ./tools/bundle/
       - run: node tools/bundle/main.js
+      - name: Upload package
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: packaged/output/*.yymps
