@@ -6,6 +6,7 @@ workspace "dll"
 project "imgui_gm"
     kind "SharedLib"
     language "C++"
+    cppdialect "C++14"
     targetdir "extensions/ImGui_GM/"
     defines { "GDKEXTENSION_EXPORTS", "__YYDEFINE_EXTENSION_FUNCTIONS__" }
 
