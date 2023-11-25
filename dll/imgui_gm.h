@@ -1,6 +1,7 @@
 #pragma once
 #include "Extension_Interface.h"
 #include "YYRValue.h"
+#include <stddef.h>
 
 #include "imgui.h"
 #include "imgui_internal.h"
