@@ -1,7 +1,7 @@
 workspace "dll"
     configurations { "Debug", "Release" }
     if os.ishost("macosx") then
-        architecture "arm64"
+        architecture "universal"
     else
         architecture "x86_64"
     end
