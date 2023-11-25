@@ -1,4 +1,5 @@
 #pragma once
+#include <stddef.h>
 #include "Extension_Interface.h"
 #include "YYRValue.h"
 
