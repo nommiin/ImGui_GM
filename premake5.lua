@@ -1,6 +1,6 @@
 workspace "dll"
     configurations { "Debug", "Release" }
-    architecture "universal"
+    architecture "ARM64"
     location "dll"
 
 project "imgui_gm"
@@ -9,6 +9,7 @@ project "imgui_gm"
     cppdialect "C++14"
     targetdir "extensions/ImGui_GM/"
     defines { "GDKEXTENSION_EXPORTS", "__YYDEFINE_EXTENSION_FUNCTIONS__" }
+    architecture "ARM64"
 
     files {"dll/*.h", "dll/*.cpp"}
     vpaths {
