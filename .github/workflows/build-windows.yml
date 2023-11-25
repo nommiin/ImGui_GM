@@ -1,15 +1,11 @@
 name: Manual trigger
-
+run-name: Build ImGui_GM for Windows
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        description: "Who to greet"
-        default: "World"
 
 jobs:
-    hello:
-        runs-on: ubuntu-latest
+    build:
+        runs-on: windows-latest
         steps:
         - name: Hello Step
-          run: echo "Hello ${{ github.event.inputs.name }}"
+          run: echo "Hello"
