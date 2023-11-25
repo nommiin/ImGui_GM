@@ -15,5 +15,5 @@ jobs:
             version: "5.0.0-beta2"
         - name: Run Premake
           run: |
-            premake5 gmake2
+            premake5 vs2022
             make
