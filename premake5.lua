@@ -33,8 +33,7 @@ project "imgui_gm"
         defines "OS_Linux"
         pic "on"
         buildoptions {"-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"}
-
+    
     -- macOS
     filter { "action:xcode4*" }
         defines "OS_Mac"
-        buildoptions {"-o extensions/ImGui_GM/imgui_gm.dylib"}
