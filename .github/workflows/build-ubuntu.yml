@@ -1,5 +1,4 @@
-name: ImGui_GM Build Actions
-run-name: Build ImGui_GM for Ubuntu
+name: Build ImGui for Ubuntu
 on:
   workflow_dispatch:
 
