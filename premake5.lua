@@ -1,6 +1,10 @@
 workspace "dll"
     configurations { "Debug", "Release" }
-    architecture "x86_64"
+    if os.ishost("macosx") then
+        architecture "arm64"
+    else
+        architecture "x86_64"
+    end
     location "dll"
 
 project "imgui_gm"
