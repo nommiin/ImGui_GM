@@ -28,7 +28,7 @@ GMEXPORT void YYExtensionInitialise(const struct YYRunnerInterface* _pFunctions,
 
 GMFUNC(__imgui_initialize) {
 	g_pHandle = YYGetPtr(arg, 0);
-	g_KeepAlive = CreateDsMap(0);
+	g_KeepAlive = CreateDsMap(0, 0);
 	g_ImGuiContext = (ImGuiContext*)YYGetPtr(arg, 1);
 	double buffer_size = YYGetReal(arg, 2);
 	g_ImGuiInitialized = true;
