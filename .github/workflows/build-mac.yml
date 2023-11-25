@@ -1,0 +1,23 @@
+name: Build ImGui for Mac
+on:
+  workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: macos-latest
+        steps:
+        - uses: actions/checkout@v4
+          with:
+            ref: ${{ github.ref }}
+        - uses: abel0b/setup-premake@v2.3
+          with:
+            version: "5.0.0-beta2"
+        - uses: actions/setup-node@v3
+          with:
+              node-version: '18'
+        - run: node tools/brief/main.js
+        - name: Run Premake
+          run: |
+            premake5 xcode4
+            cd dll/
+            make

@@ -16,20 +16,24 @@ project "imgui_gm"
         ["Source Files/Wrappers"] = {"dll/imgui_*_gm.cpp"}
     }
 
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        optimize "On"
+
+    -- Windows
     filter { "action:vs*" }
         defines "OS_Windows"
 
+    -- Ubuntu
     filter { "action:gmake*" }
         defines "OS_Linux"
         pic "on"
-        buildoptions {
-            "-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"
-        }
+        buildoptions {"-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"}
 
-    filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
-
-   filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
+    -- macOS
+    filter { "action:xcode4*" }
+        defines "OS_Mac"

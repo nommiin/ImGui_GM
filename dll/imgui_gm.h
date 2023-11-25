@@ -16,10 +16,12 @@
 #define GMRETURN(...) /**/
 #define GMRETURNS(...) /**/
 #define GMHINT(...) /**/
-#ifdef _WIN32
+#ifdef OS_Windows
 #define GMEXPORT __declspec(dllexport)
-#elif __linux__
+#elif OS_Linux
 #define GMEXPORT __attribute__((visibility("default")))
+#elif OS_Mac
+#define GMEXPORT extern "C"
 #endif
 
 #define GMFUNC(name) GMEXPORT void name(RValue& Result, CInstance* selfinst, CInstance* otherinst, int argc, RValue* arg)
