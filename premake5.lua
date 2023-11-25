@@ -30,10 +30,10 @@ project "imgui_gm"
 
     -- Ubuntu
     filter { "action:gmake*" }
-        defines "OS_Linux"
-        pic "on"
-        buildoptions {"-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"}
-    
-    -- macOS
-    filter { "action:xcode4*" }
-        defines "OS_Mac"
+        if os.ishost("linux") then
+            defines "OS_Linux"
+            pic "on"
+            buildoptions {"-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"}
+        else
+            defines "OS_Mac"
+        end

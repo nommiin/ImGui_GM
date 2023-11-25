@@ -18,6 +18,6 @@ jobs:
         - run: node tools/brief/main.js
         - name: Run Premake
           run: |
-            premake5 xcode4
+            premake5 gmake2
             cd dll/
             make
