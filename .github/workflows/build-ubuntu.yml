@@ -15,9 +15,7 @@ jobs:
         - uses: actions/setup-node@v3
           with:
               node-version: '18'
-        - run: |
-            npm install
-            node tools/bundle/brief.js
+        - run: node tools/bundle/brief.js
         - name: Run Premake
           run: |
             premake5 gmake2
