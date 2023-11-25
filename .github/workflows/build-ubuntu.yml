@@ -19,4 +19,5 @@ jobs:
         - name: Run Premake
           run: |
             premake5 gmake2
+            cd dll/
             make
