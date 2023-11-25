@@ -37,3 +37,4 @@ project "imgui_gm"
     -- macOS
     filter { "action:xcode4*" }
         defines "OS_Mac"
+        buildoptions {"-o extensions/ImGui_GM/imgui_gm.dylib"}
