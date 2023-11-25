@@ -21,7 +21,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.1100.0.425",
+    "IDEVersion": "2023.1100.0.444",
   },
   "resources": [
     {"id":{"name":"sprExample2","path":"sprites/sprExample2/sprExample2.yy",},},

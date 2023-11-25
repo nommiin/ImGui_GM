@@ -2,6 +2,7 @@
   "resourceType": "GMiOSOptions",
   "resourceVersion": "1.3",
   "name": "iOS",
+  "option_ios_build_number": 0,
   "option_ios_bundle_name": "com.company.game",
   "option_ios_cocoapods_checkbox": true,
   "option_ios_defer_home_indicator": false,
