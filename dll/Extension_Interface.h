@@ -8,6 +8,7 @@
 #define __YY__RUNNER_INTERFACE_H_
 
 #include <stdint.h>
+#include <stddef.h>
 
 struct RValue;
 class YYObjectBase;
