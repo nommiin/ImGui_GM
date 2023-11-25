@@ -1,0 +1,25 @@
+name: ImGui_GM Build Actions
+run-name: Build ImGui_GM for Ubuntu
+on:
+  workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v4
+          with:
+            ref: ${{ github.ref }}
+        - uses: abel0b/setup-premake@v2.3
+          with:
+            version: "5.0.0-beta2"
+        - uses: actions/setup-node@v3
+          with:
+              node-version: '18'
+        - run: |
+            npm install
+            node tools/bundle/brief.js
+        - name: Run Premake
+          run: |
+            premake5 gmake2
+            make
