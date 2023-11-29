@@ -35,7 +35,6 @@ project "imgui_gm"
         if os.ishost("linux") then
             defines "OS_Linux"
             pic "on"
-            buildoptions {"-shared", "-o extensions/ImGui_GM/imgui_gm.so", "-Werror"}
         else
             defines "OS_Mac"
         end
