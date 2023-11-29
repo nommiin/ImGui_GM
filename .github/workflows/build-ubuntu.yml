@@ -21,3 +21,4 @@ jobs:
             premake5 gmake2
             cd dll/
             make
+            gcc -shared -o libimgui_gm.so
