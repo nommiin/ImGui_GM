@@ -3800,11 +3800,31 @@ function ImGui() constructor {
 	}
 
 	static __Update = function() {
-		__State.Display.Width = window_get_width();
-		__State.Display.Height = window_get_height();
+        static timeSinceLastError = 0;
+        
+		var windowW = window_get_width();
+        var windowH = window_get_height();
+        
+        if ((windowW == 0) || (windowH == 0))
+        {
+            if (current_time > timeSinceLastError + 5000)
+            {
+                timeSinceLastError = current_time;
+                show_debug_message("[ImGui_GM - WARNING] Failed to update, window has zero size (" + string(windowW) + " x " + string(windowH) + ")");
+            }
+            
+            return;
+        }
+        else
+        {
+            timeSinceLastError = 0;
+        }
+        
+        __State.Display.Width = windowW;
+		__State.Display.Height = windowH;
 		
 		if (!surface_exists(__Surface)) {
-			__Surface = surface_create(window_get_width(), window_get_height());	
+			__Surface = surface_create(windowW, windowH);	
 		}
 		
 		__State.Engine.Time = delta_time / 1000000;
@@ -3833,7 +3853,7 @@ function ImGui() constructor {
 			}
 			
 			var _x = window_get_x(), _y = window_get_y();
-			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + window_get_width(), _y + window_get_height())) {
+			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + windowW, _y + windowH)) {
 				__State.Input.Mouse.X = window_mouse_get_x() / __Scale;
 				__State.Input.Mouse.Y = window_mouse_get_y() / __Scale;
 				
@@ -3859,6 +3879,22 @@ function ImGui() constructor {
 	}
 	
 	static __Render = function() {
+        static timeSinceLastError = 0;
+        if (!surface_exists(__Surface))
+        {
+            if (current_time > timeSinceLastError + 5000)
+            {
+                timeSinceLastError = current_time;
+                show_debug_message("[ImGui_GM - WARNING] Failed to render, surface " + string(__Surface) + " doesn't exist");
+            }
+            
+            return;
+        }
+        else
+        {
+            timeSinceLastError = 0;
+        }
+        
 		__imgui_render();
 		
 		buffer_seek(__CmdBuffer, buffer_seek_start, 0);
