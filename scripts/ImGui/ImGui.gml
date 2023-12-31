@@ -3800,17 +3800,18 @@ function ImGui() constructor {
 	}
 
 	static __Update = function() {
-		__State.Display.Width = window_get_width();
-		__State.Display.Height = window_get_height();
+		var _width = window_get_width(), _height = window_get_height();
+		__State.Display.Width = _width;
+		__State.Display.Height = _height;
 		
 		if (!surface_exists(__Surface)) {
-			__Surface = surface_create(window_get_width(), window_get_height());	
+			__Surface = surface_create(max(1, _width), max(1, _height));	
 		}
 		
 		__State.Engine.Time = delta_time / 1000000;
 		__State.Engine.Framerate = game_get_speed(gamespeed_fps);
 		
-		if (window_has_focus()) {
+		if ((_width > 0 && _height > 0) && window_has_focus()) {
 			for(var i = ImGuiKey.NamedKey_BEGIN; i < ImGuiKey.NamedKey_END; i++) {
 				var key = global.__IMGUI_MAPPING[i];
 				if (key > -1) __imgui_key(i, keyboard_check_direct(key));
@@ -3833,7 +3834,7 @@ function ImGui() constructor {
 			}
 			
 			var _x = window_get_x(), _y = window_get_y();
-			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + window_get_width(), _y + window_get_height())) {
+			if (point_in_rectangle(display_mouse_get_x(), display_mouse_get_y(), _x, _y, _x + _width, _y + _height)) {
 				__State.Input.Mouse.X = window_mouse_get_x() / __Scale;
 				__State.Input.Mouse.Y = window_mouse_get_y() / __Scale;
 				
