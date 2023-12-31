@@ -29,6 +29,7 @@
     {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},},
     {"id":{"name":"shdImGui","path":"shaders/shdImGui/shdImGui.yy",},},
     {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},},
+    {"id":{"name":"objExample_DockBuilder","path":"objects/objExample_DockBuilder/objExample_DockBuilder.yy",},},
     {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
     {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},},

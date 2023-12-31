@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 11/25/2023, 9:09:07 AM
+*  Generated at 12/31/2023, 4:12:40 PM
 */
 
 /// @function imgui_initialize
@@ -530,6 +530,112 @@ function imgui_get_window_dock_id() {
 /// @return {Bool}
 function imgui_is_window_docked() {
 	return __imgui_is_window_docked();
+}
+
+/// @function imgui_dockbuilder_dock_window(window_name, node_id)
+/// @argument {String} window_name
+/// @argument {Real} node_id
+/// @return {Undefined}
+function imgui_dockbuilder_dock_window(window_name, node_id) {
+	return __imgui_dockbuilder_dock_window(window_name, node_id);
+}
+
+/// @function imgui_dockbuilder_get_node(node_id)
+/// @argument {Real} node_id
+/// @return {Pointer}
+function imgui_dockbuilder_get_node(node_id) {
+	return __imgui_dockbuilder_get_node(node_id);
+}
+
+/// @function imgui_dockbuilder_get_central_node(node_id)
+/// @argument {Real} node_id
+/// @return {Pointer}
+function imgui_dockbuilder_get_central_node(node_id) {
+	return __imgui_dockbuilder_get_central_node(node_id);
+}
+
+/// @function imgui_dockbuilder_add_node(node_id, flags)
+/// @argument {Real} [node_id=0]
+/// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+/// @return {Real}
+function imgui_dockbuilder_add_node(node_id=0, flags=ImGuiDockNodeFlags.None) {
+	return __imgui_dockbuilder_add_node(node_id, flags);
+}
+
+/// @function imgui_dockbuilder_remove_node(node_id)
+/// @argument {Real} node_id
+/// @return {Undefined}
+function imgui_dockbuilder_remove_node(node_id) {
+	return __imgui_dockbuilder_remove_node(node_id);
+}
+
+/// @function imgui_dockbuilder_remove_node_docked_windows(node_id, clear_settings_refs)
+/// @argument {Real} node_id
+/// @argument {Bool} [clear_settings_refs=true]
+/// @return {Undefined}
+function imgui_dockbuilder_remove_node_docked_windows(node_id, clear_settings_refs=true) {
+	return __imgui_dockbuilder_remove_node_docked_windows(node_id, clear_settings_refs);
+}
+
+/// @function imgui_dockbuilder_remove_node_child_nodes(node_id)
+/// @argument {Real} node_id
+/// @return {Undefined}
+function imgui_dockbuilder_remove_node_child_nodes(node_id) {
+	return __imgui_dockbuilder_remove_node_child_nodes(node_id);
+}
+
+/// @function imgui_dockbuilder_set_node_pos(node_id, _x, _y)
+/// @argument {Real} node_id
+/// @argument {Real} _x
+/// @argument {Real} _y
+/// @return {Undefined}
+function imgui_dockbuilder_set_node_pos(node_id, _x, _y) {
+	return __imgui_dockbuilder_set_node_pos(node_id, _x, _y);
+}
+
+/// @function imgui_dockbuilder_set_node_size(node_id, width, height)
+/// @argument {Real} node_id
+/// @argument {Real} width
+/// @argument {Real} height
+/// @return {Undefined}
+function imgui_dockbuilder_set_node_size(node_id, width, height) {
+	return __imgui_dockbuilder_set_node_size(node_id, width, height);
+}
+
+/// @function imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at_dir)
+/// @argument {Real} node_id
+/// @argument {Real} split_dir
+/// @argument {Real} size_ratio_for_node_at_dir
+/// @return {Array<ImGuiID>}
+function imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at_dir) {
+	return __imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at_dir);
+}
+
+/// @function imgui_dockbuilder_copy_dock_space()
+/// @return {Unknown<unset>}
+function imgui_dockbuilder_copy_dock_space() {
+	return __imgui_dockbuilder_copy_dock_space();
+}
+
+/// @function imgui_dockbuilder_copy_node()
+/// @return {Unknown<unset>}
+function imgui_dockbuilder_copy_node() {
+	return __imgui_dockbuilder_copy_node();
+}
+
+/// @function imgui_dockbuilder_copy_window_settings(src_name, dst_name)
+/// @argument {String} src_name
+/// @argument {String} dst_name
+/// @return {Undefined}
+function imgui_dockbuilder_copy_window_settings(src_name, dst_name) {
+	return __imgui_dockbuilder_copy_window_settings(src_name, dst_name);
+}
+
+/// @function imgui_dockbuilder_finish(node_id)
+/// @argument {Real} node_id
+/// @return {Undefined}
+function imgui_dockbuilder_finish(node_id) {
+	return __imgui_dockbuilder_finish(node_id);
 }
 
 /// @function imgui_drag_float(label, v, v_speed, v_min, v_max, format, flags)
@@ -1191,11 +1297,11 @@ function imgui_get_font_size() {
 	return __imgui_get_font_size();
 }
 
-/// @function imgui_push_font(ptr)
-/// @argument {Any} [ptr=undefined]
+/// @function imgui_push_font(_ptr)
+/// @argument {Any} [_ptr=undefined]
 /// @return {Undefined}
-function imgui_push_font(ptr=undefined) {
-	return __imgui_push_font(ptr);
+function imgui_push_font(_ptr=undefined) {
+	return __imgui_push_font(_ptr);
 }
 
 /// @function imgui_pop_font()

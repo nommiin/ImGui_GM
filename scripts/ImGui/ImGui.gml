@@ -588,6 +588,126 @@ function ImGui() constructor {
 		return __imgui_is_window_docked();
 	}
 
+	/// @function DockBuilderDockWindow(window_name, node_id)
+	/// @argument {String} window_name
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderDockWindow = function(window_name, node_id) {
+		return __imgui_dockbuilder_dock_window(window_name, node_id);
+	}
+
+	/// @function DockBuilderGetNode(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Pointer}
+	static DockBuilderGetNode = function(node_id) {
+		return __imgui_dockbuilder_get_node(node_id);
+	}
+
+	/// @function DockBuilderGetCentralNode(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Pointer}
+	static DockBuilderGetCentralNode = function(node_id) {
+		return __imgui_dockbuilder_get_central_node(node_id);
+	}
+
+	/// @function DockBuilderAddNode(node_id, flags)
+	/// @argument {Real} [node_id=0]
+	/// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+	/// @context ImGui
+	/// @return {Real}
+	static DockBuilderAddNode = function(node_id=0, flags=ImGuiDockNodeFlags.None) {
+		return __imgui_dockbuilder_add_node(node_id, flags);
+	}
+
+	/// @function DockBuilderRemoveNode(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderRemoveNode = function(node_id) {
+		return __imgui_dockbuilder_remove_node(node_id);
+	}
+
+	/// @function DockBuilderRemoveNodeDockedWindows(node_id, clear_settings_refs)
+	/// @argument {Real} node_id
+	/// @argument {Bool} [clear_settings_refs=true]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderRemoveNodeDockedWindows = function(node_id, clear_settings_refs=true) {
+		return __imgui_dockbuilder_remove_node_docked_windows(node_id, clear_settings_refs);
+	}
+
+	/// @function DockBuilderRemoveNodeChildNodes(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderRemoveNodeChildNodes = function(node_id) {
+		return __imgui_dockbuilder_remove_node_child_nodes(node_id);
+	}
+
+	/// @function DockBuilderSetNodePos(node_id, _x, _y)
+	/// @argument {Real} node_id
+	/// @argument {Real} _x
+	/// @argument {Real} _y
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderSetNodePos = function(node_id, _x, _y) {
+		return __imgui_dockbuilder_set_node_pos(node_id, _x, _y);
+	}
+
+	/// @function DockBuilderSetNodeSize(node_id, width, height)
+	/// @argument {Real} node_id
+	/// @argument {Real} width
+	/// @argument {Real} height
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderSetNodeSize = function(node_id, width, height) {
+		return __imgui_dockbuilder_set_node_size(node_id, width, height);
+	}
+
+	/// @function DockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir)
+	/// @argument {Real} node_id
+	/// @argument {Real} split_dir
+	/// @argument {Real} size_ratio_for_node_at_dir
+	/// @context ImGui
+	/// @return {Array<ImGuiID>}
+	static DockBuilderSplitNode = function(node_id, split_dir, size_ratio_for_node_at_dir) {
+		return __imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at_dir);
+	}
+
+	/// @function DockBuilderCopyDockSpace()
+	/// @context ImGui
+	/// @return {Unknown<unset>}
+	static DockBuilderCopyDockSpace = function() {
+		return __imgui_dockbuilder_copy_dock_space();
+	}
+
+	/// @function DockBuilderCopyDockNode()
+	/// @context ImGui
+	/// @return {Unknown<unset>}
+	static DockBuilderCopyDockNode = function() {
+		return __imgui_dockbuilder_copy_node();
+	}
+
+	/// @function DockBuilderCopyWindowSettings(src_name, dst_name)
+	/// @argument {String} src_name
+	/// @argument {String} dst_name
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderCopyWindowSettings = function(src_name, dst_name) {
+		return __imgui_dockbuilder_copy_window_settings(src_name, dst_name);
+	}
+
+	/// @function DockBuilderFinish(node_id)
+	/// @argument {Real} node_id
+	/// @context ImGui
+	/// @return {Undefined}
+	static DockBuilderFinish = function(node_id) {
+		return __imgui_dockbuilder_finish(node_id);
+	}
+
 	/// @function DragFloat(label, v, v_speed, v_min, v_max, format, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
@@ -1304,12 +1424,12 @@ function ImGui() constructor {
 		return __imgui_get_font_size();
 	}
 
-	/// @function PushFont(ptr)
-	/// @argument {Any} [ptr=undefined]
+	/// @function PushFont(_ptr)
+	/// @argument {Any} [_ptr=undefined]
 	/// @context ImGui
 	/// @return {Undefined}
-	static PushFont = function(ptr=undefined) {
-		return __imgui_push_font(ptr);
+	static PushFont = function(_ptr=undefined) {
+		return __imgui_push_font(_ptr);
 	}
 
 	/// @function PopFont()

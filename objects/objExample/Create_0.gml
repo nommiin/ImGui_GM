@@ -7,6 +7,8 @@ main_open = true;
 demo_open = true;
 header_visible = true;
 enable_docking = false;
+setup_docking = true;
+
 _static = undefined;
 try {
 	_static = static_get(ImGui);

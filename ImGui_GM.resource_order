@@ -8,6 +8,7 @@
     {"name":"sprExample","order":2,"path":"sprites/sprExample/sprExample.yy",},
     {"name":"shdImGui","order":3,"path":"shaders/shdImGui/shdImGui.yy",},
     {"name":"ImGui_Misc","order":2,"path":"scripts/ImGui_Misc/ImGui_Misc.yy",},
+    {"name":"objExample_DockBuilder","order":4,"path":"objects/objExample_DockBuilder/objExample_DockBuilder.yy",},
     {"name":"rmExample","order":1,"path":"rooms/rmExample/rmExample.yy",},
     {"name":"ImGui_GM","order":1,"path":"extensions/ImGui_GM/ImGui_GM.yy",},
   ],
