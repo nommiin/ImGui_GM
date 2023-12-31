@@ -71,7 +71,7 @@ if (!init) {
 	node_id = dock1[2];
 	dock1 = dock1[0];
 	
-	var dock2 = ImGui.DockBuilderSplitNode(node_id, ImGuiDir.Right, 0.5);
+	var dock2 = ImGui.DockBuilderSplitNode(node_id, ImGuiDir.Right, 0.25);
 	node_id = dock2[2];
 	dock2 = dock2[0];
 	
@@ -82,6 +82,7 @@ if (!init) {
 	ImGui.DockBuilderDockWindow("ImGui_GM Example", dock1);
 	ImGui.DockBuilderDockWindow("Two", dock2);
 	ImGui.DockBuilderDockWindow("Three", dock3);
+	ImGui.DockBuilderFinish(node_id);
 	init = true;	
 }
 
