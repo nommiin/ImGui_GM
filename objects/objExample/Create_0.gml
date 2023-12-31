@@ -7,7 +7,7 @@ main_open = true;
 demo_open = true;
 header_visible = true;
 enable_docking = false;
-setup_docking = true;
+init = false;
 
 _static = undefined;
 try {
