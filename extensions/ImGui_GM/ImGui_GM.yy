@@ -12,8 +12,7 @@
   "androidsourcedir": "",
   "author": "",
   "classname": "",
-  "copyToTargets": 66,
-  "date": "2022-12-12T16:19:17.4733988-06:00",
+  "copyToTargets": 194,
   "description": "",
   "exportToGame": true,
   "extensionVersion": "1.0.10",
@@ -401,6 +400,7 @@
         {"name":"__imgui_initialize","path":"extensions/ImGui_GM/ImGui_GM.yy",},
       ],"origname":"","ProxyFiles":[
         {"resourceType":"GMProxyFile","resourceVersion":"1.0","name":"libimgui_gm.dylib","TargetMask":1,},
+        {"resourceType":"GMProxyFile","resourceVersion":"1.0","name":"libimgui_gm.so","TargetMask":7,},
       ],"uncompress":false,"usesRunnerInterface":true,},
   ],
   "gradleinject": "",
