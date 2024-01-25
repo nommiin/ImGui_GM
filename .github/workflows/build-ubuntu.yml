@@ -21,4 +21,11 @@ jobs:
             premake5 gmake2
             cd dll/
             make
-            gcc -shared -o libimgui_gm.so
+        - run: npm install
+          working-directory: ./tools/bundle/
+        - run: node tools/bundle/main.js
+        - name: Upload library
+          uses: actions/upload-artifact@v3
+          with:
+            name: output
+            path: package.yymps
