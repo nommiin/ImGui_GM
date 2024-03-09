@@ -560,10 +560,10 @@ function ImGui() constructor {
 
 	/// @function SetNextWindowDockID(dock_id, cond)
 	/// @argument {Real} dock_id
-	/// @argument {Real} cond
+	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static SetNextWindowDockID = function(dock_id, cond) {
+	static SetNextWindowDockID = function(dock_id, cond=ImGuiCond.None) {
 		return __imgui_set_next_window_dock_id(dock_id, cond);
 	}
 
@@ -2985,16 +2985,16 @@ function ImGui() constructor {
 		return __imgui_endframe();
 	}
 
-	/// @function BeginChild(str_id, width, height, border, flags)
+	/// @function BeginChild(str_id, width, height, child_flags, flags)
 	/// @argument {String} str_id
 	/// @argument {Real} [width=0]
 	/// @argument {Real} [height=0]
-	/// @argument {Bool} [border=false]
+	/// @argument {Enum.ImGuiChildFlags} [child_flags=ImGuiChildFlags.None]
 	/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static BeginChild = function(str_id, width=0, height=0, border=false, flags=ImGuiWindowFlags.None) {
-		return __imgui_begin_child(str_id, width, height, border, flags);
+	static BeginChild = function(str_id, width=0, height=0, child_flags=ImGuiChildFlags.None, flags=ImGuiWindowFlags.None) {
+		return __imgui_begin_child(str_id, width, height, child_flags, flags);
 	}
 
 	/// @function EndChild()

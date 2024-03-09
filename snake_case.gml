@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 3/9/2024, 11:17:30 AM
+*  Generated at 3/9/2024, 11:36:48 AM
 */
 
 /// @function imgui_initialize
@@ -508,9 +508,9 @@ function imgui_dock_space_over_viewport(flags=ImGuiDockNodeFlags.None) {
 
 /// @function imgui_set_next_window_dock_id(dock_id, cond)
 /// @argument {Real} dock_id
-/// @argument {Real} cond
+/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 /// @return {Undefined}
-function imgui_set_next_window_dock_id(dock_id, cond) {
+function imgui_set_next_window_dock_id(dock_id, cond=ImGuiCond.None) {
 	return __imgui_set_next_window_dock_id(dock_id, cond);
 }
 
@@ -2708,15 +2708,15 @@ function imgui_endframe() {
 	return __imgui_endframe();
 }
 
-/// @function imgui_begin_child(str_id, width, height, border, flags)
+/// @function imgui_begin_child(str_id, width, height, child_flags, flags)
 /// @argument {String} str_id
 /// @argument {Real} [width=0]
 /// @argument {Real} [height=0]
-/// @argument {Bool} [border=false]
+/// @argument {Enum.ImGuiChildFlags} [child_flags=ImGuiChildFlags.None]
 /// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
 /// @return {Bool}
-function imgui_begin_child(str_id, width=0, height=0, border=false, flags=ImGuiWindowFlags.None) {
-	return __imgui_begin_child(str_id, width, height, border, flags);
+function imgui_begin_child(str_id, width=0, height=0, child_flags=ImGuiChildFlags.None, flags=ImGuiWindowFlags.None) {
+	return __imgui_begin_child(str_id, width, height, child_flags, flags);
 }
 
 /// @function imgui_end_child()
