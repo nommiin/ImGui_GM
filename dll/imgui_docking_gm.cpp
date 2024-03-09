@@ -26,7 +26,8 @@ GMFUNC(__imgui_dock_space_over_viewport) {
 
 GMFUNC(__imgui_set_next_window_dock_id) {
     ImGuiID dock_id = YYGetReal(arg, 0);
-    ImGuiCond cond = YYGetReal(arg, 1);
+    ImGuiCond cond = YYGetInt64(arg, 1);
+    GMDEFAULT(ImGuiCond.None);
 
     ImGui::SetNextWindowDockID(dock_id, cond);
     Result.kind = VALUE_UNDEFINED;

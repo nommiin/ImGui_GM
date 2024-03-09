@@ -37,13 +37,13 @@ GMFUNC(__imgui_begin_child) {
 	GMDEFAULT(0);
 	double height = YYGetReal(arg, 2);
 	GMDEFAULT(0);
-	bool border = YYGetBool(arg, 3);
-	GMDEFAULT(false);
+	ImGuiChildFlags child_flags = YYGetInt64(arg, 3);
+	GMDEFAULT(ImGuiChildFlags.None);
 	ImGuiWindowFlags flags = YYGetInt64(arg, 4);
 	GMDEFAULT(ImGuiWindowFlags.None);
 
 	Result.kind = VALUE_BOOL;
-	Result.val = ImGui::BeginChild(str_id, ImVec2(width, height), border, flags);
+	Result.val = ImGui::BeginChild(str_id, ImVec2(width, height), child_flags, flags);
 }
 
 GMFUNC(__imgui_end_child) {
