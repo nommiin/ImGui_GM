@@ -1,15 +1,14 @@
+// Copyright © Opera Norway AS. All rights reserved.
+// This file is an original work developed by Opera.
 #ifndef __REF_H__
 #define __REF_H__
 
 #include "YYStd.h"
 #include <string.h>
 
-#ifdef WIN_UAP
-template <class T> YYCEXTERN void yyc_delete(T*);
-#define YYC_DELETE(a) yyc_delete(a)
-#else
+
 #define YYC_DELETE(a) delete a
-#endif
+
 
 class YYObjectBase;
 template <typename T> struct _RefFactory

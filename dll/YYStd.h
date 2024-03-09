@@ -1,3 +1,5 @@
+// Copyright © Opera Norway AS. All rights reserved.
+// This file is an original work developed by Opera.
 #ifndef __YYSTD_H__
 #define __YYSTD_H__
 

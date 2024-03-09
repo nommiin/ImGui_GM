@@ -2,7 +2,7 @@
 This is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.
 
 # Coverage
-292 out of 371 API functions wrapped (**79% complete**)
+289 out of 373 API functions wrapped (**77% complete**)
 
 | Function | Wrapped | Link | Notes |
 | -------- | ------- | ---- | ----- |
@@ -19,7 +19,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::ShowDemoWindow | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L32) | N/A |
 | ImGui::ShowMetricsWindow | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L48) | N/A |
 | ImGui::ShowDebugLogWindow | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L64) | N/A |
-| ImGui::ShowStackToolWindow | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L80) | N/A |
+| ImGui::ShowIDStackToolWindow | ❌ | N/A | N/A |
 | ImGui::ShowAboutWindow | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L96) | N/A |
 | ImGui::ShowStyleEditor | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L112) | N/A |
 | ImGui::ShowStyleSelector | ✅ | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L117) | N/A |
@@ -102,6 +102,15 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetColorU32 | ❌ | N/A | Unsupported, use `ImGui.GetStyleColor` |
 | ImGui::GetColorU32 | ❌ | N/A | Unsupported, use `ImGui.GetStyleColor` |
 | ImGui::GetStyleColorVec4 | ❌ | N/A | N/A |
+| ImGui::GetCursorScreenPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
+| ImGui::SetCursorScreenPos | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L109) | N/A |
+| ImGui::GetCursorPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
+| ImGui::GetCursorPosX | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L71) | N/A |
+| ImGui::GetCursorPosY | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L76) | N/A |
+| ImGui::SetCursorPos | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L117) | N/A |
+| ImGui::SetCursorPosX | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L125) | N/A |
+| ImGui::SetCursorPosY | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L132) | N/A |
+| ImGui::GetCursorStartPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
 | ImGui::Separator | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L30) | N/A |
 | ImGui::SameLine | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L51) | N/A |
 | ImGui::NewLine | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L20) | N/A |
@@ -111,15 +120,6 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::Unindent | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L43) | N/A |
 | ImGui::BeginGroup | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L61) | N/A |
 | ImGui::EndGroup | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L66) | N/A |
-| ImGui::GetCursorPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
-| ImGui::GetCursorPosX | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L71) | N/A |
-| ImGui::GetCursorPosY | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L76) | N/A |
-| ImGui::SetCursorPos | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L117) | N/A |
-| ImGui::SetCursorPosX | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L125) | N/A |
-| ImGui::SetCursorPosY | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L132) | N/A |
-| ImGui::GetCursorStartPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
-| ImGui::GetCursorScreenPos | ❌ | N/A | ImVec2 returns are unsupported, use X/Y wrappers |
-| ImGui::SetCursorScreenPos | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L109) | N/A |
 | ImGui::AlignTextToFramePadding | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L25) | N/A |
 | ImGui::GetTextLineHeight | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L139) | N/A |
 | ImGui::GetTextLineHeightWithSpacing | ✅ | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L144) | N/A |
@@ -275,8 +275,9 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TableSetColumnIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L39) | N/A |
 | ImGui::TableSetupColumn | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L46) | N/A |
 | ImGui::TableSetupScrollFreeze | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L59) | N/A |
-| ImGui::TableHeadersRow | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L67) | N/A |
 | ImGui::TableHeader | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L72) | N/A |
+| ImGui::TableHeadersRow | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L67) | N/A |
+| ImGui::TableAngledHeadersRow | ❌ | N/A | N/A |
 | ImGui::TableGetSortSpecs | ❌ | N/A | N/A |
 | ImGui::TableGetColumnCount | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L79) | N/A |
 | ImGui::TableGetColumnIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L84) | N/A |
@@ -356,8 +357,6 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetStyleColorName | ✅ | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L64) | N/A |
 | ImGui::SetStateStorage | ❌ | N/A | N/A |
 | ImGui::GetStateStorage | ❌ | N/A | N/A |
-| ImGui::BeginChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L54) | N/A |
-| ImGui::EndChildFrame | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L67) | N/A |
 | ImGui::CalcTextSize | ❌ | N/A | ImVec2 returns are unsupported, use Width/Height wrappers |
 | ImGui::ColorConvertU32ToFloat4 | ❌ | N/A | N/A |
 | ImGui::ColorConvertFloat4ToU32 | ❌ | N/A | N/A |
@@ -366,6 +365,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::IsKeyDown | ❌ | N/A | N/A |
 | ImGui::IsKeyPressed | ❌ | N/A | N/A |
 | ImGui::IsKeyReleased | ❌ | N/A | N/A |
+| ImGui::IsKeyChordPressed | ❌ | N/A | N/A |
 | ImGui::GetKeyPressedAmount | ❌ | N/A | N/A |
 | ImGui::GetKeyName | ❌ | N/A | N/A |
 | ImGui::SetNextFrameWantCaptureKeyboard | ❌ | N/A | N/A |
@@ -392,6 +392,8 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::SaveIniSettingsToDisk | ❌ | N/A | N/A |
 | ImGui::SaveIniSettingsToMemory | ❌ | N/A | N/A |
 | ImGui::DebugTextEncoding | ❌ | N/A | N/A |
+| ImGui::DebugFlashStyleColor | ❌ | N/A | N/A |
+| ImGui::DebugStartItemPicker | ❌ | N/A | N/A |
 | ImGui::DebugCheckVersionAndDataLayout | ❌ | N/A | N/A |
 | ImGui::SetAllocatorFunctions | ❌ | N/A | N/A |
 | ImGui::GetAllocatorFunctions | ❌ | N/A | N/A |
@@ -410,6 +412,7 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 
 | Function | Link |
 | -------- | ---- |
+| ImGui.ShowStackToolWindow(open) | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L80) |
 | ImGui.GetItemRectMinX() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L256) |
 | ImGui.GetItemRectMinY() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L263) |
 | ImGui.GetItemRectMaxX() | [imgui_api_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_api_gm.cpp#L270) |
@@ -505,5 +508,7 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.SliderIntN(label, v, v_min, v_max, format, flags, count) | [imgui_slider_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_slider_gm.cpp#L196) |
 | ImGui.GetStyleColor(idx) | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L57) |
 | ImGui.Surface(surface, color, alpha, width, height, uv) | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L87) |
+| ImGui.BeginChildFrame(_id, width, height, flags) | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L54) |
+| ImGui.EndChildFrame() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L67) |
 | ImGui.GetWindowPosX() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L103) |
 | ImGui.GetWindowPosY() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L110) |

@@ -11,7 +11,7 @@ rename "_imconfig.h" "imconfig.h"
 copy "thirdparty\imgui\backends\imgui_impl_dx11.*"
 
 set program=GameMakerStudio2-Beta
-set runtime=runtime-2023.600.0.360
+set runtime=runtime-2024.200.0.523
 set base=%PROGRAMDATA%\%program%\Cache\runtimes\%runtime%\yyc\include
 
 copy "%base%\extension\YYRunnerInterface.h" "Extension_Interface.h"

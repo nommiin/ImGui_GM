@@ -3304,11 +3304,10 @@ function ImGui() constructor {
 		NoBringToFrontOnFocus = 1 << 13,
 		AlwaysVerticalScrollbar = 1 << 14,
 		AlwaysHorizontalScrollbar = 1 << 15,
-		AlwaysUseWindowPadding = 1 << 16,
-		NoNavInputs = 1 << 18,
-		NoNavFocus = 1 << 19,
-		UnsavedDocument = 1 << 20,
-		NoDocking = 1 << 21,
+		NoNavInputs = 1 << 16,
+		NoNavFocus = 1 << 17,
+		UnsavedDocument = 1 << 18,
+		NoDocking = 1 << 19,
 		NoNav = ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
 		NoDecoration = ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoCollapse,
 		NoInputs = ImGuiWindowFlags.NoMouseInputs | ImGuiWindowFlags.NoNavInputs | ImGuiWindowFlags.NoNavFocus,
@@ -3319,6 +3318,19 @@ function ImGui() constructor {
 		Modal = 1 << 27,
 		ChildMenu = 1 << 28,
 		DockNodeHost = 1 << 29,
+		AlwaysUseWindowPadding = 1 << 30,
+	}
+
+	enum ImGuiChildFlags {
+		None = 0,
+		Border = 1 << 0,
+		AlwaysUseWindowPadding = 1 << 1,
+		ResizeX = 1 << 2,
+		ResizeY = 1 << 3,
+		AutoResizeX = 1 << 4,
+		AutoResizeY = 1 << 5,
+		AlwaysAutoResize = 1 << 6,
+		FrameStyle = 1 << 7,
 	}
 
 	enum ImGuiInputTextFlags {
@@ -3361,7 +3373,8 @@ function ImGui() constructor {
 		FramePadding = 1 << 10,
 		SpanAvailWidth = 1 << 11,
 		SpanFullWidth = 1 << 12,
-		NavLeftJumpsBackHere = 1 << 13,
+		SpanAllColumns = 1 << 13,
+		NavLeftJumpsBackHere = 1 << 14,
 		CollapsingHeader = ImGuiTreeNodeFlags.Framed | ImGuiTreeNodeFlags.NoTreePushOnOpen | ImGuiTreeNodeFlags.NoAutoOpenOnLog,
 		AllowItemOverlap = ImGuiTreeNodeFlags.AllowOverlap,
 	}
@@ -3373,10 +3386,11 @@ function ImGui() constructor {
 		MouseButtonMiddle = 2,
 		MouseButtonMask_ = 0x1F,
 		MouseButtonDefault_ = 1,
-		NoOpenOverExistingPopup = 1 << 5,
-		NoOpenOverItems = 1 << 6,
-		AnyPopupId = 1 << 7,
-		AnyPopupLevel = 1 << 8,
+		NoReopen = 1 << 5,
+		NoOpenOverExistingPopup = 1 << 7,
+		NoOpenOverItems = 1 << 8,
+		AnyPopupId = 1 << 10,
+		AnyPopupLevel = 1 << 11,
 		AnyPopup = ImGuiPopupFlags.AnyPopupId | ImGuiPopupFlags.AnyPopupLevel,
 	}
 
@@ -3399,6 +3413,7 @@ function ImGui() constructor {
 		HeightLargest = 1 << 4,
 		NoArrowButton = 1 << 5,
 		NoPreview = 1 << 6,
+		WidthFitPreview = 1 << 7,
 		HeightMask_ = ImGuiComboFlags.HeightSmall | ImGuiComboFlags.HeightRegular | ImGuiComboFlags.HeightLarge | ImGuiComboFlags.HeightLargest,
 	}
 
@@ -3426,87 +3441,7 @@ function ImGui() constructor {
 		NoReorder = 1 << 5,
 		Leading = 1 << 6,
 		Trailing = 1 << 7,
-	}
-
-	enum ImGuiTableFlags {
-		None = 0,
-		Resizable = 1 << 0,
-		Reorderable = 1 << 1,
-		Hideable = 1 << 2,
-		Sortable = 1 << 3,
-		NoSavedSettings = 1 << 4,
-		ContextMenuInBody = 1 << 5,
-		RowBg = 1 << 6,
-		BordersInnerH = 1 << 7,
-		BordersOuterH = 1 << 8,
-		BordersInnerV = 1 << 9,
-		BordersOuterV = 1 << 10,
-		BordersH = ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.BordersOuterH,
-		BordersV = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersOuterV,
-		BordersInner = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersInnerH,
-		BordersOuter = ImGuiTableFlags.BordersOuterV | ImGuiTableFlags.BordersOuterH,
-		Borders = ImGuiTableFlags.BordersInner | ImGuiTableFlags.BordersOuter,
-		NoBordersInBody = 1 << 11,
-		NoBordersInBodyUntilResize = 1 << 12,
-		SizingFixedFit = 1 << 13,
-		SizingFixedSame = 2 << 13,
-		SizingStretchProp = 3 << 13,
-		SizingStretchSame = 4 << 13,
-		NoHostExtendX = 1 << 16,
-		NoHostExtendY = 1 << 17,
-		NoKeepColumnsVisible = 1 << 18,
-		PreciseWidths = 1 << 19,
-		NoClip = 1 << 20,
-		PadOuterX = 1 << 21,
-		NoPadOuterX = 1 << 22,
-		NoPadInnerX = 1 << 23,
-		ScrollX = 1 << 24,
-		ScrollY = 1 << 25,
-		SortMulti = 1 << 26,
-		SortTristate = 1 << 27,
-		SizingMask_ = ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.SizingFixedSame | ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.SizingStretchSame,
-	}
-
-	enum ImGuiTableColumnFlags {
-		None = 0,
-		Disabled = 1 << 0,
-		DefaultHide = 1 << 1,
-		DefaultSort = 1 << 2,
-		WidthStretch = 1 << 3,
-		WidthFixed = 1 << 4,
-		NoResize = 1 << 5,
-		NoReorder = 1 << 6,
-		NoHide = 1 << 7,
-		NoClip = 1 << 8,
-		NoSort = 1 << 9,
-		NoSortAscending = 1 << 10,
-		NoSortDescending = 1 << 11,
-		NoHeaderLabel = 1 << 12,
-		NoHeaderWidth = 1 << 13,
-		PreferSortAscending = 1 << 14,
-		PreferSortDescending = 1 << 15,
-		IndentEnable = 1 << 16,
-		IndentDisable = 1 << 17,
-		IsEnabled = 1 << 24,
-		IsVisible = 1 << 25,
-		IsSorted = 1 << 26,
-		IsHovered = 1 << 27,
-		WidthMask_ = ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.WidthFixed,
-		IndentMask_ = ImGuiTableColumnFlags.IndentEnable | ImGuiTableColumnFlags.IndentDisable,
-		StatusMask_ = ImGuiTableColumnFlags.IsEnabled | ImGuiTableColumnFlags.IsVisible | ImGuiTableColumnFlags.IsSorted | ImGuiTableColumnFlags.IsHovered,
-		NoDirectResize_ = 1 << 30,
-	}
-
-	enum ImGuiTableRowFlags {
-		None = 0,
-		Headers = 1 << 0,
-	}
-
-	enum ImGuiTableBgTarget {
-		None = 0,
-		RowBg0 = 1,
-		RowBg1 = 2,
-		CellBg = 3,
+		NoAssumedClosure = 1 << 8,
 	}
 
 	enum ImGuiFocusedFlags {
@@ -3546,11 +3481,14 @@ function ImGui() constructor {
 	enum ImGuiDockNodeFlags {
 		None = 0,
 		KeepAliveOnly = 1 << 0,
-		NoDockingInCentralNode = 1 << 2,
+		NoDockingOverCentralNode = 1 << 2,
 		PassthruCentralNode = 1 << 3,
-		NoSplit = 1 << 4,
+		NoDockingSplit = 1 << 4,
 		NoResize = 1 << 5,
 		AutoHideTabBar = 1 << 6,
+		NoUndocking = 1 << 7,
+		NoSplit = ImGuiDockNodeFlags.NoDockingSplit,
+		NoDockingInCentralNode = ImGuiDockNodeFlags.NoDockingOverCentralNode,
 	}
 
 	enum ImGuiDragDropFlags {
@@ -3723,6 +3661,7 @@ function ImGui() constructor {
 		GrabMinSize,
 		GrabRounding,
 		TabRounding,
+		TabBarBorderSize,
 		ButtonTextAlign,
 		SelectableTextAlign,
 		SeparatorTextBorderSize,
@@ -3807,6 +3746,89 @@ function ImGui() constructor {
 		Once = 1 << 1,
 		FirstUseEver = 1 << 2,
 		Appearing = 1 << 3,
+	}
+
+	enum ImGuiTableFlags {
+		None = 0,
+		Resizable = 1 << 0,
+		Reorderable = 1 << 1,
+		Hideable = 1 << 2,
+		Sortable = 1 << 3,
+		NoSavedSettings = 1 << 4,
+		ContextMenuInBody = 1 << 5,
+		RowBg = 1 << 6,
+		BordersInnerH = 1 << 7,
+		BordersOuterH = 1 << 8,
+		BordersInnerV = 1 << 9,
+		BordersOuterV = 1 << 10,
+		BordersH = ImGuiTableFlags.BordersInnerH | ImGuiTableFlags.BordersOuterH,
+		BordersV = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersOuterV,
+		BordersInner = ImGuiTableFlags.BordersInnerV | ImGuiTableFlags.BordersInnerH,
+		BordersOuter = ImGuiTableFlags.BordersOuterV | ImGuiTableFlags.BordersOuterH,
+		Borders = ImGuiTableFlags.BordersInner | ImGuiTableFlags.BordersOuter,
+		NoBordersInBody = 1 << 11,
+		NoBordersInBodyUntilResize = 1 << 12,
+		SizingFixedFit = 1 << 13,
+		SizingFixedSame = 2 << 13,
+		SizingStretchProp = 3 << 13,
+		SizingStretchSame = 4 << 13,
+		NoHostExtendX = 1 << 16,
+		NoHostExtendY = 1 << 17,
+		NoKeepColumnsVisible = 1 << 18,
+		PreciseWidths = 1 << 19,
+		NoClip = 1 << 20,
+		PadOuterX = 1 << 21,
+		NoPadOuterX = 1 << 22,
+		NoPadInnerX = 1 << 23,
+		ScrollX = 1 << 24,
+		ScrollY = 1 << 25,
+		SortMulti = 1 << 26,
+		SortTristate = 1 << 27,
+		HighlightHoveredColumn = 1 << 28,
+		SizingMask_ = ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.SizingFixedSame | ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.SizingStretchSame,
+	}
+
+	enum ImGuiTableColumnFlags {
+		None = 0,
+		Disabled = 1 << 0,
+		DefaultHide = 1 << 1,
+		DefaultSort = 1 << 2,
+		WidthStretch = 1 << 3,
+		WidthFixed = 1 << 4,
+		NoResize = 1 << 5,
+		NoReorder = 1 << 6,
+		NoHide = 1 << 7,
+		NoClip = 1 << 8,
+		NoSort = 1 << 9,
+		NoSortAscending = 1 << 10,
+		NoSortDescending = 1 << 11,
+		NoHeaderLabel = 1 << 12,
+		NoHeaderWidth = 1 << 13,
+		PreferSortAscending = 1 << 14,
+		PreferSortDescending = 1 << 15,
+		IndentEnable = 1 << 16,
+		IndentDisable = 1 << 17,
+		AngledHeader = 1 << 18,
+		IsEnabled = 1 << 24,
+		IsVisible = 1 << 25,
+		IsSorted = 1 << 26,
+		IsHovered = 1 << 27,
+		WidthMask_ = ImGuiTableColumnFlags.WidthStretch | ImGuiTableColumnFlags.WidthFixed,
+		IndentMask_ = ImGuiTableColumnFlags.IndentEnable | ImGuiTableColumnFlags.IndentDisable,
+		StatusMask_ = ImGuiTableColumnFlags.IsEnabled | ImGuiTableColumnFlags.IsVisible | ImGuiTableColumnFlags.IsSorted | ImGuiTableColumnFlags.IsHovered,
+		NoDirectResize_ = 1 << 30,
+	}
+
+	enum ImGuiTableRowFlags {
+		None = 0,
+		Headers = 1 << 0,
+	}
+
+	enum ImGuiTableBgTarget {
+		None = 0,
+		RowBg0 = 1,
+		RowBg1 = 2,
+		CellBg = 3,
 	}
 
 	enum ImDrawFlags {
