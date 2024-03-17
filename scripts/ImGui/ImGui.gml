@@ -4008,6 +4008,7 @@ function ImGui() constructor {
 		if (buffer_read(__CmdBuffer, buffer_bool)) { // data->Valid
 			shader_set(shdImGui);
 			surface_set_target(__Surface);
+            gpu_set_blendmode_ext(bm_one, bm_inv_src_alpha);
 			draw_clear_alpha(0, 0);
 			var list_count = buffer_read(__CmdBuffer, buffer_u32);
 			for(var i = 0; i < list_count; i++) {
@@ -4048,6 +4049,7 @@ function ImGui() constructor {
 			}
 			surface_reset_target();
 			shader_reset();
+            gpu_set_blendmode(bm_normal);
 			
 			var _w = display_get_gui_width(), _h = display_get_gui_height();
 			display_set_gui_size(window_get_width(), window_get_height());
