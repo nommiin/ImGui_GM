@@ -3960,7 +3960,7 @@ function ImGui() constructor {
 			}
 			__imgui_key(ImGuiKey.ImGuiMod_Ctrl, keyboard_check_direct(vk_lcontrol));
 			__imgui_key(ImGuiKey.ImGuiMod_Shift, keyboard_check_direct(vk_lshift));
-			__imgui_key(ImGuiKey.ImGuiMod_Alt, keyboard_check_direct(vk_lalt));
+			__imgui_key(ImGuiKey.ImGuiMod_Alt, keyboard_check_direct(vk_lalt) || keyboard_check_direct(vk_ralt));
 			if (__imgui_want_text_input(undefined)) {
 				if (!__InputRequested) {
 					__InputRequested = true;
