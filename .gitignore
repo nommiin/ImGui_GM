@@ -432,19 +432,9 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Copied dependencies
-dll/imstb_truetype.h
-dll/imstb_textedit.h
-dll/imstb_rectpack.h
-dll/imgui_widgets.cpp
-dll/imgui_tables.cpp
-dll/imgui_internal.h
-dll/imgui_draw.cpp
-dll/imgui_demo.cpp
-dll/imgui.h
-dll/imgui.cpp
-dll/imconfig.h
-dll/imgui_impl_dx11.cpp
-dll/imgui_impl_dx11.h
+dll/imgui/*
+!dll/imgui/.gitkeep
+
 dll/Extension_Interface.h
 dll/Ref.h
 dll/YYRValue.h

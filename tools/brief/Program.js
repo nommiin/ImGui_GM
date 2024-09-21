@@ -9,6 +9,9 @@ const Wrapper = require("./Wrapper");
 const Token = require("./Token");
 const Util = require("./Util")
 
+const githubRepo = "knno/imgui_gm";
+const githubRepoUrl = `https://github.com/${githubRepo}`;
+
 /**
  * Reads specific C++ files and automatically creates wrapped functions for GameMaker
  * 
@@ -22,18 +25,24 @@ class Program {
      * @param {string} script Path to ImGui .gml script
      */
     static main(root, extension, script) {
+        const root_imgui = root + "imgui/";
+        const root_gm = root + "gm/";
+
         Logger.info("Reading ImGui header...");
-        const header = this.parseHeader(new FileEditor(root + "imgui.h"));
+        
+        const header = this.parseHeader(new FileEditor(root_imgui + "imgui.h"));
 
         Logger.info("Retrieving wrappers...");
-        const files = fs.readdirSync(root).filter(e => e.endsWith("_gm.cpp"));
-        if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root}"`;
-        Logger.info(`Found ${files.length} wrapper files in "${root}"`);
-        
+
+        const files = fs.readdirSync(root_gm).filter(e => e.endsWith("_gm.cpp"));
+        if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root_gm}"`;
+        Logger.info(`Found ${files.length} wrapper files in "${root_gm}"`);
+
         const wrappers = [];
         Logger.info("Parsing wrappers...");
         files.forEach(e => {
-            this.parseWrapper(wrappers, new FileEditor(`${root}${e}`, true));
+            if (e.startsWith("imgui_impl_gm")) return;
+            this.parseWrapper(wrappers, new FileEditor(`${root_gm}${e}`, true));
         });
 
         Logger.info("Writing wrappers...");
@@ -45,7 +54,23 @@ class Program {
 
         if (Configuration.WRITE_REPORT) {
             Logger.info("Writing coverage report...");
-            this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
+            let coveragePercentage = this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
+
+            if (Configuration.WRITE_BADGES) {
+                this.writeCoverageBadge(new FileEditor(".github/badges/coverage.json"), coveragePercentage);
+            }
+        }
+
+        if (Configuration.WRITE_SNAKE) {
+            Logger.info("Writing snake-case script...");
+            this.writeSnakeCase(wrappers, header.enums, new FileEditor("snake_case.gml"));
+            Logger.info(`Successfully wrote ${wrappers.length} wrappers`);
+        }
+
+        if (Configuration.WRITE_DOCS) {
+            Logger.info("Writing documentation export...");
+            this.writeDocumentation(header, wrappers, new FileEditor("docs/assets/export.js"));
+            Logger.info(`Successfully wrote documentation export file`);
         }
     }
 
@@ -204,6 +229,7 @@ class Program {
                 
                 const wrapper = new Wrapper(name.Literal, file.Name, token.Line);
                 const children = new TokenReader(next.Children);
+                let valid = true;
                 while (!children.end()) {
                     const token = children.advance();
                     const left = children.previous();
@@ -271,13 +297,16 @@ class Program {
                         }
 
                         case "FunctionCall": {
-                            if (token.Literal.startsWith("GM")) wrapper.modifier(token);
+                            if (token.Literal.startsWith("GM")) wrapper.modifier(token)
                             break;
                         }
                     }
                 }
-                wrappers.push(wrapper.finalize());
-                count++;
+
+                if (valid) {
+                    wrappers.push(wrapper.finalize());
+                    count++;
+                }
             }
         }
         Logger.info(`Successfully parsed "${file.Name}" and retrieved ${count} wrapper definitions`);
@@ -343,7 +372,12 @@ class Program {
 
         const content = [];
         wrappers.forEach(e => {
-            content.push(e.to_jsdoc() + "\n" + e.to_gml());
+            if (e.Calls === "_") {
+                Logger.warning(`Skipping wrapper "${e.Name}", call target marked as discard`);
+                return;
+            }
+
+            content.push(e.to_jsdoc(enums) + "\n" + e.to_gml());
         });
 
         let enum_def = `\n${Configuration.SPACING}/// @section Enums\n`;
@@ -376,50 +410,155 @@ class Program {
      */
     static writeReport(header, wrappers, file) {
         const func = header.functions;
-        const notes = {
-            "NewFrame": "Handled internally by [__imgui_update function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L63)",
-            "Render": "Handled internally by [__imgui_render function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L69)",
-            "GetWindowPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetWindowSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
-            "GetContentRegionAvail": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetWindowContentRegionMin": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetWindowContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "PushFont": "Fonts are currently unimplemented",
-            "GetCursorStartPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "TextV": "Unsupported, use `string` function in GameMaker",
-            "TextColoredV": "Unsupported, use `string` function in GameMaker",
-            "TextWrappedV": "Unsupported, use `string` function in GameMaker",
-            "LabelTextV": "Unsupported, use `string` function in GameMaker",
-            "BulletTextV": "Unsupported, use `string` function in GameMaker",
-        };
-        // i know
 
-        let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
+        // TODO defined manual wrapped functions
+        const wrapped_funcs = [
+            "NewFrame",
+            "Render",
+            "EndFrame",
+            "GetWindowPos",
+            "GetWindowSize",
+            "GetContentRegionAvail",
+            "GetContentRegionMax",
+            "GetWindowContentRegionMin",
+            "GetWindowContentRegionMax",
+            "GetCursorPos",
+            "GetCursorStartPos",
+            "GetCursorScreenPos",
+            "CalcTextSize",
+            "GetItemRectMin",
+            "GetItemRectMax",
+            "GetItemRectSize",
+            "GetColorU32",
+            "GetStyleColorVec4",
+            "UpdatePlatformWindows",
+            "RenderPlatformWindowsDefault",
+        ];
+
+        // TODO defined manual notes
+        const notes = {
+            "NewFrame": "Handled internally by `__imgui_new_frame` function",
+            "Render": "Handled internally by `__imgui_render` function",
+            "EndFrame": "Handled internally by `__imgui_end_frame` function",
+            "GetWindowPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetWindowSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
+            "GetContentRegionAvail": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetContentRegionMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetWindowContentRegionMin": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetWindowContentRegionMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
+
+            "PushFont": "Fonts are currently unimplemented",
+            "PopFont": "Fonts are currently unimplemented",
+
+            "GetCursorPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetCursorStartPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetCursorScreenPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "CalcTextSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
+            "GetItemRectMin": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetItemRectMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetItemRectSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
+            "GetPlatformIO": "Unsupported",
+            "SetDragDropPayload": `See [Drag and Drop Payloads](${githubRepoUrl}/wiki/Drag-and-Drop-Payloads) for more info on handling payloads`,
+            "GetColorU32": "Use `GetStyleColor`",
+            "GetStyleColorVec4": "Use `ImGui.GetStyleColor`",
+            "UpdatePlatformWindows": "Handled internally by `__imgui_draw_end` function",
+            "RenderPlatformWindowsDefault": "Handled internally by `__imgui_draw_end` function",
+            "GetMouseCursor": "Handled internally by GML",
+            "SetMouseCursor": "Handled internally by GML",
+        };
+
+        let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n`;
+        let wrapped = 0;
         func.forEach(e => {
-            if (wrappers.find(w => w.Calls === e.Name)) {
-                count++;
+            if (e.Name.endsWith("V") && !e.Name.endsWith("HSV")) {
+                notes[e.Name] = "Unsupported, use `string` function in GameMaker for string formatting";
             }
+
+            e.IsWrapped = false;
+
+            const wrapper = wrappers.find(w => w.Calls === e.Name)
+            if (wrapper) {
+                e.IsWrapped = true;
+                wrapper.Arguments.forEach(a => {
+                    if (a.Type.endsWith("ImGuiReturnMask")) {
+                        notes[e.Name] = `See [ImGuiReturnMask Usage](${githubRepoUrl}/wiki/ImGuiReturnMask-Usage) for more info the \`mask\` argument`
+                    }
+                })
+            } else if (wrapped_funcs.indexOf(e.Name) != -1) {
+                e.IsWrapped = true;
+            }
+
+            if (e.IsWrapped) wrapped++;
         });
-        content += `${count} out of ${func.length} API functions wrapped (**${Math.round(100 * (count / func.length))}% complete**)\n\n`;
+
+        let unsupported = 0;
+        func.forEach(e => {
+            e.IsUnsuppported = false;
+
+            const note = notes[e.Name];
+            if (note) {
+                if (note.includes("Unsupported")) e.IsUnsuppported = true;
+            }
+
+            if (e.IsUnsuppported) unsupported++;
+        });
+
+        let coveragePercentage = Math.round(100 * (wrapped / (func.length - unsupported)));
+
+        content += `# Coverage\n\n`;
+        content += `- ![coverage](https://badgen.net/https/raw.githubusercontent.com/${githubRepo}/main/.github/badges/coverage.json?icon=awesome)\n`;
+        content += `- ${wrapped} out of ${func.length - unsupported} supported API functions wrapped (**${coveragePercentage}% complete**)\n`;
+        content += `- ${wrapped} out of ${func.length} total API functions wrapped (*${Math.round(100 * (wrapped / (func.length)))}% complete*)\n`;
+        content += `- Note that ${unsupported} out of ${func.length} API functions are not supported (${Math.round(100 * (unsupported / (func.length)))}%)\n`;
+        content += `\n`;
         content += "| Function | Wrapped | Link | Notes |\n";
         content += "| -------- | ------- | ---- | ----- |\n";
+
+        const writtenWrappers = new Set();
         func.forEach(e => {
             const wrapper = wrappers.find(w => w.Calls === e.Name);
+            const wrapperKey = `${e.Name}`;
             if (wrapper) wrapper.Found = true;
-            content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
+            if (!writtenWrappers.has(wrapperKey)) {
+                content += `| ImGui::${e.Name} | ${e.IsWrapped ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](${githubRepoUrl}/blob/main/dll/${wrapper.FileRelpath}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
+                writtenWrappers.add(wrapperKey);
+            }
         });
 
         content += `\n# Non-Standard\nBelow is a table of non-standard functions made specifically for ImGui_GM\n\n`;
         content += "| Function | Link |\n";
         content += "| -------- | ---- |\n";
         wrappers.forEach(e => {
-            if (!e?.Found) {
-                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${e.File}#L${e.Line}) |\n`;
+            if (!e?.Found && e.Calls !== "_") {
+                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](${githubRepoUrl}/blob/main/dll/${e.File}#L${e.Line}) |\n`;
             }
         });
 
+        if (file.update(content)) file.commit();
+
+        return coveragePercentage
+    }
+
+    static writeCoverageBadge(file, coveragePercentage) {
+        let content = `{"subject":"coverage","status":"{${coveragePercentage}%}","color": "green"}`;
+        if (file.update(content)) file.commit();
+    }
+
+    static writeSnakeCase(wrappers, enums, file) {
+        let content = `/**\n*  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention\n*  To use, just drop this script into your project with ImGui_GM\n*  Generated at ${new Date().toLocaleString()}\n*/\n\n`;
+        ["Initialize", "Update", "Render"].forEach(e => {
+            const name = "imgui_" + e[0].toLowerCase() + e.slice(1);
+            content += `/// @function ${name}\nfunction ${name}() {\n	return ImGui.__${e}();\n}\n\n`;
+        });
+
+        wrappers.forEach(e => {
+            content += e.to_jsdoc(enums, 0, Configuration.WRITE_SNAKE) + "\n" + e.to_gml(0, Configuration.WRITE_SNAKE) + "\n";
+        });
+        if (file.update(content)) file.commit();
+    }
+
+    static writeDocumentation(wrappers, enums, file) {
+        let content = `// shrug`;
         if (file.update(content)) file.commit();
     }
 }

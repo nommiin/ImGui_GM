@@ -41,12 +41,27 @@ class Configuration {
     /**
      * @description If true, GML writer will call forceinline for each static method
      */
-    static FORCEINLINE = true;
+    static FORCEINLINE = false;
 
     /**
      * @description If true, program will generate a coverage report in COVERAGE.md
      */
     static WRITE_REPORT = true;
+
+    /**
+     * @description If true, program will generate badges in .github/badges/
+     */
+    static WRITE_BADGES = true;
+
+    /**
+     * @description If true, program will generate a .gml script containing snake-case functions for ImGui_GM
+     */
+    static WRITE_SNAKE = true;
+
+    /**
+     * @description If true, program will generate a .js file containing documentation and information for all functions
+     */
+    static WRITE_DOCS = false;
 }
 
 module.exports = Configuration;

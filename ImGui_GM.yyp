@@ -1,36 +1,46 @@
 {
-  "resourceType": "GMProject",
-  "resourceVersion": "1.6",
-  "name": "ImGui_GM",
-  "resources": [
-    {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},"order":0,},
-    {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},"order":0,},
-    {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},"order":0,},
-    {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},"order":0,},
-    {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":0,},
-    {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},"order":0,},
+  "$GMProject":"",
+  "%Name":"ImGui_GM",
+  "AudioGroups":[
+    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
-  "defaultScriptType": 1,
-  "isEcma": false,
-  "configs": {
-    "name": "Default",
-    "children": [],
+  "configs":{
+    "children":[],
+    "name":"Default",
   },
-  "RoomOrderNodes": [
+  "defaultScriptType":1,
+  "Folders":[
+    {"$GMFolder":"","%Name":"Example","folderPath":"folders/Example.yy","name":"Example","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy","name":"ImGui_GM","resourceType":"GMFolder","resourceVersion":"2.0",},
+  ],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"LICENSE.txt","CopyToMask":-1,"filePath":"datafiles/fonts","name":"LICENSE.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"Roboto-Regular.ttf","CopyToMask":-1,"filePath":"datafiles/fonts","name":"Roboto-Regular.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  ],
+  "isEcma":false,
+  "LibraryEmitters":[],
+  "MetaData":{
+    "IDEVersion":"2024.8.1.171",
+  },
+  "name":"ImGui_GM",
+  "resources":[
+    {"id":{"name":"ImGui_GM","path":"extensions/ImGui_GM/ImGui_GM.yy",},},
+    {"id":{"name":"fnt_consolas","path":"fonts/fnt_consolas/fnt_consolas.yy",},},
+    {"id":{"name":"objExample","path":"objects/objExample/objExample.yy",},},
+    {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
+    {"id":{"name":"ImGui_Misc","path":"scripts/ImGui_Misc/ImGui_Misc.yy",},},
+    {"id":{"name":"ImGui","path":"scripts/ImGui/ImGui.yy",},},
+    {"id":{"name":"shdImGui","path":"shaders/shdImGui/shdImGui.yy",},},
+    {"id":{"name":"sprExample","path":"sprites/sprExample/sprExample.yy",},},
+    {"id":{"name":"sprExample2","path":"sprites/sprExample2/sprExample2.yy",},},
+  ],
+  "resourceType":"GMProject",
+  "resourceVersion":"2.0",
+  "RoomOrderNodes":[
     {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
   ],
-  "Folders": [
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Example","folderPath":"folders/Example.yy","order":0,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"ImGui_GM","folderPath":"folders/ImGui_GM.yy","order":0,},
+  "templateType":null,
+  "TextureGroups":[
+    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
   ],
-  "AudioGroups": [
-    {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
-  ],
-  "TextureGroups": [
-    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","isScaled":true,"compressFormat":"bz2","loadType":"default","directory":"","autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,},
-  ],
-  "IncludedFiles": [],
-  "MetaData": {
-    "IDEVersion": "2023.100.0.269",
-  },
 }

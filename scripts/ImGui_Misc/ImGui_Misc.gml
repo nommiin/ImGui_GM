@@ -1,6 +1,147 @@
 // All the silly stuff that's too messy for ImGui.gml
+
+/**
+ * @function ImGuiState
+ * @constructor
+ * @description A GM-side context for ImGui
+ * 
+ */
+function ImGuiState() constructor {
+    
+    enum StateUpdateFlags {
+    	None = 0,
+    	DisplaySize = 1 << 0,
+    	MousePos = 1 << 1,
+    	Framerate = 1 << 2,
+    	Time = 1 << 3,
+    	CmdBuffer = 1 << 4,
+    	FontBuffer = 1 << 5,
+    	UpdateFont = 1 << 6,
+
+    	Display = StateUpdateFlags.DisplaySize,
+    	Input = StateUpdateFlags.MousePos,
+    	Engine = StateUpdateFlags.Framerate | StateUpdateFlags.Time,
+    	Renderer = StateUpdateFlags.CmdBuffer | StateUpdateFlags.FontBuffer | StateUpdateFlags.UpdateFont,
+
+    	All = StateUpdateFlags.Display | StateUpdateFlags.Input | StateUpdateFlags.Engine | StateUpdateFlags.Renderer,
+    }
+
+    var _os_info = os_get_info();
+
+    __Initialized = false;
+
+    Display = {
+        Width: 0,
+        Height: 0,
+        Scale: 1,
+    };
+    Input = {
+        Mouse: {
+            X: 0,
+            Y: 0
+        }
+    };
+    Engine = {
+        D3DDevice: _os_info[? "video_d3d11_device"],
+        D3DDeviceContext: _os_info[? "video_d3d11_context"],
+        Context: pointer_null,
+        Window: pointer_null,
+        Time: 0,
+        Framerate: game_get_speed(gamespeed_fps),
+    };
+    Renderer = {
+        CmdBuffer: -1,
+        FontBuffer: -1,
+        Surface: -1,
+        UpdateFont: true,
+    };
+
+
+    ds_map_destroy(_os_info);
+
+    static __Initialize = function(config_flags_set=ImGuiConfigFlags.None, config_flags_clear=ImGuiConfigFlags.None) {
+        if __Initialized return;
+
+        var _state = ImGui.__State;
+
+		if self.Engine.Context == pointer_null {
+            self.Engine.Context = ImGui.CreateContext();
+        }
+        self.Display.Width = display_get_width();
+		self.Display.Height = display_get_height();
+		self.Display.Font = -1;
+		self.Renderer.Surface = -1;
+		self.Renderer.CmdBuffer = buffer_exists(self.Renderer.CmdBuffer) ? self.Renderer.CmdBuffer : buffer_create(IMGUI_GM_BUFFER_SIZE, buffer_grow, 1);
+		self.Renderer.FontBuffer = buffer_exists(self.Renderer.FontBuffer) ? self.Renderer.FontBuffer :  buffer_create(IMGUI_GM_BUFFER_SIZE, buffer_grow, 1);
+        self.Renderer.UpdateFont = true;
+        
+        self.Use();
+
+        var context = self.Engine.Context;
+
+        var info = {
+            D3DDevice: self.Engine.D3DDevice,
+            D3DDeviceContext: self.Engine.D3DDeviceContext,
+            ExtFlags: ImGui.__ExtFlags,
+            ConfigFlagsOverrideSet: config_flags_set,
+            ConfigFlagsOverrideClear: config_flags_clear,
+        };
+        var hwnd = self.Engine.Window;
+
+        if is_struct(hwnd) {
+            if hwnd[$ "hwnd"] {
+                hwnd = hwnd[$ "hwnd"];
+            }
+        }
+        var inited = __imgui_initialize(hwnd, context, info); // -> context
+
+        __Initialized = true;
+        return inited;
+    }
+    static Initialize = __Initialize;
+
+    static __Use = function(flags=StateUpdateFlags.All) {
+        ImGui.__State = self;
+        ImGui.SetCurrentContext(self.Engine.Context);
+        var _data = self.GetData();
+        __imgui_update_state_from_struct(_data, flags);
+    }
+    static Use = __Use;
+
+    static __GetData = function() {
+        return {
+            Display: self.Display,
+            Input: self.Input,
+            Engine: self.Engine,
+            Renderer: self.Renderer,
+        }
+    }
+    static GetData = __GetData;
+
+    static __Destroy = function() {
+        if is_ptr(self.Engine.Context) ImGui.DestroyContext(self.Engine.Context);
+        if buffer_exists(self.Renderer.CmdBuffer) buffer_delete(self.Renderer.CmdBuffer);
+        if buffer_exists(self.Renderer.FontBuffer) buffer_delete(self.Renderer.FontBuffer);
+        if surface_exists(self.Renderer.Surface) surface_free(self.Renderer.Surface);
+        self.Engine.Context = pointer_null;
+        self.Renderer.CmdBuffer = -1;
+        self.Renderer.FontBuffer = -1;
+        self.Renderer.Surface = -1;
+        self.__Initialized = false;
+    }
+    static Destroy = __Destroy;
+
+}
+
 // Used by Color*4 functions, use .Color to get BGR value for GM functions
 function ImColor(red, green, blue, alpha=1) constructor {
+	/*
+		ImColor(c_red);
+		ImColor(c_red, 0.5);
+		ImColor(255, 255, 255);
+		ImColor(128, 255, 255, 0.5);
+		ImColor(c_red | (128 << 24)); Alpha is most-significant byte, basically RGBA int
+	*/
 	a = alpha;
 	if (blue != undefined) {
 		r = red;
@@ -11,14 +152,12 @@ function ImColor(red, green, blue, alpha=1) constructor {
 		g = color_get_green(red);
 		b = color_get_blue(red);
 		
-		/*
-		TODO: this dont work
-		var msb = (red >> 24);
-		if (msb != 0) {
-			a = msb / 0xFF;
-		} else */{
-			if (green != undefined) {
-				a = green;	
+		if (green != undefined) {
+			a = green;	
+		} else {
+			var high = (red >> 24) & 0xFF;
+			if (high > 0) {
+				a = high / 0xFF;	
 			}
 		}
 	}
@@ -32,106 +171,86 @@ function ImColor(red, green, blue, alpha=1) constructor {
 	}
 }
 
-// Call static_get for the ImGui class to initialize statics, required once so everywhere else can access
-var _ = static_get(new ImGui());
-_.__Mapping = array_create(ImGuiKey.KeysData_SIZE, -1);
-_.__Mapping[ImGuiKey.None] = vk_nokey;
-_.__Mapping[ImGuiKey.Enter] = vk_enter;
-_.__Mapping[ImGuiKey.Escape] = vk_escape;
-_.__Mapping[ImGuiKey.Space] = vk_space;
-_.__Mapping[ImGuiKey.Backspace] = vk_backspace;
-_.__Mapping[ImGuiKey.Tab] = vk_tab;
-_.__Mapping[ImGuiKey.Pause] = vk_pause;
-_.__Mapping[ImGuiKey.LeftArrow] = vk_left;
-_.__Mapping[ImGuiKey.RightArrow] = vk_right;
-_.__Mapping[ImGuiKey.UpArrow] = vk_up;
-_.__Mapping[ImGuiKey.DownArrow] = vk_down;
-_.__Mapping[ImGuiKey.Home] = vk_home;
-_.__Mapping[ImGuiKey.End] = vk_end;
-_.__Mapping[ImGuiKey.Delete] = vk_delete;
-_.__Mapping[ImGuiKey.Insert] = vk_insert;
-_.__Mapping[ImGuiKey.PageUp] = vk_pageup;
-_.__Mapping[ImGuiKey.PageDown] = vk_pagedown;
-_.__Mapping[ImGuiKey.F1] = vk_f1;
-_.__Mapping[ImGuiKey.F2] = vk_f2;
-_.__Mapping[ImGuiKey.F3] = vk_f3;
-_.__Mapping[ImGuiKey.F4] = vk_f4;
-_.__Mapping[ImGuiKey.F5] = vk_f5;
-_.__Mapping[ImGuiKey.F6] = vk_f6;
-_.__Mapping[ImGuiKey.F7] = vk_f7;
-_.__Mapping[ImGuiKey.F8] = vk_f8;
-_.__Mapping[ImGuiKey.F9] = vk_f9;
-_.__Mapping[ImGuiKey.F10] = vk_f10;
-_.__Mapping[ImGuiKey.F11] = vk_f11;
-_.__Mapping[ImGuiKey.F12] = vk_f12;
-_.__Mapping[ImGuiKey.Keypad0] = vk_numpad0;
-_.__Mapping[ImGuiKey.Keypad1] = vk_numpad1;
-_.__Mapping[ImGuiKey.Keypad2] = vk_numpad2;
-_.__Mapping[ImGuiKey.Keypad3] = vk_numpad3;
-_.__Mapping[ImGuiKey.Keypad4] = vk_numpad4;
-_.__Mapping[ImGuiKey.Keypad5] = vk_numpad5;
-_.__Mapping[ImGuiKey.Keypad6] = vk_numpad6;
-_.__Mapping[ImGuiKey.Keypad7] = vk_numpad7;
-_.__Mapping[ImGuiKey.Keypad8] = vk_numpad8;
-_.__Mapping[ImGuiKey.Keypad9] = vk_numpad9;
-_.__Mapping[ImGuiKey.KeypadDivide] = vk_divide;
-_.__Mapping[ImGuiKey.KeypadMultiply] = vk_multiply;
-_.__Mapping[ImGuiKey.KeypadSubtract] = vk_subtract;
-_.__Mapping[ImGuiKey.KeypadAdd] = vk_add;
-_.__Mapping[ImGuiKey.KeypadDecimal] = vk_decimal;
-_.__Mapping[ImGuiKey.LeftShift] = vk_lshift;
-_.__Mapping[ImGuiKey.LeftCtrl] = vk_lcontrol;
-_.__Mapping[ImGuiKey.LeftAlt] = vk_lalt;
-_.__Mapping[ImGuiKey.RightShift] = vk_rshift;
-_.__Mapping[ImGuiKey.RightCtrl] = vk_rcontrol;
-_.__Mapping[ImGuiKey.RightAlt] = vk_ralt;
-_.__Mapping[ImGuiKey.ImGuiKey_1] = ord("1");
-_.__Mapping[ImGuiKey.ImGuiKey_2] = ord("2");
-_.__Mapping[ImGuiKey.ImGuiKey_3] = ord("3");
-_.__Mapping[ImGuiKey.ImGuiKey_4] = ord("4");
-_.__Mapping[ImGuiKey.ImGuiKey_5] = ord("5");
-_.__Mapping[ImGuiKey.ImGuiKey_6] = ord("6");
-_.__Mapping[ImGuiKey.ImGuiKey_7] = ord("7");
-_.__Mapping[ImGuiKey.ImGuiKey_8] = ord("8");
-_.__Mapping[ImGuiKey.ImGuiKey_9] = ord("9");
-_.__Mapping[ImGuiKey.ImGuiKey_0] = ord("0");
-_.__Mapping[ImGuiKey.A] = ord("A");
-_.__Mapping[ImGuiKey.B] = ord("B");
-_.__Mapping[ImGuiKey.C] = ord("C");
-_.__Mapping[ImGuiKey.D] = ord("D");
-_.__Mapping[ImGuiKey.E] = ord("E");
-_.__Mapping[ImGuiKey.F] = ord("F");
-_.__Mapping[ImGuiKey.G] = ord("G");
-_.__Mapping[ImGuiKey.H] = ord("H");
-_.__Mapping[ImGuiKey.I] = ord("I");
-_.__Mapping[ImGuiKey.J] = ord("J");
-_.__Mapping[ImGuiKey.K] = ord("K");
-_.__Mapping[ImGuiKey.L] = ord("L");
-_.__Mapping[ImGuiKey.M] = ord("M");
-_.__Mapping[ImGuiKey.N] = ord("N");
-_.__Mapping[ImGuiKey.O] = ord("O");
-_.__Mapping[ImGuiKey.P] = ord("P");
-_.__Mapping[ImGuiKey.Q] = ord("Q");
-_.__Mapping[ImGuiKey.R] = ord("R");
-_.__Mapping[ImGuiKey.S] = ord("S");
-_.__Mapping[ImGuiKey.T] = ord("T");
-_.__Mapping[ImGuiKey.U] = ord("U");
-_.__Mapping[ImGuiKey.V] = ord("V");
-_.__Mapping[ImGuiKey.W] = ord("W");
-_.__Mapping[ImGuiKey.X] = ord("X");
-_.__Mapping[ImGuiKey.Y] = ord("Y");
-_.__Mapping[ImGuiKey.Z] = ord("Z");
-_.__Cursor[ImGuiMouseCursor.None + 1] = cr_none;
-_.__Cursor[ImGuiMouseCursor.Arrow + 1] = cr_default;
-_.__Cursor[ImGuiMouseCursor.TextInput + 1] = cr_beam;
-_.__Cursor[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
-_.__Cursor[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
-_.__Cursor[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
-_.__Cursor[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
-_.__Cursor[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
-_.__Cursor[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
-_.__Cursor[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
+/**
+ * @function ImGuiWindowClass
+ * @constructor
+ * Represents a window class. This is managed in your game and is sent to ImGui backend on setting the window class calls.
+ * 
+ */
+function ImGuiWindowClass(class_id, parent_viewport_id=undefined, viewport_flags_override_set=ImGuiViewportFlags.None, viewport_flags_override_clear=ImGuiViewportFlags.None) constructor {
+    ClassId = class_id;
 
+    if (is_ptr(parent_viewport_id)) { parent_viewport_id = __imgui_get_viewport_id(parent_viewport_id); }
+    ParentViewportId = parent_viewport_id; // -1
+
+    ViewportFlagsOverrideSet = viewport_flags_override_set; // ImGuiViewportFlags.None
+    ViewportFlagsOverrideClear = viewport_flags_override_clear; // ImGuiViewportFlags.None
+
+    FocusRouteParentWindowId = undefined; // 0
+    TabItemFlagsOverrideSet = undefined; // 0
+    DockNodeFlagsOverrideSet = undefined; // 0
+    DockingAlwaysTabBar = undefined; // false
+    DockingAllowUnclassed = undefined; // true
+    
+    /* Unused */
+    static Destroy = function() {};
+}
+
+/**
+ * @function ImGuiSelectionBasicStorage
+ * @constructor
+ * Creates an ImGuiSelectionBasicStorage in the extension. Use Destroy() when done.
+ * 
+ */
+function ImGuiSelectionBasicStorage(size=0, preserve_order=undefined) constructor {
+    _Size = size;
+    PreserveOrder = preserve_order; // false
+
+    __ptr = __imgui_create_multi_select_basic_storage(self);
+    
+    static GetSize = function() {
+        _Size = __imgui_selection_storage_size(self, undefined);
+        return _Size;
+    }
+
+    static SetSize = function(set_value=undefined) {
+        _Size = __imgui_selection_storage_size(self, set_value);
+    }
+
+    /// @param {ImGuiMultiSelectIO} ms_io
+    static ApplyRequests = function(ms_io) {
+        __imgui_selection_storage_apply_requests(self, ms_io);
+    }
+    
+    /// check if an item is in the storage (used with SetNextItemUserStorage(idx))
+    /// @param {Any} idx The user data to check
+    /// @return {Bool}
+    static Contains = function(idx) {
+        return __imgui_selection_storage_contains(self, idx);
+    }
+    
+    static Destroy = function() {
+        __imgui_destroy_multi_select_basic_storage(self);
+    }
+}
+
+
+#macro IMGUI_PAYLOAD_TYPE_COLOR_3F     "_COL3F"    // (GML) int32: Standard type for colors, without alpha. User code may use this type.
+#macro IMGUI_PAYLOAD_TYPE_COLOR_4F     "_COL4F"    // (GML) struct: Standard type for colors. User code may use this type.
+#macro IMGUI_GM_BUFFER_SIZE             1024 * 8    // size of draw command & font buffers (they're grow buffers, this is just the initial size)
+
+enum ImGuiExtFlags {
+    None = 0,
+	RENDERER_GM = 1 << 0,
+	IMPL_GM = 1 << 1,
+	IMPL_DX11 = 1 << 2,
+	IMPL_WIN32 = 1 << 3,
+	EXT_WINWIN = 1 << 4,
+    GM = ImGuiExtFlags.IMPL_GM | ImGuiExtFlags.RENDERER_GM,
+}
+
+/// @section Enums
+/// These are manually imported and modified enums, for automatic enum exporting see the enums section of ImGui.gml
 /*
 	Used for encoding multiple returns from various wrappers (ImGui.Begin, ImGui.CollapsingHeader, etc)
 	Default is ImGuiReturnFlags.Return for all functions to make wrappers work as close to the library as possible
@@ -145,6 +264,13 @@ enum ImGuiReturnMask {
 	Return = 1 << 0,
 	Pointer = 1 << 1,
 	Both = ImGuiReturnMask.Return | ImGuiReturnMask.Pointer
+}
+
+enum ImGuiTextureType {
+	Raw = 0,
+	Sprite = 1 << 0,
+	Surface = 1 << 1,
+	Font = 1 << 2
 }
 
 // slightly modified from imgui.h
@@ -261,3 +387,113 @@ enum ImGuiKey
     KeysData_SIZE          = ImGuiKey.COUNT,                   // Size of KeysData[]: hold legacy 0..512 keycodes + named keys
     KeysData_OFFSET        = 0,                                // First key stored in io.KeysData[0]. Accesses to io.KeysData[] must use (key - KeysData_OFFSET).
 };
+
+
+
+/// @section Init helpers
+
+function __imgui_create_cursor_mapping() {
+    var arr = array_create(ImGuiMouseCursor.NotAllowed + 1, cr_none);
+    arr[ImGuiMouseCursor.None + 1] = cr_none;
+    arr[ImGuiMouseCursor.Arrow + 1] = cr_default;
+    arr[ImGuiMouseCursor.TextInput + 1] = cr_beam;
+    arr[ImGuiMouseCursor.ResizeAll + 1] = cr_size_all;
+    arr[ImGuiMouseCursor.ResizeNS + 1] = cr_size_ns;
+    arr[ImGuiMouseCursor.ResizeEW + 1] = cr_size_we;
+    arr[ImGuiMouseCursor.ResizeNESW + 1] = cr_size_nesw;
+    arr[ImGuiMouseCursor.ResizeNWSE + 1] = cr_size_nwse;
+    arr[ImGuiMouseCursor.Hand + 1] = cr_handpoint;
+    arr[ImGuiMouseCursor.NotAllowed + 1] = cr_default;
+    return arr;
+}
+
+function __imgui_create_input_mapping() {
+    var arr = array_create(ImGuiKey.KeysData_SIZE, -1);
+    arr[ImGuiKey.None] = vk_nokey;
+    arr[ImGuiKey.Enter] = vk_enter;
+    arr[ImGuiKey.Escape] = vk_escape;
+    arr[ImGuiKey.Space] = vk_space;
+    arr[ImGuiKey.Backspace] = vk_backspace;
+    arr[ImGuiKey.Tab] = vk_tab;
+    arr[ImGuiKey.Pause] = vk_pause;
+    arr[ImGuiKey.LeftArrow] = vk_left;
+    arr[ImGuiKey.RightArrow] = vk_right;
+    arr[ImGuiKey.UpArrow] = vk_up;
+    arr[ImGuiKey.DownArrow] = vk_down;
+    arr[ImGuiKey.Home] = vk_home;
+    arr[ImGuiKey.End] = vk_end;
+    arr[ImGuiKey.Delete] = vk_delete;
+    arr[ImGuiKey.Insert] = vk_insert;
+    arr[ImGuiKey.PageUp] = vk_pageup;
+    arr[ImGuiKey.PageDown] = vk_pagedown;
+    arr[ImGuiKey.F1] = vk_f1;
+    arr[ImGuiKey.F2] = vk_f2;
+    arr[ImGuiKey.F3] = vk_f3;
+    arr[ImGuiKey.F4] = vk_f4;
+    arr[ImGuiKey.F5] = vk_f5;
+    arr[ImGuiKey.F6] = vk_f6;
+    arr[ImGuiKey.F7] = vk_f7;
+    arr[ImGuiKey.F8] = vk_f8;
+    arr[ImGuiKey.F9] = vk_f9;
+    arr[ImGuiKey.F10] = vk_f10;
+    arr[ImGuiKey.F11] = vk_f11;
+    arr[ImGuiKey.F12] = vk_f12;
+    arr[ImGuiKey.Keypad0] = vk_numpad0;
+    arr[ImGuiKey.Keypad1] = vk_numpad1;
+    arr[ImGuiKey.Keypad2] = vk_numpad2;
+    arr[ImGuiKey.Keypad3] = vk_numpad3;
+    arr[ImGuiKey.Keypad4] = vk_numpad4;
+    arr[ImGuiKey.Keypad5] = vk_numpad5;
+    arr[ImGuiKey.Keypad6] = vk_numpad6;
+    arr[ImGuiKey.Keypad7] = vk_numpad7;
+    arr[ImGuiKey.Keypad8] = vk_numpad8;
+    arr[ImGuiKey.Keypad9] = vk_numpad9;
+    arr[ImGuiKey.KeypadDivide] = vk_divide;
+    arr[ImGuiKey.KeypadMultiply] = vk_multiply;
+    arr[ImGuiKey.KeypadSubtract] = vk_subtract;
+    arr[ImGuiKey.KeypadAdd] = vk_add;
+    arr[ImGuiKey.KeypadDecimal] = vk_decimal;
+    arr[ImGuiKey.LeftShift] = vk_lshift;
+    arr[ImGuiKey.LeftCtrl] = vk_lcontrol;
+    arr[ImGuiKey.LeftAlt] = vk_lalt;
+    arr[ImGuiKey.RightShift] = vk_rshift;
+    arr[ImGuiKey.RightCtrl] = vk_rcontrol;
+    arr[ImGuiKey.RightAlt] = vk_ralt;
+    arr[ImGuiKey.ImGuiKey_1] = ord("1");
+    arr[ImGuiKey.ImGuiKey_2] = ord("2");
+    arr[ImGuiKey.ImGuiKey_3] = ord("3");
+    arr[ImGuiKey.ImGuiKey_4] = ord("4");
+    arr[ImGuiKey.ImGuiKey_5] = ord("5");
+    arr[ImGuiKey.ImGuiKey_6] = ord("6");
+    arr[ImGuiKey.ImGuiKey_7] = ord("7");
+    arr[ImGuiKey.ImGuiKey_8] = ord("8");
+    arr[ImGuiKey.ImGuiKey_9] = ord("9");
+    arr[ImGuiKey.ImGuiKey_0] = ord("10");
+    arr[ImGuiKey.A] = ord("A");
+    arr[ImGuiKey.B] = ord("B");
+    arr[ImGuiKey.C] = ord("C");
+    arr[ImGuiKey.D] = ord("D");
+    arr[ImGuiKey.E] = ord("E");
+    arr[ImGuiKey.F] = ord("F");
+    arr[ImGuiKey.G] = ord("G");
+    arr[ImGuiKey.H] = ord("H");
+    arr[ImGuiKey.I] = ord("I");
+    arr[ImGuiKey.J] = ord("J");
+    arr[ImGuiKey.K] = ord("K");
+    arr[ImGuiKey.L] = ord("L");
+    arr[ImGuiKey.M] = ord("M");
+    arr[ImGuiKey.N] = ord("N");
+    arr[ImGuiKey.O] = ord("O");
+    arr[ImGuiKey.P] = ord("P");
+    arr[ImGuiKey.Q] = ord("Q");
+    arr[ImGuiKey.R] = ord("R");
+    arr[ImGuiKey.S] = ord("S");
+    arr[ImGuiKey.T] = ord("T");
+    arr[ImGuiKey.U] = ord("U");
+    arr[ImGuiKey.V] = ord("V");
+    arr[ImGuiKey.W] = ord("W");
+    arr[ImGuiKey.X] = ord("X");
+    arr[ImGuiKey.Y] = ord("Y");
+    arr[ImGuiKey.Z] = ord("Z");
+    return arr;
+}
