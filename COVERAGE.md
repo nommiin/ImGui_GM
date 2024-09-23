@@ -34,7 +34,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::StyleColorsDark | ✅ | [imgui_style_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_style_gm.cpp#L3) | N/A |
 | ImGui::StyleColorsLight | ✅ | [imgui_style_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_style_gm.cpp#L8) | N/A |
 | ImGui::StyleColorsClassic | ✅ | [imgui_style_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_style_gm.cpp#L13) | N/A |
-| ImGui::Begin | ✅ | [imgui_window_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_window_gm.cpp#L3) | N/A |
+| ImGui::Begin | ✅ | [imgui_window_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_window_gm.cpp#L3) | See [ImGuiReturnMask Usage](https://github.com/knno/imgui_gm/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::End | ✅ | [imgui_window_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_window_gm.cpp#L24) | N/A |
 | ImGui::BeginChild | ✅ | [imgui_window_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_window_gm.cpp#L29) | N/A |
 | ImGui::EndChild | ✅ | [imgui_window_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_window_gm.cpp#L44) | N/A |
@@ -204,7 +204,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TreePush | ✅ | [imgui_tree_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tree_gm.cpp#L19) | N/A |
 | ImGui::TreePop | ✅ | [imgui_tree_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tree_gm.cpp#L26) | N/A |
 | ImGui::GetTreeNodeToLabelSpacing | ✅ | [imgui_tree_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tree_gm.cpp#L31) | N/A |
-| ImGui::CollapsingHeader | ✅ | [imgui_tree_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tree_gm.cpp#L45) | N/A |
+| ImGui::CollapsingHeader | ✅ | [imgui_tree_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tree_gm.cpp#L45) | See [ImGuiReturnMask Usage](https://github.com/knno/imgui_gm/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::SetNextItemOpen | ✅ | [imgui_tree_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tree_gm.cpp#L36) | N/A |
 | ImGui::SetNextItemStorageID | ❌ | N/A | N/A |
 | ImGui::Selectable | ✅ | [imgui_selectable_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_selectable_gm.cpp#L4) | N/A |
@@ -224,7 +224,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::EndMainMenuBar | ✅ | [imgui_menu_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_menu_gm.cpp#L18) | N/A |
 | ImGui::BeginMenu | ✅ | [imgui_menu_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_menu_gm.cpp#L23) | N/A |
 | ImGui::EndMenu | ✅ | [imgui_menu_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_menu_gm.cpp#L32) | N/A |
-| ImGui::MenuItem | ✅ | [imgui_menu_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_menu_gm.cpp#L37) | N/A |
+| ImGui::MenuItem | ✅ | [imgui_menu_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_menu_gm.cpp#L37) | See [ImGuiReturnMask Usage](https://github.com/knno/imgui_gm/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::BeginTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tooltips_gm.cpp#L3) | N/A |
 | ImGui::EndTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tooltips_gm.cpp#L8) | N/A |
 | ImGui::SetTooltip | ✅ | [imgui_tooltips_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tooltips_gm.cpp#L13) | N/A |
@@ -233,7 +233,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::SetItemTooltip | ✅ | [imgui_api_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_api_gm.cpp#L326) | N/A |
 | ImGui::SetItemTooltipV | ❌ | N/A | Unsupported, use `string` function in GameMaker for string formatting |
 | ImGui::BeginPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_popup_gm.cpp#L3) | N/A |
-| ImGui::BeginPopupModal | ✅ | [imgui_popup_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_popup_gm.cpp#L12) | N/A |
+| ImGui::BeginPopupModal | ✅ | [imgui_popup_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_popup_gm.cpp#L12) | See [ImGuiReturnMask Usage](https://github.com/knno/imgui_gm/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::EndPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_popup_gm.cpp#L33) | N/A |
 | ImGui::OpenPopup | ✅ | [imgui_popup_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_popup_gm.cpp#L38) | N/A |
 | ImGui::OpenPopupOnItemClick | ✅ | [imgui_popup_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_popup_gm.cpp#L47) | N/A |
@@ -271,7 +271,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::GetColumnsCount | ✅ | [imgui_table_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_table_gm.cpp#L192) | N/A |
 | ImGui::BeginTabBar | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L3) | N/A |
 | ImGui::EndTabBar | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L12) | N/A |
-| ImGui::BeginTabItem | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L17) | N/A |
+| ImGui::BeginTabItem | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L17) | See [ImGuiReturnMask Usage](https://github.com/knno/imgui_gm/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
 | ImGui::EndTabItem | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L38) | N/A |
 | ImGui::TabItemButton | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L43) | N/A |
 | ImGui::SetTabItemClosed | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L52) | N/A |
