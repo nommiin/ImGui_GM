@@ -27,7 +27,7 @@
                     "name": "IMGUI_GM_VERSION",
                     "resourceType": "GMExtensionConstant",
                     "resourceVersion": "2.0",
-                    "value": "\"1.0.2\""
+                    "value": "\"1.0.18\""
                 }
             ],
             "copyToTargets": -1,
