@@ -57,7 +57,7 @@ class Program {
             let coveragePercentage = this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
 
             if (Configuration.WRITE_BADGES) {
-                this.writeCoverageBadge(new FileEditor(".github/badges/coverage.json"), coveragePercentage);
+                this.writeCoverageBadge(new FileEditor("extra/badges/coverage.json"), coveragePercentage);
             }
         }
 
@@ -506,7 +506,7 @@ class Program {
         let coveragePercentage = Math.round(100 * (wrapped / (func.length - unsupported)));
 
         content += `# Coverage\n\n`;
-        content += `- ![coverage](https://badgen.net/https/raw.githubusercontent.com/${githubRepo}/main/.github/badges/coverage.json?icon=awesome)\n`;
+        content += `- ![coverage](https://badgen.net/https/raw.githubusercontent.com/${githubRepo}/main/extra/badges/coverage.json?icon=awesome)\n`;
         content += `- ${wrapped} out of ${func.length - unsupported} supported API functions wrapped (**${coveragePercentage}% complete**)\n`;
         content += `- ${wrapped} out of ${func.length} total API functions wrapped (*${Math.round(100 * (wrapped / (func.length)))}% complete*)\n`;
         content += `- Note that ${unsupported} out of ${func.length} API functions are not supported (${Math.round(100 * (unsupported / (func.length)))}%)\n`;
@@ -540,7 +540,7 @@ class Program {
     }
 
     static writeCoverageBadge(file, coveragePercentage) {
-        let content = `{"subject":"coverage","status":"{${coveragePercentage}%}","color": "green"}`;
+        let content = `{"subject":"coverage","status":"${coveragePercentage}%","color": "green"}`;
         if (file.update(content)) file.commit();
     }
 

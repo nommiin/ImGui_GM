@@ -4,8 +4,8 @@ A Windows only ImGui wrapper for modern GameMaker.
 
 <!-- ![screenshot](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png) -->
 
-[issues](https://badgen.net/github/issues/knno/imgui_gm)
-[coverage](https://badgen.net/https/raw.githubusercontent.com/${githubRepo}/main/.github/badges/coverage.json?icon=awesome)
+![issues](https://badgen.net/github/issues/knno/imgui_gm)
+![coverage](https://badgen.net/https/raw.githubusercontent.com/knno/imgui_gm/main/extra/badges/coverage.json?icon=awesome)
 
 # Installation
 

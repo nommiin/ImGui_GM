@@ -3,7 +3,7 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 
 # Coverage
 
-- ![coverage](https://badgen.net/https/raw.githubusercontent.com/knno/imgui_gm/main/.github/badges/coverage.json?icon=awesome)
+- ![coverage](https://badgen.net/https/raw.githubusercontent.com/knno/imgui_gm/main/extra/badges/coverage.json?icon=awesome)
 - 330 out of 393 supported API functions wrapped (**84% complete**)
 - 330 out of 408 total API functions wrapped (*81% complete*)
 - Note that 15 out of 408 API functions are not supported (4%)
