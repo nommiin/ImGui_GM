@@ -2,7 +2,7 @@ const Logger = require("./Logger");
 const Configuration = require("./Configuration");
 
 class Wrapper {
-    static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac", "visible"];
+    static reserved = ["x", "y", "continue", "return", "id", "repeat", "frac", "visible", "ptr"];
 
     constructor(name, file, line) {
         this.Name = name;
@@ -172,6 +172,12 @@ class Wrapper {
                 return true;
             }
 
+            case "GMRETURNS": {
+                this.Return = token.flatten(false);
+                Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
+                return true;
+            }
+
             case "GMHINT": {
                 if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
                 
@@ -206,11 +212,27 @@ class Wrapper {
         };
     }
 
-    to_jsdoc(spacing=1) {
-        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${this.Calls}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
+    to_jsdoc(enums, spacing=1, snake=false) {
+        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${!snake ? this.Calls : this.Name.slice(2)}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
             if (arg.Hidden) continue;
+
+            // probably shouldn't get changed here but Ah
+            if (arg.Type === "Real" && arg.Default) {
+                // once again, Ah
+                if (arg.Default.startsWith("ImGuiReturnMask")) {
+                    arg.Type = "Enum.ImGuiReturnMask";
+                } else {
+                    for(const key in enums) {
+                        const name = key.endsWith("_") ? key.slice(0, -1) : key;
+                        if (arg.Default.startsWith(name)) {
+                            arg.Type = `Enum.${name}`;
+                            break;
+                        }
+                    }
+                }
+            }
             
             str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
             if (arg.Default !== undefined) {
@@ -220,12 +242,13 @@ class Wrapper {
             }
             str += "\n";
         }
+        if (!snake) str += Configuration.SPACING.repeat(spacing) + `/// @context ImGui\n`;
         str += Configuration.SPACING.repeat(spacing) + `/// @return {${this.Return}}`;
         return str;
     }
 
-    to_gml(spacing=1) {
-        let str = Configuration.SPACING.repeat(spacing) + `static ${this.Calls} = function(` + this.Arguments.filter(e => !e.Hidden).map(e => {
+    to_gml(spacing=1, snake=false) {
+        let str = Configuration.SPACING.repeat(spacing) + (!snake ? `static ${this.Calls} = function(` : `function ${this.Name.slice(2)}(`) + this.Arguments.filter(e => !e.Hidden).map(e => {
             if (e.Default === undefined) return e.Name;
 
             switch (e.Type) {

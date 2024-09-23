@@ -1,0 +1,21 @@
+name: learn-github-actions
+run-name: Package .yymps file
+on: [push]
+jobs:
+  package-extension:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+        working-directory: ./tools/bundle/
+      - run: node tools/bundle/main.js
+      - name: Upload package
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: package.yymps
