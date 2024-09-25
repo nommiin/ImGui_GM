@@ -138,7 +138,7 @@ enum ImGuiExtFlags_ {
 	ImGuiExtFlags_IMPL_GM = 1 << 1,
 	ImGuiExtFlags_IMPL_DX11 = 1 << 2,
 	ImGuiExtFlags_IMPL_WIN32 = 1 << 3,
-	ImGuiExtFlags_EXT_WINWIN = 1 << 4
+	ImGuiExtFlags_GM = ImGuiExtFlags_RENDERER_GM | ImGuiExtFlags_IMPL_GM,
 };
 
 extern ImGuiExtFlags g_ImGuiExtFlags;

@@ -7,53 +7,32 @@ my_color = #002F4C
 operating_system = environment_get_variable("OS");
 
 /// Set up the extension before initialization.
-// ImGui.__ExtFlags |= ImGuiExtFlags.EXT_WINWIN;
-ImGui.__ExtFlags &= ~ImGuiExtFlags.GM;
+ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Use DX11 renderer.
 
-/// Define common flags
-var _configs = ImGuiConfigFlags.ViewportsEnable | ImGuiConfigFlags.DockingEnable;
+/// Define common config flags
+var _configs = ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable;
 
-ImGui.__Initialize(_configs); // This creates a default state.
+ImGui.__Initialize(_configs); // This creates a default window and state.
 
 /* You can also create a state manually and use it as arg0 in ImGui initialize instead. */
 
 imgui_state = ImGui.__State; // Capture the created state.
-//ImGui.ConfigFlagToggle(config_flags); // Set some configs.
+imgui_window = ImGui.__Window; // Capture the created gamewindow.
 
-/// Create a new state (context).
+/// Create a new state example
+/*
 imgui_state2 = new ImGuiState(); // Creates a Context [internal]
-imgui_state2.Engine.Window = {hwnd: window_handle()}; // Modify data of State.
-imgui_state2.Initialize(_configs); // Initialize the state. Sets as the current state.
-// ImGui.ConfigFlagToggle(ImGuiConfigFlags.DockingEnable); // Set some configs.
+imgui_window2 = new ImGuiBaseMainWindow(window_handle());
+// imgui_state2.some_attribute = some_value; // modify some data [example]
+imgui_state2.Initialize(imgui_window2, _configs); // Initialize the state. Attach state to the window. Set the config flags to add. This sets as the current state.
+ImGui.AddFontDefault(); // Add default font to the state.
 imgui_state.Use(); // Return back to main state.
+*/
 
-/// If ImGui has winwin set, we create a winwin.
+/// Set the main state active.
+// imgui_state.Use();
 
-/* For this to work correctly, you need to set RENDERER_GM. */
-
-if ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN {
-    winwin_main.hwnd = window_handle(); // Simpler for more compatibility?
-
-    var _winwin_cfg = new winwin_config();
-    _winwin_cfg.caption = "Extra!";
-    _winwin_cfg.resize = false;
-    _winwin_cfg.close_button = 1;
-    _winwin_cfg.thread = false;
-    _winwin_cfg.kind = winwin_kind_normal;
-
-    _winwin_extra = winwin_create(window_get_x() + 350, window_get_y(), 350, 600, _winwin_cfg);
-    _winwin_extra.hwnd = winwin_get_handle(_winwin_extra); // important
-
-    _winwin_extra.imgui_state = new ImGuiState(); // Create a state for the winwin.
-    _winwin_extra.imgui_state.Engine.Window = _winwin_extra; // Modify data of State.
-    _winwin_extra.imgui_state.Initialize(_configs); // Initialize the state. Sets the current state.
-    _winwin_extra.font_default = ImGui.AddFontDefault(); // Add default font to the current state (context).
-} else {
-    _winwin_extra = undefined;
-}
-
-/// Set back to main state.
-imgui_state.Use();
+/// -----------------------------------------------------------------------------
 
 // Fonts
 font_default = ImGui.AddFontDefault();

@@ -160,7 +160,7 @@ if (main_open) {
 			}
 			ImGui.TextColored("Developed by Nommiin!", c_aqua);
             ImGui.Separator();
-			ImGui.TextColored("Branch: ", #3bb1f8);
+			ImGui.TextColored("Repo: ", #3bb1f8);
             ImGui.SameLine(0,0);
             ImGui.TextLinkOpenURL("knno/ImGui_GM", "https://github.com/knno/ImGui_GM");
             ImGui.Separator();

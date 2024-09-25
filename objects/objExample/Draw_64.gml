@@ -5,19 +5,6 @@ draw_set_font(fnt_consolas);
 draw_set_color(c_white);
 var chr_width = string_width("_")
 var chr_height = string_height("|");
-
-if _winwin_extra {
-    winwin_draw_begin(_winwin_extra);
-    winwin_draw_clear(my_color);
-    winwin_draw_end();
-    
-    if _winwin_extra[$ "imgui_state"] {
-        _winwin_extra.imgui_state.Use();
-        ImGui.__Draw();
-        imgui_state.Use();
-    }
-}
-
 var mem = memory / 1000000;
 var mem_diff = (sign(memory_difference) ? "+" : "") + string(memory_difference / 1000);
 

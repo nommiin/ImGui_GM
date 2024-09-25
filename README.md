@@ -40,39 +40,77 @@ There are various ways to use the **ImGui_GM** extension in this build.
 
 3. Make sure you have read and understood the [Notes](#notes) section.
 
-## Intermediate Usage
+## Advanced Usage
 
-Here we will introduce the `ImGuiState` constructor.
+Here we will introduce more ways to initialize and manage ImGui through out a GameMaker project.
+
+### Main Windows
+
+`ImGuiBaseMainWindow` is a custom class that represents the game window. It has wrapping methods (`window_get_width`, `window_get_height` etc.) which can be extended.
+
+Using more than one main Window is currently **not recommended**. You can modify original ImGui code and create an extend of the `ImGuiBaseMainWindow` class to use custom methods in GM side.
+
+*There is a **winwin** branch here that tries to integrate winwin and ImGui_GM extensions together*
+
+You can see the abstract functions of `ImGuiBaseMainWindow` constructor if you want to extend the constructor.
 
 ### States
 
-An `ImGuiState` is used to set the current ImGui context and other variables. This is required for mulitple contexts to work. By default, basic usage creates the main state with `ImGui.__Initialize`.
+An `ImGuiState` is a custom class that is used to set the current ImGui context and other variables. This is required for mulitple contexts to work. By default, basic usage creates the main state with `ImGui.__Initialize`.
 
-#### Creating States
+#### Multiple States or Main Windows and Initialization
 
-When calling `ImGui.__Initialize()`, it creates a state for us.
+*See below for how to create windows or states and initialize them instead in code.*
+
+Using multiple states doen't require mulitple windows. And using multiple windows should be possible without having to create another state!
+
+However when using the GM renderer method and more than one main window, each window will require a state different than that of the game's main window.
+
+Using `state.Initialize(window_or_configflags)`:
+- If the state doesn't have a window, it's going to be set from `ImGui.__MainWindow`.
+
+Using `ImGui.__Initialize(window_or_state_or_configflags)`:
+- Can be used only once.
+- If a state was provided, it will be initialized and **a window will be created** if the state doesn't have one.
+- If a window was provided, **a state will be created** and will use the window.
+- If config flags were provided, **a state will be created**, and its window will be set from `ImGui.__MainWindow`.
+
+#### Examples of Creating States or Windows
+
+Basically, when calling literally `ImGui.__Initialize()`, it creates a state and a window for us.
 
 ```gml
-ImGui.__Initialize(); // Creates a state internally
-var _state = ImGui.__State; // Capture the state.
+ImGui.__Initialize(); // Creates a state and window 
+state = ImGui.__State; // Capture the state
+window = ImGui.__Window; // Capture the window
 ```
 
-However you can create the *main* state manually.
+However you can create the *main* state manually and add a window class to it. Useful if its the first time
+to set the `ImGui.__MainWindow` to the state's window.
 
 ```gml
-var _state = new ImGuiState(); // Creates a state (main state)
-_state.Engine.Window.hwnd = window_handle(); // Modify some data.
-ImGui.__Initialize(_state); // initialize ImGui with the main state.
+window = new ImGuiBaseMainWindow(); // Your own constructor
+state = new ImGuiState(); // Creates a state (main state)
+state.Engine.Window = window;
+ImGui.__Initialize(state); // initialize ImGui with the state
 ```
-    
-You can also create more states and initialize them too later on.
+
+Or if you simply want the main window to be your own:
 
 ```gml
-// Assumign ImGui.__Initialize(); was called before.
+window = new ImGuiBaseMainWindow(); // Your own constructor.
+ImGui.__Initialize(window); // Creates a state
+state = ImGui.__State; // Capture the state
+```
 
-var _state = new ImGuiState(); // Creates a state (main state)
-_state.Engine.Window.hwnd = get_other_window_handle();
-_state.__Initialize(); // Initialize the state.
+You can also create more windows and states and initialize the states later on. Make sure you have called `ImGui.__Initialize`!
+
+```gml
+// Assuming ImGui.__Initialize(...); was called before.
+
+var state2 = new ImGuiState(); // Creates a state (main state)
+state2.Engine.Window = new ImGuiBaseMainWindow(other_window_handle);
+state2.Initialize(); // Initialize the state.
 
 // Initializing a state sets it current, so from here on, we are using the new state.
 ```
@@ -85,7 +123,9 @@ You can do this directly or with the essential functions
 ```gml
 _state.__Use();
 ImGui.__NewFrame(); // New frame in _state.
-// Above Same as below
+
+// same as
+
 ImGui.__NewFrame(_state); // New frame in _state.
 ```
 
@@ -95,15 +135,10 @@ The following essential functions need to be called for each state:
 | `ImGui.__NewFrame` | `ImGui.__NewFrame(_state)` | |
 | `ImGui.__EndFrame` | `ImGui.__EndFrame(_state)` | |
 | `ImGui.__Render`   | `ImGui.__Render(_state)` | |
-| `ImGui.__Draw`     | `ImGui.__Draw(_state)` | ⚠️ Caution: Only use in *Draw GUI* event (when both `GM` and `EXT_WINWIN` are set as Ext flags.) |
+| `ImGui.__Draw`     | `ImGui.__Draw(_state)` | ⚠️ Caution: Potential memory leak if not used in *Draw GUI* event having multiple `GameWindow`s |
 
 States are mostly for internal use, you shouldn't have to modify their values.
-Except for the window handle (`_state.Engine.Window.hwnd`) per the examples above.
-
-Functions of `ImGuiState` constructor:
-- `_state.__Initialize()`: Initializes the state and use it.
-- `_state.__Use()`: activate as the current state.
-- `_state.__Destroy()`: Frees the ImGui internal context (and GameMaker variables, such as buffers) from memory.
+Except for the window (`_state.Engine.Window`) per the examples above.
 
 ### Extension Flags
 
@@ -118,26 +153,14 @@ Here is a list of extension flags:
 - `ImGuiExtFlags.IMPL_DX11`: Enables ImGui DirectX11 backend.
 - `ImGuiExtFlags.IMPL_WIN32`: Enables ImGui WIN32 backend.
 - `ImGuiExtFlags.GM`: Enables ImGui GM backend and use GM renderer.
-- `ImGuiExtFlags.EXT_WINWIN`: Enables winwin extension. (See below.)
 
 Note: `ImGuiExtFlags.GM` is basically `ImGuiExtFlags.IMPL_GM | ImGuiExtFlags.RENDERER_GM` since you cannot use `RENDERER_GM`, without `IMPL_GM`.
 
 #### Extension Flag: GM
 
-This flag tells that you want to use the GM rendering technique where usage of native ImGui multi-viewports is not possible. It is required for usage with winwin extension.
-Check the included example objects in the GameMaker project for more details.
+This flag tells that you want to use the GM rendering technique where usage of native ImGui multi-viewports is not possible.
 
-#### Extension Flag: EXT_WINWIN
-
-The [winwin](https://github.com/YAL-GameMaker/winwin) extension is maintained by YellowAfterLife.
-If you have it, you can simply enable this flag and create a `ImGuiState` to use with that window.
-
-Hopefully you will only need these two lines for the `state` to work with a `winwin`:
-
-```gml
-_state.Engine.Window = winwin_window;
-_state.Engine.Window.hwnd = winwin_get_handle(winwin_window);
-```
+Check the github repository branches or the included example objects in the GameMaker project for more details.
 
 # Compatibility
 

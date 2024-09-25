@@ -1,9 +1,66 @@
 // All the silly stuff that's too messy for ImGui.gml
 
+/** 
+ * @function ImGuiBaseMainWindow
+ * @constructor
+ * @description A GM-side base main viewport for use with ImGui.
+ * 
+ */
+function ImGuiBaseMainWindow() constructor {
+    static GetHandle = function() {return window_handle();}
+    static Exists = function() {return true;}
+    static HasFocus = function() {return window_has_focus();}
+    static GetX = function() {return window_get_x();}
+    static GetY = function() {return window_get_y();}
+    static GetWidth = function() {return window_get_width();}
+    static GetHeight = function() {return window_get_height();}
+    static MouseGetX = function() {return window_mouse_get_x();}
+    static MouseGetY = function() {return window_mouse_get_y();}
+    static MouseCheckButton = function(mb) {return mouse_check_button(mb);}
+    static MouseWheelUp = function(mb) {return mouse_wheel_up();}
+    static MouseWheelDown = function(mb) {return mouse_wheel_down();}
+    static SetCursor = function(cursor) {return window_set_cursor(cursor);}
+    static Destroy = undefined;
+    static DrawBegin = undefined;
+    static DrawEnd = undefined;
+    static DrawClear = undefined;
+}
+
+/** 
+ * @function ImGuiGameWindowWinwin
+ * @constructor
+ * @description An example additional main viewport for use with ImGui.
+ * 
+ */
+function ImGuiGameWindowWinwin(_x, _y, _width, _height, _winwin_cfg, _bg_color=c_black) : ImGuiBaseMainWindow() constructor {
+    __winwin = winwin_create(_x, _y, _width, _height, _winwin_cfg);
+    bg_color = _bg_color;
+
+    static GetHandle = function() {return winwin_get_handle(__winwin);}
+    static Exists = function() {return winwin_exists(__winwin);}
+    static HasFocus = function() {return winwin_has_focus(__winwin);}
+    static GetX = function() {return winwin_get_x(__winwin);}
+    static GetY = function() {return winwin_get_y(__winwin);}
+    static GetWidth = function() {return winwin_get_width(__winwin);}
+    static GetHeight = function() {return winwin_get_height(__winwin);}
+    static MouseGetX = function() {return winwin_mouse_get_x(__winwin);}
+    static MouseGetY = function() {return winwin_mouse_get_y(__winwin);}
+    static MouseCheckButton = function(mb) {return winwin_mouse_check_button(__winwin, mb);}
+    static MouseWheelUp = function(mb) {return winwin_mouse_wheel_up(__winwin);}
+    static MouseWheelDown = function(mb) {return winwin_mouse_wheel_down(__winwin);}
+    static SetCursor = function(cursor) {return winwin_set_cursor(__winwin, cursor);}
+    static Destroy = function() {
+        winwin_destroy(__winwin);
+    }
+    static DrawBegin = function() {return winwin_draw_begin(__winwin); }
+    static DrawEnd = function() {return winwin_draw_end(); }
+    static DrawClear = function() {return winwin_draw_clear(bg_color); }
+}
+
 /**
  * @function ImGuiState
  * @constructor
- * @description A GM-side context for ImGui
+ * @description A GM-side context and variables holder for use with ImGui
  * 
  */
 function ImGuiState() constructor {
@@ -45,7 +102,7 @@ function ImGuiState() constructor {
         D3DDevice: _os_info[? "video_d3d11_device"],
         D3DDeviceContext: _os_info[? "video_d3d11_context"],
         Context: pointer_null,
-        Window: pointer_null,
+        Window: undefined,
         Time: 0,
         Framerate: game_get_speed(gamespeed_fps),
     };
@@ -59,7 +116,7 @@ function ImGuiState() constructor {
 
     ds_map_destroy(_os_info);
 
-    static __Initialize = function(config_flags_set=ImGuiConfigFlags.None, config_flags_clear=ImGuiConfigFlags.None) {
+    static __Initialize = function(wnd_or_config_flags_1=ImGuiConfigFlags.None, config_flags_2=ImGuiConfigFlags.None) {
         if __Initialized return;
 
         var _state = ImGui.__State;
@@ -67,6 +124,17 @@ function ImGuiState() constructor {
 		if self.Engine.Context == pointer_null {
             self.Engine.Context = ImGui.CreateContext();
         }
+
+        var window = self.Engine.Window;
+        var config_flags_set = wnd_or_config_flags_1;
+        var config_flags_clear = config_flags_2;
+
+        if is_struct(wnd_or_config_flags_1) {
+            window = wnd_or_config_flags_1;
+            config_flags_set = config_flags_2;
+            config_flags_clear = ImGuiConfigFlags.None;
+        }
+
         self.Display.Width = display_get_width();
 		self.Display.Height = display_get_height();
 		self.Display.Font = -1;
@@ -86,13 +154,18 @@ function ImGuiState() constructor {
             ConfigFlagsOverrideSet: config_flags_set,
             ConfigFlagsOverrideClear: config_flags_clear,
         };
-        var hwnd = self.Engine.Window;
 
-        if is_struct(hwnd) {
-            if hwnd[$ "hwnd"] {
-                hwnd = hwnd[$ "hwnd"];
-            }
+        var hwnd = undefined;
+        if is_struct(window) {
+            hwnd = window.GetHandle();
         }
+
+        if hwnd == undefined {
+            show_error("Cannot initialize ImGuiState without a window handle. Make sure your window class or struct has the \"GetHandle\" function.", true);
+        }
+
+        self.Engine.Window = window;
+
         var inited = __imgui_initialize(hwnd, context, info); // -> context
 
         __Initialized = true;
@@ -119,11 +192,15 @@ function ImGuiState() constructor {
     static GetData = __GetData;
 
     static __Destroy = function() {
+        if ImGui.__State == self {
+            show_debug_message("[ImGui_GM - WARNING] Destroying state when in use.")
+        }
         if is_ptr(self.Engine.Context) ImGui.DestroyContext(self.Engine.Context);
         if buffer_exists(self.Renderer.CmdBuffer) buffer_delete(self.Renderer.CmdBuffer);
         if buffer_exists(self.Renderer.FontBuffer) buffer_delete(self.Renderer.FontBuffer);
         if surface_exists(self.Renderer.Surface) surface_free(self.Renderer.Surface);
         self.Engine.Context = pointer_null;
+        self.Engine.Window.__imgui_state = undefined;
         self.Renderer.CmdBuffer = -1;
         self.Renderer.FontBuffer = -1;
         self.Renderer.Surface = -1;
@@ -245,7 +322,6 @@ enum ImGuiExtFlags {
 	IMPL_GM = 1 << 1,
 	IMPL_DX11 = 1 << 2,
 	IMPL_WIN32 = 1 << 3,
-	EXT_WINWIN = 1 << 4,
     GM = ImGuiExtFlags.IMPL_GM | ImGuiExtFlags.RENDERER_GM,
 }
 

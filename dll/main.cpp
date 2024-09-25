@@ -59,7 +59,9 @@ GMFUNC(__imgui_initialize) {
 	RValue* rvalue;
 	g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "D3DDevice")->ptr);
 	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "D3DDeviceContext")->ptr);
-	g_ImGuiExtFlags = YYStructGetMember(info, "ExtFlags")->asInt64();
+	if (g_ImGuiExtFlags == NULL) {
+		g_ImGuiExtFlags = YYStructGetMember(info, "ExtFlags")->asInt64();
+	}
 
 	ImGuiConfigFlags configFlagsPrev = io.ConfigFlags;
 

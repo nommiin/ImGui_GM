@@ -4198,6 +4198,7 @@ function ImGui() constructor {
 	/// @section Internal
 	/// @desc Where the (GML) magic happens, safe from code generation
 	static __State = undefined;
+	static __Window = undefined;
     
     static CreateVtxFormat = function() {
 		vertex_format_begin();
@@ -4208,13 +4209,12 @@ function ImGui() constructor {
 	}
 
     static __MainWindowHandle = window_handle();
+	static __MainWindow = undefined;
     static __VtxFormat = CreateVtxFormat();
 	static __Uniform = shader_get_uniform(shdImGui, "u_ClipRect");
     static __InputMapping = __imgui_create_input_mapping();
     static __CursorMapping = __imgui_create_cursor_mapping();
     
-    // FIXME: EXT_WINWIN: works weirdly without GM.
-    // FIXME: EXT_WINWIN + GM: Calling __Draw in Draw events (except GUI) leaks memory!
     static __ExtFlags = ImGuiExtFlags.IMPL_WIN32 | ImGuiExtFlags.IMPL_DX11 | ImGuiExtFlags.GM;
 
 	static __CursorPrev = -1;
@@ -4248,7 +4248,13 @@ function ImGui() constructor {
             ww = ww_or_state_or_cfg;
 
         }
-        
+
+        if ww == undefined {
+            ImGui.__MainWindow ??= new ImGuiBaseMainWindow();
+            ww = ImGui.__MainWindow;
+        }
+
+        ww ??= ImGui.__MainWindow;
         new_state ??= new ImGuiState();
 
         if is_int32(ctx) or is_int64(ctx) or is_real(ctx) {
@@ -4264,20 +4270,13 @@ function ImGui() constructor {
 			}
 		}
 
-		// Setup the window.
-        if ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN {
-            ww = is_struct(ww) ? ww : winwin_main;
-            ww[$ "hwnd"] = winwin_get_handle(ww);
-        } else {
-            ww = is_struct(ww) ? ww : { hwnd: __MainWindowHandle };
-            ww[$ "hwnd"] ??= __MainWindowHandle;
-        }
-
 		// Setup the state.
 		new_state.Engine.Window = ww;
 		new_state.Engine.Context = ctx;
 
-        var inited = new_state.__Initialize(_config_override_set);
+		ImGui.__Window = ww;
+
+		var inited = new_state.__Initialize(_config_override_set);
 
         if inited == pointer_null or inited == undefined {
             if _ctx_created DestroyContext(__State.Engine.Context);
@@ -4300,15 +4299,9 @@ function ImGui() constructor {
     	var _dwidth = display_get_width(), _dheight = display_get_height(), _focus = false;
         var _wwidth = 0, _wheight = 0;
 
-        if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) and (__State.Engine.Window.hwnd != __MainWindowHandle) {
-            _wwidth = winwin_get_width(__State.Engine.Window);
-            _wheight = winwin_get_height(__State.Engine.Window);
-            _focus = winwin_has_focus(__State.Engine.Window);
-        } else {
-            _wwidth = window_get_width();
-            _wheight = window_get_height();
-            _focus = window_has_focus();
-        }
+		_wwidth = __State.Engine.Window.GetWidth();
+		_wheight = __State.Engine.Window.GetHeight();
+		_focus = __State.Engine.Window.HasFocus();
 
     	// Check surface
         if (ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM) {
@@ -4346,49 +4339,22 @@ function ImGui() constructor {
     				__InputRequested = false;
     			}
     		}
-            
-            var _x = window_get_x();
-            var _y = window_get_y();
 
-            if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) and (__State.Engine.Window.hwnd != __MainWindowHandle) {
-                _x = winwin_get_x(__State.Engine.Window);
-                _y = winwin_get_y(__State.Engine.Window);
-            }
+			var _x = __State.Engine.Window.GetX();
+			var _y = __State.Engine.Window.GetY();
 
-            var _do_mouse = false;
-            if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) {
-                if (_focus) {
-                    _do_mouse = true;
-                }
-            } else {
-                if (_focus) {
-                    _do_mouse = true;
-                }
-            }
+            var _do_mouse = (_focus == true);
 
             if _do_mouse {
-                if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) and (__State.Engine.Window.hwnd != __MainWindowHandle) {
-            		__State.Input.Mouse.X = winwin_mouse_get_x(__State.Engine.Window) / __State.Display.Scale;
-        			__State.Input.Mouse.Y = winwin_mouse_get_y(__State.Engine.Window) / __State.Display.Scale;
-        			for(var i = 0; i < 3; i++) __imgui_mouse(i, winwin_mouse_check_button(__State.Engine.Window, i + 1));
-    	    		if (winwin_mouse_wheel_up(__State.Engine.Window)) __imgui_mouse_wheel(0, 1);
-    		    	else if (winwin_mouse_wheel_down(__State.Engine.Window)) __imgui_mouse_wheel(0, -1);
+				__State.Input.Mouse.X = __State.Engine.Window.MouseGetX() / __State.Display.Scale;
+				__State.Input.Mouse.Y = __State.Engine.Window.MouseGetY() / __State.Display.Scale;
+				for(var i = 0; i < 3; i++) __imgui_mouse(i, __State.Engine.Window.MouseCheckButton(i + 1));
+				if (__State.Engine.Window.MouseWheelUp()) __imgui_mouse_wheel(0, 1);
+				else if (__State.Engine.Window.MouseWheelDown()) __imgui_mouse_wheel(0, -1);
 
-                } else {
-        		    __State.Input.Mouse.X = window_mouse_get_x() / __State.Display.Scale;
-        			__State.Input.Mouse.Y = window_mouse_get_y() / __State.Display.Scale;
-        			for(var i = 0; i < 3; i++) __imgui_mouse(i, mouse_check_button(i + 1));
-    	    		if (mouse_wheel_up()) __imgui_mouse_wheel(0, 1);
-    		    	else if (mouse_wheel_down()) __imgui_mouse_wheel(0, -1);
-                }
-
-                var _cursor = __imgui_mouse_cursor();
+				var _cursor = __imgui_mouse_cursor();
             	if (_cursor != __CursorPrev) {
-                    if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) and (__State.Engine.Window.hwnd != __MainWindowHandle) {
-                        winwin_set_cursor(__State.Engine.Window, ImGui.__CursorMapping[_cursor + 1]);
-                    } else {
-                        window_set_cursor(ImGui.__CursorMapping[_cursor + 1]);
-                    }
+					__State.Engine.Window.SetCursor(ImGui.__CursorMapping[_cursor + 1]);
             		__CursorPrev = _cursor;
             	}
             }
@@ -4428,22 +4394,15 @@ function ImGui() constructor {
         }
 
         var _w = display_get_gui_width(), _h = display_get_gui_height();
-        var _ww = window_get_width();
-        var _wh = window_get_height();
+        var _ww = __State.Engine.Window.GetWidth();
+        var _wh = __State.Engine.Window.GetHeight();
         
-        if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) and (__State.Engine.Window.hwnd != __MainWindowHandle) {
-            _ww = winwin_get_width(__State.Engine.Window);
-            _wh = winwin_get_height(__State.Engine.Window);
-        }
-
         if (_ww > 0 and _wh > 0) {
-            if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) {
-                if (__State.Engine.Window.hwnd == __MainWindowHandle) {
-                    surface_resize(application_surface, _ww, _wh);
-                }
-            } else {
-                surface_resize(application_surface, _ww, _wh);
-            }
+			if (_resize_app_surface) {
+				if (__State.Engine.Window.GetHandle() == __MainWindowHandle) {
+					surface_resize(application_surface, _ww, _wh);
+				}
+			}
         }
 
         var _data = __State.__GetData();
@@ -4495,29 +4454,28 @@ function ImGui() constructor {
             	surface_reset_target();
             	shader_reset();
 
-            	if (ImGui.__ExtFlags & ImGuiExtFlags.EXT_WINWIN) and (__State.Engine.Window.hwnd != __MainWindowHandle) {
-                	if _ww > 0 and _wh > 0 {
-                    	var _w = display_get_gui_width(), _h = display_get_gui_height();
-                        var _ww = window_get_width();
-                        var _wh = window_get_height();
-                		display_set_gui_size(_ww, _wh);
-
-                        winwin_draw_begin(__State.Engine.Window);
-                        draw_surface(__State.Renderer.Surface, 0, 0);
-                	    winwin_draw_end();
-
-                        display_set_gui_maximize();
-                		display_set_gui_size(_w, _h);
-                    }
-            	} else {
-                	var _w = display_get_gui_width(), _h = display_get_gui_height();
-                    var _ww = window_get_width();
-                    var _wh = window_get_height();
-            		display_set_gui_size(_ww, _wh);
+				if _ww > 0 and _wh > 0 {
+					var _w = display_get_gui_width(), _h = display_get_gui_height();
+					var _ww = __State.Engine.Window.GetWidth();
+					var _wh = __State.Engine.Window.GetHeight();
+					display_set_gui_size(_ww, _wh);
             		display_set_gui_maximize(__State.Display.Scale, __State.Display.Scale, 0, 0);
-            		draw_surface(__State.Renderer.Surface, 0, 0);
-            		display_set_gui_maximize();
-            		display_set_gui_size(_w, _h);
+
+					if (__State.Engine.Window[$ "DrawBegin"]) {
+						__State.Engine.Window.DrawBegin();
+					}
+					if (__State.Engine.Window[$ "DrawClear"]) {
+						__State.Engine.Window.DrawClear();
+					}
+                    
+					draw_surface(__State.Renderer.Surface, 0, 0);
+                    
+					if (__State.Engine.Window[$ "DrawEnd"]) {
+						__State.Engine.Window.DrawEnd();
+					}
+
+					display_set_gui_maximize();
+					display_set_gui_size(_w, _h);
             	}
             }
         }
