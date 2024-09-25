@@ -83,7 +83,7 @@ void UpdateStateFromStruct(RValue* state, StateUpdateFlags flags = StateUpdateFl
 		float scale = ImGui::GetWindowDpiScale();
 		if (scale != display_scale->asReal()) {
 			scale = display_scale->asReal();
-			// TODO Scale viewports.
+			// TODO: Scale viewports.
 		}
 	}
 	if ((flags & StateUpdateFlags_MousePos) && (mouse_x != NULL && mouse_y != NULL)) {

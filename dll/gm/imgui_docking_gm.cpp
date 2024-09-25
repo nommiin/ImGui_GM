@@ -15,9 +15,13 @@ GMFUNC(__imgui_dock_space) {
     RValue* window_class = &arg[4];
     GMDEFAULT(undefined);
     GMHINT(ImGuiWindowClass);
-    g_ImGuiWindowClass = ImGuiWindowClassFromStruct(window_class);
+    ImGuiWindowClass* final_window_class = NULL;
+    if (window_class->kind != VALUE_UNDEFINED) {
+        g_ImGuiWindowClass = ImGuiWindowClassFromStruct(window_class);
+        final_window_class = g_ImGuiWindowClass;
+    }
     Result.kind = VALUE_REAL;
-    Result.val = ImGui::DockSpace(id, ImVec2(width, height), flags, g_ImGuiWindowClass);
+    Result.val = ImGui::DockSpace(id, ImVec2(width, height), flags, final_window_class);
 }
 
 GMFUNC(__imgui_find_viewport_by_id) {
@@ -57,10 +61,13 @@ GMFUNC(__imgui_dock_space_over_viewport) {
     RValue* window_class = &arg[3];
     GMDEFAULT(undefined);
     GMHINT(ImGuiWindowClass);
-    g_ImGuiWindowClass = ImGuiWindowClassFromStruct(window_class);
-
+    ImGuiWindowClass* final_window_class = NULL;
+    if (window_class->kind != VALUE_UNDEFINED) {
+        g_ImGuiWindowClass = ImGuiWindowClassFromStruct(window_class);
+        final_window_class = g_ImGuiWindowClass;
+    }
     Result.kind = VALUE_REAL;
-    Result.val = ImGui::DockSpaceOverViewport(final_dockspace_id, viewport, flags, g_ImGuiWindowClass);
+    Result.val = ImGui::DockSpaceOverViewport(final_dockspace_id, viewport, flags, final_window_class);
 }
 
 GMFUNC(__imgui_set_next_window_dock_id) {
@@ -77,8 +84,12 @@ GMFUNC(__imgui_set_next_window_class) {
     GMOVERRIDE(SetNextWindowClass);
     RValue* window_class = YYGetStruct(arg, 0);
     GMHINT(ImGuiWindowClass);
-    g_ImGuiWindowClass = ImGuiWindowClassFromStruct(window_class);
-    ImGui::SetNextWindowClass(g_ImGuiWindowClass);
+    ImGuiWindowClass* final_window_class = NULL;
+    if (window_class->kind != VALUE_UNDEFINED) {
+        g_ImGuiWindowClass = ImGuiWindowClassFromStruct(window_class);
+        final_window_class = g_ImGuiWindowClass;
+    }
+    ImGui::SetNextWindowClass(final_window_class);
 
     Result.kind = VALUE_UNDEFINED;
 }

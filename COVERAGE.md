@@ -276,11 +276,11 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TabItemButton | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L43) | N/A |
 | ImGui::SetTabItemClosed | ✅ | [imgui_tabs_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_tabs_gm.cpp#L52) | N/A |
 | ImGui::DockSpace | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L6) | N/A |
-| ImGui::DockSpaceOverViewport | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L40) | N/A |
-| ImGui::SetNextWindowDockID | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L66) | N/A |
-| ImGui::SetNextWindowClass | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L76) | N/A |
-| ImGui::GetWindowDockID | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L86) | N/A |
-| ImGui::IsWindowDocked | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L91) | N/A |
+| ImGui::DockSpaceOverViewport | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L44) | N/A |
+| ImGui::SetNextWindowDockID | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L73) | N/A |
+| ImGui::SetNextWindowClass | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L83) | N/A |
+| ImGui::GetWindowDockID | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L97) | N/A |
+| ImGui::IsWindowDocked | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L102) | N/A |
 | ImGui::LogToTTY | ❌ | N/A | N/A |
 | ImGui::LogToFile | ❌ | N/A | N/A |
 | ImGui::LogToClipboard | ❌ | N/A | N/A |
@@ -379,8 +379,8 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::UpdatePlatformWindows | ✅ | N/A | Handled internally by `__imgui_draw_end` function |
 | ImGui::RenderPlatformWindowsDefault | ✅ | N/A | Handled internally by `__imgui_draw_end` function |
 | ImGui::DestroyPlatformWindows | ❌ | N/A | N/A |
-| ImGui::FindViewportByID | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L23) | N/A |
-| ImGui::FindViewportByPlatformHandle | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L31) | N/A |
+| ImGui::FindViewportByID | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L27) | N/A |
+| ImGui::FindViewportByPlatformHandle | ✅ | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/gm/imgui_docking_gm.cpp#L35) | N/A |
 
 # Non-Standard
 Below is a table of non-standard functions made specifically for ImGui_GM
@@ -410,20 +410,20 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.WantMouseCapture(val) | [imgui_api_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_api_gm.cpp#L582) |
 | ImGui.WantTextInput(val) | [imgui_api_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_api_gm.cpp#L597) |
 | ImGui.WantMouseCaptureUnlessPopupClose(val) | [imgui_api_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_api_gm.cpp#L612) |
-| ImGui.DockBuilderDockWindow(window_name, node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L99) |
-| ImGui.DockBuilderGetNode(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L107) |
-| ImGui.DockBuilderGetCentralNode(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L114) |
-| ImGui.DockBuilderAddNode(node_id, flags) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L121) |
-| ImGui.DockBuilderRemoveNode(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L131) |
-| ImGui.DockBuilderRemoveNodeDockedWindows(node_id, clear_settings_refs) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L138) |
-| ImGui.DockBuilderRemoveNodeChildNodes(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L147) |
-| ImGui.DockBuilderSetNodePos(node_id, _x, _y) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L154) |
-| ImGui.DockBuilderSetNodeSize(node_id, width, height) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L163) |
-| ImGui.DockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L172) |
-| ImGui.DockBuilderCopyDockSpace(src_dockspace_id, dst_dockspace_id, window_remap_pairs) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L186) |
-| ImGui.DockBuilderCopyNode(src_node_id, dst_node_id, node_remap_pairs) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L205) |
-| ImGui.DockBuilderCopyWindowSettings(src_name, dst_name) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L223) |
-| ImGui.DockBuilderFinish(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L231) |
+| ImGui.DockBuilderDockWindow(window_name, node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L110) |
+| ImGui.DockBuilderGetNode(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L118) |
+| ImGui.DockBuilderGetCentralNode(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L125) |
+| ImGui.DockBuilderAddNode(node_id, flags) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L132) |
+| ImGui.DockBuilderRemoveNode(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L142) |
+| ImGui.DockBuilderRemoveNodeDockedWindows(node_id, clear_settings_refs) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L149) |
+| ImGui.DockBuilderRemoveNodeChildNodes(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L158) |
+| ImGui.DockBuilderSetNodePos(node_id, _x, _y) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L165) |
+| ImGui.DockBuilderSetNodeSize(node_id, width, height) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L174) |
+| ImGui.DockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L183) |
+| ImGui.DockBuilderCopyDockSpace(src_dockspace_id, dst_dockspace_id, window_remap_pairs) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L197) |
+| ImGui.DockBuilderCopyNode(src_node_id, dst_node_id, node_remap_pairs) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L216) |
+| ImGui.DockBuilderCopyWindowSettings(src_name, dst_name) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L234) |
+| ImGui.DockBuilderFinish(node_id) | [imgui_docking_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_docking_gm.cpp#L242) |
 | ImGui.DragFloatN(label, v, v_speed, v_min, v_max, format, flags, count) | [imgui_drag_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_drag_gm.cpp#L94) |
 | ImGui.DragIntN(label, v, v_speed, v_min, v_max, format, flags, count) | [imgui_drag_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_drag_gm.cpp#L237) |
 | ImGui.DrawListAddLine(list, x1, y1, x2, y2, col, thickness) | [imgui_drawlist_gm.cpp](https://github.com/knno/imgui_gm/blob/main/dll/imgui_drawlist_gm.cpp#L37) |

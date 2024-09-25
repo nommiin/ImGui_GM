@@ -257,7 +257,9 @@ function ImColor(red, green, blue, alpha=1) constructor {
 function ImGuiWindowClass(class_id, parent_viewport_id=undefined, viewport_flags_override_set=ImGuiViewportFlags.None, viewport_flags_override_clear=ImGuiViewportFlags.None) constructor {
     ClassId = class_id;
 
-    if (is_ptr(parent_viewport_id)) { parent_viewport_id = __imgui_get_viewport_id(parent_viewport_id); }
+    if (is_ptr(parent_viewport_id)) {
+        parent_viewport_id = __imgui_get_viewport_id(parent_viewport_id);
+    }
     ParentViewportId = parent_viewport_id; // -1
 
     ViewportFlagsOverrideSet = viewport_flags_override_set; // ImGuiViewportFlags.None

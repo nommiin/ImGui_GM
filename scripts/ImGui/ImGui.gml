@@ -4390,6 +4390,8 @@ function ImGui() constructor {
         if (ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM) {
             if (!surface_exists(__State.Renderer.Surface)) {
                 __State.Renderer.Surface = surface_create(max(1, __State.Display.Width), max(1, __State.Display.Height));	
+            } else {
+                surface_resize(__State.Renderer.Surface, max(1, __State.Display.Width), max(1, __State.Display.Height));
             }
         }
 
@@ -4455,9 +4457,6 @@ function ImGui() constructor {
             	shader_reset();
 
 				if _ww > 0 and _wh > 0 {
-					var _w = display_get_gui_width(), _h = display_get_gui_height();
-					var _ww = __State.Engine.Window.GetWidth();
-					var _wh = __State.Engine.Window.GetHeight();
 					display_set_gui_size(_ww, _wh);
             		display_set_gui_maximize(__State.Display.Scale, __State.Display.Scale, 0, 0);
 

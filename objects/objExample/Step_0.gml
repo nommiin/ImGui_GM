@@ -1,7 +1,17 @@
 ///
 /// Step Event
 ///
+
 /// demo code.
+
+/// Optional: Create a window with an ImGuiWindowclass
+/*
+	ImGui.SetNextWindowClass(window_class_no_automerge);
+	ImGui.SetNextWindowSize(240,50, ImGuiCond.FirstUseEver);
+	ImGui.SetNextWindowPos(60, 250, ImGuiCond.FirstUseEver);
+	ImGui.Begin("Some window (with NoAutoMerge)");
+	ImGui.End();
+*/
 
 // Memory Usage
 if (tick++ % game_get_speed(gamespeed_fps) == 0) {
@@ -63,8 +73,8 @@ if (!init) {
 	var node_id = ImGui.GetID("Primary");
 	ImGui.DockBuilderRemoveNode(node_id);
 	ImGui.DockBuilderAddNode(node_id);
-	var width = window_get_width() / 1.75, height = window_get_height() / 1.75;
-	ImGui.DockBuilderSetNodePos(node_id, (window_get_width() / 2) - (width / 4), (window_get_height() / 2) - (height / 3.5));
+	var width = window_get_width() / 1.75, height = window_get_height() / 1.5;
+	ImGui.DockBuilderSetNodePos(node_id, (window_get_width() / 2) - (width / 4), (window_get_height() / 2) - (height / 3));
 	ImGui.DockBuilderSetNodeSize(node_id, width, height);
 	
 	/*
@@ -101,7 +111,7 @@ ImGui.End();
 
 // GM Demo
 if (demo_open) {
-    ImGui.SetNextWindowPos(30,300, ImGuiCond.FirstUseEver);
+    ImGui.SetNextWindowPos(30,350, ImGuiCond.FirstUseEver);
     ImGui.SetNextWindowSize(300,200, ImGuiCond.FirstUseEver);
 	ImGui.Begin("Demos");
 	if (demo_multi_select) {
@@ -165,7 +175,7 @@ if (main_open) {
             ImGui.TextLinkOpenURL("knno/ImGui_GM", "https://github.com/knno/ImGui_GM");
             ImGui.Separator();
 			if (!is_undefined(_static)) {
-				// TODO Scale viewports
+				// TODO: Scale viewports
                 // _static.__State.Display.Scale = max(0.5, ImGui.InputDouble("Scale", _static.__State.Display.Scale, 0.1, 0.25));
                 ImGui.Text($"Scale: {_static.__State.Display.Scale}");
 			} else {
@@ -312,7 +322,7 @@ if (main_open) {
 					}
 				}
 				
-				ImGui.EndTable();	
+				ImGui.EndTable();
 			}
 		ImGui.EndChild();
 		
@@ -359,9 +369,9 @@ if (main_open) {
 		ImGui.BeginChild("Inner_Dock", width / 2, height, ImGuiChildFlags.Borders);
 			ImGui.Text("Dock Space");
 			ImGui.Separator();
-			var space_id = ImGui.GetID("DockSpace");
+			var space_id = ImGui.GetID("MyDockSpace");
 			ImGui.Text("You can drag any window into the space below to dock it!");
-			ImGui.DockSpace(space_id, 0, 0);
+			ImGui.DockSpace(space_id);
 		ImGui.EndChild();
 		
 		ImGui.SameLine();

@@ -10,9 +10,12 @@
     <Filter Include="Source Files\Wrappers">
       <UniqueIdentifier>{4C2821BF-B894-DCB9-8188-7417EDB3FE21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ImGui">
+      <UniqueIdentifier>{ecb94e81-da5a-45ee-8d4e-66ba5b26bfc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-        <ClInclude Include="Extension_Interface.h">
+    <ClInclude Include="Extension_Interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui/imconfig.h">
@@ -54,18 +57,14 @@
     <ClInclude Include="imgui/imgui_impl_win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_gm_selectionstorage.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_gm_windowclass.h">
-      <Filter>Source Files\Classes</Filter>
-    </ClInclude>
     <ClInclude Include="imgui_gm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_gm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="imgui_gm_selectionstorage.h" />
+    <ClInclude Include="imgui_gm_windowclass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,27 +75,6 @@
     </ClCompile>
     <ClCompile Include="imgui_impl_gm.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui_draw.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui_demo.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui_impl_dx11.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui_impl_win32.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui_tables.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui/imgui_widgets.cpp">
-      <Filter>Source Files\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="gm/imgui_api_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
@@ -172,6 +150,27 @@
     </ClCompile>
     <ClCompile Include="gm/imgui_window_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_draw.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_demo.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_impl_dx11.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_impl_win32.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_tables.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_widgets.cpp">
+      <Filter>Source Files\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

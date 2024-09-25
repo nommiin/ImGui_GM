@@ -432,10 +432,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Copied dependencies
-dll/imgui/*
-!dll/imgui/.gitkeep
-
 dll/Extension_Interface.h
 dll/Ref.h
 dll/YYRValue.h

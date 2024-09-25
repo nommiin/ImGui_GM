@@ -411,7 +411,7 @@ class Program {
     static writeReport(header, wrappers, file) {
         const func = header.functions;
 
-        // TODO defined manual wrapped functions
+        // TODO: NOTE: defined manual wrapped functions
         const wrapped_funcs = [
             "NewFrame",
             "Render",
@@ -435,7 +435,7 @@ class Program {
             "RenderPlatformWindowsDefault",
         ];
 
-        // TODO defined manual notes
+        // TODO: NOTE: defined manual notes
         const notes = {
             "NewFrame": "Handled internally by `__imgui_new_frame` function",
             "Render": "Handled internally by `__imgui_render` function",

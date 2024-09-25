@@ -1,5 +1,6 @@
 ///
 /// End-Step Event
 ///
+
 /// Use this code to end the frame.
-ImGui.__EndFrame(imgui_state);
+ImGui.__EndFrame();

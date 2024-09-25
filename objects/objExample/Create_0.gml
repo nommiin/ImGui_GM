@@ -6,30 +6,33 @@
 my_color = #002F4C
 operating_system = environment_get_variable("OS");
 
-/// Set up the extension before initialization.
-ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Use DX11 renderer.
+/// Optional: Set up the extension before initialization.
+// ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Use DX11 renderer.
 
-/// Define common config flags
+/// Optional: Define common config flags
 var _configs = ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable;
 
-ImGui.__Initialize(_configs); // This creates a default window and state.
-
-/* You can also create a state manually and use it as arg0 in ImGui initialize instead. */
+ImGui.__Initialize(_configs); // Note that this creates a default window and state.
 
 imgui_state = ImGui.__State; // Capture the created state.
 imgui_window = ImGui.__Window; // Capture the created gamewindow.
 
-/// Create a new state example
+/// Optional: load and save ini file in a custom path.
+ini_filename = game_save_id + "imgui_gm.ini";
+ImGui.IniFilename(ini_filename);
+ImGui.LoadIniSettingsFromDisk(ini_filename);
+
+/// Optional: Create a new state example
 /*
-imgui_state2 = new ImGuiState(); // Creates a Context [internal]
-imgui_window2 = new ImGuiBaseMainWindow(window_handle());
-// imgui_state2.some_attribute = some_value; // modify some data [example]
-imgui_state2.Initialize(imgui_window2, _configs); // Initialize the state. Attach state to the window. Set the config flags to add. This sets as the current state.
-ImGui.AddFontDefault(); // Add default font to the state.
-imgui_state.Use(); // Return back to main state.
+    imgui_state2 = new ImGuiState(); // Creates a Context [internal]
+    imgui_window2 = new ImGuiBaseMainWindow(window_handle());
+    // imgui_state2.some_attribute = some_value; // modify some data [example]
+    imgui_state2.Initialize(imgui_window2, _configs); // Initialize the state. Attach state to the window. Set the config flags to add. This sets as the current state.
+    ImGui.AddFontDefault(); // Add default font to the state.
+    imgui_state.Use(); // Return back to main state.
 */
 
-/// Set the main state active.
+/// Optional: Set the main state active.
 // imgui_state.Use();
 
 /// -----------------------------------------------------------------------------
@@ -39,8 +42,8 @@ font_default = ImGui.AddFontDefault();
 font_roboto = ImGui.AddFontFromFile("fonts/Roboto-Regular.ttf", 24);
 
 // Window classes
-window_class_basic = new ImGuiWindowClass(0, ImGui.GetMainViewport());
-window_class_no_automerge = new ImGuiWindowClass(1, ImGui.GetMainViewport(), ImGuiViewportFlags.NoAutoMerge);
+window_class_basic = new ImGuiWindowClass(1, -1);
+window_class_no_automerge = new ImGuiWindowClass(2, -1, ImGuiViewportFlags.NoAutoMerge);
 
 // Demos
 demo_open = true;
@@ -52,20 +55,18 @@ multi_select_selection = new ImGuiSelectionBasicStorage();
 
 randomize();
 
-/// Sample data.
+// Samples
 ExampleNames = [
     "Artichoke", "Arugula", "Asparagus", "Avocado", "Bamboo Shoots", "Bean Sprouts", "Beans", "Beet", "Belgian Endive", "Bell Pepper",
     "Bitter Gourd", "Bok Choy", "Broccoli", "Brussels Sprouts", "Burdock Root", "Cabbage", "Calabash", "Capers", "Carrot", "Cassava",
     "Cauliflower", "Celery", "Celery Root", "Celcuce", "Chayote", "Chinese Broccoli", "Corn", "Cucumber"
 ];
 
-/* Original code follows. */
-
-main_open = true;
-imgui_demo_open = false;
+main_open = true; // Main window
+imgui_demo_open = false; // ImGui demo window
 header_visible = true;
-enable_docking = false;
-init = false;
+enable_docking = false; // Enable game window viewport docking
+init = false; // Set up docking
 
 _static = undefined;
 try {
