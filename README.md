@@ -8,12 +8,12 @@ A Windows only ImGui wrapper for modern GameMaker.
 
 # Installation
 
-- Download the extension from the [releases](https://github.com/nommiin/ImGui_GM/releases/) tab
-- Or you can [build](#building) it yourself.
+- Download the pre-built Windows packages for GameMaker from the [itch.io page](https://nommiiin.itch.io/imgui-gm).
+- Or you can [build](#building) the source code! See below.
 
 # Usage (GameMaker)
 
-There are various ways to use the **ImGui_GM** extension in this build.
+There are various ways to use the **ImGui_GM** extension. Below we will see the basic and advance usage of ImGui_GM.
 
 ## Prerequisites
 
@@ -40,6 +40,8 @@ There are various ways to use the **ImGui_GM** extension in this build.
   - Using the suggested *Begin Step* and *End Step* events makes it easier for UI code to be anywhere in *Step* events of objects.  
 
 3. Make sure you have read and understood the [Notes](#notes) section.
+
+---
 
 ## Advanced Usage
 
@@ -166,10 +168,14 @@ This flag tells that you want to use the GM rendering technique where usage of n
 
 Check the github repository branches or the included example objects in the GameMaker project for more details.
 
+---
+
 # Compatibility
 
 ## Platform
 Currently, this extension makes heavy usage of the ability to pass a device handler and context to extensions... unfortunately, this functionality **is only avaliable for [DX11 targets](https://manual.yoyogames.com/index.htm#t=GameMaker_Language%2FGML_Reference%2FOS_And_Compiler%2Fos_get_info.htm)**. 
+
+---
 
 # Building
 
@@ -198,6 +204,8 @@ Below are some details of how to build the project.
 ### Building Workflow
 
 - Upon building inside of Visual Studio, the `tools/brief/main.js` script will be called. This script collects any `.cpp` files ending in "`_gm.cpp`" (*Any uses of `GMFUNC` outside of files ending in `_gm.cpp` **will not** be read*) and parses out functions defined using the `GMFUNC` macro. These parsed functions are then added to the `extensions/ImGui_GM/ImGui_GM.yy` file and static methods are created in the `@section Binds` section of the `scripts/ImGui/ImGui.gml` file automatically. You can use the various macros to define attributes for wrapped functions and their arguments. See [`brief/Wrapper.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/brief/Wrapper.js)'s `modifier` method for how various attributes are handled.
+
+---
 
 # Coverage
 Check out [`ImGui_GM.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml#L2) to view all wrapper functions.
