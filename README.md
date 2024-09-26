@@ -17,7 +17,7 @@ There are various ways to use the **ImGui_GM** extension in this build.
 
 ## Prerequisites
 
-1. Import ImGui_GM.yy
+1. Import ImGui_GM.yymps
 2. Note the essential functions:
   - `ImGui.__Initialize()` Initializes ImGui
   - `ImGui.__NewFrame()` Starts a new frame

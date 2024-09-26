@@ -102,52 +102,6 @@ if (!init) {
 	init = true;	
 }
 
-ImGui.Begin("Two");
-ImGui.Text("These windows are docked inside of a dockspace via the DockBuilder API");
-ImGui.End();
-ImGui.Begin("Three");
-ImGui.TextColored("You can choose to include specific windows inside of split dock nodes!", c_yellow);
-ImGui.End();
-
-// GM Demo
-if (demo_open) {
-    ImGui.SetNextWindowPos(30,350, ImGuiCond.FirstUseEver);
-    ImGui.SetNextWindowSize(300,200, ImGuiCond.FirstUseEver);
-	ImGui.Begin("Demos");
-	if (demo_multi_select) {
-		if (ImGui.TreeNode("Multi-Select")) {
-			ImGui.Text("Supported features:");
-            ImGui.BulletText("Keyboard navigation (arrows, page up/down, home/end, space).");
-            ImGui.BulletText("Ctrl modifier to preserve and toggle selection.");
-            ImGui.BulletText("Shift modifier for range selection.");
-            ImGui.BulletText("CTRL+A to select all.");
-            ImGui.BulletText("Escape to clear selection.");
-            ImGui.BulletText("Click and drag to box-select.");
-
-			ImGui.Text(string("Selection: {0}/{1}", multi_select_selection.GetSize(), multi_select_selection_size));
-
-			if (ImGui.BeginChild("##Basket", -1, ImGui.GetFontSize() * 20, ImGuiChildFlags.FrameStyle | ImGuiChildFlags.ResizeY)) {
-				var flags = ImGuiMultiSelectFlags.ClearOnEscape | ImGuiMultiSelectFlags.BoxSelect1d;
-				var ms_io = ImGui.BeginMultiSelect(flags, multi_select_selection.GetSize(), multi_select_selection_size);
-				multi_select_selection.ApplyRequests(ms_io);
-
-				var label, item_is_selected;
-				for (var n = 0; n < multi_select_selection_size; n++) {
-					label = string("Object {0}: {1}", n, ExampleNames[n % array_length(ExampleNames)]);
-					item_is_selected = multi_select_selection.Contains(n);
-					ImGui.SetNextItemSelectionUserData(n);
-					ImGui.Selectable(label, item_is_selected);
-				}
-				ms_io = ImGui.EndMultiSelect();
-				multi_select_selection.ApplyRequests(ms_io);
-			}
-			ImGui.EndChild();
-			ImGui.TreePop();
-		}
-	}
-	ImGui.End();
-}
-
 // Main Window
 if (main_open) {
 	ImGui.SetNextWindowSize(room_width / 2, room_height / 2, ImGuiCond.Once);
@@ -369,7 +323,7 @@ if (main_open) {
 			ImGui.Separator();
 			var space_id = ImGui.GetID("MyDockSpace");
 			ImGui.Text("You can drag any window into the space below to dock it!");
-			ImGui.DockSpace(space_id);
+			ImGui.DockSpace(space_id); // Windows created later on can be docked.
 		ImGui.EndChild();
 		
 		ImGui.SameLine();
@@ -462,4 +416,50 @@ if (main_open) {
 
 if (imgui_demo_open) {
 	imgui_demo_open = ImGui.ShowDemoWindow(imgui_demo_open);	
+}
+
+ImGui.Begin("Two");
+ImGui.Text("These windows are docked inside of a dockspace via the DockBuilder API");
+ImGui.End();
+ImGui.Begin("Three");
+ImGui.TextColored("You can choose to include specific windows inside of split dock nodes!", c_yellow);
+ImGui.End();
+
+// GM Demo
+if (demo_open) {
+    ImGui.SetNextWindowPos(30,350, ImGuiCond.FirstUseEver);
+    ImGui.SetNextWindowSize(300,200, ImGuiCond.FirstUseEver);
+	ImGui.Begin("Demos");
+	if (demo_multi_select) {
+		if (ImGui.TreeNode("Multi-Select")) {
+			ImGui.Text("Supported features:");
+            ImGui.BulletText("Keyboard navigation (arrows, page up/down, home/end, space).");
+            ImGui.BulletText("Ctrl modifier to preserve and toggle selection.");
+            ImGui.BulletText("Shift modifier for range selection.");
+            ImGui.BulletText("CTRL+A to select all.");
+            ImGui.BulletText("Escape to clear selection.");
+            ImGui.BulletText("Click and drag to box-select.");
+
+			ImGui.Text(string("Selection: {0}/{1}", multi_select_selection.GetSize(), multi_select_selection_size));
+
+			if (ImGui.BeginChild("##Basket", -1, ImGui.GetFontSize() * 20, ImGuiChildFlags.FrameStyle | ImGuiChildFlags.ResizeY)) {
+				var flags = ImGuiMultiSelectFlags.ClearOnEscape | ImGuiMultiSelectFlags.BoxSelect1d;
+				var ms_io = ImGui.BeginMultiSelect(flags, multi_select_selection.GetSize(), multi_select_selection_size);
+				multi_select_selection.ApplyRequests(ms_io);
+
+				var label, item_is_selected;
+				for (var n = 0; n < multi_select_selection_size; n++) {
+					label = string("Object {0}: {1}", n, ExampleNames[n % array_length(ExampleNames)]);
+					item_is_selected = multi_select_selection.Contains(n);
+					ImGui.SetNextItemSelectionUserData(n);
+					ImGui.Selectable(label, item_is_selected);
+				}
+				ms_io = ImGui.EndMultiSelect();
+				multi_select_selection.ApplyRequests(ms_io);
+			}
+			ImGui.EndChild();
+			ImGui.TreePop();
+		}
+	}
+	ImGui.End();
 }
