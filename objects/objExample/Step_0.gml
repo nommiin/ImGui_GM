@@ -158,7 +158,7 @@ if (main_open) {
 	if (ret & ImGuiReturnMask.Return) {
 		var width = ImGui.GetContentRegionAvailX(), height = 256;
 
-		ImGui.BeginChild("Inner_Internal", width, height / 2, ImGuiChildFlags.Borders);
+		ImGui.BeginChild("Inner_Internal", width, height / 1.5, ImGuiChildFlags.Borders);
 			ImGui.Text("Internal");
 			ImGui.Separator();
 			var _str = "ImGui_GM v" + IMGUI_GM_VERSION;

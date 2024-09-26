@@ -106,13 +106,14 @@ GMFUNC(__imgui_initialize) {
 	}
 	if (ok) { if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_GM) { ok = ImGui_ImplGM_Init(window_handle); } }
 	else {
-		ImGui_ImplWin32_Shutdown();
+		if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
 		io.ConfigFlags = configFlagsPrev;
 		Result.ptr = nullptr;
 		return;
 	};
 	if (!ok) {
-		ImGui_ImplDX11_Shutdown();
+		if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_Shutdown();
+		if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
 		io.ConfigFlags = configFlagsPrev;
 		Result.ptr = nullptr;
 		return;
@@ -122,6 +123,33 @@ GMFUNC(__imgui_initialize) {
 
 	Result.ptr = ctx;
 	GMRETURNS(ImGuiContext);
+}
+
+GMFUNC(__imgui_shutdown) {
+	void* ctx = YYGetPtr(arg, 0);
+	GMDEFAULT(undefined);
+	GMHINT(ImGuiContext);
+
+	if (ctx == nullptr) {
+		ctx = ImGui::GetCurrentContext();
+	}
+
+	ImGuiIO& io = ImGui::GetIO();
+
+	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
+	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_Shutdown();
+	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_GM) ImGui_ImplGM_Shutdown();
+
+	g_ImGuiInitialized = false;
+	g_pd3dDevice = NULL;
+	g_pd3dDeviceContext = NULL;
+
+	DestroyDsMap(g_KeepAlive);
+
+	ImGui::Shutdown();
+
+	Result.kind = VALUE_BOOL;
+	Result.val = true;
 }
 
 GMFUNC(__imgui_update_state_from_struct) {

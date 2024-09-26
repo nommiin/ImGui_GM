@@ -126,6 +126,21 @@
                 },
                 {
                     "$GMExtensionFunction": "",
+                    "%Name": "__imgui_shutdown",
+                    "argCount": 0,
+                    "args": [],
+                    "documentation": "",
+                    "externalName": "__imgui_shutdown",
+                    "help": "",
+                    "hidden": false,
+                    "kind": 1,
+                    "name": "__imgui_shutdown",
+                    "resourceType": "GMExtensionFunction",
+                    "resourceVersion": "2.0",
+                    "returnType": 1
+                },
+                {
+                    "$GMExtensionFunction": "",
                     "%Name": "__imgui_mouse",
                     "argCount": 0,
                     "args": [],

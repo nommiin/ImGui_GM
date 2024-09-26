@@ -4531,7 +4531,21 @@ function ImGui() constructor {
         return true;
 	}
 
+    static __Shutdown = function(state=undefined) {
+        if !__Initialized return;
+        state ??= __State; if state != __State state.Use();
+        
+        if (__imgui_shutdown(__State.Engine.Context)) {
+            __Initialized = false;
+            __State.Destroy();
+            delete __State;
+            return true;
+        }
+        return false;
+    }
+
 	static __NewFrame = function(state=undefined) {
+        if !__Initialized return;
         state ??= __State; if state != __State state.Use();
         
     	var _dwidth = display_get_width(), _dheight = display_get_height(), _focus = false;
@@ -4611,18 +4625,21 @@ function ImGui() constructor {
 	}
 	
     static __EndFrame = function(state=undefined) {
+        if !__Initialized return;
         state ??= __State; if state != __State state.Use();
         
         __imgui_end_frame();
     }
 
     static __Render = function(state=undefined) {
+        if !__Initialized return;
 		state ??= __State; if state != __State state.Use();
 
         __imgui_render();
 	}
     
     static __Draw = function(state=undefined, _resize_app_surface=true) {
+        if !__Initialized return;
 		state ??= __State; if state != __State state.Use();
         
         if (ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM) {

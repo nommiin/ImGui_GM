@@ -138,7 +138,6 @@ void ImGui_ImplGM_Shutdown() {
 	io.UserData = nullptr;
 	io.BackendFlags &= ~(ImGuiBackendFlags_HasMouseCursors | ImGuiBackendFlags_HasSetMousePos);
 	io.BackendFlags |= (ImGuiBackendFlags_PlatformHasViewports | ImGuiBackendFlags_HasMouseHoveredViewport);
-	IM_DELETE(ud);
 }
 
 void ImGui_ImplGM_NewFrame() {

@@ -192,9 +192,6 @@ function ImGuiState() constructor {
     static GetData = __GetData;
 
     static __Destroy = function() {
-        if ImGui.__State == self {
-            show_debug_message("[ImGui_GM - WARNING] Destroying state when in use.")
-        }
         if is_ptr(self.Engine.Context) ImGui.DestroyContext(self.Engine.Context);
         if buffer_exists(self.Renderer.CmdBuffer) buffer_delete(self.Renderer.CmdBuffer);
         if buffer_exists(self.Renderer.FontBuffer) buffer_delete(self.Renderer.FontBuffer);

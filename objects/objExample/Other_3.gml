@@ -4,3 +4,4 @@
 
 /// Save settings
 ImGui.SaveIniSettingsToDisk(ini_filename);
+ImGui.__Shutdown();

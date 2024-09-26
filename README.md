@@ -3,7 +3,7 @@
 A Windows only ImGui wrapper for modern GameMaker.
 
 ![screenshot](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png)
-![issues](https://badgen.net/github/issues/nommiin/imgui_gm)
+![issues](https://badgen.net/github/open-issues/nommiin/imgui_gm)
 ![coverage](https://badgen.net/https/raw.githubusercontent.com/knno/imgui_gm/main/extra/badges/coverage.json?icon=awesome)
 
 # Installation
@@ -24,6 +24,7 @@ There are various ways to use the **ImGui_GM** extension in this build.
   - `ImGui.__EndFrame()` Ends the frame
   - `ImGui.__Render()` Renders the frame.
   - `ImGui.__Draw()` Draws the frame draw data.
+  - `ImGui.__Shutdown()` Frees memory.
 
 ## Basic Usage
 
@@ -33,6 +34,7 @@ There are various ways to use the **ImGui_GM** extension in this build.
   - `ImGui.__EndFrame()` in any stepping event (suggested: *End Step*)
   - `ImGui.__Render()` in any rendering event (suggested: *Draw*)
   - `ImGui.__Draw()` in any draw event (suggested: *Draw GUI*)
+  - `ImGui.__Shutdown()` in game end event
 
 2. Write your UI code anywhere but make sure it is executed after `__NewFrame` and before `__EndFrame`.
   - Using the suggested *Begin Step* and *End Step* events makes it easier for UI code to be anywhere in *Step* events of objects.  
@@ -131,10 +133,13 @@ ImGui.__NewFrame(_state); // New frame in _state.
 The following essential functions need to be called for each state:
 | Function | Function with `_state` param | Notes |
 | --- | --- | --- |
+| `_state.__Initialize()` | - | |
+| `_state.__Use()` | - | Call to use the state before ImGui functions |
 | `ImGui.__NewFrame` | `ImGui.__NewFrame(_state)` | |
 | `ImGui.__EndFrame` | `ImGui.__EndFrame(_state)` | |
 | `ImGui.__Render`   | `ImGui.__Render(_state)` | |
 | `ImGui.__Draw`     | `ImGui.__Draw(_state)` | ⚠️ Caution: Potential memory leak if not used in *Draw GUI* event having multiple `GameWindow`s |
+| `_state.__Destroy()` | - | |
 
 States are mostly for internal use, you shouldn't have to modify their values.
 Except for the window (`_state.Engine.Window`) per the examples above.
