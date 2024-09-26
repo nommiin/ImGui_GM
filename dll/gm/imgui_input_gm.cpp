@@ -231,7 +231,7 @@ GMFUNC(__imgui_is_mouse_dragging) {
 	ImGuiMouseButton final_button = (ImGuiMouseButton)button->asReal();
 
 	float lock_threshold = YYGetFloat(arg, 1);
-	GMDEFAULT(-1.0F);
+	GMDEFAULT(-1.0);
 	GMHINT(Float);
 
 	Result.kind = VALUE_BOOL;
@@ -273,7 +273,7 @@ GMFUNC(__imgui_get_mouse_drag_delta_x) {
 	ImGuiMouseButton final_button = (ImGuiMouseButton)button->asReal();
 
 	float lock_threshold = YYGetFloat(arg, 1);
-	GMDEFAULT(-1.0F);
+	GMDEFAULT(-1.0);
 	GMHINT(Float);
 
 	Result.kind = VALUE_REAL;
@@ -286,7 +286,7 @@ GMFUNC(__imgui_get_mouse_drag_delta_y) {
 	ImGuiMouseButton final_button = (ImGuiMouseButton)button->asReal();
 
 	float lock_threshold = YYGetFloat(arg, 1);
-	GMDEFAULT(-1.0F);
+	GMDEFAULT(-1.0);
 	GMHINT(Float);
 
 	Result.kind = VALUE_REAL;

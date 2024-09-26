@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 9/26/2024, 7:56:19 AM
+*  Generated at 9/26/2024, 8:28:01 AM
 */
 
 /// @function imgui_initialize
@@ -1570,9 +1570,9 @@ function imgui_is_any_mouse_down() {
 
 /// @function imgui_is_mouse_dragging(button, lock_threshold)
 /// @argument {ImGuiMouseButton} button
-/// @argument {Float} [lock_threshold=-1F]
+/// @argument {Float} [lock_threshold=-1]
 /// @return {Bool}
-function imgui_is_mouse_dragging(button, lock_threshold=-1F) {
+function imgui_is_mouse_dragging(button, lock_threshold=-1) {
 	return __imgui_is_mouse_dragging(button, lock_threshold);
 }
 
@@ -1602,17 +1602,17 @@ function imgui_get_mouse_pos_on_opening_current_popup_y() {
 
 /// @function imgui_get_mouse_drag_delta_x(button, lock_threshold)
 /// @argument {ImGuiMouseButton} button
-/// @argument {Float} [lock_threshold=-1F]
+/// @argument {Float} [lock_threshold=-1]
 /// @return {Real}
-function imgui_get_mouse_drag_delta_x(button, lock_threshold=-1F) {
+function imgui_get_mouse_drag_delta_x(button, lock_threshold=-1) {
 	return __imgui_get_mouse_drag_delta_x(button, lock_threshold);
 }
 
 /// @function imgui_get_mouse_drag_delta_y(button, lock_threshold)
 /// @argument {ImGuiMouseButton} button
-/// @argument {Float} [lock_threshold=-1F]
+/// @argument {Float} [lock_threshold=-1]
 /// @return {Real}
-function imgui_get_mouse_drag_delta_y(button, lock_threshold=-1F) {
+function imgui_get_mouse_drag_delta_y(button, lock_threshold=-1) {
 	return __imgui_get_mouse_drag_delta_y(button, lock_threshold);
 }
 

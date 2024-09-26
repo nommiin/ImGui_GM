@@ -1732,10 +1732,10 @@ function ImGui() constructor {
 
 	/// @function IsMouseDragging(button, lock_threshold)
 	/// @argument {ImGuiMouseButton} button
-	/// @argument {Float} [lock_threshold=-1F]
+	/// @argument {Float} [lock_threshold=-1]
 	/// @context ImGui
 	/// @return {Bool}
-	static IsMouseDragging = function(button, lock_threshold=-1F) {
+	static IsMouseDragging = function(button, lock_threshold=-1) {
 		return __imgui_is_mouse_dragging(button, lock_threshold);
 	}
 
@@ -1769,19 +1769,19 @@ function ImGui() constructor {
 
 	/// @function GetMouseDragDeltaX(button, lock_threshold)
 	/// @argument {ImGuiMouseButton} button
-	/// @argument {Float} [lock_threshold=-1F]
+	/// @argument {Float} [lock_threshold=-1]
 	/// @context ImGui
 	/// @return {Real}
-	static GetMouseDragDeltaX = function(button, lock_threshold=-1F) {
+	static GetMouseDragDeltaX = function(button, lock_threshold=-1) {
 		return __imgui_get_mouse_drag_delta_x(button, lock_threshold);
 	}
 
 	/// @function GetMouseDragDeltaY(button, lock_threshold)
 	/// @argument {ImGuiMouseButton} button
-	/// @argument {Float} [lock_threshold=-1F]
+	/// @argument {Float} [lock_threshold=-1]
 	/// @context ImGui
 	/// @return {Real}
-	static GetMouseDragDeltaY = function(button, lock_threshold=-1F) {
+	static GetMouseDragDeltaY = function(button, lock_threshold=-1) {
 		return __imgui_get_mouse_drag_delta_y(button, lock_threshold);
 	}
 

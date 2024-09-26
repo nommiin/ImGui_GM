@@ -139,7 +139,11 @@ GMFUNC(__imgui_new_frame) {
 	ImGuiIO& io = ImGui::GetIO();
 
 	// Update framerate and time regardless of Impl GM.
-	UpdateStateFromStruct(state, StateUpdateFlags_Framerate | StateUpdateFlags_Time);
+	if (g_ImGuiExtFlags & ImGuiExtFlags_GM) {
+		UpdateStateFromStruct(state, StateUpdateFlags_Framerate | StateUpdateFlags_Time);
+	} else {
+		UpdateStateFromStruct(state, StateUpdateFlags_Display | StateUpdateFlags_Framerate | StateUpdateFlags_Time);
+	}
 
 	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_NewFrame();
 	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_NewFrame();

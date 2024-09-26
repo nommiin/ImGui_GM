@@ -175,9 +175,7 @@ if (main_open) {
             ImGui.TextLinkOpenURL("nommiin/ImGui_GM", "https://github.com/nommiin/ImGui_GM");
             ImGui.Separator();
 			if (!is_undefined(_static)) {
-				// TODO: Scale viewports
-                // _static.__State.Display.Scale = max(0.5, ImGui.InputDouble("Scale", _static.__State.Display.Scale, 0.1, 0.25));
-                ImGui.Text($"Scale: {_static.__State.Display.Scale}");
+                _static.__State.Display.Scale = max(0.5, ImGui.InputDouble("Scale", _static.__State.Display.Scale, 0.1, 0.25));
 			} else {
 				ImGui.BeginDisabled();
 				ImGui.InputDouble("ImGui.__Scale", 1);
