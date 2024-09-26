@@ -515,6 +515,45 @@ function ImGui() constructor {
 		return __imgui_log_text(text);
 	}
 
+	/// @function LogToClipboard(auto_open_depth)
+	/// @argument {Real} [auto_open_depth=-1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static LogToClipboard = function(auto_open_depth=-1) {
+		return __imgui_log_to_clipboard(auto_open_depth);
+	}
+
+	/// @function LogToTTY(auto_open_depth)
+	/// @argument {Real} [auto_open_depth=-1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static LogToTTY = function(auto_open_depth=-1) {
+		return __imgui_log_to_tty(auto_open_depth);
+	}
+
+	/// @function LogFinish()
+	/// @context ImGui
+	/// @return {Undefined}
+	static LogFinish = function() {
+		return __imgui_log_finish();
+	}
+
+	/// @function LogButtons()
+	/// @context ImGui
+	/// @return {Undefined}
+	static LogButtons = function() {
+		return __imgui_log_buttons();
+	}
+
+	/// @function LogToFile(auto_open_depth, filename)
+	/// @argument {Real} [auto_open_depth=-1]
+	/// @argument {Any} [filename=undefined]
+	/// @context ImGui
+	/// @return {Undefined}
+	static LogToFile = function(auto_open_depth=-1, filename=undefined) {
+		return __imgui_log_to_file(auto_open_depth, filename);
+	}
+
 	/// @function SetNextFrameWantCaptureKeyboard(val)
 	/// @argument {Bool} [val=undefined]
 	/// @context ImGui
@@ -1812,6 +1851,15 @@ function ImGui() constructor {
 		return __imgui_set_next_item_shortcut(key_chord, flags);
 	}
 
+	/// @function SetItemKeyOwner(key, flags)
+	/// @argument {ImGuiKey} key
+	/// @argument {ImGuiInputFlags} [flags=undefined]
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetItemKeyOwner = function(key, flags=undefined) {
+		return __imgui_set_item_key_owner(key, flags);
+	}
+
 	/// @function InputText(label, val, flags)
 	/// @argument {String} label
 	/// @argument {String} val
@@ -2555,6 +2603,13 @@ function ImGui() constructor {
 		return __imgui_selectable(label, selected, flags, width, height);
 	}
 
+	/// @function IsItemToggledSelection()
+	/// @context ImGui
+	/// @return {Bool}
+	static IsItemToggledSelection = function() {
+		return __imgui_is_item_toggled_selection();
+	}
+
 	/// @function BeginMultiSelect(flags, size, items_count)
 	/// @argument {ImGuiMultiSelectFlags} flags
 	/// @argument {Real} size
@@ -2957,6 +3012,13 @@ function ImGui() constructor {
 	/// @return {Undefined}
 	static TableHeader = function(label) {
 		return __imgui_table_header(label);
+	}
+
+	/// @function TableGetHoveredColumn()
+	/// @context ImGui
+	/// @return {Real}
+	static TableGetHoveredColumn = function() {
+		return __imgui_table_get_hovered_column();
 	}
 
 	/// @function TableGetColumnCount()

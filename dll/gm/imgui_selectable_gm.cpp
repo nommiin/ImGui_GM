@@ -16,6 +16,11 @@ GMFUNC(__imgui_selectable) {
 	Result.val = ImGui::Selectable(label, selected, flags, ImVec2(width, height));
 }
 
+GMFUNC(__imgui_is_item_toggled_selection) {
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::IsItemToggledSelection();
+}
+
 /// MultiSelect
 
 GMFUNC(__imgui_create_multi_select_basic_storage) {

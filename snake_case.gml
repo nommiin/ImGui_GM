@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 9/26/2024, 1:22:33 PM
+*  Generated at 9/26/2024, 2:09:47 PM
 */
 
 /// @function imgui_initialize
@@ -464,6 +464,40 @@ function imgui_get_viewport_id(vp) {
 /// @return {Undefined}
 function imgui_log_text(text) {
 	return __imgui_log_text(text);
+}
+
+/// @function imgui_log_to_clipboard(auto_open_depth)
+/// @argument {Real} [auto_open_depth=-1]
+/// @return {Undefined}
+function imgui_log_to_clipboard(auto_open_depth=-1) {
+	return __imgui_log_to_clipboard(auto_open_depth);
+}
+
+/// @function imgui_log_to_tty(auto_open_depth)
+/// @argument {Real} [auto_open_depth=-1]
+/// @return {Undefined}
+function imgui_log_to_tty(auto_open_depth=-1) {
+	return __imgui_log_to_tty(auto_open_depth);
+}
+
+/// @function imgui_log_finish()
+/// @return {Undefined}
+function imgui_log_finish() {
+	return __imgui_log_finish();
+}
+
+/// @function imgui_log_buttons()
+/// @return {Undefined}
+function imgui_log_buttons() {
+	return __imgui_log_buttons();
+}
+
+/// @function imgui_log_to_file(auto_open_depth, filename)
+/// @argument {Real} [auto_open_depth=-1]
+/// @argument {Any} [filename=undefined]
+/// @return {Undefined}
+function imgui_log_to_file(auto_open_depth=-1, filename=undefined) {
+	return __imgui_log_to_file(auto_open_depth, filename);
 }
 
 /// @function imgui_set_next_frame_want_capture_keyboard(val)
@@ -1640,6 +1674,14 @@ function imgui_set_next_item_shortcut(key_chord, flags) {
 	return __imgui_set_next_item_shortcut(key_chord, flags);
 }
 
+/// @function imgui_set_item_key_owner(key, flags)
+/// @argument {ImGuiKey} key
+/// @argument {ImGuiInputFlags} [flags=undefined]
+/// @return {Undefined}
+function imgui_set_item_key_owner(key, flags=undefined) {
+	return __imgui_set_item_key_owner(key, flags);
+}
+
 /// @function imgui_input_text(label, val, flags)
 /// @argument {String} label
 /// @argument {String} val
@@ -2297,6 +2339,12 @@ function imgui_selectable(label, selected=false, flags=ImGuiSelectableFlags.None
 	return __imgui_selectable(label, selected, flags, width, height);
 }
 
+/// @function imgui_is_item_toggled_selection()
+/// @return {Bool}
+function imgui_is_item_toggled_selection() {
+	return __imgui_is_item_toggled_selection();
+}
+
 /// @function imgui_create_multi_select_basic_storage(yystruct)
 /// @argument {Struct} yystruct
 /// @return {Pointer}
@@ -2689,6 +2737,12 @@ function imgui_table_angled_headers_row() {
 /// @return {Undefined}
 function imgui_table_header(label) {
 	return __imgui_table_header(label);
+}
+
+/// @function imgui_table_get_hovered_column()
+/// @return {Real}
+function imgui_table_get_hovered_column() {
+	return __imgui_table_get_hovered_column();
 }
 
 /// @function imgui_table_get_column_count()

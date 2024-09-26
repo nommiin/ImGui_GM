@@ -218,4 +218,3 @@ If there is anything missing, submit issues in this repository: [Click here to c
 - [rousr](https://rou.sr/) for creating [ImGuiGML](https://imguigml.rou.sr/) which inspired development of this
 - [@nkrapivin](https://github.com/nkrapivin) for providing general assistance with `YYRunnerInterface` magic
 - [@kraifpatrik](https://github.com/blueburncz/GMD3D11)'s GMD3D11 for serving as reference on how to retrieve textures from GameMaker
-- [@nommiin](https://github.com/nommiin/ImGui_GM)'s original work on the wrapper.

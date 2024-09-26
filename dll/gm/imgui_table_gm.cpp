@@ -81,8 +81,10 @@ GMFUNC(__imgui_table_header) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
-// TODO: ImGui::TableGetSortSpecs ?
-// TODO: ImGui::TableGetHoveredColumn ?
+GMFUNC(__imgui_table_get_hovered_column) {
+	Result.kind = VALUE_REAL;
+	Result.val = ImGui::TableGetHoveredColumn();
+}
 
 GMFUNC(__imgui_table_get_column_count) {
 	Result.kind = VALUE_REAL;

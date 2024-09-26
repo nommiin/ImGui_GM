@@ -419,6 +419,9 @@ class Program {
             "GetContentRegionMax",
             "GetWindowContentRegionMin",
             "GetWindowContentRegionMax",
+            "GetMousePos",
+            "GetMousePosOnOpeningCurrentPopup",
+            "GetMouseDragDelta",
             "GetCursorPos",
             "GetCursorStartPos",
             "GetCursorScreenPos",
@@ -430,6 +433,7 @@ class Program {
             "GetStyleColorVec4",
             "UpdatePlatformWindows",
             "RenderPlatformWindowsDefault",
+            "DestroyPlatformWindows",
         ];
 
         // TODO: NOTE: defined manual notes
@@ -437,6 +441,7 @@ class Program {
             "NewFrame": "Handled internally by `__imgui_new_frame` function",
             "Render": "Handled internally by `__imgui_render` function",
             "EndFrame": "Handled internally by `__imgui_end_frame` function",
+            "GetStyle": "You can use custom functions (`SetStyleVar` and `SetStyleColor`) to modify the style",
             "GetWindowPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
             "GetWindowSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
             "GetContentRegionAvail": "Use X/Y wrappers. ImVec2 returns are unsupported",
@@ -463,6 +468,7 @@ class Program {
             "GetStyleColorVec4": "Use `ImGui.GetStyleColor`",
             "UpdatePlatformWindows": "Handled internally by `__imgui_draw` function",
             "RenderPlatformWindowsDefault": "Handled internally by `__imgui_draw` function",
+            "DestroyPlatformWindows": "Handled internally by `__imgui_shutdown` function",
             "GetMouseCursor": "Handled internally by GML",
             "SetMouseCursor": "Handled internally by GML",
         };
@@ -520,7 +526,7 @@ class Program {
             const wrapperKey = `${e.Name}`;
             if (wrapper) wrapper.Found = true;
             if (!writtenWrappers.has(wrapperKey)) {
-                content += `| ImGui::${e.Name} | ${e.IsWrapped ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${wrapper.FileRelpath}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
+                content += `| \`ImGui::${e.Name}\` | ${e.IsWrapped ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${wrapper.FileRelpath}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
                 writtenWrappers.add(wrapperKey);
             }
         });
@@ -530,7 +536,7 @@ class Program {
         content += "| -------- | ---- |\n";
         wrappers.forEach(e => {
             if (!e?.Found && e.Calls !== "_") {
-                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${e.File}#L${e.Line}) |\n`;
+                content += `| \`ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")})\` | [${e.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${e.File}#L${e.Line}) |\n`;
             }
         });
 

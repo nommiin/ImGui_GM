@@ -152,7 +152,6 @@ GMFUNC(__imgui_is_mouse_clicked) {
 	}
 }
 
-
 GMFUNC(__imgui_is_mouse_released) {
 	RValue* button = &arg[0];
 	GMHINT(ImGuiMouseButton);
@@ -333,4 +332,22 @@ GMFUNC(__imgui_set_next_item_shortcut) {
 	ImGui::SetNextItemShortcut(final_key_chord, (ImGuiInputFlags)flags->asReal());
 
 	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_set_item_key_owner) {
+	RValue* key = &arg[0];
+	GMHINT(ImGuiKey);
+	ImGuiKey final_key = (ImGuiKey)key->asReal();
+
+	RValue* flags = &arg[1];
+	GMDEFAULT(undefined);
+	GMHINT(ImGuiInputFlags);
+
+	Result.kind = VALUE_UNDEFINED;
+	if (flags->kind == VALUE_UNDEFINED) {
+		ImGui::SetItemKeyOwner(final_key);
+	}
+	else {
+		ImGui::SetItemKeyOwner(final_key, (ImGuiInputFlags)(flags->asReal()));
+	}
 }

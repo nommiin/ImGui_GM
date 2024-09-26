@@ -538,6 +538,47 @@ GMFUNC(__imgui_log_text) {
 	Result.kind = VALUE_UNDEFINED;
 }
 
+GMFUNC(__imgui_log_to_clipboard) {
+	int auto_open_depth = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+
+	ImGui::LogToClipboard(auto_open_depth);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_log_to_tty) {
+	GMOVERRIDE(LogToTTY)
+	int auto_open_depth = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+
+	ImGui::LogToTTY(auto_open_depth);
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_log_finish) {
+	ImGui::LogFinish();
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_log_buttons) {
+	ImGui::LogButtons();
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_log_to_file) {
+	int auto_open_depth = YYGetReal(arg, 0);
+	GMDEFAULT(-1);
+	RValue* filename = &arg[1];
+	GMDEFAULT(undefined);
+	const char* final_filename = NULL;
+	if (filename->kind != VALUE_UNDEFINED) {
+		final_filename = filename->GetString();
+	}
+
+	ImGui::LogToFile(auto_open_depth, final_filename);
+	Result.kind = VALUE_UNDEFINED;
+}
+
 GMFUNC(__imgui_set_next_frame_want_capture_keyboard) {
 	GMOVERRIDE(SetNextFrameWantCaptureKeyboard);
 	RValue* val = &arg[0];
