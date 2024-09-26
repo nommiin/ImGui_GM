@@ -90,3 +90,42 @@ GMFUNC(__imgui_get_style_color_name) {
 	Result.kind = VALUE_STRING;
 	YYCreateString(&Result, ImGui::GetStyleColorName(idx));
 }
+
+GMFUNC(__imgui_set_style_color) {
+	GMOVERRIDE(SetStyleColor);
+	ImGuiCol idx = YYGetReal(arg, 0);
+	double col = YYGetReal(arg, 1);
+	float alpha = YYGetReal(arg, 2);
+
+	ImGuiContext* ctx = ImGui::GetCurrentContext();
+	if (ctx->DebugFlashStyleColorIdx != idx)
+		ctx->Style.Colors[idx] = GMCOLOR_TO(col, alpha);
+
+	Result.kind = VALUE_UNDEFINED;
+}
+
+GMFUNC(__imgui_set_style_var) {
+	GMOVERRIDE(SetStyleVar);
+	ImGuiCol idx = YYGetReal(arg, 0);
+	RValue* val = &arg[1];
+	RValue* val2 = &arg[2];
+	GMDEFAULT(undefined);
+
+	Result.kind = VALUE_UNDEFINED;
+	
+	ImGuiContext* ctx = ImGui::GetCurrentContext();
+
+	const ImGuiDataVarInfo* var_info = ImGui::GetStyleVarInfo(idx);
+	if (var_info->Type != ImGuiDataType_Float || var_info->Count != 1)
+	{
+		IM_ASSERT_USER_ERROR(0, "Calling SetStyleVar() variant with wrong type!");
+		return;
+	}
+	if (val2->kind != VALUE_UNDEFINED || val->kind != VALUE_REAL) {
+		ImVec2* pvar = (ImVec2*)var_info->GetVarPtr(&ctx->Style);
+		*pvar = ImVec2(val->val, val2->val);
+	} else {
+		float* pvar = (float*)var_info->GetVarPtr(&ctx->Style);
+		*pvar = val->val;
+	}
+}

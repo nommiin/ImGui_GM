@@ -133,6 +133,7 @@
     <ClCompile Include="gm/imgui_window_gm.cpp" />
     <ClCompile Include="imgui/imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui/imgui_impl_win32.cpp" />
+    <ClCompile Include="gm/imgui_input_widgets_gm.cpp" />
     <ClCompile Include="gm/imgui_input_gm.cpp" />
     <ClCompile Include="gm/imgui_layout_gm.cpp" />
     <ClCompile Include="gm/imgui_listbox_gm.cpp" />

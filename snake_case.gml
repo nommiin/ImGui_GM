@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 9/26/2024, 12:44:07 AM
+*  Generated at 9/26/2024, 7:56:19 AM
 */
 
 /// @function imgui_initialize
@@ -1447,6 +1447,199 @@ function imgui_get_font_size() {
 	return __imgui_get_font_size();
 }
 
+/// @function imgui_is_key_down(key, owner_id)
+/// @argument {ImGuiKey} key
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_key_down(key, owner_id=undefined) {
+	return __imgui_is_key_down(key, owner_id);
+}
+
+/// @function imgui_is_key_pressed(key, _repeat)
+/// @argument {ImGuiKey} key
+/// @argument {Bool} [_repeat=undefined]
+/// @return {Bool}
+function imgui_is_key_pressed(key, _repeat=undefined) {
+	return __imgui_is_key_pressed(key, _repeat);
+}
+
+/// @function imgui_is_key_released(key, owner_id)
+/// @argument {ImGuiKey} key
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_key_released(key, owner_id=undefined) {
+	return __imgui_is_key_released(key, owner_id);
+}
+
+/// @function imgui_is_key_chord_pressed(key_chord, flags, owner_id)
+/// @argument {ImGuiKeyChord} key_chord
+/// @argument {ImGuiInputFlags} [flags=undefined]
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_key_chord_pressed(key_chord, flags=undefined, owner_id=undefined) {
+	return __imgui_is_key_chord_pressed(key_chord, flags, owner_id);
+}
+
+/// @function imgui_get_key_pressed_amount(key, repeat_delay, rate)
+/// @argument {ImGuiKey} key
+/// @argument {Float} repeat_delay
+/// @argument {Float} rate
+/// @return {Real}
+function imgui_get_key_pressed_amount(key, repeat_delay, rate) {
+	return __imgui_get_key_pressed_amount(key, repeat_delay, rate);
+}
+
+/// @function imgui_get_key_name(key)
+/// @argument {ImGuiKey} key
+/// @return {String}
+function imgui_get_key_name(key) {
+	return __imgui_get_key_name(key);
+}
+
+/// @function imgui_get_key_chord_name(key_chord)
+/// @argument {ImGuiKeyChord} key_chord
+/// @return {String}
+function imgui_get_key_chord_name(key_chord) {
+	return __imgui_get_key_chord_name(key_chord);
+}
+
+/// @function imgui_is_mouse_down(button, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_down(button, owner_id=undefined) {
+	return __imgui_is_mouse_down(button, owner_id);
+}
+
+/// @function imgui_is_mouse_clicked(button, repeat_or_flags, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Bool|ImGuiInputFlags} [repeat_or_flags=undefined]
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_clicked(button, repeat_or_flags=undefined, owner_id=undefined) {
+	return __imgui_is_mouse_clicked(button, repeat_or_flags, owner_id);
+}
+
+/// @function imgui_is_mouse_released(button, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_released(button, owner_id=undefined) {
+	return __imgui_is_mouse_released(button, owner_id);
+}
+
+/// @function imgui_is_mouse_double_clicked(button, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_double_clicked(button, owner_id=undefined) {
+	return __imgui_is_mouse_double_clicked(button, owner_id);
+}
+
+/// @function imgui_get_mouse_clicked_count(button)
+/// @argument {ImGuiMouseButton} button
+/// @return {Real}
+function imgui_get_mouse_clicked_count(button) {
+	return __imgui_get_mouse_clicked_count(button);
+}
+
+/// @function imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip)
+/// @argument {Real} min_x
+/// @argument {Real} min_y
+/// @argument {Real} max_x
+/// @argument {Real} max_y
+/// @argument {Bool} [clip=true]
+/// @return {Bool}
+function imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip=true) {
+	return __imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip);
+}
+
+/// @function imgui_is_mouse_pos_valid(mouse_x, mouse_y)
+/// @argument {Real} mouse_x
+/// @argument {Real} mouse_y
+/// @return {Bool}
+function imgui_is_mouse_pos_valid(mouse_x, mouse_y) {
+	return __imgui_is_mouse_pos_valid(mouse_x, mouse_y);
+}
+
+/// @function imgui_is_any_mouse_down()
+/// @return {Bool}
+function imgui_is_any_mouse_down() {
+	return __imgui_is_any_mouse_down();
+}
+
+/// @function imgui_is_mouse_dragging(button, lock_threshold)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Float} [lock_threshold=-1F]
+/// @return {Bool}
+function imgui_is_mouse_dragging(button, lock_threshold=-1F) {
+	return __imgui_is_mouse_dragging(button, lock_threshold);
+}
+
+/// @function imgui_get_mouse_pos_x()
+/// @return {Real}
+function imgui_get_mouse_pos_x() {
+	return __imgui_get_mouse_pos_x();
+}
+
+/// @function imgui_get_mouse_pos_y()
+/// @return {Real}
+function imgui_get_mouse_pos_y() {
+	return __imgui_get_mouse_pos_y();
+}
+
+/// @function imgui_get_mouse_pos_on_opening_current_popup_x()
+/// @return {Real}
+function imgui_get_mouse_pos_on_opening_current_popup_x() {
+	return __imgui_get_mouse_pos_on_opening_current_popup_x();
+}
+
+/// @function imgui_get_mouse_pos_on_opening_current_popup_y()
+/// @return {Real}
+function imgui_get_mouse_pos_on_opening_current_popup_y() {
+	return __imgui_get_mouse_pos_on_opening_current_popup_y();
+}
+
+/// @function imgui_get_mouse_drag_delta_x(button, lock_threshold)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Float} [lock_threshold=-1F]
+/// @return {Real}
+function imgui_get_mouse_drag_delta_x(button, lock_threshold=-1F) {
+	return __imgui_get_mouse_drag_delta_x(button, lock_threshold);
+}
+
+/// @function imgui_get_mouse_drag_delta_y(button, lock_threshold)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Float} [lock_threshold=-1F]
+/// @return {Real}
+function imgui_get_mouse_drag_delta_y(button, lock_threshold=-1F) {
+	return __imgui_get_mouse_drag_delta_y(button, lock_threshold);
+}
+
+/// @function imgui_reset_mouse_drag_delta(button)
+/// @argument {ImGuiMouseButton} button
+/// @return {Undefined}
+function imgui_reset_mouse_drag_delta(button) {
+	return __imgui_reset_mouse_drag_delta(button);
+}
+
+/// @function imgui_shortcut(key_chord, flags, owner_id)
+/// @argument {ImGuiKeyChord} key_chord
+/// @argument {ImGuiInputFlags} flags
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_shortcut(key_chord, flags, owner_id=undefined) {
+	return __imgui_shortcut(key_chord, flags, owner_id);
+}
+
+/// @function imgui_set_next_item_shortcut(key_chord, flags)
+/// @argument {ImGuiKeyChord} key_chord
+/// @argument {ImGuiInputFlags} flags
+/// @return {Undefined}
+function imgui_set_next_item_shortcut(key_chord, flags) {
+	return __imgui_set_next_item_shortcut(key_chord, flags);
+}
+
 /// @function imgui_input_text(label, val, flags)
 /// @argument {String} label
 /// @argument {String} val
@@ -2403,6 +2596,24 @@ function imgui_get_style_color(idx) {
 /// @return {String}
 function imgui_get_style_color_name(idx) {
 	return __imgui_get_style_color_name(idx);
+}
+
+/// @function imgui_set_style_color(idx, col, alpha)
+/// @argument {Real} idx
+/// @argument {Real} col
+/// @argument {Real} alpha
+/// @return {Undefined}
+function imgui_set_style_color(idx, col, alpha) {
+	return __imgui_set_style_color(idx, col, alpha);
+}
+
+/// @function imgui_set_style_var(idx, val, val2)
+/// @argument {Real} idx
+/// @argument {Any} val
+/// @argument {Any} [val2=undefined]
+/// @return {Undefined}
+function imgui_set_style_var(idx, val, val2=undefined) {
+	return __imgui_set_style_var(idx, val, val2);
 }
 
 /// @function imgui_begin_table(str_id, column, flags, outer_width, outer_height, inner_width)

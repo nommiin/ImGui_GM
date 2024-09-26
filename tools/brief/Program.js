@@ -9,9 +9,6 @@ const Wrapper = require("./Wrapper");
 const Token = require("./Token");
 const Util = require("./Util")
 
-const githubRepo = "knno/imgui_gm";
-const githubRepoUrl = `https://github.com/${githubRepo}`;
-
 /**
  * Reads specific C++ files and automatically creates wrapped functions for GameMaker
  * 
@@ -450,6 +447,9 @@ class Program {
             "PushFont": "Fonts are currently unimplemented",
             "PopFont": "Fonts are currently unimplemented",
 
+            "GetMousePos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetMousePosOnOpeningCurrentPopup": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetMouseDragDelta": "Use X/Y wrappers. ImVec2 returns are unsupported",
             "GetCursorPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
             "GetCursorStartPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
             "GetCursorScreenPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
@@ -458,11 +458,11 @@ class Program {
             "GetItemRectMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
             "GetItemRectSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
             "GetPlatformIO": "Unsupported",
-            "SetDragDropPayload": `See [Drag and Drop Payloads](${githubRepoUrl}/wiki/Drag-and-Drop-Payloads) for more info on handling payloads`,
+            "SetDragDropPayload": `See [Drag and Drop Payloads](${Configuration.REPOSITORY_URL}/wiki/Drag-and-Drop-Payloads) for more info on handling payloads`,
             "GetColorU32": "Use `GetStyleColor`",
             "GetStyleColorVec4": "Use `ImGui.GetStyleColor`",
-            "UpdatePlatformWindows": "Handled internally by `__imgui_draw_end` function",
-            "RenderPlatformWindowsDefault": "Handled internally by `__imgui_draw_end` function",
+            "UpdatePlatformWindows": "Handled internally by `__imgui_draw` function",
+            "RenderPlatformWindowsDefault": "Handled internally by `__imgui_draw` function",
             "GetMouseCursor": "Handled internally by GML",
             "SetMouseCursor": "Handled internally by GML",
         };
@@ -481,7 +481,7 @@ class Program {
                 e.IsWrapped = true;
                 wrapper.Arguments.forEach(a => {
                     if (a.Type.endsWith("ImGuiReturnMask")) {
-                        notes[e.Name] = `See [ImGuiReturnMask Usage](${githubRepoUrl}/wiki/ImGuiReturnMask-Usage) for more info the \`mask\` argument`
+                        notes[e.Name] = `See [ImGuiReturnMask Usage](${Configuration.REPOSITORY_URL}/wiki/ImGuiReturnMask-Usage) for more info the \`mask\` argument`
                     }
                 })
             } else if (wrapped_funcs.indexOf(e.Name) != -1) {
@@ -506,7 +506,7 @@ class Program {
         let coveragePercentage = Math.round(100 * (wrapped / (func.length - unsupported)));
 
         content += `# Coverage\n\n`;
-        content += `- ![coverage](https://badgen.net/https/raw.githubusercontent.com/${githubRepo}/main/extra/badges/coverage.json?icon=awesome)\n`;
+        content += `- ![coverage](https://badgen.net/https/raw.githubusercontent.com/${Configuration.REPOSITORY_NAME}/main/extra/badges/coverage.json?icon=awesome)\n`;
         content += `- ${wrapped} out of ${func.length - unsupported} supported API functions wrapped (**${coveragePercentage}% complete**)\n`;
         content += `- ${wrapped} out of ${func.length} total API functions wrapped (*${Math.round(100 * (wrapped / (func.length)))}% complete*)\n`;
         content += `- Note that ${unsupported} out of ${func.length} API functions are not supported (${Math.round(100 * (unsupported / (func.length)))}%)\n`;
@@ -520,7 +520,7 @@ class Program {
             const wrapperKey = `${e.Name}`;
             if (wrapper) wrapper.Found = true;
             if (!writtenWrappers.has(wrapperKey)) {
-                content += `| ImGui::${e.Name} | ${e.IsWrapped ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](${githubRepoUrl}/blob/main/dll/${wrapper.FileRelpath}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
+                content += `| ImGui::${e.Name} | ${e.IsWrapped ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${wrapper.FileRelpath}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
                 writtenWrappers.add(wrapperKey);
             }
         });
@@ -530,7 +530,7 @@ class Program {
         content += "| -------- | ---- |\n";
         wrappers.forEach(e => {
             if (!e?.Found && e.Calls !== "_") {
-                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](${githubRepoUrl}/blob/main/dll/${e.File}#L${e.Line}) |\n`;
+                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${e.File}#L${e.Line}) |\n`;
             }
         });
 

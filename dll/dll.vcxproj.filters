@@ -81,6 +81,9 @@
     <ClCompile Include="gm/imgui_input_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
+    <ClCompile Include="gm/imgui_input_widgets_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
     <ClCompile Include="gm/imgui_layout_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>

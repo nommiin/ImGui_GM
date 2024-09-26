@@ -141,7 +141,6 @@ class Wrapper {
                 return true;
             }
 
-            case "GMRETURNS":
             case "GMRETURN": {
                 let index = this.ArgumentIndex;
 

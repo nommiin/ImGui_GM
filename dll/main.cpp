@@ -121,7 +121,7 @@ GMFUNC(__imgui_initialize) {
 	g_ImGuiInitialized = true;
 
 	Result.ptr = ctx;
-	GMRETURN(ImGuiContext);
+	GMRETURNS(ImGuiContext);
 }
 
 GMFUNC(__imgui_update_state_from_struct) {

@@ -170,9 +170,9 @@ if (main_open) {
 			}
 			ImGui.TextColored("Developed by Nommiin!", c_aqua);
             ImGui.Separator();
-			ImGui.TextColored("Repo: ", #3bb1f8);
+			ImGui.TextColored("Source URL: ", #3bb1f8);
             ImGui.SameLine(0,0);
-            ImGui.TextLinkOpenURL("knno/ImGui_GM", "https://github.com/knno/ImGui_GM");
+            ImGui.TextLinkOpenURL("nommiin/ImGui_GM", "https://github.com/nommiin/ImGui_GM");
             ImGui.Separator();
 			if (!is_undefined(_static)) {
 				// TODO: Scale viewports

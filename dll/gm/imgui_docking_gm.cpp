@@ -29,7 +29,7 @@ GMFUNC(__imgui_find_viewport_by_id) {
 
     Result.kind = VALUE_PTR;
     Result.ptr = ImGui::FindViewportByID(id);
-    GMRETURN(ImGuiViewport);
+    GMRETURNS(ImGuiViewport);
 }
 
 GMFUNC(__imgui_find_viewport_by_platform_handle) {
@@ -38,7 +38,7 @@ GMFUNC(__imgui_find_viewport_by_platform_handle) {
 
     Result.kind = VALUE_PTR;
     Result.ptr = ImGui::FindViewportByPlatformHandle(platform_handle);
-    GMRETURN(ImGuiViewport);
+    GMRETURNS(ImGuiViewport);
 }
 
 GMFUNC(__imgui_dock_space_over_viewport) {

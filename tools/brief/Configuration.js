@@ -3,6 +3,16 @@
  */
 class Configuration {
     /**
+     * @description The Github repository URL. 
+     */
+    static REPOSITORY_URL = "https://github.com/nommiin/ImGui_GM"
+
+    /**
+     * @description The Github repository name. 
+     */
+    static REPOSITORY_NAME = "nommiin/ImGui_GM";
+
+    /**
      * @description The name of the program, used by Logger.js
      */
     static PROGRAM_NAME = "brief";

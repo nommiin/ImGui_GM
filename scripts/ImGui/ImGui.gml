@@ -1594,6 +1594,224 @@ function ImGui() constructor {
 		return __imgui_get_font_size();
 	}
 
+	/// @function IsKeyDown(key, owner_id)
+	/// @argument {ImGuiKey} key
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsKeyDown = function(key, owner_id=undefined) {
+		return __imgui_is_key_down(key, owner_id);
+	}
+
+	/// @function IsKeyPressed(key, _repeat)
+	/// @argument {ImGuiKey} key
+	/// @argument {Bool} [_repeat=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsKeyPressed = function(key, _repeat=undefined) {
+		return __imgui_is_key_pressed(key, _repeat);
+	}
+
+	/// @function IsKeyReleased(key, owner_id)
+	/// @argument {ImGuiKey} key
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsKeyReleased = function(key, owner_id=undefined) {
+		return __imgui_is_key_released(key, owner_id);
+	}
+
+	/// @function IsKeyChordPressed(key_chord, flags, owner_id)
+	/// @argument {ImGuiKeyChord} key_chord
+	/// @argument {ImGuiInputFlags} [flags=undefined]
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsKeyChordPressed = function(key_chord, flags=undefined, owner_id=undefined) {
+		return __imgui_is_key_chord_pressed(key_chord, flags, owner_id);
+	}
+
+	/// @function GetKeyPressedAmount(key, repeat_delay, rate)
+	/// @argument {ImGuiKey} key
+	/// @argument {Float} repeat_delay
+	/// @argument {Float} rate
+	/// @context ImGui
+	/// @return {Real}
+	static GetKeyPressedAmount = function(key, repeat_delay, rate) {
+		return __imgui_get_key_pressed_amount(key, repeat_delay, rate);
+	}
+
+	/// @function GetKeyName(key)
+	/// @argument {ImGuiKey} key
+	/// @context ImGui
+	/// @return {String}
+	static GetKeyName = function(key) {
+		return __imgui_get_key_name(key);
+	}
+
+	/// @function GetKeyChordName(key_chord)
+	/// @argument {ImGuiKeyChord} key_chord
+	/// @context ImGui
+	/// @return {String}
+	static GetKeyChordName = function(key_chord) {
+		return __imgui_get_key_chord_name(key_chord);
+	}
+
+	/// @function IsMouseDown(button, owner_id)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMouseDown = function(button, owner_id=undefined) {
+		return __imgui_is_mouse_down(button, owner_id);
+	}
+
+	/// @function IsMouseClicked(button, repeat_or_flags, owner_id)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {Bool|ImGuiInputFlags} [repeat_or_flags=undefined]
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMouseClicked = function(button, repeat_or_flags=undefined, owner_id=undefined) {
+		return __imgui_is_mouse_clicked(button, repeat_or_flags, owner_id);
+	}
+
+	/// @function IsMouseReleased(button, owner_id)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMouseReleased = function(button, owner_id=undefined) {
+		return __imgui_is_mouse_released(button, owner_id);
+	}
+
+	/// @function IsMouseDoubleClicked(button, owner_id)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMouseDoubleClicked = function(button, owner_id=undefined) {
+		return __imgui_is_mouse_double_clicked(button, owner_id);
+	}
+
+	/// @function GetMouseClickedCount(button)
+	/// @argument {ImGuiMouseButton} button
+	/// @context ImGui
+	/// @return {Real}
+	static GetMouseClickedCount = function(button) {
+		return __imgui_get_mouse_clicked_count(button);
+	}
+
+	/// @function IsMouseHoveringRect(min_x, min_y, max_x, max_y, clip)
+	/// @argument {Real} min_x
+	/// @argument {Real} min_y
+	/// @argument {Real} max_x
+	/// @argument {Real} max_y
+	/// @argument {Bool} [clip=true]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMouseHoveringRect = function(min_x, min_y, max_x, max_y, clip=true) {
+		return __imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip);
+	}
+
+	/// @function IsMousePosValid(mouse_x, mouse_y)
+	/// @argument {Real} mouse_x
+	/// @argument {Real} mouse_y
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMousePosValid = function(mouse_x, mouse_y) {
+		return __imgui_is_mouse_pos_valid(mouse_x, mouse_y);
+	}
+
+	/// @function IsAnyMouseDown()
+	/// @context ImGui
+	/// @return {Bool}
+	static IsAnyMouseDown = function() {
+		return __imgui_is_any_mouse_down();
+	}
+
+	/// @function IsMouseDragging(button, lock_threshold)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {Float} [lock_threshold=-1F]
+	/// @context ImGui
+	/// @return {Bool}
+	static IsMouseDragging = function(button, lock_threshold=-1F) {
+		return __imgui_is_mouse_dragging(button, lock_threshold);
+	}
+
+	/// @function GetMousePosX()
+	/// @context ImGui
+	/// @return {Real}
+	static GetMousePosX = function() {
+		return __imgui_get_mouse_pos_x();
+	}
+
+	/// @function GetMousePosY()
+	/// @context ImGui
+	/// @return {Real}
+	static GetMousePosY = function() {
+		return __imgui_get_mouse_pos_y();
+	}
+
+	/// @function GetMousePosOnOpeningCurrentPopupX()
+	/// @context ImGui
+	/// @return {Real}
+	static GetMousePosOnOpeningCurrentPopupX = function() {
+		return __imgui_get_mouse_pos_on_opening_current_popup_x();
+	}
+
+	/// @function GetMousePosOnOpeningCurrentPopupY()
+	/// @context ImGui
+	/// @return {Real}
+	static GetMousePosOnOpeningCurrentPopupY = function() {
+		return __imgui_get_mouse_pos_on_opening_current_popup_y();
+	}
+
+	/// @function GetMouseDragDeltaX(button, lock_threshold)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {Float} [lock_threshold=-1F]
+	/// @context ImGui
+	/// @return {Real}
+	static GetMouseDragDeltaX = function(button, lock_threshold=-1F) {
+		return __imgui_get_mouse_drag_delta_x(button, lock_threshold);
+	}
+
+	/// @function GetMouseDragDeltaY(button, lock_threshold)
+	/// @argument {ImGuiMouseButton} button
+	/// @argument {Float} [lock_threshold=-1F]
+	/// @context ImGui
+	/// @return {Real}
+	static GetMouseDragDeltaY = function(button, lock_threshold=-1F) {
+		return __imgui_get_mouse_drag_delta_y(button, lock_threshold);
+	}
+
+	/// @function ResetMouseDragDelta(button)
+	/// @argument {ImGuiMouseButton} button
+	/// @context ImGui
+	/// @return {Undefined}
+	static ResetMouseDragDelta = function(button) {
+		return __imgui_reset_mouse_drag_delta(button);
+	}
+
+	/// @function Shortcut(key_chord, flags, owner_id)
+	/// @argument {ImGuiKeyChord} key_chord
+	/// @argument {ImGuiInputFlags} flags
+	/// @argument {ImGuiID} [owner_id=undefined]
+	/// @context ImGui
+	/// @return {Bool}
+	static Shortcut = function(key_chord, flags, owner_id=undefined) {
+		return __imgui_shortcut(key_chord, flags, owner_id);
+	}
+
+	/// @function SetNextItemShortcut(key_chord, flags)
+	/// @argument {ImGuiKeyChord} key_chord
+	/// @argument {ImGuiInputFlags} flags
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetNextItemShortcut = function(key_chord, flags) {
+		return __imgui_set_next_item_shortcut(key_chord, flags);
+	}
+
 	/// @function InputText(label, val, flags)
 	/// @argument {String} label
 	/// @argument {String} val
@@ -2634,6 +2852,26 @@ function ImGui() constructor {
 	/// @return {String}
 	static GetStyleColorName = function(idx) {
 		return __imgui_get_style_color_name(idx);
+	}
+
+	/// @function SetStyleColor(idx, col, alpha)
+	/// @argument {Real} idx
+	/// @argument {Real} col
+	/// @argument {Real} alpha
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetStyleColor = function(idx, col, alpha) {
+		return __imgui_set_style_color(idx, col, alpha);
+	}
+
+	/// @function SetStyleVar(idx, val, val2)
+	/// @argument {Real} idx
+	/// @argument {Any} val
+	/// @argument {Any} [val2=undefined]
+	/// @context ImGui
+	/// @return {Undefined}
+	static SetStyleVar = function(idx, val, val2=undefined) {
+		return __imgui_set_style_var(idx, val, val2);
 	}
 
 	/// @function BeginTable(str_id, column, flags, outer_width, outer_height, inner_width)

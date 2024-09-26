@@ -2,14 +2,13 @@
 
 A Windows only ImGui wrapper for modern GameMaker.
 
-<!-- ![screenshot](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png) -->
-
-![issues](https://badgen.net/github/issues/knno/imgui_gm)
+![screenshot](https://user-images.githubusercontent.com/6483989/208770256-e568fec4-e8ba-4239-82b6-97acbb7f2160.png)
+![issues](https://badgen.net/github/issues/nommiin/imgui_gm)
 ![coverage](https://badgen.net/https/raw.githubusercontent.com/knno/imgui_gm/main/extra/badges/coverage.json?icon=awesome)
 
 # Installation
 
-- Download the extension from the [releases](https://github.com/knno/ImGui_GM/releases/) tab
+- Download the extension from the [releases](https://github.com/nommiin/ImGui_GM/releases/) tab
 - Or you can [build](#building) it yourself.
 
 # Usage (GameMaker)
@@ -173,15 +172,15 @@ Below are some details of how to build the project.
 
 ## Folder Structure
 - dll/
-  - [`main.cpp`](https://github.com/knno/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
+  - [`main.cpp`](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp) for DLL initialization & IO/rendering logic
   - `gm/imgui_*_gm.cpp` for wrapped ImGui --> GM definitions
 - scripts/
   - ImGui/
-    - [`ImGui.gml`](https://github.com/knno/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml) for ImGui static functions & internal IO/events
+    - [`ImGui.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml) for ImGui static functions & internal IO/events
   - ImGui_Misc/
-    - [`ImGui_Misc.gml`](https://github.com/knno/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for classes and enum definitions and misc ImGui --> GM mapping 
+    - [`ImGui_Misc.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui_Misc/ImGui_Misc.gml) for classes and enum definitions and misc ImGui --> GM mapping 
 - tools/
-  - [`brief/Program.js`](https://github.com/knno/ImGui_GM/blob/main/tools/brief/Program.js) for ImGui to GM binding generation
+  - [`brief/Program.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/brief/Program.js) for ImGui to GM binding generation
 
 ## Building DLL
 *Using C++20, Windows SDK v10.0, Node.js v16.18.0, built with Visual Studio Community 2022*
@@ -193,16 +192,16 @@ Below are some details of how to build the project.
 
 ### Building Workflow
 
-- Upon building inside of Visual Studio, the `tools/brief/main.js` script will be called. This script collects any `.cpp` files ending in "`_gm.cpp`" (*Any uses of `GMFUNC` outside of files ending in `_gm.cpp` **will not** be read*) and parses out functions defined using the `GMFUNC` macro. These parsed functions are then added to the `extensions/ImGui_GM/ImGui_GM.yy` file and static methods are created in the `@section Binds` section of the `scripts/ImGui/ImGui.gml` file automatically. You can use the various macros to define attributes for wrapped functions and their arguments. See [`brief/Wrapper.js`](https://github.com/knno/ImGui_GM/blob/main/tools/brief/Wrapper.js)'s `modifier` method for how various attributes are handled.
+- Upon building inside of Visual Studio, the `tools/brief/main.js` script will be called. This script collects any `.cpp` files ending in "`_gm.cpp`" (*Any uses of `GMFUNC` outside of files ending in `_gm.cpp` **will not** be read*) and parses out functions defined using the `GMFUNC` macro. These parsed functions are then added to the `extensions/ImGui_GM/ImGui_GM.yy` file and static methods are created in the `@section Binds` section of the `scripts/ImGui/ImGui.gml` file automatically. You can use the various macros to define attributes for wrapped functions and their arguments. See [`brief/Wrapper.js`](https://github.com/nommiin/ImGui_GM/blob/main/tools/brief/Wrapper.js)'s `modifier` method for how various attributes are handled.
 
 # Coverage
-Check out [`ImGui_GM.gml`](https://github.com/knno/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml#L2) to view all wrapper functions.
-Check out [`COVERAGE.md`](https://github.com/knno/ImGui_GM/blob/main/COVERAGE.md) for coverage report.
+Check out [`ImGui_GM.gml`](https://github.com/nommiin/ImGui_GM/blob/main/scripts/ImGui/ImGui.gml#L2) to view all wrapper functions.
+Check out [`COVERAGE.md`](https://github.com/nommiin/ImGui_GM/blob/main/COVERAGE.md) for coverage report.
 
-If there is anything missing, submit issues in this repository: [Click here to create an issue](https://github.com/knno/ImGui_GM/issues). 
+If there is anything missing, submit issues in this repository: [Click here to create an issue](https://github.com/nommiin/ImGui_GM/issues). 
 
 # Notes
-- Functions like `ImGui.Begin` may not return what you expect, see ["ImGuiReturnMask Usage"](https://github.com/knno/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info
+- Functions like `ImGui.Begin` may not return what you expect, see ["ImGuiReturnMask Usage"](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info
 
 - Functions that accept an **array** of items as an argument (such as `ImGui.DragInt3`, `ImGui.SliderFloat2`, etc) will ***directly modify*** the given array. Keep this in mind when using them. Analogous functions that accept single elements (such as `ImGui.DrawInt`, `ImGui.SliderFloat`) ***will not*** make any changes directly to the value, and the return value should be used.
 
