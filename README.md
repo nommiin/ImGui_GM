@@ -50,7 +50,7 @@ Here we will introduce more ways to initialize and manage ImGui through out a Ga
 
 Using more than one main Window is currently **not recommended**. You can modify original ImGui code and create an extend of the `ImGuiBaseMainWindow` class to use custom methods in GM side.
 
-*There is a **winwin** branch here that tries to integrate winwin and ImGui_GM extensions together*
+*Check out the wiki for integration with other useful extensions.*
 
 You can see the abstract functions of `ImGuiBaseMainWindow` constructor if you want to extend the constructor.
 
