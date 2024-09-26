@@ -20,41 +20,11 @@ function ImGuiBaseMainWindow() constructor {
     static MouseWheelUp = function(mb) {return mouse_wheel_up();}
     static MouseWheelDown = function(mb) {return mouse_wheel_down();}
     static SetCursor = function(cursor) {return window_set_cursor(cursor);}
+    static IsMinimized = function() {return GetWidth() == 0 and GetHeight() == 0;}
     static Destroy = undefined;
     static DrawBegin = undefined;
     static DrawEnd = undefined;
     static DrawClear = undefined;
-}
-
-/** 
- * @function ImGuiGameWindowWinwin
- * @constructor
- * @description An example additional main viewport for use with ImGui.
- * 
- */
-function ImGuiGameWindowWinwin(_x, _y, _width, _height, _winwin_cfg, _bg_color=c_black) : ImGuiBaseMainWindow() constructor {
-    __winwin = winwin_create(_x, _y, _width, _height, _winwin_cfg);
-    bg_color = _bg_color;
-
-    static GetHandle = function() {return winwin_get_handle(__winwin);}
-    static Exists = function() {return winwin_exists(__winwin);}
-    static HasFocus = function() {return winwin_has_focus(__winwin);}
-    static GetX = function() {return winwin_get_x(__winwin);}
-    static GetY = function() {return winwin_get_y(__winwin);}
-    static GetWidth = function() {return winwin_get_width(__winwin);}
-    static GetHeight = function() {return winwin_get_height(__winwin);}
-    static MouseGetX = function() {return winwin_mouse_get_x(__winwin);}
-    static MouseGetY = function() {return winwin_mouse_get_y(__winwin);}
-    static MouseCheckButton = function(mb) {return winwin_mouse_check_button(__winwin, mb);}
-    static MouseWheelUp = function(mb) {return winwin_mouse_wheel_up(__winwin);}
-    static MouseWheelDown = function(mb) {return winwin_mouse_wheel_down(__winwin);}
-    static SetCursor = function(cursor) {return winwin_set_cursor(__winwin, cursor);}
-    static Destroy = function() {
-        winwin_destroy(__winwin);
-    }
-    static DrawBegin = function() {return winwin_draw_begin(__winwin); }
-    static DrawEnd = function() {return winwin_draw_end(); }
-    static DrawClear = function() {return winwin_draw_clear(bg_color); }
 }
 
 /**
@@ -68,14 +38,15 @@ function ImGuiState() constructor {
     enum StateUpdateFlags {
     	None = 0,
     	DisplaySize = 1 << 0,
-    	MousePos = 1 << 1,
-    	Framerate = 1 << 2,
-    	Time = 1 << 3,
-    	CmdBuffer = 1 << 4,
-    	FontBuffer = 1 << 5,
-    	UpdateFont = 1 << 6,
+        DisplayScale = 1 << 1,
+    	MousePos = 1 << 21,
+    	Framerate = 1 << 3,
+    	Time = 1 << 4,
+    	CmdBuffer = 1 << 5,
+    	FontBuffer = 1 << 6,
+    	UpdateFont = 1 << 7,
 
-    	Display = StateUpdateFlags.DisplaySize,
+    	Display = StateUpdateFlags.DisplaySize | StateUpdateFlags.DisplayScale,
     	Input = StateUpdateFlags.MousePos,
     	Engine = StateUpdateFlags.Framerate | StateUpdateFlags.Time,
     	Renderer = StateUpdateFlags.CmdBuffer | StateUpdateFlags.FontBuffer | StateUpdateFlags.UpdateFont,
@@ -173,11 +144,13 @@ function ImGuiState() constructor {
     }
     static Initialize = __Initialize;
 
-    static __Use = function(flags=StateUpdateFlags.All) {
+    static __Use = function(flags=StateUpdateFlags.None) {
         ImGui.__State = self;
         ImGui.SetCurrentContext(self.Engine.Context);
         var _data = self.GetData();
-        __imgui_update_state_from_struct(_data, flags);
+        if flags != StateUpdateFlags.None {
+            __imgui_update_state_from_struct(_data, flags);
+        }
     }
     static Use = __Use;
 

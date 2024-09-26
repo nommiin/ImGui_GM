@@ -170,7 +170,7 @@ GMFUNC(__imgui_new_frame) {
 	if (g_ImGuiExtFlags & ImGuiExtFlags_GM) {
 		UpdateStateFromStruct(state, StateUpdateFlags_Framerate | StateUpdateFlags_Time);
 	} else {
-		UpdateStateFromStruct(state, StateUpdateFlags_Display | StateUpdateFlags_Framerate | StateUpdateFlags_Time);
+		UpdateStateFromStruct(state, StateUpdateFlags_DisplaySize | StateUpdateFlags_Framerate | StateUpdateFlags_Time);
 	}
 
 	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_NewFrame();
@@ -181,6 +181,7 @@ GMFUNC(__imgui_new_frame) {
 	}
 
 	ImGui::NewFrame();
+	UpdateStateFromStruct(state, StateUpdateFlags_DisplayScale);
 
 	Result.kind = VALUE_UNDEFINED;
 }

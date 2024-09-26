@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 9/26/2024, 2:09:47 PM
+*  Generated at 9/26/2024, 3:51:46 PM
 */
 
 /// @function imgui_initialize

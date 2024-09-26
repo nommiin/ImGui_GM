@@ -4626,8 +4626,8 @@ function ImGui() constructor {
             }
         }
 
-        __State.Display.Width = _wwidth != 0 ? _wwidth : 1;
-    	__State.Display.Height = _wheight != 0 ? _wheight : 1;
+        if _wwidth != 0 __State.Display.Width = _wwidth;
+        if _wheight != 0 __State.Display.Height = _wheight;
     	__State.Engine.Time = delta_time / 1_000_000;
     	__State.Engine.Framerate = game_get_speed(gamespeed_fps);
 
@@ -4660,8 +4660,8 @@ function ImGui() constructor {
             var _do_mouse = (_focus == true);
 
             if _do_mouse {
-				__State.Input.Mouse.X = __State.Engine.Window.MouseGetX() / __State.Display.Scale;
-				__State.Input.Mouse.Y = __State.Engine.Window.MouseGetY() / __State.Display.Scale;
+				__State.Input.Mouse.X = __State.Engine.Window.MouseGetX();
+				__State.Input.Mouse.Y = __State.Engine.Window.MouseGetY();
 				for(var i = 0; i < 3; i++) __imgui_mouse(i, __State.Engine.Window.MouseCheckButton(i + 1));
 				if (__State.Engine.Window.MouseWheelUp()) __imgui_mouse_wheel(0, 1);
 				else if (__State.Engine.Window.MouseWheelDown()) __imgui_mouse_wheel(0, -1);

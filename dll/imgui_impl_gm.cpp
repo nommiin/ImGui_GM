@@ -80,11 +80,9 @@ void UpdateStateFromStruct(RValue* state, StateUpdateFlags flags = StateUpdateFl
 	// Apply state
 	if ((flags & StateUpdateFlags_DisplaySize) && (display_width != NULL && display_height != NULL)) {
 		io.DisplaySize = ImVec2(display_width->asReal(), display_height->asReal());
-		// if (io.FontGlobalScale != display_scale->asReal()) {
-		// 	  io.FontGlobalScale = display_scale->asReal();
-		// }
-
-		// TODO: Scale viewports.
+	}
+	if ((flags & StateUpdateFlags_DisplayScale) && (display_scale != NULL)) {
+		io.FontGlobalScale = display_scale->asReal();
 	}
 	if ((flags & StateUpdateFlags_MousePos) && (mouse_x != NULL && mouse_y != NULL)) {
 		io.AddMousePosEvent(mouse_x->val, mouse_y->val);

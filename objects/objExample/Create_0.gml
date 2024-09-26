@@ -6,8 +6,13 @@
 my_color = #002F4C
 operating_system = environment_get_variable("OS");
 
+/// Optional: Save settings.
+// ini_filename = ""; // To not save
+// ini_filename = game_save_id + "imgui_gm.ini"; // To save
+ini_filename = "";
+
 /// Optional: Set up the extension before initialization.
-// ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Use DX11 renderer.
+ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Use DX11 renderer.
 
 /// Optional: Define common config flags
 var _configs = ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable;
@@ -18,10 +23,10 @@ imgui_state = ImGui.__State; // Capture the created state.
 imgui_window = ImGui.__Window; // Capture the created gamewindow.
 
 /// Optional: load and save ini file in a custom path.
-ini_filename = game_save_id + "imgui_gm.ini";
-ImGui.IniFilename(ini_filename);
-ImGui.LoadIniSettingsFromDisk(ini_filename);
-
+if ini_filename != "" {
+    ImGui.IniFilename(ini_filename);
+    ImGui.LoadIniSettingsFromDisk(ini_filename);
+}
 /// Optional: Create a new state example
 /*
     imgui_state2 = new ImGuiState(); // Creates a Context [internal]

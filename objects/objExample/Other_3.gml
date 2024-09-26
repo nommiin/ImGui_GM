@@ -3,5 +3,7 @@
 ///
 
 /// Save settings
-ImGui.SaveIniSettingsToDisk(ini_filename);
+if ini_filename != "" {
+    ImGui.SaveIniSettingsToDisk(ini_filename);
+}
 ImGui.__Shutdown();

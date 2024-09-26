@@ -68,15 +68,23 @@ if (ImGui.BeginMenu("Windows")) {
 }
 ImGui.EndMainMenuBar();
 
+
+var base_x = 0;
+var base_y = 0;
+// Positions are relative to monitor top-left, if not using GM renderer.
+if (ImGui.__ExtFlags & ImGuiExtFlags.GM == 0) { 
+    base_x = window_get_x();
+    base_y = window_get_y();
+}
+
 // Adapted from https://gist.github.com/AidanSun05/953f1048ffe5699800d2c92b88c36d9f
 if (!init) {
 	var node_id = ImGui.GetID("Primary");
 	ImGui.DockBuilderRemoveNode(node_id);
 	ImGui.DockBuilderAddNode(node_id);
 	var width = window_get_width() / 1.75, height = window_get_height() / 1.5;
-	ImGui.DockBuilderSetNodePos(node_id, (window_get_width() / 2) - (width / 4), (window_get_height() / 2) - (height / 3));
+	ImGui.DockBuilderSetNodePos(node_id, base_x + (window_get_width() / 2) - (width / 4), base_y + (window_get_height() / 2) - (height / 3));
 	ImGui.DockBuilderSetNodeSize(node_id, width, height);
-	
 	/*
 		ImGui.DockBuilderSplitNode creates 3 nodes, one for the parent that contains two children
 		0th value is the parent node ID
@@ -427,7 +435,7 @@ ImGui.End();
 
 // GM Demo
 if (demo_open) {
-    ImGui.SetNextWindowPos(30,350, ImGuiCond.FirstUseEver);
+    ImGui.SetNextWindowPos(base_x+30, base_y+350, ImGuiCond.FirstUseEver);
     ImGui.SetNextWindowSize(300,200, ImGuiCond.FirstUseEver);
 	ImGui.Begin("Demos");
 	if (demo_multi_select) {

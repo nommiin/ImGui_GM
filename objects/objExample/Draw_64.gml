@@ -2,9 +2,6 @@
 /// Draw GUI Event
 ///
 
-/// Draw after rendering
-ImGui.__Draw();
-
 display_set_gui_size(window_get_width(), window_get_height());
 display_set_gui_maximize(1,1,0,0);
 
@@ -19,23 +16,25 @@ var str_fps = string("{0} ({1})", fps, fps_real);
 var str_mem = string("{0} MB", mem);
 
 draw_text(5, 100,
-    string("{0}\n{1}\n{2}\n{3}\n{4}\n{5}",
+    string("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n{6}",
         "FPS:",
         "RAM:",
         "DLL Version:",
         "ImGui Version:",
         "GameMaker Version:",
         "Operating System:",
+        "GM LMB:",
     )
 );
 draw_text(145, 100,
-	string("{0}\n{1}\n{2}\n{3}\n{4}\n{5}",
+	string("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n{6}",
 		str_fps,
 		str_mem,
 		IMGUI_GM_VERSION,
 		ImGui.GetVersion(),
         GM_version + " - " + GM_runtime_version,
         operating_system,
+        (mouse_check_button(mb_left) ? "(true)" : "(false)") + " - ImGui LMB:  " + (ImGui.IsMouseDown(ImGuiMouseButton.Left) ? "(true)" : "(false)"),
 	)
 );
 
