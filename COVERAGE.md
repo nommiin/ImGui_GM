@@ -59,9 +59,9 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | `ImGui::SetNextWindowBgAlpha` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L209) | N/A |
 | `ImGui::SetNextWindowViewport` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L135) | N/A |
 | `ImGui::SetWindowPos` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L285) | N/A |
-| `ImGui::SetWindowSize` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L295) | N/A |
-| `ImGui::SetWindowCollapsed` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L312) | N/A |
-| `ImGui::SetWindowFocus` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L327) | N/A |
+| `ImGui::SetWindowSize` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L302) | N/A |
+| `ImGui::SetWindowCollapsed` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L319) | N/A |
+| `ImGui::SetWindowFocus` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L334) | N/A |
 | `ImGui::SetWindowFontScale` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L127) | N/A |
 | `ImGui::GetScrollX` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L216) | N/A |
 | `ImGui::GetScrollY` | ✅ | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/gm/imgui_window_gm.cpp#L221) | N/A |

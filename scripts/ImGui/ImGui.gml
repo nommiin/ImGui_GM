@@ -3780,14 +3780,15 @@ function ImGui() constructor {
 		return __imgui_set_scroll_from_pos_y(local_y, center_y_ratio);
 	}
 
-	/// @function SetWindowPos(_x, _y, cond)
+	/// @function SetWindowPos(name, _x, _y, cond)
+	/// @argument {String} [name=]
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static SetWindowPos = function(_x, _y, cond=ImGuiCond.None) {
-		return __imgui_set_window_pos(_x, _y, cond);
+	static SetWindowPos = function(name="", _x, _y, cond=ImGuiCond.None) {
+		return __imgui_set_window_pos(name, _x, _y, cond);
 	}
 
 	/// @function SetWindowSize(name, width, height, cond)

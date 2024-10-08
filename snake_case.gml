@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 9/26/2024, 3:51:46 PM
+*  Generated at 10/4/2024, 5:20:26 PM
 */
 
 /// @function imgui_initialize
@@ -3415,13 +3415,14 @@ function imgui_set_scroll_from_pos_y(local_y, center_y_ratio=0.5) {
 	return __imgui_set_scroll_from_pos_y(local_y, center_y_ratio);
 }
 
-/// @function imgui_set_window_pos(_x, _y, cond)
+/// @function imgui_set_window_pos(name, _x, _y, cond)
+/// @argument {String} [name=]
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 /// @return {Undefined}
-function imgui_set_window_pos(_x, _y, cond=ImGuiCond.None) {
-	return __imgui_set_window_pos(_x, _y, cond);
+function imgui_set_window_pos(name="", _x, _y, cond=ImGuiCond.None) {
+	return __imgui_set_window_pos(name, _x, _y, cond);
 }
 
 /// @function imgui_set_window_size(name, width, height, cond)

@@ -283,12 +283,19 @@ GMFUNC(__imgui_set_scroll_from_pos_y) {
 
 
 GMFUNC(__imgui_set_window_pos) {
-	double x = YYGetReal(arg, 0);
-	double y = YYGetReal(arg, 1);
-	ImGuiCond cond = YYGetInt64(arg, 2);
+	const char* name = YYGetString(arg, 0);
+	GMDEFAULT("");
+	double x = YYGetReal(arg, 1);
+	double y = YYGetReal(arg, 2);
+	ImGuiCond cond = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiCond.None);
 
-	ImGui::SetWindowPos(ImVec2(x, y), cond);
+	if (name == "") {
+		ImGui::SetWindowPos(ImVec2(x, y), cond);
+	} else {
+		ImGui::SetWindowPos(name, ImVec2(x, y), cond);
+	}
+	
 	Result.kind = VALUE_UNDEFINED;
 }
 
