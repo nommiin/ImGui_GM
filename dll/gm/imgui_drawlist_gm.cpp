@@ -481,7 +481,7 @@ GMFUNC(__imgui_drawlist_add_image) {
 	double* uv = YYGetArray<double>(arg, 8, 4);
 	GMHIDDEN();
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
-	GMPREPEND("if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(#arg1, #arg2)); ");
+	GMPREPEND("if (!(ImGui.__GFlags & ImGuiGFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(#arg1, #arg2)); ");
 	GMOVERRIDE(DrawListAddImage);
 
 	list->AddImage(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24));
@@ -505,7 +505,7 @@ GMFUNC(__imgui_drawlist_add_image_rounded) {
 	double* uv = YYGetArray<double>(arg, 10, 4);
 	GMHIDDEN();
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
-	GMPREPEND("if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(#arg1, #arg2)); ");
+	GMPREPEND("if (!(ImGui.__GFlags & ImGuiGFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(#arg1, #arg2)); ");
 	GMOVERRIDE(DrawListAddImageRounded);
 
 	list->AddImageRounded(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24), rounding, flags);
@@ -545,7 +545,7 @@ GMFUNC(__imgui_drawlist_push_textureid) {
 	ImDrawList* list = (ImDrawList*)YYGetPtr(arg, 0);
 	double sprite = YYGetReal(arg, 1);
 	double subimg = YYGetReal(arg, 2);
-	GMPREPEND("if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(#arg1, #arg2)); ");
+	GMPREPEND("if (!(ImGui.__GFlags & ImGuiGFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(#arg1, #arg2)); ");
 	GMOVERRIDE(DrawListPushTextureID);
 
 	list->PushTextureID(GetTexture(sprite, subimg, TextureType_Sprite));

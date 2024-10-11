@@ -1,5 +1,6 @@
 #pragma once
 #include "imgui_gm.h"
+#include <algorithm>
 
 static ImGuiSelectionBasicStorage* CreateImGuiSelectionBasicStorageFromStruct(RValue* yystruct) {
     ImGuiSelectionBasicStorage* selection = new ImGuiSelectionBasicStorage();

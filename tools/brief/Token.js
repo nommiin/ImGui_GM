@@ -77,7 +77,7 @@ class Token {
                 }
             }
         }
-        
+
         if (this.Children) {
             for(let i = 0; i < this.Children.length; i++) {
                 str += this.Children[i].flatten();
@@ -85,7 +85,7 @@ class Token {
         }
         return str + (self ? pair ?? "" : "");
     }
-    
+
     toDebug() {
         return `L${this.Line}: {T: ${this.Type}, V: ${this.Literal}}`;
     }

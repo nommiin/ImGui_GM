@@ -1,14 +1,14 @@
-/** 
+/**
  * Written by Nommiin - https://github.com/Nommiin
  */
 class Configuration {
     /**
-     * @description The Github repository URL. 
+     * @description The Github repository URL.
      */
     static REPOSITORY_URL = "https://github.com/nommiin/ImGui_GM"
 
     /**
-     * @description The Github repository name. 
+     * @description The Github repository name.
      */
     static REPOSITORY_NAME = "nommiin/ImGui_GM";
 
@@ -16,6 +16,20 @@ class Configuration {
      * @description The name of the program, used by Logger.js
      */
     static PROGRAM_NAME = "brief";
+
+    /**
+     * @description Suppress warning types in Logger.js
+     *
+     * Examples:
+     *      true
+     *      ["W001", "H002",]
+     *      "W*"
+     */
+    static LOGGER_IGNORE_WARNS = [
+        "H000",
+        "W001",
+        "W002",
+    ];
 
     /**
      * @description If true, FileEditor will write changes to files with ".test" appended to their filename
@@ -30,7 +44,7 @@ class Configuration {
     /**
      * @description Spacing character used for writing generated code
      */
-    static SPACING = "	";
+    static SPACING = "    ";
 
     /**
      * @description If true, scanner class will retain "Semicolon" tokens

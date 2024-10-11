@@ -7,7 +7,7 @@ class Wrapper {
     constructor(name, file, line) {
         this.Name = name;
         this.File = file;
-        this.FileRelpath = "gm/" + file;
+        this.FileRelpath = file;
         this.Line = line;
         this.Calls = undefined;
         this.CallOverride = false;
@@ -18,13 +18,14 @@ class Wrapper {
         this.End = "";
         this.IsWrapped = true;
         this.IsUnsupported = false;
+        this.Context = "ImGui";
     }
 
     finalize() {
         if (!this.Calls) {
             const calls = this.Name.slice("__imgui_".length).split("_");
             this.Calls = calls.map(e => e[0].toUpperCase() + e.slice(1)).join("");
-            Logger.warning(`Calling function is unset for wrapper "${this.Name}", infering call as "${this.Calls}" from name`);
+            Logger.warning(`Calling function is unset for wrapper "${this.Name}", inferring call as "${this.Calls}" from name`, {type: "W001"});
         }
 
         if (this.Start.length > 0) {
@@ -46,12 +47,12 @@ class Wrapper {
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
             if (!arg) throw `Could not read undefined argument at index ${i} in ${this.Name} at line ${this.Line}`;
-            
+
             if (Wrapper.reserved.includes(arg.Name)) {
-                Logger.warning(`Reserved keyword "${arg.Name}" found in arguments for wrapper "${this.Name}", renaming to "_${arg.Name}"`);
+                Logger.warning(`Reserved keyword "${arg.Name}" found in arguments for wrapper "${this.Name}", renaming to "_${arg.Name}"`, {type: "W002"});
                 arg.Name = "_" + arg.Name;
             }
-            
+
             if (arg.Passthrough !== undefined) {
                 let passthrough = arg.Passthrough;
                 this.Arguments.forEach((e, ind) => {
@@ -119,7 +120,7 @@ class Wrapper {
             // Arguments
             case "GMDEFAULT": {
                 if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
-                
+
                 const arg = this.Arguments[this.ArgumentIndex];
                 arg.Default = token.flatten(false);
                 return true;
@@ -127,7 +128,7 @@ class Wrapper {
 
             case "GMPASSTHROUGH": {
                 if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
-                
+
                 const arg = this.Arguments[this.ArgumentIndex];
                 arg.Passthrough = token.flatten(false);
                 return true;
@@ -135,7 +136,7 @@ class Wrapper {
 
             case "GMHIDDEN": {
                 if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
-                
+
                 const arg = this.Arguments[this.ArgumentIndex];
                 arg.Hidden = true;
                 return true;
@@ -156,10 +157,10 @@ class Wrapper {
                                 }
                                 break;
                             }
-                            
+
                             default: {
                                 this.Return = token.flatten(false);
-                                Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
+                                Logger.debug("Overwriting return type for " + this.Name + " as " + this.Return);
                                 return true;
                             }
                         }
@@ -173,13 +174,13 @@ class Wrapper {
 
             case "GMRETURNS": {
                 this.Return = token.flatten(false);
-                Logger.info("Overwriting return type for " + this.Name + " as " + this.Return);
+                Logger.debug("Overwriting return type for " + this.Name + " as " + this.Return);
                 return true;
             }
 
             case "GMHINT": {
                 if (this.ArgumentIndex === -1) throw `Could not handle ${token.Literal} modifier, target argument is unset at line ${token.Line}`;
-                
+
                 const arg = this.Arguments[this.ArgumentIndex];
                 arg.Type = token.flatten(false);
                 return true;
@@ -189,7 +190,7 @@ class Wrapper {
             case "GMCOLOR_TO":
             case "GMCOLOR_FROM": return true;
         }
-        Logger.warning(`Could not handle unknown modifier "${token.Literal}" for wrapper "${this.Name}" at line ${token.Line}`);
+        Logger.warning(`Could not handle unknown modifier "${token.Literal}" for wrapper "${this.Name}" at line ${token.Line}`, {type: "W003"});
         return false;
     }
 
@@ -212,7 +213,7 @@ class Wrapper {
     }
 
     to_jsdoc(enums, spacing=1, snake=false) {
-        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${!snake ? this.Calls : this.Name.slice(2)}(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`;
+        let str = Configuration.SPACING.repeat(spacing) + `/// @function ${!snake ? this.Calls : this.Name.slice(2)}\n`; // `(${this.Arguments.filter(e => !e.Hidden).map(e => e.Name).join(", ")})\n`
         for(let i = 0; i < this.Arguments.length; i++) {
             const arg = this.Arguments[i];
             if (arg.Hidden) continue;
@@ -225,6 +226,9 @@ class Wrapper {
                 } else {
                     for(const key in enums) {
                         const name = key.endsWith("_") ? key.slice(0, -1) : key;
+                        if (arg.Default.startsWith(name.replace(this.Context, ""))) {
+                            arg.Default = this.Context + arg.Default;
+                        }
                         if (arg.Default.startsWith(name)) {
                             arg.Type = `Enum.${name}`;
                             break;
@@ -232,8 +236,8 @@ class Wrapper {
                     }
                 }
             }
-            
-            str += Configuration.SPACING.repeat(spacing) + `/// @argument {${arg.Type}}`;
+
+            str += Configuration.SPACING.repeat(spacing) + `/// @param {${arg.Type}}`;
             if (arg.Default !== undefined) {
                 str += ` [${arg.Name}=${Wrapper.fix(arg.Default)}]`;
             } else {
@@ -241,7 +245,7 @@ class Wrapper {
             }
             str += "\n";
         }
-        if (!snake) str += Configuration.SPACING.repeat(spacing) + `/// @context ImGui\n`;
+        if (!snake) str += Configuration.SPACING.repeat(spacing) + `/// @context ${this.Context}\n`;
         str += Configuration.SPACING.repeat(spacing) + `/// @return {${this.Return}}`;
         return str;
     }

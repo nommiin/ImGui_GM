@@ -1,13 +1,13 @@
 {
-    "Base": "packaged/imgui_gm_v1_0_10.yymps",
+    "Base": "packaged/imgui_gm_v1_0_18.yymps",
     "Import": [
         "ImGui_GM.yyp",
         "metadata.json"
     ],
     "Target": "package.yymps",
     "Variables": {
-        "VersionBase": "1.0.10",
-        "Version": "1.0.18"
+        "VersionBase": "1.1.0",
+        "Version": "1.1.1"
     },
     "Include": [
         "scripts/**/*.*",

@@ -432,8 +432,13 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# ImGui GM
+temp/
 dll/Extension_Interface.h
 dll/Ref.h
 dll/YYRValue.h
 dll/YYStd.h
 extensions/ImGui_GM/debug.zip
+tools/bundle/output
+
+*.resource_order

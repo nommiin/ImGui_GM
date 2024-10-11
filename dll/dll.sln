@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.11.35303.130
-MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgui_gm", "imgui_gm.vcxproj", "{D3390322-BF06-5E2D-E81F-4CD5D44B93BB}"
 EndProject
 Global
@@ -15,10 +13,6 @@ Global
 		{D3390322-BF06-5E2D-E81F-4CD5D44B93BB}.Debug|x64.Build.0 = Debug|x64
 		{D3390322-BF06-5E2D-E81F-4CD5D44B93BB}.Release|x64.ActiveCfg = Release|x64
 		{D3390322-BF06-5E2D-E81F-4CD5D44B93BB}.Release|x64.Build.0 = Release|x64
-		{CF9CF298-9EDB-4BDA-8284-C2BE07D251B8}.Debug|x64.ActiveCfg = Debug|x64
-		{CF9CF298-9EDB-4BDA-8284-C2BE07D251B8}.Debug|x64.Build.0 = Debug|x64
-		{CF9CF298-9EDB-4BDA-8284-C2BE07D251B8}.Release|x64.ActiveCfg = Release|x64
-		{CF9CF298-9EDB-4BDA-8284-C2BE07D251B8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

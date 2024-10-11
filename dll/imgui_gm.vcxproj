@@ -57,9 +57,11 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>OS_Windows;GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;DEBUG;OS_Windows;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -68,19 +70,21 @@
       <ImportLibrary>..\extensions\ImGui_GM\imgui_gm.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>node ..\tools\brief\main.js</Command>
+      <Command>set NO_COLOR=1 &amp;&amp; node ../tools/brief/main.js</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>OS_Windows;GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GDKEXTENSION_EXPORTS;__YYDEFINE_EXTENSION_FUNCTIONS__;NDEBUG;OS_Windows;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
+      <LanguageStandard>stdcpp14</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -90,64 +94,64 @@
       <ImportLibrary>..\extensions\ImGui_GM\imgui_gm.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>node ..\tools\brief\main.js</Command>
+      <Command>set NO_COLOR=1 &amp;&amp; node ../tools/brief/main.js</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h" />
-    <ClInclude Include="imgui/imconfig.h" />
-    <ClInclude Include="imgui/imgui.h" />
-    <ClInclude Include="imgui_gm.h" />
-    <ClInclude Include="imgui/imgui_impl_dx11.h" />
-    <ClInclude Include="imgui/imgui_impl_win32.h" />
-    <ClInclude Include="imgui_gm_selectionstorage.h" />
-    <ClInclude Include="imgui_gm_windowclass.h" />
-    <ClInclude Include="imgui_impl_gm.h" />
-    <ClInclude Include="imgui/imgui_internal.h" />
-    <ClInclude Include="gm/imgui_memory_editor.h" />
-    <ClInclude Include="imgui/imstb_rectpack.h" />
-    <ClInclude Include="imgui/imstb_textedit.h" />
-    <ClInclude Include="imgui/imstb_truetype.h" />
     <ClInclude Include="Ref.h" />
     <ClInclude Include="YYRValue.h" />
     <ClInclude Include="YYStd.h" />
+    <ClInclude Include="gm\imgui_memory_editor.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="imgui_gm.h" />
+    <ClInclude Include="imgui_gm_selectionstorage.h" />
+    <ClInclude Include="imgui_gm_windowclass.h" />
+    <ClInclude Include="imgui_impl_gm.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="imgui/imgui.cpp" />
-    <ClCompile Include="gm/imgui_api_gm.cpp" />
-    <ClCompile Include="gm/imgui_color_gm.cpp" />
-    <ClCompile Include="gm/imgui_combo_gm.cpp" />
-    <ClCompile Include="imgui/imgui_demo.cpp" />
-    <ClCompile Include="gm/imgui_docking_gm.cpp" />
-    <ClCompile Include="gm/imgui_drag_gm.cpp" />
-    <ClCompile Include="imgui/imgui_draw.cpp" />
-    <ClCompile Include="gm/imgui_drawlist_gm.cpp" />
-    <ClCompile Include="gm/imgui_ext_memeditor_gm.cpp" />
-    <ClCompile Include="gm/imgui_fonts_gm.cpp" />
+    <ClCompile Include="gm\imgui_api_gm.cpp" />
+    <ClCompile Include="gm\imgui_color_gm.cpp" />
+    <ClCompile Include="gm\imgui_combo_gm.cpp" />
+    <ClCompile Include="gm\imgui_docking_gm.cpp" />
+    <ClCompile Include="gm\imgui_drag_gm.cpp" />
+    <ClCompile Include="gm\imgui_drawlist_gm.cpp" />
+    <ClCompile Include="gm\imgui_ext_memeditor_gm.cpp" />
+    <ClCompile Include="gm\imgui_fonts_gm.cpp" />
+    <ClCompile Include="gm\imgui_input_gm.cpp" />
+    <ClCompile Include="gm\imgui_input_widgets_gm.cpp" />
+    <ClCompile Include="gm\imgui_layout_gm.cpp" />
+    <ClCompile Include="gm\imgui_listbox_gm.cpp" />
+    <ClCompile Include="gm\imgui_menu_gm.cpp" />
+    <ClCompile Include="gm\imgui_payload_gm.cpp" />
+    <ClCompile Include="gm\imgui_plots_gm.cpp" />
+    <ClCompile Include="gm\imgui_popup_gm.cpp" />
+    <ClCompile Include="gm\imgui_selectable_gm.cpp" />
+    <ClCompile Include="gm\imgui_slider_gm.cpp" />
+    <ClCompile Include="gm\imgui_style_gm.cpp" />
+    <ClCompile Include="gm\imgui_table_gm.cpp" />
+    <ClCompile Include="gm\imgui_tabs_gm.cpp" />
+    <ClCompile Include="gm\imgui_text_gm.cpp" />
+    <ClCompile Include="gm\imgui_tooltips_gm.cpp" />
+    <ClCompile Include="gm\imgui_tree_gm.cpp" />
+    <ClCompile Include="gm\imgui_widgets_gm.cpp" />
+    <ClCompile Include="gm\imgui_window_gm.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="imgui_gm.cpp" />
     <ClCompile Include="imgui_impl_gm.cpp" />
-    <ClCompile Include="gm/imgui_payload_gm.cpp" />
-    <ClCompile Include="gm/imgui_plots_gm.cpp" />
-    <ClCompile Include="gm/imgui_table_gm.cpp" />
-    <ClCompile Include="gm/imgui_tabs_gm.cpp" />
-    <ClCompile Include="gm/imgui_window_gm.cpp" />
-    <ClCompile Include="imgui/imgui_impl_dx11.cpp" />
-    <ClCompile Include="imgui/imgui_impl_win32.cpp" />
-    <ClCompile Include="gm/imgui_input_widgets_gm.cpp" />
-    <ClCompile Include="gm/imgui_input_gm.cpp" />
-    <ClCompile Include="gm/imgui_layout_gm.cpp" />
-    <ClCompile Include="gm/imgui_listbox_gm.cpp" />
-    <ClCompile Include="gm/imgui_menu_gm.cpp" />
-    <ClCompile Include="gm/imgui_popup_gm.cpp" />
-    <ClCompile Include="gm/imgui_selectable_gm.cpp" />
-    <ClCompile Include="gm/imgui_slider_gm.cpp" />
-    <ClCompile Include="gm/imgui_style_gm.cpp" />
-    <ClCompile Include="gm/imgui_text_gm.cpp" />
-    <ClCompile Include="imgui/imgui_tables.cpp" />
-    <ClCompile Include="gm/imgui_tooltips_gm.cpp" />
-    <ClCompile Include="gm/imgui_tree_gm.cpp" />
-    <ClCompile Include="imgui/imgui_widgets.cpp" />
-    <ClCompile Include="gm/imgui_widgets_gm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "adm-zip": "^0.5.10",
-    "glob": "^9.2.1"
-  }
-}

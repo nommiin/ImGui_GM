@@ -11,14 +11,14 @@ const Logger = require("./Logger");
 const args = ["dll/", "extensions/ImGui_GM/ImGui_GM.yy", "scripts/ImGui/ImGui.gml"];
 try {
     if (process.cwd().endsWith("dll")) process.chdir("../");
-    
+
     const start = performance.now();
     if (Program.main(...args) === false) {
         throw `An unknown error has occured`;
     }
     Logger.info(`Script execution completed successfully in ${Math.round(performance.now() - start)}ms`);
 } catch (e) {
-    Logger.error(`An error has occured:\n- ${e}`);
+    Logger.error(`${e}\n${e.stack}`);
     process.exit(1);
 }
 process.exit(0);

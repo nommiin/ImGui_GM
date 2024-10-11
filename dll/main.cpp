@@ -14,8 +14,8 @@ ID3D11Device* g_pd3dDevice;
 ID3D11DeviceContext* g_pd3dDeviceContext;
 ID3D11ShaderResourceView* g_pView;
 
-ImGuiExtFlags g_ImGuiExtFlags;
-int g_KeepAlive;
+ImGuiGFlags g_ImGuiGFlags = 0;
+int g_KeepAlive = 0;
 
 YYRunnerInterface gs_runnerInterface;
 YYRunnerInterface* g_pYYRunnerInterface;
@@ -52,15 +52,15 @@ GMFUNC(__imgui_initialize) {
 	RValue* info = YYGetStruct(arg, 2);
 	GMHINT(Struct)
 
-	if (g_KeepAlive == NULL) {
+	if (g_KeepAlive == 0) {
 		g_KeepAlive = CreateDsMap(0, 0);
 	}
 
 	RValue* rvalue;
 	g_pd3dDevice = (ID3D11Device*)(YYStructGetMember(info, "D3DDevice")->ptr);
 	g_pd3dDeviceContext = (ID3D11DeviceContext*)(YYStructGetMember(info, "D3DDeviceContext")->ptr);
-	if (g_ImGuiExtFlags == NULL) {
-		g_ImGuiExtFlags = YYStructGetMember(info, "ExtFlags")->asInt64();
+	if (g_ImGuiGFlags == 0) {
+		g_ImGuiGFlags = YYStructGetMember(info, "GFlags")->asInt64();
 	}
 
 	ImGuiConfigFlags configFlagsPrev = io.ConfigFlags;
@@ -85,7 +85,7 @@ GMFUNC(__imgui_initialize) {
 	io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
 	io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport;
 
-	if ((g_ImGuiExtFlags & ImGuiExtFlags_RENDERER_GM)) {
+	if ((g_ImGuiGFlags & ImGuiGFlags_RENDERER_GM)) {
 		io.BackendFlags &= ~ImGuiBackendFlags_PlatformHasViewports;
 		io.BackendFlags &= ~ImGuiBackendFlags_HasMouseHoveredViewport;
 	}
@@ -97,23 +97,23 @@ GMFUNC(__imgui_initialize) {
 	}
 
 	bool ok = true;
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) { ok = ImGui_ImplWin32_Init(window_handle); };
-	if (ok) { if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) { ok = ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext); } }
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_WIN32) { ok = ImGui_ImplWin32_Init(window_handle); };
+	if (ok) { if (g_ImGuiGFlags & ImGuiGFlags_IMPL_DX11) { ok = ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext); } }
 	else {
 		io.ConfigFlags = configFlagsPrev;
 		Result.ptr = nullptr;
 		return;
 	}
-	if (ok) { if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_GM) { ok = ImGui_ImplGM_Init(window_handle); } }
+	if (ok) { if (g_ImGuiGFlags & ImGuiGFlags_IMPL_GM) { ok = ImGui_ImplGM_Init(window_handle); } }
 	else {
-		if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
+		if (g_ImGuiGFlags & ImGuiGFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
 		io.ConfigFlags = configFlagsPrev;
 		Result.ptr = nullptr;
 		return;
 	};
 	if (!ok) {
-		if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_Shutdown();
-		if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
+		if (g_ImGuiGFlags & ImGuiGFlags_IMPL_WIN32) ImGui_ImplWin32_Shutdown();
+		if (g_ImGuiGFlags & ImGuiGFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
 		io.ConfigFlags = configFlagsPrev;
 		Result.ptr = nullptr;
 		return;
@@ -122,7 +122,7 @@ GMFUNC(__imgui_initialize) {
 	g_ImGuiInitialized = true;
 
 	Result.ptr = ctx;
-	GMRETURNS(ImGuiContext);
+	GMRETURN(ImGuiContext);
 }
 
 GMFUNC(__imgui_shutdown) {
@@ -136,9 +136,9 @@ GMFUNC(__imgui_shutdown) {
 
 	ImGuiIO& io = ImGui::GetIO();
 
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_Shutdown();
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_GM) ImGui_ImplGM_Shutdown();
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_DX11) ImGui_ImplDX11_Shutdown();
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_WIN32) ImGui_ImplWin32_Shutdown();
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_GM) ImGui_ImplGM_Shutdown();
 
 	g_ImGuiInitialized = false;
 	g_pd3dDevice = NULL;
@@ -167,15 +167,15 @@ GMFUNC(__imgui_new_frame) {
 	ImGuiIO& io = ImGui::GetIO();
 
 	// Update framerate and time regardless of Impl GM.
-	if (g_ImGuiExtFlags & ImGuiExtFlags_GM) {
+	if (g_ImGuiGFlags & ImGuiGFlags_GM) {
 		UpdateStateFromStruct(state, StateUpdateFlags_Framerate | StateUpdateFlags_Time);
 	} else {
 		UpdateStateFromStruct(state, StateUpdateFlags_DisplaySize | StateUpdateFlags_Framerate | StateUpdateFlags_Time);
 	}
 
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_WIN32) ImGui_ImplWin32_NewFrame();
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) ImGui_ImplDX11_NewFrame();
-	if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_GM) {
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_WIN32) ImGui_ImplWin32_NewFrame();
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_DX11) ImGui_ImplDX11_NewFrame();
+	if (g_ImGuiGFlags & ImGuiGFlags_IMPL_GM) {
 		UpdateStateFromStruct(state, StateUpdateFlags_All);
 		ImGui_ImplGM_NewFrame();
 	}
@@ -213,15 +213,15 @@ GMFUNC(__imgui_draw) {
 
 	ImGuiIO& io = ImGui::GetIO();
 
-	IM_ASSERT((!(g_ImGuiExtFlags & ImGuiExtFlags_RENDERER_GM) || (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_GM)) && "Did you set ImGuiExtFlags_IMPL_GM in GM renderer?");
+	IM_ASSERT((!(g_ImGuiGFlags & ImGuiGFlags_RENDERER_GM) || (g_ImGuiGFlags & ImGuiGFlags_IMPL_GM)) && "Did you set ImGuiGFlags_IMPL_GM in GM renderer?");
 
 	ImDrawData* g_ImDrawData = ImGui::GetDrawData();
 
-	if (g_ImGuiExtFlags & (ImGuiExtFlags_IMPL_GM | ImGuiExtFlags_RENDERER_GM)) {
+	if (g_ImGuiGFlags & (ImGuiGFlags_IMPL_GM | ImGuiGFlags_RENDERER_GM)) {
 		UpdateStateFromStruct(state, StateUpdateFlags_Renderer);
 		ImGui_ImplGM_RenderDrawData(g_ImDrawData);
 
-	} else if (g_ImGuiExtFlags & ImGuiExtFlags_IMPL_DX11) {
+	} else if (g_ImGuiGFlags & ImGuiGFlags_IMPL_DX11) {
 		ImGui_ImplDX11_RenderDrawData(g_ImDrawData);
 
 	} else {
@@ -237,29 +237,4 @@ GMFUNC(__imgui_draw) {
 	}
 
 	Result.kind = VALUE_UNDEFINED;
-}
-
-GMFUNC(__imgui_key) {
-	ImGui::GetIO().AddKeyEvent((ImGuiKey)YYGetReal(arg, 0), YYGetBool(arg, 1));
-}
-
-GMFUNC(__imgui_input) {
-	ImGuiIO& io = ImGui::GetIO();
-	if (io.WantTextInput) io.AddInputCharactersUTF8(YYGetString(arg, 0));
-
-	Result.kind = VALUE_BOOL;
-	Result.val = io.WantTextInput;
-}
-
-GMFUNC(__imgui_mouse) {
-	ImGui::GetIO().AddMouseButtonEvent(YYGetReal(arg, 0), YYGetBool(arg, 1));
-}
-
-GMFUNC(__imgui_mouse_wheel) {
-	ImGui::GetIO().AddMouseWheelEvent(YYGetReal(arg, 0), YYGetReal(arg, 1));
-}
-
-GMFUNC(__imgui_mouse_cursor) {
-	Result.kind = VALUE_REAL;
-	Result.val = ImGui::GetMouseCursor();
 }

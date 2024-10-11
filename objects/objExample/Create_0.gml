@@ -12,7 +12,7 @@ operating_system = environment_get_variable("OS");
 ini_filename = "";
 
 /// Optional: Set up the extension before initialization.
-//ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Uncomment to use DX11 renderer.
+// ImGui.__GFlags &= ~ImGuiGFlags.GM; // Uncomment to use DX11 renderer.
 
 /// Optional: Define common config flags
 var _configs = ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable;
@@ -21,6 +21,7 @@ ImGui.__Initialize(_configs); // Note that this creates a default window and sta
 
 imgui_state = ImGui.__State; // Capture the created state.
 imgui_window = ImGui.__Window; // Capture the created gamewindow.
+
 
 /// Optional: load and save ini file in a custom path.
 if ini_filename != "" {
@@ -75,9 +76,9 @@ init = false; // Set up docking
 
 _static = undefined;
 try {
-	_static = static_get(ImGui);
+    _static = static_get(ImGui);
 } catch (e) {
-	_static = undefined;
+    _static = undefined;
 }
 
 col = c_blue;                     // for TextColored
@@ -96,21 +97,23 @@ input_hint = "";
 
 input_int = irandom(255);
 input_float = random(255);
+input_float4 = [1.0, 2.0, 3.0, 4.0];
+
 plot_val = [];
 plot_val2 = [];
 
 for(var i = 0; i < 12; i++) {
-	array_push(plot_val, irandom(255));
-	array_push(plot_val2, irandom(255));
+    array_push(plot_val, irandom(255));
+    array_push(plot_val2, irandom(255));
 }
 
 drag_mode = 0;
 drag_names = [
-	"Bobby", "Beatrice", "Betty",
-	"Brianna", "Barry", "Bernard",
-	"Bibi", "Blaine", "Bryn"
+    "Bobby", "Beatrice", "Betty",
+    "Brianna", "Barry", "Bernard",
+    "Bibi", "Blaine", "Bryn"
 ];
- 
+
 tab1 = true;
 
 memory = debug_event("DumpMemory", true).totalUsed;

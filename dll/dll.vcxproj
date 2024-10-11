@@ -79,7 +79,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{cf9cf298-9edb-4bda-8284-c2be07d251b8}</ProjectGuid>
-    <RootNamespace>dll</RootNamespace>
+    <RootNamespace>ImGui_GM</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -183,16 +183,7 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent />
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>
-      </Message>
-    </PreBuildEvent>
+    <PreBuildEvent />
     <PostBuildEvent>
       <Command>node ..\tools\brief\main.js</Command>
       <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>
@@ -217,7 +208,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent />
+    <PreBuildEvent />
     <PostBuildEvent>
       <Command>node ..\tools\brief\main.js</Command>
       <Message>Run "brief" codegen tool to generate wrapper definitions for GameMaker</Message>

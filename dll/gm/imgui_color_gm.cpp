@@ -7,6 +7,7 @@ GMFUNC(__imgui_color_edit3) {
 	const char* label = YYGetString(arg, 0);
 	double col = YYGetReal(arg, 1);
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 2);
+	GMHINT(Enum.ImGuiColorEditFlags);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 	GMOVERRIDE(ColorEdit3);
 
@@ -19,6 +20,7 @@ GMFUNC(__imgui_color_picker3) {
 	const char* label = YYGetString(arg, 0);
 	double col = YYGetReal(arg, 1);
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 2);
+	GMHINT(Enum.ImGuiColorEditFlags);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 	GMOVERRIDE(ColorPicker3);
 
@@ -32,6 +34,7 @@ GMFUNC(__imgui_color_edit4) {
 	RValue* col = &arg[1];
 	GMHINT(ImColor);
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 2);
+	GMHINT(Enum.ImGuiColorEditFlags);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 	GMOVERRIDE(ColorEdit4);
 
@@ -62,6 +65,7 @@ GMFUNC(__imgui_color_picker4) {
 	RValue* col = &arg[1];
 	GMHINT(ImColor);
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 2);
+	GMHINT(Enum.ImGuiColorEditFlags);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 	GMOVERRIDE(ColorPicker4);
 
@@ -93,6 +97,7 @@ GMFUNC(__imgui_color_button) {
 	float alpha = YYGetReal(arg, 2);
 	GMDEFAULT(1);
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 3);
+	GMHINT(Enum.ImGuiColorEditFlags);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 	double width = YYGetReal(arg, 4);
 	GMDEFAULT(0);
@@ -105,6 +110,7 @@ GMFUNC(__imgui_color_button) {
 
 GMFUNC(__imgui_set_color_edit_options) {
 	ImGuiColorEditFlags flags = YYGetInt64(arg, 0);
+	GMHINT(Enum.ImGuiColorEditFlags);
 	GMDEFAULT(ImGuiColorEditFlags.None);
 
 	ImGui::SetColorEditOptions(flags);
