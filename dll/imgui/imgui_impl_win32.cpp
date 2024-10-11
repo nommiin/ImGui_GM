@@ -107,8 +107,8 @@ typedef DWORD(WINAPI* PFN_XInputGetState)(DWORD, XINPUT_STATE*);
 #endif
 
 // Forward Declarations
-static void ImGui_ImplWin32_InitPlatformInterface(bool platform_has_own_dc);
-static void ImGui_ImplWin32_ShutdownPlatformInterface();
+static void ImGui_ImplWin32_InitMultiViewportSupport(bool platform_has_own_dc);
+static void ImGui_ImplWin32_ShutdownMultiViewportSupport();
 static void ImGui_ImplWin32_UpdateMonitors();
 
 struct ImGui_ImplWin32_Data
@@ -187,8 +187,7 @@ static bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
     // Our mouse update function expect PlatformHandle to be filled for the main viewport
     ImGuiViewport* main_viewport = ImGui::GetMainViewport();
     main_viewport->PlatformHandle = main_viewport->PlatformHandleRaw = (void*)bd->hWnd;
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        ImGui_ImplWin32_InitPlatformInterface(platform_has_own_dc);
+    ImGui_ImplWin32_InitMultiViewportSupport(platform_has_own_dc);
 
     // Dynamically load XInput library
 #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
@@ -231,7 +230,7 @@ void    ImGui_ImplWin32_Shutdown()
     IM_ASSERT(bd != nullptr && "No platform backend to shutdown, or already shutdown?");
     ImGuiIO& io = ImGui::GetIO();
 
-    ImGui_ImplWin32_ShutdownPlatformInterface();
+    ImGui_ImplWin32_ShutdownMultiViewportSupport();
 
     // Unload XInput library
 #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
@@ -1062,8 +1061,8 @@ static void ImGui_ImplWin32_CreateWindow(ImGuiViewport* viewport)
     // Create window
     RECT rect = { (LONG)viewport->Pos.x, (LONG)viewport->Pos.y, (LONG)(viewport->Pos.x + viewport->Size.x), (LONG)(viewport->Pos.y + viewport->Size.y) };
     ::AdjustWindowRectEx(&rect, vd->DwStyle, FALSE, vd->DwExStyle);
-    vd->Hwnd = ::CreateWindowEx(
-        vd->DwExStyle, _T("ImGui Platform"), _T("Untitled"), vd->DwStyle,       // Style, class name, window name
+    vd->Hwnd = ::CreateWindowExW(
+        vd->DwExStyle, L"ImGui Platform", L"Untitled", vd->DwStyle,       // Style, class name, window name
         rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,    // Window area
         vd->HwndParent, nullptr, ::GetModuleHandle(nullptr), nullptr);          // Owner window, Menu, Instance, Param
     vd->HwndOwned = true;
@@ -1328,10 +1327,10 @@ static LRESULT CALLBACK ImGui_ImplWin32_WndProcHandler_PlatformWindow(HWND hWnd,
     return result;
 }
 
-static void ImGui_ImplWin32_InitPlatformInterface(bool platform_has_own_dc)
+static void ImGui_ImplWin32_InitMultiViewportSupport(bool platform_has_own_dc)
 {
-    WNDCLASSEX wcex;
-    wcex.cbSize = sizeof(WNDCLASSEX);
+    WNDCLASSEXW wcex;
+    wcex.cbSize = sizeof(WNDCLASSEXW);
     wcex.style = CS_HREDRAW | CS_VREDRAW | (platform_has_own_dc ? CS_OWNDC : 0);
     wcex.lpfnWndProc = ImGui_ImplWin32_WndProcHandler_PlatformWindow;
     wcex.cbClsExtra = 0;
@@ -1341,9 +1340,9 @@ static void ImGui_ImplWin32_InitPlatformInterface(bool platform_has_own_dc)
     wcex.hCursor = nullptr;
     wcex.hbrBackground = (HBRUSH)(COLOR_BACKGROUND + 1);
     wcex.lpszMenuName = nullptr;
-    wcex.lpszClassName = _T("ImGui Platform");
+    wcex.lpszClassName = L"ImGui Platform";
     wcex.hIconSm = nullptr;
-    ::RegisterClassEx(&wcex);
+    ::RegisterClassExW(&wcex);
 
     ImGui_ImplWin32_UpdateMonitors();
 
@@ -1373,10 +1372,9 @@ static void ImGui_ImplWin32_InitPlatformInterface(bool platform_has_own_dc)
     vd->Hwnd = bd->hWnd;
     vd->HwndOwned = false;
     main_viewport->PlatformUserData = vd;
-    main_viewport->PlatformHandle = (void*)bd->hWnd;
 }
 
-static void ImGui_ImplWin32_ShutdownPlatformInterface()
+static void ImGui_ImplWin32_ShutdownMultiViewportSupport()
 {
     ::UnregisterClass(_T("ImGui Platform"), ::GetModuleHandle(nullptr));
     ImGui::DestroyPlatformWindows();
