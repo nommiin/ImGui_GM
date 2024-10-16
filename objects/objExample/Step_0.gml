@@ -198,7 +198,14 @@ if (main_open) {
 			
 			ImGui.Text("ImGui::Surface");
 			surface_set_target(surf);
-			var xx = display_mouse_get_x() - ImGui.GetCursorScreenPosX(), yy = display_mouse_get_y() - ImGui.GetCursorScreenPosY();
+            var xx, yy;
+            if (ImGui.__ExtFlags & ImGuiExtFlags.GM == 0) {
+                xx = display_mouse_get_x() - ImGui.GetCursorScreenPosX();
+                yy = display_mouse_get_y() - ImGui.GetCursorScreenPosY();
+            } else {
+                xx = window_mouse_get_x() - ImGui.GetCursorScreenPosX();
+                yy = window_mouse_get_y() - ImGui.GetCursorScreenPosY();
+            }
 			var c = make_colour_hsv(255 * ((current_time % 1000) / 1000), 128, 255);
 			draw_circle_color(xx, yy, 4, c, c, false);
 			surface_reset_target();

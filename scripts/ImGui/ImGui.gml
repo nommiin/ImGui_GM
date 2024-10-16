@@ -4127,8 +4127,6 @@ function ImGui() constructor {
 		None = 0,
 		NavEnableKeyboard = 1 << 0,
 		NavEnableGamepad = 1 << 1,
-		NavEnableSetMousePos = 1 << 2,
-		NavNoCaptureKeyboard = 1 << 3,
 		NoMouse = 1 << 4,
 		NoMouseCursorChange = 1 << 5,
 		NoKeyboard = 1 << 6,
@@ -4138,6 +4136,8 @@ function ImGui() constructor {
 		DpiEnableScaleFonts = 1 << 15,
 		IsSRGB = 1 << 20,
 		IsTouchScreen = 1 << 21,
+		NavEnableSetMousePos = 1 << 2,
+		NavNoCaptureKeyboard = 1 << 3,
 	}
 
 	enum ImGuiBackendFlags {
@@ -4745,7 +4745,7 @@ function ImGui() constructor {
             				var tex_id = -1;
             				switch (tex_data & 0xF) {
             					case ImGuiTextureType.Surface: {
-            						tex_id = surface_get_texture(tex_data >> 4);
+            						tex_id = surface_get_texture(tex_data >> 16);
             						break;
             					}
 							
@@ -4755,7 +4755,7 @@ function ImGui() constructor {
             					}
 							
             					case ImGuiTextureType.Sprite: {
-            						tex_id = sprite_get_texture((tex_data >> 4) & 0xFF, tex_data >> 12);
+            						tex_id = sprite_get_texture(tex_data >> 16, (tex_data >> 4) & 0xFF);
             						break;	
             					}
             				}

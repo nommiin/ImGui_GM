@@ -148,9 +148,9 @@ extern ID3D11ShaderResourceView* g_pView;
 
 inline ImTextureID GetTexture(int id, int subimg, TextureType type) {
 	if (g_ImGuiExtFlags & ImGuiExtFlags_RENDERER_GM) {
-		return (ImTextureID)(((((uintptr_t)subimg << 8) | (uintptr_t )id) << 4) | (uintptr_t)type);
+		return (ImTextureID)(((((uintptr_t)id << 12) | (uintptr_t)subimg) << 4) | (uintptr_t)type);
 	}
 	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);
 	g_pd3dDeviceContext->VSSetShaderResources(0, 1, &g_pView);
-	return g_pView;
+	return (ImTextureID)g_pView;
 }

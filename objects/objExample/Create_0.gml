@@ -12,7 +12,7 @@ operating_system = environment_get_variable("OS");
 ini_filename = "";
 
 /// Optional: Set up the extension before initialization.
-ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Use DX11 renderer.
+//ImGui.__ExtFlags &= ~ImGuiExtFlags.GM; // Uncomment to use DX11 renderer.
 
 /// Optional: Define common config flags
 var _configs = ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable;
