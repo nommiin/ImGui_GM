@@ -22,20 +22,24 @@ class Program {
      * @param {string} script Path to ImGui .gml script
      */
     static main(root, extension, script) {
+        const root_imgui = root + "imgui/";
+        const root_gm = root + "gm/";
+
         Logger.info("Reading ImGui header...");
-        const header = this.parseHeader(new FileEditor(root + "imgui.h"));
+        
+        const header = this.parseHeader(new FileEditor(root_imgui + "imgui.h"));
 
         Logger.info("Retrieving wrappers...");
-        const files = fs.readdirSync(root).filter(e => e.endsWith("_gm.cpp"));
-        if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root}"`;
-        Logger.info(`Found ${files.length} wrapper files in "${root}"`);
-        
+
+        const files = fs.readdirSync(root_gm).filter(e => e.endsWith("_gm.cpp"));
+        if (files.length === 0) throw `Could not run program, could not find any wrapper files in "${root_gm}"`;
+        Logger.info(`Found ${files.length} wrapper files in "${root_gm}"`);
+
         const wrappers = [];
         Logger.info("Parsing wrappers...");
         files.forEach(e => {
             if (e.startsWith("imgui_impl_gm")) return;
-
-            this.parseWrapper(wrappers, new FileEditor(`${root}${e}`, true));
+            this.parseWrapper(wrappers, new FileEditor(`${root_gm}${e}`, true));
         });
 
         Logger.info("Writing wrappers...");
@@ -47,7 +51,11 @@ class Program {
 
         if (Configuration.WRITE_REPORT) {
             Logger.info("Writing coverage report...");
-            this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
+            let coveragePercentage = this.writeReport(header, wrappers, new FileEditor("COVERAGE.md"));
+
+            if (Configuration.WRITE_BADGES) {
+                this.writeCoverageBadge(new FileEditor("extra/badges/coverage.json"), coveragePercentage);
+            }
         }
 
         if (Configuration.WRITE_SNAKE) {
@@ -399,60 +407,128 @@ class Program {
      */
     static writeReport(header, wrappers, file) {
         const func = header.functions;
+
+        // TODO: NOTE: defined manual wrapped functions
+        const wrapped_funcs = [
+            "NewFrame",
+            "Render",
+            "EndFrame",
+            "GetWindowPos",
+            "GetWindowSize",
+            "GetContentRegionAvail",
+            "GetContentRegionMax",
+            "GetWindowContentRegionMin",
+            "GetWindowContentRegionMax",
+            "GetMousePos",
+            "GetMousePosOnOpeningCurrentPopup",
+            "GetMouseDragDelta",
+            "GetCursorPos",
+            "GetCursorStartPos",
+            "GetCursorScreenPos",
+            "CalcTextSize",
+            "GetItemRectMin",
+            "GetItemRectMax",
+            "GetItemRectSize",
+            "GetColorU32",
+            "GetStyleColorVec4",
+            "UpdatePlatformWindows",
+            "RenderPlatformWindowsDefault",
+            "DestroyPlatformWindows",
+        ];
+
+        // TODO: NOTE: defined manual notes
         const notes = {
-            "NewFrame": "Handled internally by [__imgui_update function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L63)",
-            "Render": "Handled internally by [__imgui_render function](https://github.com/nommiin/ImGui_GM/blob/main/dll/main.cpp#L69)",
-            "GetWindowPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetWindowSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
-            "GetContentRegionAvail": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetWindowContentRegionMin": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetWindowContentRegionMax": "ImVec2 returns are unsupported, use X/Y wrappers",
+            "NewFrame": "Handled internally by `__imgui_new_frame` function",
+            "Render": "Handled internally by `__imgui_render` function",
+            "EndFrame": "Handled internally by `__imgui_end_frame` function",
+            "GetStyle": "You can use custom functions (`SetStyleVar` and `SetStyleColor`) to modify the style",
+            "GetWindowPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetWindowSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
+            "GetContentRegionAvail": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetContentRegionMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetWindowContentRegionMin": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetWindowContentRegionMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
+
             "PushFont": "Fonts are currently unimplemented",
             "PopFont": "Fonts are currently unimplemented",
-            "GetCursorPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetCursorStartPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "GetCursorScreenPos": "ImVec2 returns are unsupported, use X/Y wrappers",
-            "CalcTextSize": "ImVec2 returns are unsupported, use Width/Height wrappers",
-            "GetPlatformIO": "Unsupported",
-            "SetDragDropPayload": "See [Drag and Drop Payloads](https://github.com/nommiin/ImGui_GM/wiki/Drag-and-Drop-Payloads) for more info on handling payloads",
-            "GetColorU32": "Unsupported, use `ImGui.GetStyleColor`"
-        };
-        // i know
 
-        let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n# Coverage\n`, count = 0;
+            "GetMousePos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetMousePosOnOpeningCurrentPopup": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetMouseDragDelta": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetCursorPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetCursorStartPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetCursorScreenPos": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "CalcTextSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
+            "GetItemRectMin": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetItemRectMax": "Use X/Y wrappers. ImVec2 returns are unsupported",
+            "GetItemRectSize": "Use Width/Height wrappers. ImVec2 returns are unsupported",
+            "GetPlatformIO": "Unsupported",
+            "SetDragDropPayload": `See [Drag and Drop Payloads](${Configuration.REPOSITORY_URL}/wiki/Drag-and-Drop-Payloads) for more info on handling payloads`,
+            "GetColorU32": "Use `GetStyleColor`",
+            "GetStyleColorVec4": "Use `ImGui.GetStyleColor`",
+            "UpdatePlatformWindows": "Handled internally by `__imgui_draw` function",
+            "RenderPlatformWindowsDefault": "Handled internally by `__imgui_draw` function",
+            "DestroyPlatformWindows": "Handled internally by `__imgui_shutdown` function",
+            "GetMouseCursor": "Handled internally by GML",
+            "SetMouseCursor": "Handled internally by GML",
+        };
+
+        let content = `# About\nThis is an automatically generated file that keeps track of wrapper coverage of the ImGui API. This may not be 100% accurate as it is calculated programatically, but can serve as a good general idea of progress.\n\n`;
+        let wrapped = 0;
         func.forEach(e => {
             if (e.Name.endsWith("V") && !e.Name.endsWith("HSV")) {
                 notes[e.Name] = "Unsupported, use `string` function in GameMaker for string formatting";
             }
 
+            e.IsWrapped = false;
+
             const wrapper = wrappers.find(w => w.Calls === e.Name)
             if (wrapper) {
+                e.IsWrapped = true;
                 wrapper.Arguments.forEach(a => {
                     if (a.Type.endsWith("ImGuiReturnMask")) {
-                        notes[e.Name] = "See [ImGuiReturnMask Usage](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument"
+                        notes[e.Name] = `See [ImGuiReturnMask Usage](${Configuration.REPOSITORY_URL}/wiki/ImGuiReturnMask-Usage) for more info the \`mask\` argument`
                     }
                 })
-                count++;
+            } else if (wrapped_funcs.indexOf(e.Name) != -1) {
+                e.IsWrapped = true;
             }
+
+            if (e.IsWrapped) wrapped++;
         });
 
         let unsupported = 0;
         func.forEach(e => {
+            e.IsUnsuppported = false;
+
             const note = notes[e.Name];
             if (note) {
-                // lol
-                if (note.toLowerCase().includes("unsupported")) unsupported++;
+                if (note.includes("Unsupported")) e.IsUnsuppported = true;
             }
+
+            if (e.IsUnsuppported) unsupported++;
         });
 
-        content += `${count} out of ${func.length - unsupported} API functions wrapped (**${Math.round(100 * (count / (func.length - unsupported)))}% complete**)\n\n`;
+        let coveragePercentage = Math.round(100 * (wrapped / (func.length - unsupported)));
+
+        content += `# Coverage\n\n`;
+        content += `- ![coverage](https://badgen.net/https/raw.githubusercontent.com/${Configuration.REPOSITORY_NAME}/main/extra/badges/coverage.json?icon=awesome)\n`;
+        content += `- ${wrapped} out of ${func.length - unsupported} supported API functions wrapped (**${coveragePercentage}% complete**)\n`;
+        content += `- ${wrapped} out of ${func.length} total API functions wrapped (*${Math.round(100 * (wrapped / (func.length)))}% complete*)\n`;
+        content += `- Note that ${unsupported} out of ${func.length} API functions are not supported (${Math.round(100 * (unsupported / (func.length)))}%)\n`;
+        content += `\n`;
         content += "| Function | Wrapped | Link | Notes |\n";
         content += "| -------- | ------- | ---- | ----- |\n";
+
+        const writtenWrappers = new Set();
         func.forEach(e => {
             const wrapper = wrappers.find(w => w.Calls === e.Name);
+            const wrapperKey = `${e.Name}`;
             if (wrapper) wrapper.Found = true;
-            content += `| ImGui::${e.Name} | ${wrapper ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${wrapper.File}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
+            if (!writtenWrappers.has(wrapperKey)) {
+                content += `| \`ImGui::${e.Name}\` | ${e.IsWrapped ? "✅" : "❌"} | ${wrapper ? `[${wrapper.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${wrapper.FileRelpath}#L${wrapper.Line})` : "N/A"} | ${notes[e.Name] ?? "N/A"} |\n`;
+                writtenWrappers.add(wrapperKey);
+            }
         });
 
         content += `\n# Non-Standard\nBelow is a table of non-standard functions made specifically for ImGui_GM\n\n`;
@@ -460,10 +536,17 @@ class Program {
         content += "| -------- | ---- |\n";
         wrappers.forEach(e => {
             if (!e?.Found && e.Calls !== "_") {
-                content += `| ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")}) | [${e.File}](https://github.com/nommiin/ImGui_GM/blob/main/dll/${e.File}#L${e.Line}) |\n`;
+                content += `| \`ImGui.${e.Calls}(${e.Arguments.map(e => e.Name).join(", ")})\` | [${e.File}](${Configuration.REPOSITORY_URL}/blob/main/dll/${e.File}#L${e.Line}) |\n`;
             }
         });
 
+        if (file.update(content)) file.commit();
+
+        return coveragePercentage
+    }
+
+    static writeCoverageBadge(file, coveragePercentage) {
+        let content = `{"subject":"coverage","status":"${coveragePercentage}%","color": "green"}`;
         if (file.update(content)) file.commit();
     }
 

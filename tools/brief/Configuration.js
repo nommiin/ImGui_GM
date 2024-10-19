@@ -3,6 +3,16 @@
  */
 class Configuration {
     /**
+     * @description The Github repository URL. 
+     */
+    static REPOSITORY_URL = "https://github.com/nommiin/ImGui_GM"
+
+    /**
+     * @description The Github repository name. 
+     */
+    static REPOSITORY_NAME = "nommiin/ImGui_GM";
+
+    /**
      * @description The name of the program, used by Logger.js
      */
     static PROGRAM_NAME = "brief";
@@ -47,6 +57,11 @@ class Configuration {
      * @description If true, program will generate a coverage report in COVERAGE.md
      */
     static WRITE_REPORT = true;
+
+    /**
+     * @description If true, program will generate badges in .github/badges/
+     */
+    static WRITE_BADGES = true;
 
     /**
      * @description If true, program will generate a .gml script containing snake-case functions for ImGui_GM

@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 3/9/2024, 11:36:48 AM
+*  Generated at 10/16/2024, 1:53:43 PM
 */
 
 /// @function imgui_initialize
@@ -132,6 +132,20 @@ function imgui_get_id(str_id) {
 	return __imgui_get_id(str_id);
 }
 
+/// @function imgui_push_item_flag(item_flag, enabled)
+/// @argument {ImGuiItemFlags} item_flag
+/// @argument {Bool} enabled
+/// @return {Undefined}
+function imgui_push_item_flag(item_flag, enabled) {
+	return __imgui_push_item_flag(item_flag, enabled);
+}
+
+/// @function imgui_pop_item_flag()
+/// @return {Undefined}
+function imgui_pop_item_flag() {
+	return __imgui_pop_item_flag();
+}
+
 /// @function imgui_begin_disabled(disabled)
 /// @argument {Bool} [disabled=true]
 /// @return {Undefined}
@@ -255,22 +269,35 @@ function imgui_get_item_rect_max_y() {
 	return __imgui_get_item_rect_max_y();
 }
 
-/// @function imgui_get_item_rect_size_x()
+/// @function imgui_get_item_rect_size_width()
 /// @return {Real}
-function imgui_get_item_rect_size_x() {
-	return __imgui_get_item_rect_size_x();
+function imgui_get_item_rect_size_width() {
+	return __imgui_get_item_rect_size_width();
 }
 
-/// @function imgui_get_item_rect_size_y()
+/// @function imgui_get_item_rect_size_height()
 /// @return {Real}
-function imgui_get_item_rect_size_y() {
-	return __imgui_get_item_rect_size_y();
+function imgui_get_item_rect_size_height() {
+	return __imgui_get_item_rect_size_height();
 }
 
-/// @function imgui_set_item_allow_overlap()
+/// @function imgui_set_next_item_allow_overlap()
 /// @return {Undefined}
-function imgui_set_item_allow_overlap() {
-	return __imgui_set_item_allow_overlap();
+function imgui_set_next_item_allow_overlap() {
+	return __imgui_set_next_item_allow_overlap();
+}
+
+/// @function imgui_begin_item_tooltip()
+/// @return {Bool}
+function imgui_begin_item_tooltip() {
+	return __imgui_begin_item_tooltip();
+}
+
+/// @function imgui_set_item_tooltip(text)
+/// @argument {String} text
+/// @return {Undefined}
+function imgui_set_item_tooltip(text) {
+	return __imgui_set_item_tooltip(text);
 }
 
 /// @function imgui_is_rect_visible(x1, y1, x2, y2)
@@ -358,6 +385,53 @@ function imgui_config_flags_get() {
 	return __imgui_config_flags_get();
 }
 
+/// @function imgui_ini_filename(val)
+/// @argument {String} [val=undefined]
+/// @return {String}
+function imgui_ini_filename(val="undefined") {
+	return __imgui_ini_filename(val);
+}
+
+/// @function imgui_want_save_ini_settings(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Bool}
+function imgui_want_save_ini_settings(val=undefined) {
+	return __imgui_want_save_ini_settings(val);
+}
+
+/// @function imgui_load_ini_settings_from_disk(ini_filename)
+/// @argument {String} [ini_filename=undefined]
+/// @return {Undefined}
+function imgui_load_ini_settings_from_disk(ini_filename="undefined") {
+	return __imgui_load_ini_settings_from_disk(ini_filename);
+}
+
+/// @function imgui_load_ini_settings_from_memory(ini_data)
+/// @argument {String} [ini_data=undefined]
+/// @return {Undefined}
+function imgui_load_ini_settings_from_memory(ini_data="undefined") {
+	return __imgui_load_ini_settings_from_memory(ini_data);
+}
+
+/// @function imgui_save_ini_settings_to_disk(ini_filename)
+/// @argument {String} [ini_filename=undefined]
+/// @return {Undefined}
+function imgui_save_ini_settings_to_disk(ini_filename="undefined") {
+	return __imgui_save_ini_settings_to_disk(ini_filename);
+}
+
+/// @function imgui_save_ini_settings_to_memory()
+/// @return {String}
+function imgui_save_ini_settings_to_memory() {
+	return __imgui_save_ini_settings_to_memory();
+}
+
+/// @function imgui_clear_ini_settings()
+/// @return {Undefined}
+function imgui_clear_ini_settings() {
+	return __imgui_clear_ini_settings();
+}
+
 /// @function imgui_config_flags_set(flags)
 /// @argument {Real} flags
 /// @return {Unknown<unset>}
@@ -378,11 +452,66 @@ function imgui_get_main_viewport() {
 	return __imgui_get_main_viewport();
 }
 
+/// @function imgui_get_viewport_id(vp)
+/// @argument {ImGuiViewport} vp
+/// @return {ImGuiID}
+function imgui_get_viewport_id(vp) {
+	return __imgui_get_viewport_id(vp);
+}
+
 /// @function imgui_log_text(text)
 /// @argument {String} text
 /// @return {Undefined}
 function imgui_log_text(text) {
 	return __imgui_log_text(text);
+}
+
+/// @function imgui_log_to_clipboard(auto_open_depth)
+/// @argument {Real} [auto_open_depth=-1]
+/// @return {Undefined}
+function imgui_log_to_clipboard(auto_open_depth=-1) {
+	return __imgui_log_to_clipboard(auto_open_depth);
+}
+
+/// @function imgui_log_to_tty(auto_open_depth)
+/// @argument {Real} [auto_open_depth=-1]
+/// @return {Undefined}
+function imgui_log_to_tty(auto_open_depth=-1) {
+	return __imgui_log_to_tty(auto_open_depth);
+}
+
+/// @function imgui_log_finish()
+/// @return {Undefined}
+function imgui_log_finish() {
+	return __imgui_log_finish();
+}
+
+/// @function imgui_log_buttons()
+/// @return {Undefined}
+function imgui_log_buttons() {
+	return __imgui_log_buttons();
+}
+
+/// @function imgui_log_to_file(auto_open_depth, filename)
+/// @argument {Real} [auto_open_depth=-1]
+/// @argument {Any} [filename=undefined]
+/// @return {Undefined}
+function imgui_log_to_file(auto_open_depth=-1, filename=undefined) {
+	return __imgui_log_to_file(auto_open_depth, filename);
+}
+
+/// @function imgui_set_next_frame_want_capture_keyboard(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Undefined}
+function imgui_set_next_frame_want_capture_keyboard(val=undefined) {
+	return __imgui_set_next_frame_want_capture_keyboard(val);
+}
+
+/// @function imgui_set_next_frame_want_capture_mouse(val)
+/// @argument {Bool} [val=undefined]
+/// @return {Undefined}
+function imgui_set_next_frame_want_capture_mouse(val=undefined) {
+	return __imgui_set_next_frame_want_capture_mouse(val);
 }
 
 /// @function imgui_want_keyboard_capture(val)
@@ -489,21 +618,39 @@ function imgui_combo() {
 	return __imgui_combo();
 }
 
-/// @function imgui_dock_space(_id, width, height, flags)
+/// @function imgui_dock_space(_id, width, height, flags, window_class)
 /// @argument {Real} _id
 /// @argument {Real} [width=0]
 /// @argument {Real} [height=0]
-/// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+/// @argument {ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+/// @argument {ImGuiWindowClass} [window_class=undefined]
 /// @return {Real}
-function imgui_dock_space(_id, width=0, height=0, flags=ImGuiDockNodeFlags.None) {
-	return __imgui_dock_space(_id, width, height, flags);
+function imgui_dock_space(_id, width=0, height=0, flags=ImGuiDockNodeFlags.None, window_class=undefined) {
+	return __imgui_dock_space(_id, width, height, flags, window_class);
 }
 
-/// @function imgui_dock_space_over_viewport(flags)
+/// @function imgui_find_viewport_by_id(_id)
+/// @argument {Real} _id
+/// @return {ImGuiViewport}
+function imgui_find_viewport_by_id(_id) {
+	return __imgui_find_viewport_by_id(_id);
+}
+
+/// @function imgui_find_viewport_by_platform_handle(platform_handle)
+/// @argument {HWND} platform_handle
+/// @return {ImGuiViewport}
+function imgui_find_viewport_by_platform_handle(platform_handle) {
+	return __imgui_find_viewport_by_platform_handle(platform_handle);
+}
+
+/// @function imgui_dock_space_over_viewport(dockspace_id, viewport_id, flags, window_class)
+/// @argument {Any} [dockspace_id=0]
+/// @argument {Real} [viewport_id=0]
 /// @argument {Enum.ImGuiDockNodeFlags} [flags=ImGuiDockNodeFlags.None]
+/// @argument {ImGuiWindowClass} [window_class=undefined]
 /// @return {Real}
-function imgui_dock_space_over_viewport(flags=ImGuiDockNodeFlags.None) {
-	return __imgui_dock_space_over_viewport(flags);
+function imgui_dock_space_over_viewport(dockspace_id=0, viewport_id=0, flags=ImGuiDockNodeFlags.None, window_class=undefined) {
+	return __imgui_dock_space_over_viewport(dockspace_id, viewport_id, flags, window_class);
 }
 
 /// @function imgui_set_next_window_dock_id(dock_id, cond)
@@ -514,10 +661,11 @@ function imgui_set_next_window_dock_id(dock_id, cond=ImGuiCond.None) {
 	return __imgui_set_next_window_dock_id(dock_id, cond);
 }
 
-/// @function imgui_set_next_window_class()
-/// @return {Unknown<unset>}
-function imgui_set_next_window_class() {
-	return __imgui_set_next_window_class();
+/// @function imgui_set_next_window_class(window_class)
+/// @argument {ImGuiWindowClass} window_class
+/// @return {Undefined}
+function imgui_set_next_window_class(window_class) {
+	return __imgui_set_next_window_class(window_class);
 }
 
 /// @function imgui_get_window_dock_id()
@@ -611,16 +759,22 @@ function imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at
 	return __imgui_dockbuilder_split_node(node_id, split_dir, size_ratio_for_node_at_dir);
 }
 
-/// @function imgui_dockbuilder_copy_dock_space()
-/// @return {Unknown<unset>}
-function imgui_dockbuilder_copy_dock_space() {
-	return __imgui_dockbuilder_copy_dock_space();
+/// @function imgui_dockbuilder_copy_dock_space(src_dockspace_id, dst_dockspace_id, window_remap_pairs)
+/// @argument {Real} src_dockspace_id
+/// @argument {Real} dst_dockspace_id
+/// @argument {Any} window_remap_pairs
+/// @return {Undefined}
+function imgui_dockbuilder_copy_dock_space(src_dockspace_id, dst_dockspace_id, window_remap_pairs) {
+	return __imgui_dockbuilder_copy_dock_space(src_dockspace_id, dst_dockspace_id, window_remap_pairs);
 }
 
-/// @function imgui_dockbuilder_copy_node()
+/// @function imgui_dockbuilder_copy_node(src_node_id, dst_node_id, node_remap_pairs)
+/// @argument {Real} src_node_id
+/// @argument {Real} dst_node_id
+/// @argument {Any} node_remap_pairs
 /// @return {Unknown<unset>}
-function imgui_dockbuilder_copy_node() {
-	return __imgui_dockbuilder_copy_node();
+function imgui_dockbuilder_copy_node(src_node_id, dst_node_id, node_remap_pairs) {
+	return __imgui_dockbuilder_copy_node(src_node_id, dst_node_id, node_remap_pairs);
 }
 
 /// @function imgui_dockbuilder_copy_window_settings(src_name, dst_name)
@@ -1182,6 +1336,7 @@ function imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding=0, flags=ImDraw
 /// @argument {Real} [col=c_white]
 /// @return {Undefined}
 function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col=c_white) {
+	if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(sprite, subimg)); 
 	return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, sprite_get_uvs(sprite, subimg));
 }
 
@@ -1198,6 +1353,7 @@ function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col=c_wh
 /// @argument {Real} flags
 /// @return {Undefined}
 function imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags) {
+	if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(sprite, subimg)); 
 	return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, sprite_get_uvs(sprite, subimg));
 }
 
@@ -1233,6 +1389,7 @@ function imgui_drawlist_pop_clip_rect(list) {
 /// @argument {Real} subimg
 /// @return {Undefined}
 function imgui_drawlist_push_textureid(list, sprite, subimg) {
+	if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(sprite, subimg)); 
 	return __imgui_drawlist_push_textureid(list, sprite, subimg);
 }
 
@@ -1291,12 +1448,6 @@ function imgui_get_font() {
 	return __imgui_get_font();
 }
 
-/// @function imgui_get_font_size()
-/// @return {Real}
-function imgui_get_font_size() {
-	return __imgui_get_font_size();
-}
-
 /// @function imgui_push_font(_ptr)
 /// @argument {Any} [_ptr=undefined]
 /// @return {Undefined}
@@ -1324,28 +1475,211 @@ function imgui_add_font_default() {
 	return __imgui_add_font_default();
 }
 
-/// @function imguigm_native()
+/// @function imgui_get_font_size()
+/// @return {Real}
+function imgui_get_font_size() {
+	return __imgui_get_font_size();
+}
+
+/// @function imgui_is_key_down(key, owner_id)
+/// @argument {ImGuiKey} key
+/// @argument {ImGuiID} [owner_id=undefined]
 /// @return {Bool}
-function imguigm_native() {
-	return __imguigm_native();
+function imgui_is_key_down(key, owner_id=undefined) {
+	return __imgui_is_key_down(key, owner_id);
 }
 
-/// @function imguigm_command_buffer()
-/// @return {Real}
-function imguigm_command_buffer() {
-	return __imguigm_command_buffer();
+/// @function imgui_is_key_pressed(key, _repeat)
+/// @argument {ImGuiKey} key
+/// @argument {Bool} [_repeat=undefined]
+/// @return {Bool}
+function imgui_is_key_pressed(key, _repeat=undefined) {
+	return __imgui_is_key_pressed(key, _repeat);
 }
 
-/// @function imguigm_font_buffer()
-/// @return {Real}
-function imguigm_font_buffer() {
-	return __imguigm_font_buffer();
+/// @function imgui_is_key_released(key, owner_id)
+/// @argument {ImGuiKey} key
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_key_released(key, owner_id=undefined) {
+	return __imgui_is_key_released(key, owner_id);
 }
 
-/// @function imguigm_keepalive()
+/// @function imgui_is_key_chord_pressed(key_chord, flags, owner_id)
+/// @argument {ImGuiKeyChord} key_chord
+/// @argument {ImGuiInputFlags} [flags=undefined]
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_key_chord_pressed(key_chord, flags=undefined, owner_id=undefined) {
+	return __imgui_is_key_chord_pressed(key_chord, flags, owner_id);
+}
+
+/// @function imgui_get_key_pressed_amount(key, repeat_delay, rate)
+/// @argument {ImGuiKey} key
+/// @argument {Float} repeat_delay
+/// @argument {Float} rate
 /// @return {Real}
-function imguigm_keepalive() {
-	return __imguigm_keepalive();
+function imgui_get_key_pressed_amount(key, repeat_delay, rate) {
+	return __imgui_get_key_pressed_amount(key, repeat_delay, rate);
+}
+
+/// @function imgui_get_key_name(key)
+/// @argument {ImGuiKey} key
+/// @return {String}
+function imgui_get_key_name(key) {
+	return __imgui_get_key_name(key);
+}
+
+/// @function imgui_get_key_chord_name(key_chord)
+/// @argument {ImGuiKeyChord} key_chord
+/// @return {String}
+function imgui_get_key_chord_name(key_chord) {
+	return __imgui_get_key_chord_name(key_chord);
+}
+
+/// @function imgui_is_mouse_down(button, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_down(button, owner_id=undefined) {
+	return __imgui_is_mouse_down(button, owner_id);
+}
+
+/// @function imgui_is_mouse_clicked(button, repeat_or_flags, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Bool|ImGuiInputFlags} [repeat_or_flags=undefined]
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_clicked(button, repeat_or_flags=undefined, owner_id=undefined) {
+	return __imgui_is_mouse_clicked(button, repeat_or_flags, owner_id);
+}
+
+/// @function imgui_is_mouse_released(button, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_released(button, owner_id=undefined) {
+	return __imgui_is_mouse_released(button, owner_id);
+}
+
+/// @function imgui_is_mouse_double_clicked(button, owner_id)
+/// @argument {ImGuiMouseButton} button
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_is_mouse_double_clicked(button, owner_id=undefined) {
+	return __imgui_is_mouse_double_clicked(button, owner_id);
+}
+
+/// @function imgui_get_mouse_clicked_count(button)
+/// @argument {ImGuiMouseButton} button
+/// @return {Real}
+function imgui_get_mouse_clicked_count(button) {
+	return __imgui_get_mouse_clicked_count(button);
+}
+
+/// @function imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip)
+/// @argument {Real} min_x
+/// @argument {Real} min_y
+/// @argument {Real} max_x
+/// @argument {Real} max_y
+/// @argument {Bool} [clip=true]
+/// @return {Bool}
+function imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip=true) {
+	return __imgui_is_mouse_hovering_rect(min_x, min_y, max_x, max_y, clip);
+}
+
+/// @function imgui_is_mouse_pos_valid(mouse_x, mouse_y)
+/// @argument {Real} mouse_x
+/// @argument {Real} mouse_y
+/// @return {Bool}
+function imgui_is_mouse_pos_valid(mouse_x, mouse_y) {
+	return __imgui_is_mouse_pos_valid(mouse_x, mouse_y);
+}
+
+/// @function imgui_is_any_mouse_down()
+/// @return {Bool}
+function imgui_is_any_mouse_down() {
+	return __imgui_is_any_mouse_down();
+}
+
+/// @function imgui_is_mouse_dragging(button, lock_threshold)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Float} [lock_threshold=-1]
+/// @return {Bool}
+function imgui_is_mouse_dragging(button, lock_threshold=-1) {
+	return __imgui_is_mouse_dragging(button, lock_threshold);
+}
+
+/// @function imgui_get_mouse_pos_x()
+/// @return {Real}
+function imgui_get_mouse_pos_x() {
+	return __imgui_get_mouse_pos_x();
+}
+
+/// @function imgui_get_mouse_pos_y()
+/// @return {Real}
+function imgui_get_mouse_pos_y() {
+	return __imgui_get_mouse_pos_y();
+}
+
+/// @function imgui_get_mouse_pos_on_opening_current_popup_x()
+/// @return {Real}
+function imgui_get_mouse_pos_on_opening_current_popup_x() {
+	return __imgui_get_mouse_pos_on_opening_current_popup_x();
+}
+
+/// @function imgui_get_mouse_pos_on_opening_current_popup_y()
+/// @return {Real}
+function imgui_get_mouse_pos_on_opening_current_popup_y() {
+	return __imgui_get_mouse_pos_on_opening_current_popup_y();
+}
+
+/// @function imgui_get_mouse_drag_delta_x(button, lock_threshold)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Float} [lock_threshold=-1]
+/// @return {Real}
+function imgui_get_mouse_drag_delta_x(button, lock_threshold=-1) {
+	return __imgui_get_mouse_drag_delta_x(button, lock_threshold);
+}
+
+/// @function imgui_get_mouse_drag_delta_y(button, lock_threshold)
+/// @argument {ImGuiMouseButton} button
+/// @argument {Float} [lock_threshold=-1]
+/// @return {Real}
+function imgui_get_mouse_drag_delta_y(button, lock_threshold=-1) {
+	return __imgui_get_mouse_drag_delta_y(button, lock_threshold);
+}
+
+/// @function imgui_reset_mouse_drag_delta(button)
+/// @argument {ImGuiMouseButton} button
+/// @return {Undefined}
+function imgui_reset_mouse_drag_delta(button) {
+	return __imgui_reset_mouse_drag_delta(button);
+}
+
+/// @function imgui_shortcut(key_chord, flags, owner_id)
+/// @argument {ImGuiKeyChord} key_chord
+/// @argument {ImGuiInputFlags} flags
+/// @argument {ImGuiID} [owner_id=undefined]
+/// @return {Bool}
+function imgui_shortcut(key_chord, flags, owner_id=undefined) {
+	return __imgui_shortcut(key_chord, flags, owner_id);
+}
+
+/// @function imgui_set_next_item_shortcut(key_chord, flags)
+/// @argument {ImGuiKeyChord} key_chord
+/// @argument {ImGuiInputFlags} flags
+/// @return {Undefined}
+function imgui_set_next_item_shortcut(key_chord, flags) {
+	return __imgui_set_next_item_shortcut(key_chord, flags);
+}
+
+/// @function imgui_set_item_key_owner(key, flags)
+/// @argument {ImGuiKey} key
+/// @argument {ImGuiInputFlags} [flags=undefined]
+/// @return {Undefined}
+function imgui_set_item_key_owner(key, flags=undefined) {
+	return __imgui_set_item_key_owner(key, flags);
 }
 
 /// @function imgui_input_text(label, val, flags)
@@ -1527,6 +1861,13 @@ function imgui_align_text_to_frame_padding() {
 /// @return {Undefined}
 function imgui_separator() {
 	return __imgui_separator();
+}
+
+/// @function imgui_separator_text(label)
+/// @argument {String} label
+/// @return {Undefined}
+function imgui_separator_text(label) {
+	return __imgui_separator_text(label);
 }
 
 /// @function imgui_indent(indent_w)
@@ -1998,6 +2339,72 @@ function imgui_selectable(label, selected=false, flags=ImGuiSelectableFlags.None
 	return __imgui_selectable(label, selected, flags, width, height);
 }
 
+/// @function imgui_is_item_toggled_selection()
+/// @return {Bool}
+function imgui_is_item_toggled_selection() {
+	return __imgui_is_item_toggled_selection();
+}
+
+/// @function imgui_create_multi_select_basic_storage(yystruct)
+/// @argument {Struct} yystruct
+/// @return {Pointer}
+function imgui_create_multi_select_basic_storage(yystruct) {
+	return __imgui_create_multi_select_basic_storage(yystruct);
+}
+
+/// @function imgui_destroy_multi_select_basic_storage(storage_ptr)
+/// @argument {Pointer} storage_ptr
+/// @return {Undefined}
+function imgui_destroy_multi_select_basic_storage(storage_ptr) {
+	return __imgui_destroy_multi_select_basic_storage(storage_ptr);
+}
+
+/// @function imgui_begin_multi_select(flags, size, items_count)
+/// @argument {ImGuiMultiSelectFlags} flags
+/// @argument {Real} size
+/// @argument {Real} items_count
+/// @return {ImGuiMultiSelectIO}
+function imgui_begin_multi_select(flags, size, items_count) {
+	return __imgui_begin_multi_select(flags, size, items_count);
+}
+
+/// @function imgui_selection_storage_apply_requests(selection, ms_io)
+/// @argument {ImGuiSelectionBasicStorage} selection
+/// @argument {ImGuiMultiSelectIO} ms_io
+/// @return {Undefined}
+function imgui_selection_storage_apply_requests(selection, ms_io) {
+	return __imgui_selection_storage_apply_requests(selection, ms_io);
+}
+
+/// @function imgui_end_multi_select()
+/// @return {ImGuiMultiSelectIO}
+function imgui_end_multi_select() {
+	return __imgui_end_multi_select();
+}
+
+/// @function imgui_set_next_item_selection_user_data(idx)
+/// @argument {Real} idx
+/// @return {Unknown<unset>}
+function imgui_set_next_item_selection_user_data(idx) {
+	return __imgui_set_next_item_selection_user_data(idx);
+}
+
+/// @function imgui_selection_storage_contains(selection, idx)
+/// @argument {ImGuiSelectionBasicStorage} selection
+/// @argument {Real} idx
+/// @return {Bool}
+function imgui_selection_storage_contains(selection, idx) {
+	return __imgui_selection_storage_contains(selection, idx);
+}
+
+/// @function imgui_selection_storage_size(selection, value)
+/// @argument {ImGuiSelectionBasicStorage} selection
+/// @argument {Any} [value=undefined]
+/// @return {Real}
+function imgui_selection_storage_size(selection, value=undefined) {
+	return __imgui_selection_storage_size(selection, value);
+}
+
 /// @function imgui_slider_float(label, v, v_min, v_max, format, flags)
 /// @argument {String} label
 /// @argument {Real} v
@@ -2202,6 +2609,22 @@ function imgui_push_style_var(idx, val, val2=undefined) {
 	return __imgui_push_style_var(idx, val, val2);
 }
 
+/// @function imgui_push_style_var_x(idx, val_x)
+/// @argument {Real} idx
+/// @argument {Real} val_x
+/// @return {Undefined}
+function imgui_push_style_var_x(idx, val_x) {
+	return __imgui_push_style_var_x(idx, val_x);
+}
+
+/// @function imgui_push_style_var_y(idx, val_y)
+/// @argument {Real} idx
+/// @argument {Real} val_y
+/// @return {Undefined}
+function imgui_push_style_var_y(idx, val_y) {
+	return __imgui_push_style_var_y(idx, val_y);
+}
+
 /// @function imgui_pop_style_var(count)
 /// @argument {Real} [count=1]
 /// @return {Undefined}
@@ -2221,6 +2644,24 @@ function imgui_get_style_color(idx) {
 /// @return {String}
 function imgui_get_style_color_name(idx) {
 	return __imgui_get_style_color_name(idx);
+}
+
+/// @function imgui_set_style_color(idx, col, alpha)
+/// @argument {Real} idx
+/// @argument {Real} col
+/// @argument {Real} alpha
+/// @return {Undefined}
+function imgui_set_style_color(idx, col, alpha) {
+	return __imgui_set_style_color(idx, col, alpha);
+}
+
+/// @function imgui_set_style_var(idx, val, val2)
+/// @argument {Real} idx
+/// @argument {Any} val
+/// @argument {Any} [val2=undefined]
+/// @return {Undefined}
+function imgui_set_style_var(idx, val, val2=undefined) {
+	return __imgui_set_style_var(idx, val, val2);
 }
 
 /// @function imgui_begin_table(str_id, column, flags, outer_width, outer_height, inner_width)
@@ -2285,11 +2726,23 @@ function imgui_table_headers_row() {
 	return __imgui_table_headers_row();
 }
 
+/// @function imgui_table_angled_headers_row()
+/// @return {Undefined}
+function imgui_table_angled_headers_row() {
+	return __imgui_table_angled_headers_row();
+}
+
 /// @function imgui_table_header(label)
 /// @argument {String} label
 /// @return {Undefined}
 function imgui_table_header(label) {
 	return __imgui_table_header(label);
+}
+
+/// @function imgui_table_get_hovered_column()
+/// @return {Real}
+function imgui_table_get_hovered_column() {
+	return __imgui_table_get_hovered_column();
 }
 
 /// @function imgui_table_get_column_count()
@@ -2598,12 +3051,11 @@ function imgui_invisible_button(_id, width=0, height=0, flags=ImGuiButtonFlags.N
 	return __imgui_invisible_button(_id, width, height, flags);
 }
 
-/// @function imgui_arrow_button(str_id, dir)
+/// @function imgui_arrow_button(str_id)
 /// @argument {String} str_id
-/// @argument {Real} dir
 /// @return {Bool}
-function imgui_arrow_button(str_id, dir) {
-	return __imgui_arrow_button(str_id, dir);
+function imgui_arrow_button(str_id) {
+	return __imgui_arrow_button(str_id);
 }
 
 /// @function imgui_image(sprite, subimg, color, alpha, width, height)
@@ -2615,6 +3067,7 @@ function imgui_arrow_button(str_id, dir) {
 /// @argument {Real} [height=sprite_get_height⌊sprite⌉]
 /// @return {Undefined}
 function imgui_image(sprite, subimg, color=c_white, alpha=1, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
+	if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(sprite, subimg)); 
 	return __imgui_image(sprite, subimg, color, alpha, width, height, sprite_get_uvs(sprite, subimg));
 }
 
@@ -2630,6 +3083,7 @@ function imgui_image(sprite, subimg, color=c_white, alpha=1, width=sprite_get_wi
 /// @argument {Real} [height=sprite_get_height⌊sprite⌉]
 /// @return {Bool}
 function imgui_image_button(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width=sprite_get_width(sprite), height=sprite_get_height(sprite)) {
+	if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) texture_set_stage(0, sprite_get_texture(sprite, subimg)); 
 	return __imgui_image_button(str_id, sprite, subimg, color, alpha, bg_color, bg_alpha, width, height, sprite_get_uvs(sprite, subimg));
 }
 
@@ -2641,7 +3095,7 @@ function imgui_image_button(str_id, sprite, subimg, color, alpha, bg_color, bg_a
 /// @argument {Real} [height=surface_get_height⌊surface⌉]
 /// @return {Undefined}
 function imgui_surface(surface, color=c_white, alpha=1, width=surface_get_width(surface), height=surface_get_height(surface)) {
-	var _tex = surface_get_texture(surface); 
+	var _tex = surface_get_texture(surface); if (!(ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM)) {texture_set_stage(0, _tex);};
 	return __imgui_surface(surface, color, alpha, width, height, texture_get_uvs(_tex));
 }
 
@@ -2686,6 +3140,21 @@ function imgui_bullet() {
 	return __imgui_bullet();
 }
 
+/// @function imgui_text_link(label)
+/// @argument {String} label
+/// @return {Undefined}
+function imgui_text_link(label) {
+	return __imgui_text_link(label);
+}
+
+/// @function imgui_text_link_open_url(label, url)
+/// @argument {String} label
+/// @argument {String} url
+/// @return {Undefined}
+function imgui_text_link_open_url(label, url) {
+	return __imgui_text_link_open_url(label, url);
+}
+
 /// @function imgui_begin(name, open, flags, mask)
 /// @argument {String} name
 /// @argument {Bool} [open=undefined]
@@ -2702,21 +3171,15 @@ function imgui_end() {
 	return __imgui_end();
 }
 
-/// @function imgui_endframe()
-/// @return {Undefined}
-function imgui_endframe() {
-	return __imgui_endframe();
-}
-
-/// @function imgui_begin_child(str_id, width, height, child_flags, flags)
+/// @function imgui_begin_child(str_id, width, height, child_flags, window_flags)
 /// @argument {String} str_id
 /// @argument {Real} [width=0]
 /// @argument {Real} [height=0]
 /// @argument {Enum.ImGuiChildFlags} [child_flags=ImGuiChildFlags.None]
-/// @argument {Enum.ImGuiWindowFlags} [flags=ImGuiWindowFlags.None]
+/// @argument {Enum.ImGuiWindowFlags} [window_flags=ImGuiWindowFlags.None]
 /// @return {Bool}
-function imgui_begin_child(str_id, width=0, height=0, child_flags=ImGuiChildFlags.None, flags=ImGuiWindowFlags.None) {
-	return __imgui_begin_child(str_id, width, height, child_flags, flags);
+function imgui_begin_child(str_id, width=0, height=0, child_flags=ImGuiChildFlags.None, window_flags=ImGuiWindowFlags.None) {
+	return __imgui_begin_child(str_id, width, height, child_flags, window_flags);
 }
 
 /// @function imgui_end_child()
@@ -2795,6 +3258,26 @@ function imgui_get_window_width() {
 /// @return {Real}
 function imgui_get_window_height() {
 	return __imgui_get_window_height();
+}
+
+/// @function imgui_get_window_viewport()
+/// @return {Pointer}
+function imgui_get_window_viewport() {
+	return __imgui_get_window_viewport();
+}
+
+/// @function imgui_set_window_font_scale(scale)
+/// @argument {Real} scale
+/// @return {Undefined}
+function imgui_set_window_font_scale(scale) {
+	return __imgui_set_window_font_scale(scale);
+}
+
+/// @function imgui_set_next_window_viewport(_id)
+/// @argument {Real} _id
+/// @return {Undefined}
+function imgui_set_next_window_viewport(_id) {
+	return __imgui_set_next_window_viewport(_id);
 }
 
 /// @function imgui_set_next_window_pos(_x, _y, cond, pivot_x, pivot_y)
@@ -2932,13 +3415,14 @@ function imgui_set_scroll_from_pos_y(local_y, center_y_ratio=0.5) {
 	return __imgui_set_scroll_from_pos_y(local_y, center_y_ratio);
 }
 
-/// @function imgui_set_window_pos(_x, _y, cond)
+/// @function imgui_set_window_pos(name, _x, _y, cond)
+/// @argument {String} [name=]
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {Enum.ImGuiCond} [cond=ImGuiCond.None]
 /// @return {Undefined}
-function imgui_set_window_pos(_x, _y, cond=ImGuiCond.None) {
-	return __imgui_set_window_pos(_x, _y, cond);
+function imgui_set_window_pos(name="", _x, _y, cond=ImGuiCond.None) {
+	return __imgui_set_window_pos(name, _x, _y, cond);
 }
 
 /// @function imgui_set_window_size(name, width, height, cond)

@@ -10,9 +10,36 @@
     <Filter Include="Source Files\Wrappers">
       <UniqueIdentifier>{4C2821BF-B894-DCB9-8188-7417EDB3FE21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ImGui">
+      <UniqueIdentifier>{ecb94e81-da5a-45ee-8d4e-66ba5b26bfc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imgui_impl_dx11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imgui_impl_win32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui/imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ref.h">
@@ -24,139 +51,129 @@
     <ClInclude Include="YYStd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="imconfig.h">
+    <ClInclude Include="gm/imgui_memory_editor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
+    <ClInclude Include="imgui/imgui_impl_win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui_gm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_gm.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_memory_editor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="imgui_gm_selectionstorage.h" />
+    <ClInclude Include="imgui_gm_windowclass.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="imgui.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_api_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_color_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_combo_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_docking_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_drag_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_drawlist_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_ext_memeditor_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_fonts_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
     <ClCompile Include="imgui_gm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_impl_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_input_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_layout_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_listbox_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_menu_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_payload_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_plots_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_popup_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_selectable_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_slider_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_style_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_table_gm.cpp">
-      <Filter>Source Files\Wrappers</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_tabs_gm.cpp">
+    <ClCompile Include="gm/imgui_api_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_text_gm.cpp">
+    <ClCompile Include="gm/imgui_color_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_tooltips_gm.cpp">
+    <ClCompile Include="gm/imgui_combo_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_tree_gm.cpp">
+    <ClCompile Include="gm/imgui_docking_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets_gm.cpp">
+    <ClCompile Include="gm/imgui_drag_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_window_gm.cpp">
+    <ClCompile Include="gm/imgui_drawlist_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="gm/imgui_ext_memeditor_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_fonts_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_input_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_input_widgets_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_layout_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_listbox_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_menu_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_payload_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_plots_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_popup_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_selectable_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_slider_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_style_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_table_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_tabs_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_text_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_tooltips_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_tree_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_widgets_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="gm/imgui_window_gm.cpp">
+      <Filter>Source Files\Wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_draw.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_demo.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_impl_dx11.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_impl_win32.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_tables.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui/imgui_widgets.cpp">
+      <Filter>Source Files\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

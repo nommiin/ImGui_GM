@@ -33,7 +33,7 @@ class FileReader {
 }
 
 try {
-    const runtime = "C:/ProgramData/GameMakerStudio2-Beta/Cache/runtimes/runtime-2023.100.0.264/";
+    const runtime = "C:/ProgramData/GameMakerStudio2/Cache/runtimes/runtime-2024.8.1.218/";
     (function(fnames, imgui) {
         let str = [];
         for(let i = 0; i < fnames.length; i++) {

@@ -7,6 +7,7 @@ class Wrapper {
     constructor(name, file, line) {
         this.Name = name;
         this.File = file;
+        this.FileRelpath = "gm/" + file;
         this.Line = line;
         this.Calls = undefined;
         this.CallOverride = false;
@@ -15,6 +16,8 @@ class Wrapper {
         this.Return = "Unknown<unset>";
         this.Start = "";
         this.End = "";
+        this.IsWrapped = true;
+        this.IsUnsupported = false;
     }
 
     finalize() {
@@ -192,17 +195,19 @@ class Wrapper {
 
     to_extension() {
         return {
-            resourceType: "GMExtensionFunction",
-            resourceVersion: "1.0",
-            name: this.Name,
+            "$GMExtensionFunction": "",
+            "%Name": this.Name,
+            argCount: 0,
+            args: [],
+            documentation: "",
             externalName: this.Name,
             help: "",
-            documentation: "",
-            kind: 1,
             hidden: true,
+            kind: 1,
+            name: this.Name,
+            resourceType: "GMExtensionFunction",
+            resourceVersion: "2.0",
             returnType: 1,
-            argCount: 0,
-            args: []
         };
     }
 
