@@ -1896,77 +1896,77 @@ function ImGui() constructor {
 	/// @function InputFloat(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} [step=0.1]
+	/// @argument {Real} [step_fast=0.25]
 	/// @argument {String} [format=%.3f]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Real}
-	static InputFloat = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloat = function(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_float(label, v, step, step_fast, format, flags);
 	}
 
 	/// @function InputFloat2(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} [step=0.1]
+	/// @argument {Real} [step_fast=0.25]
 	/// @argument {String} [format=%.3f]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static InputFloat2 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloat2 = function(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_float2(label, v, step, step_fast, format, flags);
 	}
 
 	/// @function InputFloat3(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} [step=0.1]
+	/// @argument {Real} [step_fast=0.25]
 	/// @argument {String} [format=%.3f]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static InputFloat3 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloat3 = function(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_float3(label, v, step, step_fast, format, flags);
 	}
 
 	/// @function InputFloat4(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} [step=0.1]
+	/// @argument {Real} [step_fast=0.25]
 	/// @argument {String} [format=%.3f]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static InputFloat4 = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+	static InputFloat4 = function(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_float4(label, v, step, step_fast, format, flags);
 	}
 
-	/// @function InputFloatN(label, v, step, step_fast, format, flags)
+	/// @function InputFloatN(label, v, len, step, step_fast, format)
 	/// @argument {String} label
 	/// @argument {Array<Real>} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} len
+	/// @argument {Real} [step=0.1]
+	/// @argument {Real} [step_fast=0.25]
 	/// @argument {String} [format=%.3f]
-	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Bool}
-	static InputFloatN = function(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-		return __imgui_input_floatn(label, v, step, step_fast, format, flags, array_length(v));
+	static InputFloatN = function(label, v, len, step=0.1, step_fast=0.25, format="%.3f") {
+		return __imgui_input_floatn(label, v, len, step, step_fast, format, array_length(v));
 	}
 
 	/// @function InputInt(label, v, step, step_fast, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} [step=1]
+	/// @argument {Real} [step_fast=5]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Real}
-	static InputInt = function(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
+	static InputInt = function(label, v, step=1, step_fast=5, flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_int(label, v, step, step_fast, flags);
 	}
 
@@ -2013,13 +2013,13 @@ function ImGui() constructor {
 	/// @function InputDouble(label, v, step, step_fast, format, flags)
 	/// @argument {String} label
 	/// @argument {Real} v
-	/// @argument {Real} [step=0]
-	/// @argument {Real} [step_fast=0]
+	/// @argument {Real} [step=1]
+	/// @argument {Real} [step_fast=5]
 	/// @argument {String} [format=%.6f]
 	/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 	/// @context ImGui
 	/// @return {Real}
-	static InputDouble = function(label, v, step=0, step_fast=0, format="%.6f", flags=ImGuiInputTextFlags.None) {
+	static InputDouble = function(label, v, step=1, step_fast=5, format="%.6f", flags=ImGuiInputTextFlags.None) {
 		return __imgui_input_double(label, v, step, step_fast, format, flags);
 	}
 

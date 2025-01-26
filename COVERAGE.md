@@ -475,7 +475,7 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | `ImGui.GetMousePosOnOpeningCurrentPopupY()` | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L261) |
 | `ImGui.GetMouseDragDeltaX(button, lock_threshold)` | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L268) |
 | `ImGui.GetMouseDragDeltaY(button, lock_threshold)` | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L281) |
-| `ImGui.InputFloatN(label, v, step, step_fast, format, flags, count)` | [imgui_input_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_widgets_gm.cpp#L130) |
+| `ImGui.InputFloatN(label, v, len, step, step_fast, format, flags)` | [imgui_input_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_widgets_gm.cpp#L130) |
 | `ImGui.InputIntN(label, v, flags, count)` | [imgui_input_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_widgets_gm.cpp#L218) |
 | `ImGui.GetCursorStartPosX()` | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L89) |
 | `ImGui.GetCursorStartPosY()` | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L96) |
