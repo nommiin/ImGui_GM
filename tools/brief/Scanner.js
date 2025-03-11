@@ -83,7 +83,7 @@ class Scanner {
             }
         }
         this.Tokens.push(this.token("EndFile", undefined));
-        if (!this.Quiet) Logger.info(`Scanned ${this.Line - 1} lines and read ${this.Tokens.length} tokens (${artifact_count} unknown tokens)`);
+        if (!this.Quiet) Logger.debug(`Scanned ${this.Line - 1} lines and read ${this.Tokens.length} tokens (${artifact_count} unknown tokens)`);
         return this.Tokens;
     }
 
@@ -253,7 +253,7 @@ class Scanner {
             if (Scanner.Keywords.includes(ident)) return this.token("Keyword", ident);
             if (Scanner.Directives.includes(ident)) return this.token("PreprocessorDirective", ident);
         }
-        
+
         return this.token("Identifier", undefined);
     }
 

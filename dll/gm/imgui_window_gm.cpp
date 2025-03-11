@@ -286,7 +286,9 @@ GMFUNC(__imgui_set_window_pos) {
 	const char* name = YYGetString(arg, 0);
 	GMDEFAULT("");
 	double x = YYGetReal(arg, 1);
+	GMDEFAULT(0);
 	double y = YYGetReal(arg, 2);
+	GMDEFAULT(0);
 	ImGuiCond cond = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiCond.None);
 
@@ -303,7 +305,9 @@ GMFUNC(__imgui_set_window_size) {
 	const char* name = YYGetString(arg, 0);
 	GMDEFAULT("");
 	double width = YYGetReal(arg, 1);
+	GMDEFAULT(0);
 	double height = YYGetReal(arg, 2);
+	GMDEFAULT(0);
 	ImGuiCond cond = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiCond.None);
 
@@ -320,6 +324,7 @@ GMFUNC(__imgui_set_window_collapsed) {
 	const char* name = YYGetString(arg, 0);
 	GMDEFAULT("");
 	bool collapsed = YYGetBool(arg, 1);
+	GMDEFAULT(true);
 	ImGuiCond cond = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiCond.None);
 

@@ -31,7 +31,7 @@ class Program {
     static main(base, output) {
         if (!fs.existsSync(base)) throw `Could not run program, could not find base package file at "${base}"`;
         const extension = new AdmZip(base);
-        
+
         if (!fs.existsSync(output)) fs.mkdirSync(output);
         extension.extractAllTo(output);
         Logger.info(`Extracted ${extension.getEntryCount()} files to output directory "${output}"`);
@@ -102,7 +102,7 @@ class Program {
 const args = [Bundle.Base, "tools/bundle/output/"];
 try {
     if (process.cwd().endsWith("dll")) process.chdir("../");
-    
+
     if (Program.main(...args) === false) {
         throw `An unknown error has occured`;
     }

@@ -5,7 +5,7 @@ class FileReader {
         if (!fs.existsSync(file)) {
             throw `Could not create FileReader for file that does not exist: ${file}`;
         }
-        
+
         this.File = file;
         this.Content = fs.readFileSync(file, {encoding: "utf-8"}).split("\n");
         this.Index = 0;

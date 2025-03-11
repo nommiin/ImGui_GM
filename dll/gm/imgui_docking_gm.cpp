@@ -29,7 +29,7 @@ GMFUNC(__imgui_find_viewport_by_id) {
 
     Result.kind = VALUE_PTR;
     Result.ptr = ImGui::FindViewportByID(id);
-    GMRETURNS(ImGuiViewport);
+    GMRETURN(ImGuiViewport);
 }
 
 GMFUNC(__imgui_find_viewport_by_platform_handle) {
@@ -38,7 +38,7 @@ GMFUNC(__imgui_find_viewport_by_platform_handle) {
 
     Result.kind = VALUE_PTR;
     Result.ptr = ImGui::FindViewportByPlatformHandle(platform_handle);
-    GMRETURNS(ImGuiViewport);
+    GMRETURN(ImGuiViewport);
 }
 
 GMFUNC(__imgui_dock_space_over_viewport) {
@@ -49,8 +49,9 @@ GMFUNC(__imgui_dock_space_over_viewport) {
         final_dockspace_id = YYGetReal(arg, 0);
     }
     else {
-        final_dockspace_id = NULL;
+        final_dockspace_id = 0;
     }
+    GMHINT(Real | Undefined)
     GMDEFAULT(0);
 
     int viewport_id = YYGetReal(arg, 1);

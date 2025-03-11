@@ -1,4 +1,5 @@
 #pragma once
+
 #include <stddef.h>
 #include "Extension_Interface.h"
 #include "YYRValue.h"
@@ -36,7 +37,7 @@
 #define WriteLog(...) DebugConsoleOutput("[ImGui_GM] %s\n", __VA_ARGS__)
 
 // Helpers
-static inline ImVec4 GMCOLOR_TO(int col, float alpha) { 
+static inline ImVec4 GMCOLOR_TO(int col, float alpha) {
 	float r = (float)(col & 0xFF) / 0xFF;
 	float g = (float)((col >> 8) & 0xFF) / 0xFF;
 	float b = (float)((col >> 16) & 0xFF) / 0xFF;
@@ -130,24 +131,24 @@ enum TextureType : char {
 	TextureType_Font = 1 << 2
 };
 
-typedef int ImGuiExtFlags;
+typedef int ImGuiGFlags;
 
-enum ImGuiExtFlags_ {
-	ImGuiExtFlags_None = 0,
-	ImGuiExtFlags_RENDERER_GM = 1 << 0,
-	ImGuiExtFlags_IMPL_GM = 1 << 1,
-	ImGuiExtFlags_IMPL_DX11 = 1 << 2,
-	ImGuiExtFlags_IMPL_WIN32 = 1 << 3,
-	ImGuiExtFlags_GM = ImGuiExtFlags_RENDERER_GM | ImGuiExtFlags_IMPL_GM,
+enum ImGuiGFlags_ {
+	ImGuiGFlags_None = 0,
+	ImGuiGFlags_RENDERER_GM = 1 << 0,
+	ImGuiGFlags_IMPL_GM = 1 << 1,
+	ImGuiGFlags_IMPL_DX11 = 1 << 2,
+	ImGuiGFlags_IMPL_WIN32 = 1 << 3,
+	ImGuiGFlags_GM = ImGuiGFlags_RENDERER_GM | ImGuiGFlags_IMPL_GM,
 };
 
-extern ImGuiExtFlags g_ImGuiExtFlags;
+extern ImGuiGFlags g_ImGuiGFlags;
 extern ID3D11Device* g_pd3dDevice;
 extern ID3D11DeviceContext* g_pd3dDeviceContext;
 extern ID3D11ShaderResourceView* g_pView;
 
 inline ImTextureID GetTexture(int id, int subimg, TextureType type) {
-	if (g_ImGuiExtFlags & ImGuiExtFlags_RENDERER_GM) {
+	if (g_ImGuiGFlags & ImGuiGFlags_RENDERER_GM) {
 		return (ImTextureID)(((((uintptr_t)id << 12) | (uintptr_t)subimg) << 4) | (uintptr_t)type);
 	}
 	g_pd3dDeviceContext->PSGetShaderResources(0, 1, &g_pView);

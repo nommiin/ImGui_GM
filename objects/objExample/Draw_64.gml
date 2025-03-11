@@ -27,15 +27,15 @@ draw_text(5, 100,
     )
 );
 draw_text(145, 100,
-	string("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n{6}",
-		str_fps,
-		str_mem,
-		IMGUI_GM_VERSION,
-		ImGui.GetVersion(),
+    string("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n\n{6}",
+        str_fps,
+        str_mem,
+        IMGUI_GM_VERSION,
+        ImGui.GetVersion(),
         GM_version + " - " + GM_runtime_version,
         operating_system,
         (mouse_check_button(mb_left) ? "(true)" : "(false)") + " - ImGui LMB:  " + (ImGui.IsMouseDown(ImGuiMouseButton.Left) ? "(true)" : "(false)"),
-	)
+    )
 );
 
 if memory_difference > 200_000 draw_set_color(#ff5040);

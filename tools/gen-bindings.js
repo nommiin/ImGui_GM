@@ -34,7 +34,7 @@ throw `This script has been deprecated, please use brief/main.js instead`;
 /* node.js script to do a few things:
    1. read wrapper functions from imgui_gm.cpp
    2. add function definition resources to ImGui_GM.yy
-   3. create bound functions that call to ImGui in ImGui.gml  
+   3. create bound functions that call to ImGui in ImGui.gml
    ⚠️ This script directly modifies ImGui_GM.yy and ImGui.gml, so it is recomended you use source control! ⚠️
 
    Notes:
@@ -124,7 +124,7 @@ try {
                 if (ind === -1) {
                     continue;
                 }
-                
+
                 let start = line.indexOf("(", ind);
                 let end = line.indexOf(")", ind);
                 if (start === -1 || end === -1) throw `Could not get arguments for YYGet call at line ${j + 1}`;
@@ -184,13 +184,13 @@ try {
                             break;
                         }
 
-                        // Allows you to override the name of the ImGui:: function being called, only affects static function name in GameMaker 
+                        // Allows you to override the name of the ImGui:: function being called, only affects static function name in GameMaker
                         case "GMOVERRIDE": {
                             call = data;
                             break;
                         }
                     }
-                    
+
                 }
 
                 args[arg_ind] = {
@@ -228,7 +228,7 @@ try {
                     const line = wrappers[j].trim();
                     const ind = line.indexOf("ImGui::");
                     if (ind === -1 || line.startsWith("//")) continue;
-    
+
                     const start = ind + 7; // ImGui::.length
                     const end = line.indexOf("(", start);
                     if (end == -1) throw `Could not find end of ImGui:: call at line ${j + 1}`;
@@ -236,8 +236,8 @@ try {
                 }
                 if (!call) throw `Could not find call to ImGui function in GMFUNC at line ${i + 1}`;
             }
-            
-            
+
+
             console.log(`Found ${name} with ${args.length} arguments at line ${i + 1} (ImGui::${call})`);
             found.push({
                 Name: name,
@@ -295,7 +295,7 @@ try {
             fs.writeFileSync(input[1] + (USE_TEST ? ".test" : ""), resources_write.join("\n"));
             break;
         }
-        
+
         // ImGui.gml
         // Creates binding functions for ImGui struct in @section Binds
         const binds = content[2], sections = [];
@@ -318,7 +318,7 @@ try {
                 End: -1
             };
         }
-        
+
         if (current_section) {
             if (current_section.End === -1) current_section.End = binds.length;
             sections.push(current_section);
@@ -328,7 +328,7 @@ try {
 
         const section = sections.find(e => e.Name.toLowerCase() === "binds");
         if (!section) throw `Could not update ImGui.gml, could not find "Binds" section`;
-        
+
         let binds_content = [];
         found.forEach(func => {
             let line = [], args = func.Arguments;
@@ -337,7 +337,7 @@ try {
             args.forEach(e => {
                 if (e.Hidden) return;
                 // NOTE: parentheses are replaced with brackets inside of default assignments, IDE's editor gets borked if not
-                line.push(`/// @argument {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def.replaceAll("(", "[").replaceAll(")", "]")}]` : e.Name}`);
+                line.push(`/// @param {${e.Func.slice("YYGet".length)}} ${e.Def ? `[${e.Name}=${e.Def.replaceAll("(", "[").replaceAll(")", "]")}]` : e.Name}`);
             });
             line.push(`static ${func.Call} = function(${args.filter(e => !e.Hidden).map(e => `${e.Name}${e.Def ? `=${e.Def}` : ""}`).join(", ")}) {`);
             if (func.Prepend) line.push(...func.Prepend.map(e => `${SPACING}${e}`));

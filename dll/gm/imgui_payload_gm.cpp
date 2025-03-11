@@ -67,7 +67,7 @@ GMFUNC(__imgui_accept_drag_drop_payload) {
 		TranslatePayload(payload, Result);
 		DsMapClear(g_KeepAlive);
 	}
-	GMRETURNS(Any|Undefined);
+	GMRETURN(Any|Undefined);
 }
 
 GMFUNC(__imgui_get_drag_drop_payload) {
@@ -77,7 +77,7 @@ GMFUNC(__imgui_get_drag_drop_payload) {
 	if (const ImGuiPayload* payload = ImGui::GetDragDropPayload()) {
 		TranslatePayload(payload, Result);
 	}
-	GMRETURNS(Any|Undefined);
+	GMRETURN(Any|Undefined);
 }
 
 GMFUNC(__imgui_get_payload_type) {
@@ -88,5 +88,5 @@ GMFUNC(__imgui_get_payload_type) {
 		YYCreateString(&g_Copy, payload->DataType);
 		COPY_RValue(&Result, &g_Copy);
 	}
-	GMRETURNS(String|Undefined);
+	GMRETURN(String|Undefined);
 }

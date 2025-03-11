@@ -56,7 +56,7 @@ function convert_token(token) {
             back = "\n}\n";
             break;
         }
-        
+
         case "ParenthesesPair": {
             front = "(";
             back = ")";
