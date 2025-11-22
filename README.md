@@ -1,3 +1,6 @@
+# ✨ Looking to use ImGui within GameMaker? ##
+## Check out [ImGM by knno](https://github.com/knno/ImGM/)!
+
 # ⚠️ Notice ⚠️
 **This project has been archived as of 8/17/2025**, as there are plans to officially introduce ImGui to GameMaker in collaboration with ocornut.
 
