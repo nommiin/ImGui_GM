@@ -1,24 +1,8 @@
 # ✨ Looking to use ImGui within GameMaker? ##
 ## Check out [ImGM by knno](https://github.com/knno/ImGM/)!
 
-# ⚠️ Notice ⚠️
-**This project has been archived as of 8/17/2025**, as there are plans to officially introduce ImGui to GameMaker in collaboration with ocornut.
-
-Thank you for all the support throughout the years of this extension's development. I hope it has been able to assist numerous developers with their own project's developments!
-
-Support for this extension is now ceased, please fork the extension to introduce new changes/bug fixes.
-
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
-# &nbsp;
+# 🎉 Notice 🎉
+**This project was archived on 8/17/2025** and has been unarchived on 5/9/2026, plans exist to resume lighter development and modernization efforts in the near future. Stay tuned!  
 
 # ImGui_GM
 A Windows only ImGui wrapper for modern GameMaker, heavily work-in-progress
