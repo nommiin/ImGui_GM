@@ -99,9 +99,6 @@ static int RConvertToInt64(RValue* rvalue) {
 static std::vector<ImGuiSelectionBasicStorage*> g_vImGuiSelectionBasicStorages;
 
 // Other
-#define INPUT_SIZE 4096
-extern char g_InputBuf[INPUT_SIZE];
-
 extern int g_KeepAlive;
 
 extern RValue g_Copy;

@@ -97,6 +97,7 @@
     <ClInclude Include="Extension_Interface.h" />
     <ClInclude Include="imgui/imconfig.h" />
     <ClInclude Include="imgui/imgui.h" />
+    <ClInclude Include="imgui\misc\imgui_stdlib.h" />
     <ClInclude Include="imgui_gm.h" />
     <ClInclude Include="imgui/imgui_impl_dx11.h" />
     <ClInclude Include="imgui/imgui_impl_win32.h" />
@@ -124,6 +125,7 @@
     <ClCompile Include="gm/imgui_drawlist_gm.cpp" />
     <ClCompile Include="gm/imgui_ext_memeditor_gm.cpp" />
     <ClCompile Include="gm/imgui_fonts_gm.cpp" />
+    <ClCompile Include="imgui\misc\imgui_stdlib.cpp" />
     <ClCompile Include="imgui_gm.cpp" />
     <ClCompile Include="imgui_impl_gm.cpp" />
     <ClCompile Include="gm/imgui_payload_gm.cpp" />

@@ -4735,6 +4735,7 @@ function ImGui() constructor {
             if (buffer_read(__State.Renderer.CmdBuffer, buffer_bool)) { // data->Valid
             	shader_set(shdImGui);
             	surface_set_target(__State.Renderer.Surface);
+				gpu_set_blendmode_ext(bm_one, bm_inv_src_alpha);
             	draw_clear_alpha(0, 0);
             	var list_count = buffer_read(__State.Renderer.CmdBuffer, buffer_u32);
             	for(var i = 0; i < list_count; i++) {
@@ -4775,6 +4776,7 @@ function ImGui() constructor {
             	}
             	surface_reset_target();
             	shader_reset();
+				gpu_set_blendmode(bm_normal);
 
 				if _ww > 0 and _wh > 0 {
 					display_set_gui_size(_ww, _wh);

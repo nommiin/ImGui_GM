@@ -6,8 +6,6 @@
 #include "imgui_gm.h"
 
 static bool g_ImGuiInitialized = false;
-
-char g_InputBuf[INPUT_SIZE];
 RValue g_Copy;
 
 ID3D11Device* g_pd3dDevice;

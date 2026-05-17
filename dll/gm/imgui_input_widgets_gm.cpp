@@ -1,4 +1,5 @@
 #include "../imgui_gm.h"
+#include "../imgui/misc/imgui_stdlib.h"
 
 GMFUNC(__imgui_input_text) {
 	const char* label = YYGetString(arg, 0);
@@ -7,9 +8,9 @@ GMFUNC(__imgui_input_text) {
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 2);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy(g_InputBuf, val);
-	ImGui::InputText(label, g_InputBuf, IM_ARRAYSIZE(g_InputBuf), flags);
-	YYCreateString(&g_Copy, g_InputBuf);
+	std::string input = val;
+	ImGui::InputText(label, &input, flags);
+	YYCreateString(&g_Copy, input.c_str());
 	COPY_RValue(&Result, &g_Copy);
 }
 
@@ -24,9 +25,9 @@ GMFUNC(__imgui_input_textmultiline) {
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 4);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy(g_InputBuf, val);
-	ImGui::InputTextMultiline(label, g_InputBuf, IM_ARRAYSIZE(g_InputBuf), ImVec2(width, height), flags);
-	YYCreateString(&g_Copy, g_InputBuf);
+	std::string input = val;
+	ImGui::InputTextMultiline(label, &input, ImVec2(width, height), flags);
+	YYCreateString(&g_Copy, input.c_str());
 	COPY_RValue(&Result, &g_Copy);
 }
 
@@ -38,9 +39,9 @@ GMFUNC(__imgui_input_textwithhint) {
 	ImGuiInputTextFlags flags = YYGetInt64(arg, 3);
 	GMDEFAULT(ImGuiInputTextFlags.None);
 
-	strcpy(g_InputBuf, val);
-	ImGui::InputTextWithHint(label, hint, g_InputBuf, IM_ARRAYSIZE(g_InputBuf), flags);
-	YYCreateString(&g_Copy, g_InputBuf);
+	std::string input = val;
+	ImGui::InputTextWithHint(label, hint, &input, flags);
+	YYCreateString(&g_Copy, input.c_str());
 	COPY_RValue(&Result, &g_Copy);
 }
 

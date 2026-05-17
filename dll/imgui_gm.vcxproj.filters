@@ -13,6 +13,9 @@
     <Filter Include="Source Files\ImGui">
       <UniqueIdentifier>{ecb94e81-da5a-45ee-8d4e-66ba5b26bfc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ImGui\Misc">
+      <UniqueIdentifier>{a668815d-13f0-431e-9487-8dc41f48cc13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h">
@@ -65,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="imgui_gm_selectionstorage.h" />
     <ClInclude Include="imgui_gm_windowclass.h" />
+    <ClInclude Include="imgui\misc\imgui_stdlib.h">
+      <Filter>Source Files\ImGui\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -174,6 +180,9 @@
     </ClCompile>
     <ClCompile Include="imgui/imgui_widgets.cpp">
       <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\misc\imgui_stdlib.cpp">
+      <Filter>Source Files\ImGui\Misc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
