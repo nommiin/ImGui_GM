@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "ImGui_Misc",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "ImGui_GM",
-    "path": "folders/ImGui_GM.yy",
+  "$GMScript":"v1",
+  "%Name":"ImGui_Misc",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ImGui_Misc",
+  "parent":{
+    "name":"ImGui_GM",
+    "path":"folders/ImGui_GM.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
