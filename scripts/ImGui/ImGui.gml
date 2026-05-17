@@ -4729,7 +4729,7 @@ function ImGui() constructor {
 
         var _data = __State.__GetData();
         __imgui_draw(_data);
-
+		
         if (ImGui.__ExtFlags & ImGuiExtFlags.RENDERER_GM) {
             buffer_seek(__State.Renderer.CmdBuffer, buffer_seek_start, 0);
             if (buffer_read(__State.Renderer.CmdBuffer, buffer_bool)) { // data->Valid
