@@ -7,7 +7,9 @@ const Logger = require("./Logger");
 const Configuration = require("./Configuration");
 const Wrapper = require("./Wrapper");
 const Token = require("./Token");
-const Util = require("./Util")
+const Util = require("./Util");
+const JSON5 = require("bun").JSON5;
+//import { JSON5 } from "bun";
 
 /**
  * Reads specific C++ files and automatically creates wrapped functions for GameMaker
@@ -308,7 +310,7 @@ class Program {
      * @param {FileEditor} file A file editor containing the extension file
      */
     static writeWrappers(wrappers, file) {
-        const extension = JSON.parse(Util.clean_yy(file.Content));
+        const extension = JSON5.parse(file.Content);
         if (extension.resourceType !== "GMExtension") throw `Could not parse "${file.Name}", expected GMExtension .yy file`;
 
         const res_index = extension.files.findIndex(e => e.filename === "imgui_gm.dll");//, resource = extension.files.find(e => e.filename === "imgui_gm.dll");

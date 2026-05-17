@@ -92,9 +92,6 @@
     <ClCompile Include="imgui_gm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_impl_gm.cpp">
       <Filter>Source Files\Wrappers</Filter>
     </ClCompile>

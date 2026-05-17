@@ -68,7 +68,7 @@
       <ImportLibrary>..\extensions\ImGui_GM\imgui_gm.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>node ..\tools\brief\main.js</Command>
+      <Command>bun ..\tools\brief\main.js</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -90,7 +90,7 @@
       <ImportLibrary>..\extensions\ImGui_GM\imgui_gm.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>node ..\tools\brief\main.js</Command>
+      <Command>bun ..\tools\brief\main.js</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -189,11 +189,13 @@ class Wrapper {
         Logger.warning(`Could not handle unknown modifier "${token.Literal}" for wrapper "${this.Name}" at line ${token.Line}`);
         return false;
     }
-
+    
     to_extension() {
         return {
+            "$GMExtensionFunction": "",
             resourceType: "GMExtensionFunction",
-            resourceVersion: "1.0",
+            resourceVersion: "2.0",
+            "%Name": this.Name,
             name: this.Name,
             externalName: this.Name,
             help: "",
@@ -202,7 +204,7 @@ class Wrapper {
             hidden: true,
             returnType: 1,
             argCount: 0,
-            args: []
+            args: [],
         };
     }
 
