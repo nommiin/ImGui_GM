@@ -274,19 +274,17 @@ try {
             // Add new functions
             found.forEach(func => {
                 resource.functions.push({
-                    "$GMExtensionFunction": "",
-                    "%Name": func.Name,
-                    argCount: 0,
-                    args: [],
-                    documentation: "",
+                    resourceType: "GMExtensionFunction",
+                    resourceVersion: "1.0",
+                    name: func.Name,
                     externalName: func.Name,
                     help: "",
-                    hidden: true,
+                    documentation: "",
                     kind: 1,
-                    name: func.Name,
-                    resourceType: "GMExtensionFunction",
-                    resourceVersion: "2.0",
+                    hidden: true,
                     returnType: 1,
+                    argCount: 0,
+                    args: []
                 })
             });
 
