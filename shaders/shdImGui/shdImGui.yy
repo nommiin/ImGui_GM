@@ -1,10 +1,12 @@
 {
-  "resourceType": "GMShader",
-  "resourceVersion": "1.0",
-  "name": "shdImGui",
-  "parent": {
-    "name": "ImGui_GM",
-    "path": "folders/ImGui_GM.yy",
+  "$GMShader":"",
+  "%Name":"shdImGui",
+  "name":"shdImGui",
+  "parent":{
+    "name":"ImGui_GM",
+    "path":"folders/ImGui_GM.yy",
   },
-  "type": 1,
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
 }

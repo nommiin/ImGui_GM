@@ -178,6 +178,7 @@ _TeamCity*
 
 # Coverlet is a free, cross platform Code Coverage Tool
 coverage*.json
+!extra/badges/coverage*.json
 coverage*.xml
 coverage*.info
 
@@ -431,6 +432,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Copied dependencies
+dll/Extension_Interface.h
+dll/Ref.h
+dll/YYRValue.h
+dll/YYStd.h
 extensions/ImGui_GM/debug.zip
-tools/bundle/output/

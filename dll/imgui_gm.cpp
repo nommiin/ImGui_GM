@@ -7,20 +7,6 @@ GMFUNC(__imguigm_native) {
 	Result.val = false;
 }
 
-GMFUNC(__imguigm_command_buffer) {
-	GMOVERRIDE(_);
-
-	Result.kind = VALUE_REAL;
-	Result.val = g_CommandBuffer;
-}
-
-GMFUNC(__imguigm_font_buffer) {
-	GMOVERRIDE(_);
-
-	Result.kind = VALUE_REAL;
-	Result.val = g_FontBuffer;
-}
-
 GMFUNC(__imguigm_keepalive) {
 	GMOVERRIDE(_);
 

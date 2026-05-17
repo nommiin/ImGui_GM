@@ -1,3 +1,6 @@
+#include <charconv>
+#include <string>
+#include <tchar.h>
 #include "imgui_gm.h"
 #include "imgui_impl_gm.h"
 #include "Extension_Interface.h"
@@ -10,100 +13,185 @@ template<typename T> inline void BufferWrite(int buffer, T val, int& offset, boo
 }
 
 struct ImGui_ImplGM_Data {
-	ImGui_ImplGM_Data() { memset((void*)this, 0, sizeof(*this)); }
+	bool isUserData;
+	ImGui_ImplGM_Data() { memset((void*)this, 0, sizeof(*this)); isUserData = true; }
 };
 
-static ImGui_ImplGM_Data* ImGui_ImplGM_GetBackendData() {
-	return ImGui::GetCurrentContext() ? (ImGui_ImplGM_Data*)ImGui::GetIO().BackendPlatformUserData : nullptr;
+int g_CmdBuffer;
+int g_FontBuffer;
+bool g_UpdateFont;
+
+//---------------------------------------------------------------------------------------------------------
+// MAIN GAMEMAKER FUNCTIONS
+//--------------------------------------------------------------------------------------------------------
+
+static ImGui_ImplGM_Data* ImGui_ImplGM_GetData() {
+	return ImGui::GetCurrentContext() ? (ImGui_ImplGM_Data*)ImGui::GetIO().UserData : nullptr;
 }
 
-bool ImGui_ImplGM_Init(void* handle) {
+void UpdateStateFromStruct(RValue* state, StateUpdateFlags flags = StateUpdateFlags_All) {
 	ImGuiIO& io = ImGui::GetIO();
-	IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
 
-	ImGui_ImplGM_Data* bd = IM_NEW(ImGui_ImplGM_Data)();
-	io.BackendPlatformUserData = (void*)bd;
+	RValue* display_width = nullptr;
+	RValue* display_height = nullptr;
+	RValue* display_scale = nullptr;
+	RValue* mouse_x = nullptr;
+	RValue* mouse_y = nullptr;
+	RValue* framerate = nullptr;
+	RValue* time = nullptr;
+	RValue* command_buffer = nullptr;
+	RValue* font_buffer = nullptr;
+	RValue* update_font = nullptr;
+
+	RValue* display = YYStructGetMember(state, "Display");
+	RValue* input = YYStructGetMember(state, "Input");
+	RValue* engine = YYStructGetMember(state, "Engine");
+	RValue* renderer = YYStructGetMember(state, "Renderer");
+	
+	// Read RValues
+	{
+		if (display->kind != VALUE_UNDEFINED) {
+			display_width = YYStructGetMember(display, "Width");
+			display_height = YYStructGetMember(display, "Height");
+			display_scale = YYStructGetMember(display, "Scale");
+		}
+
+		if (input->kind != VALUE_UNDEFINED) {
+			RValue* yy_mouse = YYStructGetMember(input, "Mouse");
+
+			if (yy_mouse->kind != VALUE_UNDEFINED) {
+				mouse_x = YYStructGetMember(yy_mouse, "X");
+				mouse_y = YYStructGetMember(yy_mouse, "Y");
+			}
+		}
+
+		if (engine->kind != VALUE_UNDEFINED) {
+			framerate = YYStructGetMember(engine, "Framerate");
+			time = YYStructGetMember(engine, "Time");
+		}
+
+		if (renderer->kind != VALUE_UNDEFINED) {
+			command_buffer = YYStructGetMember(renderer, "CmdBuffer");
+			font_buffer = YYStructGetMember(renderer, "FontBuffer");
+			update_font = YYStructGetMember(renderer, "UpdateFont");
+		}
+	}
+
+	// Apply state
+	if ((flags & StateUpdateFlags_DisplaySize) && (display_width != NULL && display_height != NULL)) {
+		io.DisplaySize = ImVec2(display_width->asReal(), display_height->asReal());
+	}
+	if ((flags & StateUpdateFlags_DisplayScale) && (display_scale != NULL)) {
+		io.FontGlobalScale = display_scale->asReal();
+	}
+	if ((flags & StateUpdateFlags_MousePos) && (mouse_x != NULL && mouse_y != NULL)) {
+		io.AddMousePosEvent(mouse_x->val, mouse_y->val);
+	}
+	if ((flags & StateUpdateFlags_Framerate) && (framerate != NULL)) {
+		io.Framerate = framerate->val;
+	}
+	if ((flags & StateUpdateFlags_Time) && (time != NULL)) {
+		io.DeltaTime = time->val;
+	}
+	if ((flags & StateUpdateFlags_CmdBuffer) && (command_buffer != NULL)) {
+		g_CmdBuffer = command_buffer->asReal();
+	}
+	if ((flags & StateUpdateFlags_FontBuffer) && (font_buffer != NULL)) {
+		g_FontBuffer = font_buffer->asReal();
+	}
+	if ((flags & StateUpdateFlags_UpdateFont) && (update_font != NULL)) {
+		g_UpdateFont = update_font->asBool();
+	}
+}
+
+bool ImGui_ImplGM_Init(void* window_handle) {
+	ImGuiIO& io = ImGui::GetIO();
+	IM_ASSERT(io.UserData == nullptr && "Already initialized a platform backend!");
+
+	ImGui_ImplGM_Data* ud = IM_NEW(ImGui_ImplGM_Data)();
+
 	io.BackendPlatformName = "imgui_impl_gm";
-	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 
-	ImGui::GetMainViewport()->PlatformHandleRaw = handle;
+	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+	io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+
+    io.BackendFlags &= ~ImGuiBackendFlags_PlatformHasViewports;
+    io.BackendFlags &= ~ImGuiBackendFlags_HasMouseHoveredViewport;
+
+    ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+	main_viewport->PlatformHandleRaw = window_handle;
+
+	io.UserData = &ud;
+	
 	return true;
 }
 
 void ImGui_ImplGM_Shutdown() {
-	ImGui_ImplGM_Data* bd = ImGui_ImplGM_GetBackendData();
-	IM_ASSERT(bd != nullptr && "No platform backend to shutdown, or already shutdown?");
+	ImGui_ImplGM_Data* ud = ImGui_ImplGM_GetData();
+	IM_ASSERT(ud != nullptr && "No platform backend to shutdown, or already shutdown?");
 
 	ImGuiIO& io = ImGui::GetIO();
+
 	io.BackendPlatformName = nullptr;
+	io.UserData = nullptr;
+	io.BackendFlags &= ~(ImGuiBackendFlags_HasMouseCursors | ImGuiBackendFlags_HasSetMousePos);
+	io.BackendFlags |= (ImGuiBackendFlags_PlatformHasViewports | ImGuiBackendFlags_HasMouseHoveredViewport);
 }
 
-void ImGui_ImplGM_NewFrame(RValue* const state) {
+void ImGui_ImplGM_NewFrame() {
 	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplGM_Data* bd = ImGui_ImplGM_GetBackendData();
-	IM_ASSERT(bd != nullptr && "Did you call ImGui_ImplGM_GetBackendData()?");
-
-	unsigned char* pixels;
-	int width, height;
-	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
-	io.Fonts->SetTexID((ImTextureID)TextureType_Font);
 
 	int offset = 0;
 	BufferWrite<bool>(g_FontBuffer, g_UpdateFont, offset);
+
 	if (g_UpdateFont) {
+		unsigned char* pixels;
+		int width, height;
+		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+		io.Fonts->SetTexID((ImTextureID)TextureType_Font);
+
 		BufferWrite<unsigned int>(g_FontBuffer, width, offset, true);
 		BufferWrite<unsigned int>(g_FontBuffer, height, offset, true);
 		BufferWriteContent(g_FontBuffer, offset, pixels, width * height * 4, true);
 		g_UpdateFont = false;
 	}
 
-	RValue* display = YYStructGetMember(state, "Display");
-	RValue* input = YYStructGetMember(state, "Input");
-	RValue* engine = YYStructGetMember(state, "Engine");
-	RValue* mouse = YYStructGetMember(input, "Mouse");
-	RValue* display_width = YYStructGetMember(display, "Width");
-	RValue* display_height = YYStructGetMember(display, "Height");
-	RValue* mouse_x = YYStructGetMember(mouse, "X");
-	RValue* mouse_y = YYStructGetMember(mouse, "Y");
-	RValue* framerate = YYStructGetMember(engine, "Framerate");
-	RValue* time = YYStructGetMember(engine, "Time");
-
-	io.DisplaySize = ImVec2(display_width->val, display_height->val);
-	io.MousePos = ImVec2(mouse_x->val, mouse_y->val);
-	io.Framerate = framerate->val;
-	io.DeltaTime = time->val;
 }
 
-void ImGui_ImplGM_RenderDrawData(ImDrawData* data) {
+void ImGui_ImplGM_RenderDrawData(ImDrawData* draw_data) {
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplGM_Data* ud = ImGui_ImplGM_GetData();
+	IM_ASSERT(ud != nullptr && "Did you call ImGui_ImplGM_GetData()?");
+
 	int cmd_offset = 0;
-	if (data->DisplaySize.x <= 0 || data->DisplaySize.y <= 0) {
-		BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
+	if (io.DisplaySize.x <= 0 || io.DisplaySize.y <= 0) {
+		BufferWrite<bool>(g_CmdBuffer, false, cmd_offset);
 		return;
 	}
 
-	BufferWrite<bool>(g_CommandBuffer, data->Valid, cmd_offset);
-	if (data->Valid) {
-		BufferWrite<unsigned int>(g_CommandBuffer, data->CmdListsCount, cmd_offset);
-		for (int i = 0; i < data->CmdListsCount; i++) {
-			const ImDrawList* list = data->CmdLists[i];
-			BufferWrite<unsigned int>(g_CommandBuffer, list->CmdBuffer.Size, cmd_offset);
+	BufferWrite<bool>(g_CmdBuffer, draw_data->Valid, cmd_offset);
+	if (draw_data->Valid) {
+		BufferWrite<unsigned int>(g_CmdBuffer, draw_data->CmdListsCount, cmd_offset);
+		for (int i = 0; i < draw_data->CmdListsCount; i++) {
+			const ImDrawList* list = draw_data->CmdLists[i];
+			BufferWrite<unsigned int>(g_CmdBuffer, list->CmdBuffer.Size, cmd_offset);
 			for (int j = 0; j < list->CmdBuffer.Size; j++) {
 				const ImDrawCmd* cmd = &list->CmdBuffer.Data[j];
 				if (cmd->UserCallback != nullptr) {
-					BufferWrite<bool>(g_CommandBuffer, true, cmd_offset);
+					BufferWrite<bool>(g_CmdBuffer, true, cmd_offset);
 				} else {
-					BufferWrite<bool>(g_CommandBuffer, false, cmd_offset);
+					BufferWrite<bool>(g_CmdBuffer, false, cmd_offset);
 
 					ImTextureID texture = cmd->GetTexID();
-					BufferWrite<unsigned int>(g_CommandBuffer, (texture & 0xF) != TextureType_Raw ? texture : 0, cmd_offset);
-					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.x, cmd_offset);
-					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.y, cmd_offset);
-					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.z, cmd_offset);
-					BufferWrite<float>(g_CommandBuffer, cmd->ClipRect.w, cmd_offset);
-					BufferWrite<unsigned int>(g_CommandBuffer, cmd->ElemCount, cmd_offset);
+					BufferWrite<unsigned int>(g_CmdBuffer, ((uintptr_t)(texture) & 0xF) != TextureType_Raw ? (uintptr_t)(texture): 0, cmd_offset);
+					BufferWrite<float>(g_CmdBuffer, cmd->ClipRect.x, cmd_offset);
+					BufferWrite<float>(g_CmdBuffer, cmd->ClipRect.y, cmd_offset);
+					BufferWrite<float>(g_CmdBuffer, cmd->ClipRect.z, cmd_offset);
+					BufferWrite<float>(g_CmdBuffer, cmd->ClipRect.w, cmd_offset);
+					BufferWrite<unsigned int>(g_CmdBuffer, cmd->ElemCount, cmd_offset);
 					for (unsigned int k = 0; k < cmd->ElemCount; k++) {
 						const ImDrawVert* vert = &list->VtxBuffer[list->IdxBuffer[cmd->IdxOffset + k]];
-						cmd_offset = BufferWriteContent(g_CommandBuffer, cmd_offset, vert, sizeof(ImDrawVert), true);
+						cmd_offset = BufferWriteContent(g_CmdBuffer, cmd_offset, vert, sizeof(ImDrawVert), true);
 					}
 				}
 			}
