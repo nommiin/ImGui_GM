@@ -47,10 +47,6 @@ static inline double GMCOLOR_FROM(ImVec4 col) {
 	return r | (g << 8) | (b << 16) | (alpha << 24);
 }
 
-// Other
-#define INPUT_SIZE 4096
-extern char g_InputBuf[INPUT_SIZE];
-
 extern int g_KeepAlive;
 extern int g_CommandBuffer;
 extern int g_FontBuffer;

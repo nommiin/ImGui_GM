@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 5/17/2026, 5:13:07 PM
+*  Generated at 5/19/2026, 1:01:55 AM
 */
 
 /// @function imgui_initialize
@@ -1381,71 +1381,71 @@ function imgui_input_textwithhint(label, hint, val, flags=ImGuiInputTextFlags.No
 /// @function imgui_input_float(label, v, step, step_fast, format, flags)
 /// @argument {String} label
 /// @argument {Real} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} [step=0.1]
+/// @argument {Real} [step_fast=0.25]
 /// @argument {String} [format=%.3f]
 /// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Real}
-function imgui_input_float(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+function imgui_input_float(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 	return __imgui_input_float(label, v, step, step_fast, format, flags);
 }
 
 /// @function imgui_input_float2(label, v, step, step_fast, format, flags)
 /// @argument {String} label
 /// @argument {Array<Real>} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} [step=0.1]
+/// @argument {Real} [step_fast=0.25]
 /// @argument {String} [format=%.3f]
 /// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Bool}
-function imgui_input_float2(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+function imgui_input_float2(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 	return __imgui_input_float2(label, v, step, step_fast, format, flags);
 }
 
 /// @function imgui_input_float3(label, v, step, step_fast, format, flags)
 /// @argument {String} label
 /// @argument {Array<Real>} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} [step=0.1]
+/// @argument {Real} [step_fast=0.25]
 /// @argument {String} [format=%.3f]
 /// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Bool}
-function imgui_input_float3(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+function imgui_input_float3(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 	return __imgui_input_float3(label, v, step, step_fast, format, flags);
 }
 
 /// @function imgui_input_float4(label, v, step, step_fast, format, flags)
 /// @argument {String} label
 /// @argument {Array<Real>} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} [step=0.1]
+/// @argument {Real} [step_fast=0.25]
 /// @argument {String} [format=%.3f]
 /// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Bool}
-function imgui_input_float4(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
+function imgui_input_float4(label, v, step=0.1, step_fast=0.25, format="%.3f", flags=ImGuiInputTextFlags.None) {
 	return __imgui_input_float4(label, v, step, step_fast, format, flags);
 }
 
-/// @function imgui_input_floatn(label, v, step, step_fast, format, flags)
+/// @function imgui_input_floatn(label, v, len, step, step_fast, format)
 /// @argument {String} label
 /// @argument {Array<Real>} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} len
+/// @argument {Real} [step=0.1]
+/// @argument {Real} [step_fast=0.25]
 /// @argument {String} [format=%.3f]
-/// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Bool}
-function imgui_input_floatn(label, v, step=0, step_fast=0, format="%.3f", flags=ImGuiInputTextFlags.None) {
-	return __imgui_input_floatn(label, v, step, step_fast, format, flags, array_length(v));
+function imgui_input_floatn(label, v, len, step=0.1, step_fast=0.25, format="%.3f") {
+	return __imgui_input_floatn(label, v, len, step, step_fast, format, array_length(v));
 }
 
 /// @function imgui_input_int(label, v, step, step_fast, flags)
 /// @argument {String} label
 /// @argument {Real} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} [step=1]
+/// @argument {Real} [step_fast=5]
 /// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Real}
-function imgui_input_int(label, v, step=0, step_fast=0, flags=ImGuiInputTextFlags.None) {
+function imgui_input_int(label, v, step=1, step_fast=5, flags=ImGuiInputTextFlags.None) {
 	return __imgui_input_int(label, v, step, step_fast, flags);
 }
 
@@ -1488,12 +1488,12 @@ function imgui_input_intn(label, v, flags=ImGuiInputTextFlags.None) {
 /// @function imgui_input_double(label, v, step, step_fast, format, flags)
 /// @argument {String} label
 /// @argument {Real} v
-/// @argument {Real} [step=0]
-/// @argument {Real} [step_fast=0]
+/// @argument {Real} [step=1]
+/// @argument {Real} [step_fast=5]
 /// @argument {String} [format=%.6f]
 /// @argument {Enum.ImGuiInputTextFlags} [flags=ImGuiInputTextFlags.None]
 /// @return {Real}
-function imgui_input_double(label, v, step=0, step_fast=0, format="%.6f", flags=ImGuiInputTextFlags.None) {
+function imgui_input_double(label, v, step=1, step_fast=5, format="%.6f", flags=ImGuiInputTextFlags.None) {
 	return __imgui_input_double(label, v, step, step_fast, format, flags);
 }
 

@@ -191,18 +191,18 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::VSliderFloat | ✅ | [imgui_slider_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_slider_gm.cpp#L221) | N/A |
 | ImGui::VSliderInt | ✅ | [imgui_slider_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_slider_gm.cpp#L240) | N/A |
 | ImGui::VSliderScalar | ❌ | N/A | N/A |
-| ImGui::InputText | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L3) | N/A |
-| ImGui::InputTextMultiline | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L16) | N/A |
-| ImGui::InputTextWithHint | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L33) | N/A |
-| ImGui::InputFloat | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L47) | N/A |
-| ImGui::InputFloat2 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L64) | N/A |
-| ImGui::InputFloat3 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L86) | N/A |
-| ImGui::InputFloat4 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L108) | N/A |
-| ImGui::InputInt | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L155) | N/A |
-| ImGui::InputInt2 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L170) | N/A |
-| ImGui::InputInt3 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L186) | N/A |
-| ImGui::InputInt4 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L202) | N/A |
-| ImGui::InputDouble | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L237) | N/A |
+| ImGui::InputText | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L4) | N/A |
+| ImGui::InputTextMultiline | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L17) | N/A |
+| ImGui::InputTextWithHint | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L34) | N/A |
+| ImGui::InputFloat | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L48) | N/A |
+| ImGui::InputFloat2 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L65) | N/A |
+| ImGui::InputFloat3 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L87) | N/A |
+| ImGui::InputFloat4 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L109) | N/A |
+| ImGui::InputInt | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L156) | N/A |
+| ImGui::InputInt2 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L171) | N/A |
+| ImGui::InputInt3 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L187) | N/A |
+| ImGui::InputInt4 | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L203) | N/A |
+| ImGui::InputDouble | ✅ | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L238) | N/A |
 | ImGui::InputScalar | ❌ | N/A | N/A |
 | ImGui::InputScalarN | ❌ | N/A | N/A |
 | ImGui::ColorEdit3 | ✅ | [imgui_color_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_color_gm.cpp#L6) | N/A |
@@ -489,8 +489,8 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.MemoryEditorDrawContents(buffer, offset, size) | [imgui_ext_memeditor_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_ext_memeditor_gm.cpp#L18) |
 | ImGui.AddFontFromFile(file, size) | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L30) |
 | ImGui.AddFontDefault() | [imgui_fonts_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_fonts_gm.cpp#L45) |
-| ImGui.InputFloatN(label, v, step, step_fast, format, flags, count) | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L130) |
-| ImGui.InputIntN(label, v, flags, count) | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L218) |
+| ImGui.InputFloatN(label, v, len, step, step_fast, format, flags) | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L131) |
+| ImGui.InputIntN(label, v, flags, count) | [imgui_input_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_input_gm.cpp#L219) |
 | ImGui.GetCursorStartPosX() | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L81) |
 | ImGui.GetCursorStartPosY() | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L88) |
 | ImGui.GetCursorScreenPosX() | [imgui_layout_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_layout_gm.cpp#L95) |

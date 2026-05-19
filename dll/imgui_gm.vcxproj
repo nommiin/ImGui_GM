@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Extension_Interface.h" />
+    <ClInclude Include="imgui_stdlib.h" />
     <ClInclude Include="Ref.h" />
     <ClInclude Include="YYRValue.h" />
     <ClInclude Include="YYStd.h" />
@@ -132,6 +133,7 @@
     <ClCompile Include="imgui_popup_gm.cpp" />
     <ClCompile Include="imgui_selectable_gm.cpp" />
     <ClCompile Include="imgui_slider_gm.cpp" />
+    <ClCompile Include="imgui_stdlib.cpp" />
     <ClCompile Include="imgui_style_gm.cpp" />
     <ClCompile Include="imgui_table_gm.cpp" />
     <ClCompile Include="imgui_tables.cpp" />

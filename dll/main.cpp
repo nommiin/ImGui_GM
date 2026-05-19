@@ -3,7 +3,6 @@
 static ImGuiContext* g_ImGuiContext;
 static bool g_ImGuiInitialized = false;
 
-char g_InputBuf[INPUT_SIZE];
 RValue g_Copy;
 
 void* g_pHandle;
