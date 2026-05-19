@@ -41,14 +41,20 @@ class Program {
             replace[this.parse(find)] = this.parse(Bundle.Replace[find]);
         }
 
+        const use_lts = fs.existsSync("lts/ImGui_GM.yyp");
+        if (use_lts) {
+            Logger.info(`Found LTS project, building package using contents ` + output);
+        }
+
         const rules = Bundle.Include;
         if (!rules) throw `Could not run program, include rules in "bundle.json" are undefined`;
 
         const copy = [];
         for(let i = 0; i < rules.length; i++) {
-            copy.push(...globSync(rules[i]).map(e => {
-                fs.copyFileSync(e, output + e);
-                return path.normalize(output + e);
+            copy.push(...globSync((use_lts ? "lts/" : "") + rules[i]).map(e => {
+                const dest = output + (use_lts ? path.relative("lts", e) : e);
+                fs.copyFileSync(e, dest);
+                return path.normalize(dest);
             }));
         }
         Logger.info(`Retrieved ${copy.length} files to copy into output`);
@@ -85,6 +91,11 @@ class Program {
                             Logger.info(`${find} -> ${replace[find]} in "${name}"`);
                         }
                     }
+
+                    if (ext == ".yy" && data.indexOf('$GMExtension') != -1) {
+                        throw `Could not run program, project version is too new. Run downgrade.bat in the lts folder to create a compatible project`;
+                    }
+
                     fs.writeFileSync(name, data, {encoding: "utf-8"});
                     break;
                 }

@@ -434,3 +434,6 @@ FodyWeavers.xsd
 # Copied dependencies
 extensions/ImGui_GM/debug.zip
 tools/bundle/output/
+lts/*
+!lts/ABOUT.md
+!lts/downgrade.bat

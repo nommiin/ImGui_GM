@@ -1,0 +1,2 @@
+for %%I in ("%~dp0..") do set "PROJECT=%%~fI"
+"C:\Program Files\GameMaker-Beta\packages\gm-tools\project-tool-win-x64\ProjectTool.exe" PROJECT SAVE SOURCE="%PROJECT%\ImGui_GM.yyp" DESTINATION="%~dp0ImGui_GM.yyp" FORMAT="NOV23" CLEANUP=True
