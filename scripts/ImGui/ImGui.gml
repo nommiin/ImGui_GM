@@ -924,52 +924,55 @@ function ImGui() constructor {
 		return __imgui_get_window_drawlist();
 	}
 
-	/// @function DrawListAddLine(list, x1, y1, x2, y2, col, thickness)
+	/// @function DrawListAddLine(list, x1, y1, x2, y2, col, alpha, thickness)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
 	/// @argument {Real} x2
 	/// @argument {Real} y2
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [thickness=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddLine = function(list, x1, y1, x2, y2, col, thickness=1) {
-		return __imgui_drawlist_add_line(list, x1, y1, x2, y2, col, thickness);
+	static DrawListAddLine = function(list, x1, y1, x2, y2, col, alpha=1, thickness=1) {
+		return __imgui_drawlist_add_line(list, x1, y1, x2, y2, col, alpha, thickness);
 	}
 
-	/// @function DrawListAddRect(list, x1, y1, x2, y2, col, rounding, thickness, flags)
+	/// @function DrawListAddRect(list, x1, y1, x2, y2, col, alpha, rounding, thickness, flags)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
 	/// @argument {Real} x2
 	/// @argument {Real} y2
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [rounding=0]
 	/// @argument {Real} [thickness=1]
 	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddRect = function(list, x1, y1, x2, y2, col, rounding=0, thickness=1, flags=ImDrawFlags.None) {
-		return __imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, rounding, thickness, flags);
+	static DrawListAddRect = function(list, x1, y1, x2, y2, col, alpha=1, rounding=0, thickness=1, flags=ImDrawFlags.None) {
+		return __imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, alpha, rounding, thickness, flags);
 	}
 
-	/// @function DrawListAddRectFilled(list, x1, y1, x2, y2, col, rounding, flags)
+	/// @function DrawListAddRectFilled(list, x1, y1, x2, y2, col, alpha, rounding, flags)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
 	/// @argument {Real} x2
 	/// @argument {Real} y2
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [rounding=0]
 	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddRectFilled = function(list, x1, y1, x2, y2, col, rounding=0, flags=ImDrawFlags.None) {
-		return __imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding, flags);
+	static DrawListAddRectFilled = function(list, x1, y1, x2, y2, col, alpha=1, rounding=0, flags=ImDrawFlags.None) {
+		return __imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, alpha, rounding, flags);
 	}
 
-	/// @function DrawListAddRectFilledMultiColor(list, x1, y1, x2, y2, col1, col2, col3, col4)
+	/// @function DrawListAddRectFilledMultiColor(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
@@ -979,13 +982,14 @@ function ImGui() constructor {
 	/// @argument {Real} col2
 	/// @argument {Real} col3
 	/// @argument {Real} col4
+	/// @argument {Real} [alpha=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddRectFilledMultiColor = function(list, x1, y1, x2, y2, col1, col2, col3, col4) {
-		return __imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4);
+	static DrawListAddRectFilledMultiColor = function(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha=1) {
+		return __imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha);
 	}
 
-	/// @function DrawListAddQuad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness)
+	/// @function DrawListAddQuad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
@@ -996,14 +1000,15 @@ function ImGui() constructor {
 	/// @argument {Real} x4
 	/// @argument {Real} y4
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [thickness=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddQuad = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness=1) {
-		return __imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness);
+	static DrawListAddQuad = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha=1, thickness=1) {
+		return __imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness);
 	}
 
-	/// @function DrawListAddQuadFilled(list, x1, y1, x2, y2, x3, y3, x4, y4, col)
+	/// @function DrawListAddQuadFilled(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
@@ -1014,13 +1019,14 @@ function ImGui() constructor {
 	/// @argument {Real} x4
 	/// @argument {Real} y4
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddQuadFilled = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col) {
-		return __imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col);
+	static DrawListAddQuadFilled = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha=1) {
+		return __imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha);
 	}
 
-	/// @function DrawListAddTriangle(list, x1, y1, x2, y2, x3, y3, col, thickness)
+	/// @function DrawListAddTriangle(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
@@ -1029,14 +1035,15 @@ function ImGui() constructor {
 	/// @argument {Real} x3
 	/// @argument {Real} y3
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [thickness=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddTriangle = function(list, x1, y1, x2, y2, x3, y3, col, thickness=1) {
-		return __imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thickness);
+	static DrawListAddTriangle = function(list, x1, y1, x2, y2, x3, y3, col, alpha=1, thickness=1) {
+		return __imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness);
 	}
 
-	/// @function DrawListAddTriangleFilled(list, x1, y1, x2, y2, x3, y3, col)
+	/// @function DrawListAddTriangleFilled(list, x1, y1, x2, y2, x3, y3, col, alpha)
 	/// @argument {Pointer} list
 	/// @argument {Real} x1
 	/// @argument {Real} y1
@@ -1045,169 +1052,182 @@ function ImGui() constructor {
 	/// @argument {Real} x3
 	/// @argument {Real} y3
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddTriangleFilled = function(list, x1, y1, x2, y2, x3, y3, col) {
-		return __imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col);
+	static DrawListAddTriangleFilled = function(list, x1, y1, x2, y2, x3, y3, col, alpha=1) {
+		return __imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col, alpha);
 	}
 
-	/// @function DrawListAddCircle(list, _x, _y, radius, col, num_segments, thickness)
+	/// @function DrawListAddCircle(list, _x, _y, radius, col, alpha, num_segments, thickness)
 	/// @argument {Pointer} list
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {Real} radius
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [num_segments=0]
 	/// @argument {Real} [thickness=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddCircle = function(list, _x, _y, radius, col, num_segments=0, thickness=1) {
-		return __imgui_drawlist_add_circle(list, _x, _y, radius, col, num_segments, thickness);
+	static DrawListAddCircle = function(list, _x, _y, radius, col, alpha=1, num_segments=0, thickness=1) {
+		return __imgui_drawlist_add_circle(list, _x, _y, radius, col, alpha, num_segments, thickness);
 	}
 
-	/// @function DrawListAddCircleFilled(list, _x, _y, radius, col, num_segments)
+	/// @function DrawListAddCircleFilled(list, _x, _y, radius, col, alpha, num_segments)
 	/// @argument {Pointer} list
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {Real} radius
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [num_segments=0]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddCircleFilled = function(list, _x, _y, radius, col, num_segments=0) {
-		return __imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, num_segments);
+	static DrawListAddCircleFilled = function(list, _x, _y, radius, col, alpha=1, num_segments=0) {
+		return __imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, alpha, num_segments);
 	}
 
-	/// @function DrawListAddNgon(list, _x, _y, radius, col, num_segments, thickness)
+	/// @function DrawListAddNgon(list, _x, _y, radius, col, alpha, num_segments, thickness)
 	/// @argument {Pointer} list
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {Real} radius
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [num_segments=0]
 	/// @argument {Real} [thickness=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddNgon = function(list, _x, _y, radius, col, num_segments=0, thickness=1) {
-		return __imgui_drawlist_add_ngon(list, _x, _y, radius, col, num_segments, thickness);
+	static DrawListAddNgon = function(list, _x, _y, radius, col, alpha=1, num_segments=0, thickness=1) {
+		return __imgui_drawlist_add_ngon(list, _x, _y, radius, col, alpha, num_segments, thickness);
 	}
 
-	/// @function DrawListAddNgonFilled(list, _x, _y, radius, col, num_segments)
+	/// @function DrawListAddNgonFilled(list, _x, _y, radius, col, alpha, num_segments)
 	/// @argument {Pointer} list
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {Real} radius
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [num_segments=0]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddNgonFilled = function(list, _x, _y, radius, col, num_segments=0) {
-		return __imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, num_segments);
+	static DrawListAddNgonFilled = function(list, _x, _y, radius, col, alpha=1, num_segments=0) {
+		return __imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, alpha, num_segments);
 	}
 
-	/// @function DrawListAddText(list, _x, _y, text, col)
+	/// @function DrawListAddText(list, _x, _y, text, col, alpha)
 	/// @argument {Pointer} list
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {String} text
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddText = function(list, _x, _y, text, col) {
-		return __imgui_drawlist_add_text(list, _x, _y, text, col);
+	static DrawListAddText = function(list, _x, _y, text, col, alpha=1) {
+		return __imgui_drawlist_add_text(list, _x, _y, text, col, alpha);
 	}
 
-	/// @function DrawListAddTextFont(list, _x, _y, text, col, font, font_size, wrap_width)
+	/// @function DrawListAddTextFont(list, _x, _y, text, font, font_size, col, alpha, wrap_width)
 	/// @argument {Pointer} list
 	/// @argument {Real} _x
 	/// @argument {Real} _y
 	/// @argument {String} text
-	/// @argument {Real} col
 	/// @argument {Pointer} font
 	/// @argument {Real} font_size
+	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [wrap_width=0]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddTextFont = function(list, _x, _y, text, col, font, font_size, wrap_width=0) {
-		return __imgui_drawlist_add_text_font(list, _x, _y, text, col, font, font_size, wrap_width);
+	static DrawListAddTextFont = function(list, _x, _y, text, font, font_size, col, alpha=1, wrap_width=0) {
+		return __imgui_drawlist_add_text_font(list, _x, _y, text, font, font_size, col, alpha, wrap_width);
 	}
 
-	/// @function DrawListAddPolyline(list, positions, col, thickness, flags)
+	/// @function DrawListAddPolyline(list, positions, col, alpha, thickness, flags)
 	/// @argument {Pointer} list
 	/// @argument {Array<Real>} positions
 	/// @argument {Real} col
-	/// @argument {Real} thickness
-	/// @argument {Enum.ImDrawFlags} flags
-	/// @context ImGui
-	/// @return {Undefined}
-	static DrawListAddPolyline = function(list, positions, col, thickness, flags) {
-		return __imgui_drawlist_add_polyline(list, positions, col, thickness, flags, array_length(positions));
-	}
-
-	/// @function DrawListAddConvexPolyFilled(list, positions, col)
-	/// @argument {Pointer} list
-	/// @argument {Array<Real>} positions
-	/// @argument {Real} col
-	/// @context ImGui
-	/// @return {Undefined}
-	static DrawListAddConvexPolyFilled = function(list, positions, col) {
-		return __imgui_drawlist_add_convex_poly_filled(list, positions, col, array_length(positions));
-	}
-
-	/// @function DrawListAddBezierCubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments)
-	/// @argument {Pointer} list
-	/// @argument {Real} x1
-	/// @argument {Real} y1
-	/// @argument {Real} x2
-	/// @argument {Real} y2
-	/// @argument {Real} x3
-	/// @argument {Real} y3
-	/// @argument {Real} x4
-	/// @argument {Real} y4
-	/// @argument {Real} col
-	/// @argument {Real} thickness
-	/// @argument {Real} [num_segments=0]
-	/// @context ImGui
-	/// @return {Undefined}
-	static DrawListAddBezierCubic = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments=0) {
-		return __imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments);
-	}
-
-	/// @function DrawListAddBezierQuadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments)
-	/// @argument {Pointer} list
-	/// @argument {Real} x1
-	/// @argument {Real} y1
-	/// @argument {Real} x2
-	/// @argument {Real} y2
-	/// @argument {Real} x3
-	/// @argument {Real} y3
-	/// @argument {Real} col
-	/// @argument {Real} thickness
-	/// @argument {Real} [num_segments=0]
-	/// @context ImGui
-	/// @return {Undefined}
-	static DrawListAddBezierQuadratic = function(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments=0) {
-		return __imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments);
-	}
-
-	/// @function DrawListPathFillConvex(list, col)
-	/// @argument {Pointer} list
-	/// @argument {Real} col
-	/// @context ImGui
-	/// @return {Undefined}
-	static DrawListPathFillConvex = function(list, col) {
-		return __imgui_drawlist_path_fill_convex(list, col);
-	}
-
-	/// @function DrawListPathStroke(list, col, thickness, flags)
-	/// @argument {Pointer} list
-	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [thickness=1]
 	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListPathStroke = function(list, col, thickness=1, flags=ImDrawFlags.None) {
-		return __imgui_drawlist_path_stroke(list, col, thickness, flags);
+	static DrawListAddPolyline = function(list, positions, col, alpha=1, thickness=1, flags=ImDrawFlags.None) {
+		return __imgui_drawlist_add_polyline(list, positions, col, alpha, thickness, flags, array_length(positions));
+	}
+
+	/// @function DrawListAddConvexPolyFilled(list, positions, col, alpha)
+	/// @argument {Pointer} list
+	/// @argument {Array<Real>} positions
+	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddConvexPolyFilled = function(list, positions, col, alpha=1) {
+		return __imgui_drawlist_add_convex_poly_filled(list, positions, col, alpha, array_length(positions));
+	}
+
+	/// @function DrawListAddBezierCubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} x4
+	/// @argument {Real} y4
+	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
+	/// @argument {Real} [thickness=1]
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddBezierCubic = function(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha=1, thickness=1, num_segments=0) {
+		return __imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness, num_segments);
+	}
+
+	/// @function DrawListAddBezierQuadratic(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness, num_segments)
+	/// @argument {Pointer} list
+	/// @argument {Real} x1
+	/// @argument {Real} y1
+	/// @argument {Real} x2
+	/// @argument {Real} y2
+	/// @argument {Real} x3
+	/// @argument {Real} y3
+	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
+	/// @argument {Real} [thickness=1]
+	/// @argument {Real} [num_segments=0]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListAddBezierQuadratic = function(list, x1, y1, x2, y2, x3, y3, col, alpha=1, thickness=1, num_segments=0) {
+		return __imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness, num_segments);
+	}
+
+	/// @function DrawListPathFillConvex(list, col, alpha)
+	/// @argument {Pointer} list
+	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathFillConvex = function(list, col, alpha=1) {
+		return __imgui_drawlist_path_fill_convex(list, col, alpha);
+	}
+
+	/// @function DrawListPathStroke(list, col, alpha, thickness, flags)
+	/// @argument {Pointer} list
+	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
+	/// @argument {Real} [thickness=1]
+	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
+	/// @context ImGui
+	/// @return {Undefined}
+	static DrawListPathStroke = function(list, col, alpha=1, thickness=1, flags=ImDrawFlags.None) {
+		return __imgui_drawlist_path_stroke(list, col, alpha, thickness, flags);
 	}
 
 	/// @function DrawListPathClear(list)
@@ -1307,7 +1327,7 @@ function ImGui() constructor {
 		return __imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding, flags);
 	}
 
-	/// @function DrawListAddImage(list, sprite, subimg, x1, y1, x2, y2, col)
+	/// @function DrawListAddImage(list, sprite, subimg, x1, y1, x2, y2, col, alpha)
 	/// @argument {Pointer} list
 	/// @argument {Real} sprite
 	/// @argument {Real} subimg
@@ -1316,13 +1336,14 @@ function ImGui() constructor {
 	/// @argument {Real} x2
 	/// @argument {Real} y2
 	/// @argument {Real} [col=c_white]
+	/// @argument {Real} [alpha=1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddImage = function(list, sprite, subimg, x1, y1, x2, y2, col=c_white) {
-		return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, sprite_get_uvs(sprite, subimg));
+	static DrawListAddImage = function(list, sprite, subimg, x1, y1, x2, y2, col=c_white, alpha=1) {
+		return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, alpha, sprite_get_uvs(sprite, subimg));
 	}
 
-	/// @function DrawListAddImageRounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags)
+	/// @function DrawListAddImageRounded(list, sprite, subimg, x1, y1, x2, y2, rounding, col, alpha, flags)
 	/// @argument {Pointer} list
 	/// @argument {Real} sprite
 	/// @argument {Real} subimg
@@ -1330,13 +1351,14 @@ function ImGui() constructor {
 	/// @argument {Real} y1
 	/// @argument {Real} x2
 	/// @argument {Real} y2
-	/// @argument {Real} col
 	/// @argument {Real} rounding
-	/// @argument {Real} flags
+	/// @argument {Real} [col=c_white]
+	/// @argument {Real} [alpha=1]
+	/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 	/// @context ImGui
 	/// @return {Undefined}
-	static DrawListAddImageRounded = function(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags) {
-		return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, sprite_get_uvs(sprite, subimg));
+	static DrawListAddImageRounded = function(list, sprite, subimg, x1, y1, x2, y2, rounding, col=c_white, alpha=1, flags=ImDrawFlags.None) {
+		return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, rounding, col, alpha, flags, sprite_get_uvs(sprite, subimg));
 	}
 
 	/// @function DrawListPushClipRect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect)
@@ -3192,14 +3214,15 @@ function ImGui() constructor {
 		return __imgui_table_set_column_enabled(column_n, v);
 	}
 
-	/// @function TableSetBgColor(target, col, column_n)
+	/// @function TableSetBgColor(target, col, alpha, column_n)
 	/// @argument {Real} target
 	/// @argument {Real} col
+	/// @argument {Real} [alpha=1]
 	/// @argument {Real} [column_n=-1]
 	/// @context ImGui
 	/// @return {Undefined}
-	static TableSetBgColor = function(target, col, column_n=-1) {
-		return __imgui_table_set_bg_color(target, col, column_n);
+	static TableSetBgColor = function(target, col, alpha=1, column_n=-1) {
+		return __imgui_table_set_bg_color(target, col, alpha, column_n);
 	}
 
 	/// @function Columns(count, _id, border)
@@ -3604,6 +3627,18 @@ function ImGui() constructor {
 	/// @return {Undefined}
 	static Bullet = function() {
 		return __imgui_bullet();
+	}
+
+	/// @function BeginViewportSideBar(name, viewport, dir, size, window_flags)
+	/// @argument {String} name
+	/// @argument {Real} viewport
+	/// @argument {Real} dir
+	/// @argument {Real} size
+	/// @argument {Enum.ImGuiWindowFlags} [window_flags=ImGuiWindowFlags.None]
+	/// @context ImGui
+	/// @return {Bool}
+	static BeginViewportSideBar = function(name, viewport, dir, size, window_flags=ImGuiWindowFlags.None) {
+		return __imgui_begin_viewport_sidebar(name, viewport, dir, size, window_flags);
 	}
 
 	/// @function Begin(name, open, flags, mask)

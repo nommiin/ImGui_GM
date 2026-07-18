@@ -52,6 +52,39 @@ if (ImGui.BeginMenu("Windows")) {
 }
 ImGui.EndMainMenuBar();
 
+// Toolbar
+var sidebar_flags = ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.NoSavedSettings | ImGuiWindowFlags.NoNavFocus | ImGuiWindowFlags.NoBringToFrontOnFocus
+ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 4, 4)
+if (ImGui.BeginViewportSideBar("Toolbar", 0, ImGuiDir.Up, 28, sidebar_flags)) {
+	ImGui.Button("Home")
+	
+	ImGui.SameLine(0, 24)
+	ImGui.Button("New File")
+	ImGui.SameLine()
+	ImGui.Button("Open File")
+	ImGui.SameLine()
+	ImGui.Button("Save File")
+	
+	ImGui.SameLine(0, 24)
+	ImGui.Button("Debug")
+	ImGui.SameLine()
+	ImGui.Button("Play")
+	ImGui.SameLine()
+	ImGui.Button("Stop")
+	ImGui.SameLine()
+	ImGui.Button("Cleanup")
+}
+ImGui.PopStyleVar()
+ImGui.End()
+
+// Statusbar
+if (ImGui.BeginViewportSideBar("Statusbar", 0, ImGuiDir.Down, 28, sidebar_flags)) {
+	ImGui.Text($"({mouse_x}, {mouse_y})")
+	ImGui.SameLine()
+	ImGui.Text($"This is a statusbar")
+}
+ImGui.End()
+
 // Adapted from https://gist.github.com/AidanSun05/953f1048ffe5699800d2c92b88c36d9f
 if (!init) {
 	var node_id = ImGui.GetID("Primary");
@@ -222,11 +255,11 @@ if (main_open) {
 		
 			input_int = ImGui.InputInt("ImGui::InputInt", input_int, 1, 5);
 			input_float = ImGui.InputFloat("ImGui::InputFloat", input_float, 0.1, 0.5);
-			ImGui.EndChild();
+		ImGui.EndChild();
 		
-			ImGui.SameLine();
+		ImGui.SameLine();
 		
-			ImGui.BeginChild("Inner_Colors", 0, height, true);
+		ImGui.BeginChild("Inner_Colors", 0, height, true);
 			ImGui.Text("Colors");
 			ImGui.Separator();
 		
@@ -239,7 +272,7 @@ if (main_open) {
 			ImGui.ColorEdit4("ImGui::ColorEdit4", col6);
 		ImGui.EndChild();
 		
-		ImGui.SameLine();
+		//ImGui.SameLine();
 		
 		ImGui.BeginChild("Inner_Table", width / 2, height, true);
 			ImGui.Text("Tables");
@@ -253,8 +286,9 @@ if (main_open) {
 				for(var i = 0; i < 5; i++) {
 					ImGui.TableNextRow();
 					for(var j = 0; j < 3; j++) {
+						var alpha = sin(current_time/1000 + i + j)*0.25 + 0.75
 						ImGui.TableSetColumnIndex(j);
-						ImGui.TableSetBgColor(ImGuiTableBgTarget.CellBg, make_color_hsv(255 * ((i + j) / 8), 128, 255), j);
+						ImGui.TableSetBgColor(ImGuiTableBgTarget.CellBg, make_color_hsv(255 * ((i + j) / 8), 128, 255), alpha, j);
 						ImGui.Text("Hello " + string(i + j));
 					}
 				}

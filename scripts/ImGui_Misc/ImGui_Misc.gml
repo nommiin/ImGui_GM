@@ -28,6 +28,8 @@ function ImColor(red, green, blue, alpha=1) constructor {
 		}
 	}
 	
+	rgba = (a << 24) | (b << 16) | (g << 8) | r
+
 	static Color = function() {
 		return r | (g << 8) | (b << 16);
 	}

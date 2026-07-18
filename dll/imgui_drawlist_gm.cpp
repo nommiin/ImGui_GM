@@ -41,11 +41,16 @@ GMFUNC(__imgui_drawlist_add_line) {
 	double x2 = YYGetReal(arg, 3);
 	double y2 = YYGetReal(arg, 4);
 	int col = YYGetReal(arg, 5);
-	double thickness = YYGetReal(arg, 6);
+
+	float alpha = YYGetReal(arg, 6);
 	GMDEFAULT(1);
+
+	double thickness = YYGetReal(arg, 7);
+	GMDEFAULT(1);
+
 	GMOVERRIDE(DrawListAddLine);
 
-	list->AddLine(ImVec2(x1, y1), ImVec2(x2, y2), col | (0xFF << 24), thickness);
+	list->AddLine(ImVec2(x1, y1), ImVec2(x2, y2), col | (int(alpha*255.0)<<24), thickness);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -56,15 +61,21 @@ GMFUNC(__imgui_drawlist_add_rect) {
 	double x2 = YYGetReal(arg, 3);
 	double y2 = YYGetReal(arg, 4);
 	int col = YYGetReal(arg, 5);
-	double rounding = YYGetReal(arg, 6);
-	GMDEFAULT(0);
-	double thickness = YYGetReal(arg, 7);
+	
+	float alpha = YYGetReal(arg, 6);
 	GMDEFAULT(1);
-	ImDrawFlags flags = YYGetInt64(arg, 8);
+
+	double rounding = YYGetReal(arg, 7);
+	GMDEFAULT(0);
+
+	double thickness = YYGetReal(arg, 8);
+	GMDEFAULT(1);
+
+	ImDrawFlags flags = YYGetInt64(arg, 9);
 	GMDEFAULT(ImDrawFlags.None);
 	GMOVERRIDE(DrawListAddRect);
 
-	list->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), col | (0xFF << 24), rounding, thickness, flags);
+	list->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), col | (int(alpha*255.0)<<24), rounding, thickness, flags);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -75,13 +86,18 @@ GMFUNC(__imgui_drawlist_add_rect_filled) {
 	double x2 = YYGetReal(arg, 3);
 	double y2 = YYGetReal(arg, 4);
 	int col = YYGetReal(arg, 5);
-	double rounding = YYGetReal(arg, 6);
+
+	float alpha = YYGetReal(arg, 6);
+	GMDEFAULT(1);
+
+	double rounding = YYGetReal(arg, 7);
 	GMDEFAULT(0);
-	ImDrawFlags flags = YYGetInt64(arg, 7);
+
+	ImDrawFlags flags = YYGetInt64(arg, 8);
 	GMDEFAULT(ImDrawFlags.None);
 	GMOVERRIDE(DrawListAddRectFilled);
 
-	list->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col | (0xFF << 24), rounding, flags);
+	list->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col | (int(alpha*255.0)<<24), rounding, flags);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -95,9 +111,13 @@ GMFUNC(__imgui_drawlist_add_rect_filled_multicolor) {
 	int col2 = YYGetReal(arg, 6);
 	int col3 = YYGetReal(arg, 7);
 	int col4 = YYGetReal(arg, 8);
+
+	float alpha = YYGetReal(arg, 9);
+	GMDEFAULT(1);
+
 	GMOVERRIDE(DrawListAddRectFilledMultiColor);
 
-	list->AddRectFilledMultiColor(ImVec2(x1, y1), ImVec2(x2, y2), col1 | (0xFF << 24), col2 | (0xFF << 24), col3 | (0xFF << 24), col4 | (0xFF << 24));
+	list->AddRectFilledMultiColor(ImVec2(x1, y1), ImVec2(x2, y2), col1 | (int(alpha*255.0)<<24), col2 | (int(alpha*255.0)<<24), col3 | (int(alpha*255.0)<<24), col4 | (int(alpha*255.0)<<24));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -112,11 +132,16 @@ GMFUNC(__imgui_drawlist_add_quad) {
 	double x4 = YYGetReal(arg, 7);
 	double y4 = YYGetReal(arg, 8);
 	int col = YYGetReal(arg, 9);
-	double thickness = YYGetReal(arg, 10);
+
+	float alpha = YYGetReal(arg, 10);
 	GMDEFAULT(1);
+
+	double thickness = YYGetReal(arg, 11);
+	GMDEFAULT(1);
+	
 	GMOVERRIDE(DrawListAddQuad);
 
-	list->AddQuad(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), ImVec2(x4, y4), col | (0xFF << 24), thickness);
+	list->AddQuad(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), ImVec2(x4, y4), col | (int(alpha*255.0)<<24), thickness);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -131,9 +156,13 @@ GMFUNC(__imgui_drawlist_add_quad_filled) {
 	double x4 = YYGetReal(arg, 7);
 	double y4 = YYGetReal(arg, 8);
 	int col = YYGetReal(arg, 9);
+
+	float alpha = YYGetReal(arg, 10);
+	GMDEFAULT(1);
+
 	GMOVERRIDE(DrawListAddQuadFilled);
 
-	list->AddQuadFilled(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), ImVec2(x4, y4), col | (0xFF << 24));
+	list->AddQuadFilled(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), ImVec2(x4, y4), col | (int(alpha*255.0)<<24));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -146,11 +175,15 @@ GMFUNC(__imgui_drawlist_add_triangle) {
 	double x3 = YYGetReal(arg, 5);
 	double y3 = YYGetReal(arg, 6);
 	int col = YYGetReal(arg, 7);
-	double thickness = YYGetReal(arg, 8);
+
+	float alpha = YYGetReal(arg, 8);
+	GMDEFAULT(1);
+
+	double thickness = YYGetReal(arg, 9);
 	GMDEFAULT(1);
 	GMOVERRIDE(DrawListAddTriangle);
 
-	list->AddTriangle(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), col | (0xFF << 24), thickness);
+	list->AddTriangle(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), col | (int(alpha*255.0)<<24), thickness);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -163,9 +196,13 @@ GMFUNC(__imgui_drawlist_add_triangle_filled) {
 	double x3 = YYGetReal(arg, 5);
 	double y3 = YYGetReal(arg, 6);
 	int col = YYGetReal(arg, 7);
+
+	float alpha = YYGetReal(arg, 8);
+	GMDEFAULT(1);
+
 	GMOVERRIDE(DrawListAddTriangleFilled);
 
-	list->AddTriangleFilled(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), col | (0xFF << 24));
+	list->AddTriangleFilled(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), col | (int(alpha*255.0)<<24));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -175,13 +212,18 @@ GMFUNC(__imgui_drawlist_add_circle) {
 	double y = YYGetReal(arg, 2);
 	double radius = YYGetReal(arg, 3);
 	int col = YYGetReal(arg, 4);
-	int num_segments = YYGetReal(arg, 5);
+
+	float alpha = YYGetReal(arg, 5);
+	GMDEFAULT(1);
+
+	int num_segments = YYGetReal(arg, 6);
 	GMDEFAULT(0);
-	double thickness = YYGetReal(arg, 6);
+
+	double thickness = YYGetReal(arg, 7);
 	GMDEFAULT(1);
 	GMOVERRIDE(DrawListAddCircle);
 
-	list->AddCircle(ImVec2(x, y), radius, col | (0xFF << 24), num_segments, thickness);
+	list->AddCircle(ImVec2(x, y), radius, col | (int(alpha*255.0)<<24), num_segments, thickness);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -191,11 +233,15 @@ GMFUNC(__imgui_drawlist_add_circle_filled) {
 	double y = YYGetReal(arg, 2);
 	double radius = YYGetReal(arg, 3);
 	int col = YYGetReal(arg, 4);
-	int num_segments = YYGetReal(arg, 5);
+
+	float alpha = YYGetReal(arg, 5);
+	GMDEFAULT(1);
+
+	int num_segments = YYGetReal(arg, 6);
 	GMDEFAULT(0);
 	GMOVERRIDE(DrawListAddCircleFilled);
 
-	list->AddCircleFilled(ImVec2(x, y), radius, col | (0xFF << 24), num_segments);
+	list->AddCircleFilled(ImVec2(x, y), radius, col | (int(alpha*255.0)<<24), num_segments);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -205,13 +251,18 @@ GMFUNC(__imgui_drawlist_add_ngon) {
 	double y = YYGetReal(arg, 2);
 	double radius = YYGetReal(arg, 3);
 	int col = YYGetReal(arg, 4);
-	int num_segments = YYGetReal(arg, 5);
+
+	float alpha = YYGetReal(arg, 5);
+	GMDEFAULT(1);
+
+	int num_segments = YYGetReal(arg, 6);
 	GMDEFAULT(0);
-	double thickness = YYGetReal(arg, 6);
+
+	double thickness = YYGetReal(arg, 7);
 	GMDEFAULT(1);
 	GMOVERRIDE(DrawListAddNgon);
 
-	list->AddNgon(ImVec2(x, y), radius, col | (0xFF << 24), num_segments, thickness);
+	list->AddNgon(ImVec2(x, y), radius, col | (int(alpha*255.0)<<24), num_segments, thickness);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -221,11 +272,15 @@ GMFUNC(__imgui_drawlist_add_ngon_filled) {
 	double y = YYGetReal(arg, 2);
 	double radius = YYGetReal(arg, 3);
 	int col = YYGetReal(arg, 4);
-	int num_segments = YYGetReal(arg, 5);
+
+	float alpha = YYGetReal(arg, 5);
+	GMDEFAULT(1);
+
+	int num_segments = YYGetReal(arg, 6);
 	GMDEFAULT(0);
 	GMOVERRIDE(DrawListAddNgonFilled);
 
-	list->AddNgonFilled(ImVec2(x, y), radius, col | (0xFF << 24), num_segments);
+	list->AddNgonFilled(ImVec2(x, y), radius, col | (int(alpha*255.0)<<24), num_segments);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -235,9 +290,13 @@ GMFUNC(__imgui_drawlist_add_text) {
 	double y = YYGetReal(arg, 2);
 	const char* text = YYGetString(arg, 3);
 	int col = YYGetReal(arg, 4);
+
+	float alpha = YYGetReal(arg, 5);
+	GMDEFAULT(1);
+
 	GMOVERRIDE(DrawListAddText);
 
-	list->AddText(ImVec2(x, y), col | (0xFF << 24), text, NULL);
+	list->AddText(ImVec2(x, y), col | (int(alpha*255.0)<<24), text, NULL);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -246,15 +305,20 @@ GMFUNC(__imgui_drawlist_add_text_font) {
 	double x = YYGetReal(arg, 1);
 	double y = YYGetReal(arg, 2);
 	const char* text = YYGetString(arg, 3);
-	int col = YYGetReal(arg, 4);
-	ImFont* font = (ImFont*)YYGetPtr(arg, 5);
-	double font_size = YYGetReal(arg, 6);
-	double wrap_width = YYGetReal(arg, 7);
+	ImFont* font = (ImFont*)YYGetPtr(arg, 4);
+	double font_size = YYGetReal(arg, 5);
+	int col = YYGetReal(arg, 6);
+
+	float alpha = YYGetReal(arg, 7);
+	GMDEFAULT(1);
+
+	double wrap_width = YYGetReal(arg, 8);
 	GMDEFAULT(0);
+
 	GMOVERRIDE(DrawListAddTextFont);
 
 	// TODO: support cpu_fine_clip_rect?
-	list->AddText(font, font_size, ImVec2(x, y), col | (0xFF << 24), text, NULL, wrap_width);
+	list->AddText(font, font_size, ImVec2(x, y), col | (int(alpha*255.0)<<24), text, NULL, wrap_width);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -263,10 +327,18 @@ GMFUNC(__imgui_drawlist_add_polyline) {
 	RValue* positions = &arg[1];
 	GMHINT(Array<Real>);
 	int col = YYGetReal(arg, 2);
-	double thickness = YYGetReal(arg, 3);
-	ImDrawFlags flags = YYGetInt64(arg, 4);
+
+	float alpha = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+
+	double thickness = YYGetReal(arg, 4);
+	GMDEFAULT(1);
+
+	ImDrawFlags flags = YYGetInt64(arg, 5);
+	GMDEFAULT(ImDrawFlags.None);
 	GMHINT(Enum.ImDrawFlags);
-	double num_points = YYGetReal(arg, 5);
+
+	double num_points = YYGetReal(arg, 6);
 	GMHIDDEN();
 	GMPASSTHROUGH(array_length(#arg1));
 	GMOVERRIDE(DrawListAddPolyline);
@@ -280,7 +352,7 @@ GMFUNC(__imgui_drawlist_add_polyline) {
 		p.push_back(ImVec2(x, y));
 	}
 
-	list->AddPolyline(p.Data, p.Size, col | (0xFF << 24), thickness, flags);
+	list->AddPolyline(p.Data, p.Size, col | (int(alpha*255.0)<<24), thickness, flags);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -289,7 +361,11 @@ GMFUNC(__imgui_drawlist_add_convex_poly_filled) {
 	RValue* positions = &arg[1];
 	GMHINT(Array<Real>);
 	int col = YYGetReal(arg, 2);
-	double num_points = YYGetReal(arg, 3);
+
+	float alpha = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+
+	double num_points = YYGetReal(arg, 4);
 	GMHIDDEN();
 	GMPASSTHROUGH(array_length(#arg1));
 	GMOVERRIDE(DrawListAddConvexPolyFilled);
@@ -302,7 +378,7 @@ GMFUNC(__imgui_drawlist_add_convex_poly_filled) {
 		double y = g_Copy.val;
 		p.push_back(ImVec2(x, y));
 	}
-	list->AddConvexPolyFilled(p.Data, p.Size, col | (0xFF << 24));
+	list->AddConvexPolyFilled(p.Data, p.Size, col | (int(alpha*255.0)<<24));
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -317,12 +393,18 @@ GMFUNC(__imgui_drawlist_add_bezier_cubic) {
 	double x4 = YYGetReal(arg, 7);
 	double y4 = YYGetReal(arg, 8);
 	int col = YYGetReal(arg, 9);
-	double thickness = YYGetReal(arg, 10);
-	double num_segments = YYGetReal(arg, 11);
+
+	float alpha = YYGetReal(arg, 10);
+	GMDEFAULT(1);
+
+	double thickness = YYGetReal(arg, 11);
+	GMDEFAULT(1);
+
+	double num_segments = YYGetReal(arg, 12);
 	GMDEFAULT(0);
 	GMOVERRIDE(DrawListAddBezierCubic);
 
-	list->AddBezierCubic(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), ImVec2(x4, y4), col | (0xFF << 24), thickness, num_segments);
+	list->AddBezierCubic(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), ImVec2(x4, y4), col | (int(alpha*255.0)<<24), thickness, num_segments);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -335,34 +417,49 @@ GMFUNC(__imgui_drawlist_add_bezier_quadratic) {
 	double x3 = YYGetReal(arg, 5);
 	double y3 = YYGetReal(arg, 6);
 	int col = YYGetReal(arg, 7);
-	double thickness = YYGetReal(arg, 8);
-	double num_segments = YYGetReal(arg, 9);
+
+	float alpha = YYGetReal(arg, 8);
+	GMDEFAULT(1);
+
+	double thickness = YYGetReal(arg, 9);
+	GMDEFAULT(1);
+
+	double num_segments = YYGetReal(arg, 10);
 	GMDEFAULT(0);
 	GMOVERRIDE(DrawListAddBezierQuadratic);
 
-	list->AddBezierQuadratic(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), col | (0xFF << 24), thickness, num_segments);
+	list->AddBezierQuadratic(ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(x3, y3), col | (int(alpha*255.0)<<24), thickness, num_segments);
 	Result.kind = VALUE_UNDEFINED;
 }
 
 GMFUNC(__imgui_drawlist_path_fill_convex) {
 	ImDrawList* list = (ImDrawList*)YYGetPtr(arg, 0);
 	int col = YYGetReal(arg, 1);
+
+	float alpha = YYGetReal(arg, 2);
+	GMDEFAULT(1);
+
 	GMOVERRIDE(DrawListPathFillConvex);
 
-	list->PathFillConvex(col | (0xFF << 24));
+	list->PathFillConvex(col | (int(alpha*255.0)<<24));
 	Result.kind = VALUE_UNDEFINED;
 }
 
 GMFUNC(__imgui_drawlist_path_stroke) {
 	ImDrawList* list = (ImDrawList*)YYGetPtr(arg, 0);
 	int col = YYGetReal(arg, 1);
-	double thickness = YYGetReal(arg, 2);
+
+	float alpha = YYGetReal(arg, 2);
 	GMDEFAULT(1);
-	ImDrawFlags flags = YYGetInt64(arg, 3);
+
+	double thickness = YYGetReal(arg, 3);
+	GMDEFAULT(1);
+
+	ImDrawFlags flags = YYGetInt64(arg, 4);
 	GMDEFAULT(ImDrawFlags.None);
 	GMOVERRIDE(DrawListPathStroke);
 
-	list->PathStroke(col | (0xFF << 24), thickness, flags);
+	list->PathStroke(col | (int(alpha*255.0)<<24), thickness, flags);
 	Result.kind = VALUE_UNDEFINED;
 }
 
@@ -476,14 +573,19 @@ GMFUNC(__imgui_drawlist_add_image) {
 	double y1 = YYGetReal(arg, 4);
 	double x2 = YYGetReal(arg, 5);
 	double y2 = YYGetReal(arg, 6);
+	
 	int col = YYGetReal(arg, 7);
 	GMDEFAULT(c_white);
-	double* uv = YYGetArray<double>(arg, 8, 4);
+
+	float alpha = YYGetReal(arg, 8);
+	GMDEFAULT(1);
+
+	double* uv = YYGetArray<double>(arg, 9, 4);
 	GMHIDDEN();
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
 	GMOVERRIDE(DrawListAddImage);
 
-	list->AddImage(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24));
+	list->AddImage(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (int(alpha*255.0)<<24));
 	Result.kind = VALUE_UNDEFINED;
 	delete[]uv;
 }
@@ -498,15 +600,24 @@ GMFUNC(__imgui_drawlist_add_image_rounded) {
 	double y1 = YYGetReal(arg, 4);
 	double x2 = YYGetReal(arg, 5);
 	double y2 = YYGetReal(arg, 6);
-	int col = YYGetReal(arg, 7);
-	double rounding = YYGetReal(arg, 8);
-	ImDrawFlags flags = YYGetInt64(arg, 9);
-	double* uv = YYGetArray<double>(arg, 10, 4);
+	double rounding = YYGetReal(arg, 7);
+
+	int col = YYGetReal(arg, 8);
+	GMDEFAULT(c_white);
+
+	float alpha = YYGetReal(arg, 9);
+	GMDEFAULT(1);
+
+	ImDrawFlags flags = YYGetInt64(arg, 10);
+	GMDEFAULT(ImDrawFlags.None);
+	GMHINT(Enum.ImDrawFlags);
+
+	double* uv = YYGetArray<double>(arg, 11, 4);
 	GMHIDDEN();
 	GMPASSTHROUGH(sprite_get_uvs(#arg1, #arg2));
 	GMOVERRIDE(DrawListAddImageRounded);
 
-	list->AddImageRounded(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (0xFF << 24), rounding, flags);
+	list->AddImageRounded(GetTexture(sprite, subimg, TextureType_Sprite), ImVec2(x1, y1), ImVec2(x2, y2), ImVec2(uv[0], uv[1]), ImVec2(uv[2], uv[3]), col | (int(alpha*255.0)<<24), rounding, flags);
 	Result.kind = VALUE_UNDEFINED;
 	delete[]uv;
 }

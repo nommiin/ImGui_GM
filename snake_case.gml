@@ -1,7 +1,7 @@
 /**
 *  This script includes snake_case function defintions for ImGui_GM, as an alternative to the namespaced convention
 *  To use, just drop this script into your project with ImGui_GM
-*  Generated at 5/24/2026, 11:11:59 PM
+*  Generated at 7/18/2026, 6:05:12 PM
 */
 
 /// @function imgui_initialize
@@ -836,49 +836,52 @@ function imgui_get_window_drawlist() {
 	return __imgui_get_window_drawlist();
 }
 
-/// @function imgui_drawlist_add_line(list, x1, y1, x2, y2, col, thickness)
+/// @function imgui_drawlist_add_line(list, x1, y1, x2, y2, col, alpha, thickness)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
 /// @argument {Real} x2
 /// @argument {Real} y2
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [thickness=1]
 /// @return {Undefined}
-function imgui_drawlist_add_line(list, x1, y1, x2, y2, col, thickness=1) {
-	return __imgui_drawlist_add_line(list, x1, y1, x2, y2, col, thickness);
+function imgui_drawlist_add_line(list, x1, y1, x2, y2, col, alpha=1, thickness=1) {
+	return __imgui_drawlist_add_line(list, x1, y1, x2, y2, col, alpha, thickness);
 }
 
-/// @function imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, rounding, thickness, flags)
+/// @function imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, alpha, rounding, thickness, flags)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
 /// @argument {Real} x2
 /// @argument {Real} y2
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [rounding=0]
 /// @argument {Real} [thickness=1]
 /// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 /// @return {Undefined}
-function imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, rounding=0, thickness=1, flags=ImDrawFlags.None) {
-	return __imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, rounding, thickness, flags);
+function imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, alpha=1, rounding=0, thickness=1, flags=ImDrawFlags.None) {
+	return __imgui_drawlist_add_rect(list, x1, y1, x2, y2, col, alpha, rounding, thickness, flags);
 }
 
-/// @function imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding, flags)
+/// @function imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, alpha, rounding, flags)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
 /// @argument {Real} x2
 /// @argument {Real} y2
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [rounding=0]
 /// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 /// @return {Undefined}
-function imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding=0, flags=ImDrawFlags.None) {
-	return __imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding, flags);
+function imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, alpha=1, rounding=0, flags=ImDrawFlags.None) {
+	return __imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, alpha, rounding, flags);
 }
 
-/// @function imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4)
+/// @function imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
@@ -888,12 +891,13 @@ function imgui_drawlist_add_rect_filled(list, x1, y1, x2, y2, col, rounding=0, f
 /// @argument {Real} col2
 /// @argument {Real} col3
 /// @argument {Real} col4
+/// @argument {Real} [alpha=1]
 /// @return {Undefined}
-function imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4) {
-	return __imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4);
+function imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha=1) {
+	return __imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha);
 }
 
-/// @function imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness)
+/// @function imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
@@ -904,13 +908,14 @@ function imgui_drawlist_add_rect_filled_multicolor(list, x1, y1, x2, y2, col1, c
 /// @argument {Real} x4
 /// @argument {Real} y4
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [thickness=1]
 /// @return {Undefined}
-function imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness=1) {
-	return __imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness);
+function imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha=1, thickness=1) {
+	return __imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness);
 }
 
-/// @function imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col)
+/// @function imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
@@ -921,12 +926,13 @@ function imgui_drawlist_add_quad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thic
 /// @argument {Real} x4
 /// @argument {Real} y4
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @return {Undefined}
-function imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col) {
-	return __imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col);
+function imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha=1) {
+	return __imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha);
 }
 
-/// @function imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thickness)
+/// @function imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
@@ -935,13 +941,14 @@ function imgui_drawlist_add_quad_filled(list, x1, y1, x2, y2, x3, y3, x4, y4, co
 /// @argument {Real} x3
 /// @argument {Real} y3
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [thickness=1]
 /// @return {Undefined}
-function imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thickness=1) {
-	return __imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thickness);
+function imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, alpha=1, thickness=1) {
+	return __imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness);
 }
 
-/// @function imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col)
+/// @function imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col, alpha)
 /// @argument {Pointer} list
 /// @argument {Real} x1
 /// @argument {Real} y1
@@ -950,156 +957,169 @@ function imgui_drawlist_add_triangle(list, x1, y1, x2, y2, x3, y3, col, thicknes
 /// @argument {Real} x3
 /// @argument {Real} y3
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @return {Undefined}
-function imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col) {
-	return __imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col);
+function imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col, alpha=1) {
+	return __imgui_drawlist_add_triangle_filled(list, x1, y1, x2, y2, x3, y3, col, alpha);
 }
 
-/// @function imgui_drawlist_add_circle(list, _x, _y, radius, col, num_segments, thickness)
+/// @function imgui_drawlist_add_circle(list, _x, _y, radius, col, alpha, num_segments, thickness)
 /// @argument {Pointer} list
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {Real} radius
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [num_segments=0]
 /// @argument {Real} [thickness=1]
 /// @return {Undefined}
-function imgui_drawlist_add_circle(list, _x, _y, radius, col, num_segments=0, thickness=1) {
-	return __imgui_drawlist_add_circle(list, _x, _y, radius, col, num_segments, thickness);
+function imgui_drawlist_add_circle(list, _x, _y, radius, col, alpha=1, num_segments=0, thickness=1) {
+	return __imgui_drawlist_add_circle(list, _x, _y, radius, col, alpha, num_segments, thickness);
 }
 
-/// @function imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, num_segments)
+/// @function imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, alpha, num_segments)
 /// @argument {Pointer} list
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {Real} radius
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [num_segments=0]
 /// @return {Undefined}
-function imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, num_segments=0) {
-	return __imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, num_segments);
+function imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, alpha=1, num_segments=0) {
+	return __imgui_drawlist_add_circle_filled(list, _x, _y, radius, col, alpha, num_segments);
 }
 
-/// @function imgui_drawlist_add_ngon(list, _x, _y, radius, col, num_segments, thickness)
+/// @function imgui_drawlist_add_ngon(list, _x, _y, radius, col, alpha, num_segments, thickness)
 /// @argument {Pointer} list
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {Real} radius
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [num_segments=0]
 /// @argument {Real} [thickness=1]
 /// @return {Undefined}
-function imgui_drawlist_add_ngon(list, _x, _y, radius, col, num_segments=0, thickness=1) {
-	return __imgui_drawlist_add_ngon(list, _x, _y, radius, col, num_segments, thickness);
+function imgui_drawlist_add_ngon(list, _x, _y, radius, col, alpha=1, num_segments=0, thickness=1) {
+	return __imgui_drawlist_add_ngon(list, _x, _y, radius, col, alpha, num_segments, thickness);
 }
 
-/// @function imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, num_segments)
+/// @function imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, alpha, num_segments)
 /// @argument {Pointer} list
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {Real} radius
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [num_segments=0]
 /// @return {Undefined}
-function imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, num_segments=0) {
-	return __imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, num_segments);
+function imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, alpha=1, num_segments=0) {
+	return __imgui_drawlist_add_ngon_filled(list, _x, _y, radius, col, alpha, num_segments);
 }
 
-/// @function imgui_drawlist_add_text(list, _x, _y, text, col)
+/// @function imgui_drawlist_add_text(list, _x, _y, text, col, alpha)
 /// @argument {Pointer} list
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {String} text
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @return {Undefined}
-function imgui_drawlist_add_text(list, _x, _y, text, col) {
-	return __imgui_drawlist_add_text(list, _x, _y, text, col);
+function imgui_drawlist_add_text(list, _x, _y, text, col, alpha=1) {
+	return __imgui_drawlist_add_text(list, _x, _y, text, col, alpha);
 }
 
-/// @function imgui_drawlist_add_text_font(list, _x, _y, text, col, font, font_size, wrap_width)
+/// @function imgui_drawlist_add_text_font(list, _x, _y, text, font, font_size, col, alpha, wrap_width)
 /// @argument {Pointer} list
 /// @argument {Real} _x
 /// @argument {Real} _y
 /// @argument {String} text
-/// @argument {Real} col
 /// @argument {Pointer} font
 /// @argument {Real} font_size
+/// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [wrap_width=0]
 /// @return {Undefined}
-function imgui_drawlist_add_text_font(list, _x, _y, text, col, font, font_size, wrap_width=0) {
-	return __imgui_drawlist_add_text_font(list, _x, _y, text, col, font, font_size, wrap_width);
+function imgui_drawlist_add_text_font(list, _x, _y, text, font, font_size, col, alpha=1, wrap_width=0) {
+	return __imgui_drawlist_add_text_font(list, _x, _y, text, font, font_size, col, alpha, wrap_width);
 }
 
-/// @function imgui_drawlist_add_polyline(list, positions, col, thickness, flags)
+/// @function imgui_drawlist_add_polyline(list, positions, col, alpha, thickness, flags)
 /// @argument {Pointer} list
 /// @argument {Array<Real>} positions
 /// @argument {Real} col
-/// @argument {Real} thickness
-/// @argument {Enum.ImDrawFlags} flags
-/// @return {Undefined}
-function imgui_drawlist_add_polyline(list, positions, col, thickness, flags) {
-	return __imgui_drawlist_add_polyline(list, positions, col, thickness, flags, array_length(positions));
-}
-
-/// @function imgui_drawlist_add_convex_poly_filled(list, positions, col)
-/// @argument {Pointer} list
-/// @argument {Array<Real>} positions
-/// @argument {Real} col
-/// @return {Undefined}
-function imgui_drawlist_add_convex_poly_filled(list, positions, col) {
-	return __imgui_drawlist_add_convex_poly_filled(list, positions, col, array_length(positions));
-}
-
-/// @function imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments)
-/// @argument {Pointer} list
-/// @argument {Real} x1
-/// @argument {Real} y1
-/// @argument {Real} x2
-/// @argument {Real} y2
-/// @argument {Real} x3
-/// @argument {Real} y3
-/// @argument {Real} x4
-/// @argument {Real} y4
-/// @argument {Real} col
-/// @argument {Real} thickness
-/// @argument {Real} [num_segments=0]
-/// @return {Undefined}
-function imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments=0) {
-	return __imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments);
-}
-
-/// @function imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments)
-/// @argument {Pointer} list
-/// @argument {Real} x1
-/// @argument {Real} y1
-/// @argument {Real} x2
-/// @argument {Real} y2
-/// @argument {Real} x3
-/// @argument {Real} y3
-/// @argument {Real} col
-/// @argument {Real} thickness
-/// @argument {Real} [num_segments=0]
-/// @return {Undefined}
-function imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments=0) {
-	return __imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments);
-}
-
-/// @function imgui_drawlist_path_fill_convex(list, col)
-/// @argument {Pointer} list
-/// @argument {Real} col
-/// @return {Undefined}
-function imgui_drawlist_path_fill_convex(list, col) {
-	return __imgui_drawlist_path_fill_convex(list, col);
-}
-
-/// @function imgui_drawlist_path_stroke(list, col, thickness, flags)
-/// @argument {Pointer} list
-/// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [thickness=1]
 /// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 /// @return {Undefined}
-function imgui_drawlist_path_stroke(list, col, thickness=1, flags=ImDrawFlags.None) {
-	return __imgui_drawlist_path_stroke(list, col, thickness, flags);
+function imgui_drawlist_add_polyline(list, positions, col, alpha=1, thickness=1, flags=ImDrawFlags.None) {
+	return __imgui_drawlist_add_polyline(list, positions, col, alpha, thickness, flags, array_length(positions));
+}
+
+/// @function imgui_drawlist_add_convex_poly_filled(list, positions, col, alpha)
+/// @argument {Pointer} list
+/// @argument {Array<Real>} positions
+/// @argument {Real} col
+/// @argument {Real} [alpha=1]
+/// @return {Undefined}
+function imgui_drawlist_add_convex_poly_filled(list, positions, col, alpha=1) {
+	return __imgui_drawlist_add_convex_poly_filled(list, positions, col, alpha, array_length(positions));
+}
+
+/// @function imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness, num_segments)
+/// @argument {Pointer} list
+/// @argument {Real} x1
+/// @argument {Real} y1
+/// @argument {Real} x2
+/// @argument {Real} y2
+/// @argument {Real} x3
+/// @argument {Real} y3
+/// @argument {Real} x4
+/// @argument {Real} y4
+/// @argument {Real} col
+/// @argument {Real} [alpha=1]
+/// @argument {Real} [thickness=1]
+/// @argument {Real} [num_segments=0]
+/// @return {Undefined}
+function imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha=1, thickness=1, num_segments=0) {
+	return __imgui_drawlist_add_bezier_cubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness, num_segments);
+}
+
+/// @function imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness, num_segments)
+/// @argument {Pointer} list
+/// @argument {Real} x1
+/// @argument {Real} y1
+/// @argument {Real} x2
+/// @argument {Real} y2
+/// @argument {Real} x3
+/// @argument {Real} y3
+/// @argument {Real} col
+/// @argument {Real} [alpha=1]
+/// @argument {Real} [thickness=1]
+/// @argument {Real} [num_segments=0]
+/// @return {Undefined}
+function imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, alpha=1, thickness=1, num_segments=0) {
+	return __imgui_drawlist_add_bezier_quadratic(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness, num_segments);
+}
+
+/// @function imgui_drawlist_path_fill_convex(list, col, alpha)
+/// @argument {Pointer} list
+/// @argument {Real} col
+/// @argument {Real} [alpha=1]
+/// @return {Undefined}
+function imgui_drawlist_path_fill_convex(list, col, alpha=1) {
+	return __imgui_drawlist_path_fill_convex(list, col, alpha);
+}
+
+/// @function imgui_drawlist_path_stroke(list, col, alpha, thickness, flags)
+/// @argument {Pointer} list
+/// @argument {Real} col
+/// @argument {Real} [alpha=1]
+/// @argument {Real} [thickness=1]
+/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
+/// @return {Undefined}
+function imgui_drawlist_path_stroke(list, col, alpha=1, thickness=1, flags=ImDrawFlags.None) {
+	return __imgui_drawlist_path_stroke(list, col, alpha, thickness, flags);
 }
 
 /// @function imgui_drawlist_path_clear(list)
@@ -1191,7 +1211,7 @@ function imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding=0, flags=ImDraw
 	return __imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding, flags);
 }
 
-/// @function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col)
+/// @function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, alpha)
 /// @argument {Pointer} list
 /// @argument {Real} sprite
 /// @argument {Real} subimg
@@ -1200,12 +1220,13 @@ function imgui_drawlist_path_rect(list, x1, y1, x2, y2, rounding=0, flags=ImDraw
 /// @argument {Real} x2
 /// @argument {Real} y2
 /// @argument {Real} [col=c_white]
+/// @argument {Real} [alpha=1]
 /// @return {Undefined}
-function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col=c_white) {
-	return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, sprite_get_uvs(sprite, subimg));
+function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col=c_white, alpha=1) {
+	return __imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col, alpha, sprite_get_uvs(sprite, subimg));
 }
 
-/// @function imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags)
+/// @function imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, rounding, col, alpha, flags)
 /// @argument {Pointer} list
 /// @argument {Real} sprite
 /// @argument {Real} subimg
@@ -1213,12 +1234,13 @@ function imgui_drawlist_add_image(list, sprite, subimg, x1, y1, x2, y2, col=c_wh
 /// @argument {Real} y1
 /// @argument {Real} x2
 /// @argument {Real} y2
-/// @argument {Real} col
 /// @argument {Real} rounding
-/// @argument {Real} flags
+/// @argument {Real} [col=c_white]
+/// @argument {Real} [alpha=1]
+/// @argument {Enum.ImDrawFlags} [flags=ImDrawFlags.None]
 /// @return {Undefined}
-function imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags) {
-	return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, sprite_get_uvs(sprite, subimg));
+function imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, rounding, col=c_white, alpha=1, flags=ImDrawFlags.None) {
+	return __imgui_drawlist_add_image_rounded(list, sprite, subimg, x1, y1, x2, y2, rounding, col, alpha, flags, sprite_get_uvs(sprite, subimg));
 }
 
 /// @function imgui_drawlist_push_clip_rect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect)
@@ -2889,13 +2911,14 @@ function imgui_table_set_column_enabled(column_n, v) {
 	return __imgui_table_set_column_enabled(column_n, v);
 }
 
-/// @function imgui_table_set_bg_color(target, col, column_n)
+/// @function imgui_table_set_bg_color(target, col, alpha, column_n)
 /// @argument {Real} target
 /// @argument {Real} col
+/// @argument {Real} [alpha=1]
 /// @argument {Real} [column_n=-1]
 /// @return {Undefined}
-function imgui_table_set_bg_color(target, col, column_n=-1) {
-	return __imgui_table_set_bg_color(target, col, column_n);
+function imgui_table_set_bg_color(target, col, alpha=1, column_n=-1) {
+	return __imgui_table_set_bg_color(target, col, alpha, column_n);
 }
 
 /// @function imgui_columns(count, _id, border)
@@ -3255,6 +3278,17 @@ function imgui_progressbar(_frac, width=0, height=0, overlay="") {
 /// @return {Undefined}
 function imgui_bullet() {
 	return __imgui_bullet();
+}
+
+/// @function imgui_begin_viewport_sidebar(name, viewport, dir, size, window_flags)
+/// @argument {String} name
+/// @argument {Real} viewport
+/// @argument {Real} dir
+/// @argument {Real} size
+/// @argument {Enum.ImGuiWindowFlags} [window_flags=ImGuiWindowFlags.None]
+/// @return {Bool}
+function imgui_begin_viewport_sidebar(name, viewport, dir, size, window_flags=ImGuiWindowFlags.None) {
+	return __imgui_begin_viewport_sidebar(name, viewport, dir, size, window_flags);
 }
 
 /// @function imgui_begin(name, open, flags, mask)

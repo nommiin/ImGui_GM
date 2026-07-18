@@ -294,15 +294,15 @@ This is an automatically generated file that keeps track of wrapper coverage of 
 | ImGui::TableGetColumnFlags | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L98) | N/A |
 | ImGui::TableSetColumnEnabled | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L111) | N/A |
 | ImGui::TableGetHoveredColumn | ❌ | N/A | N/A |
-| ImGui::TableSetBgColor | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L119) | N/A |
-| ImGui::Columns | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L130) | N/A |
-| ImGui::NextColumn | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L142) | N/A |
-| ImGui::GetColumnIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L147) | N/A |
-| ImGui::GetColumnWidth | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L152) | N/A |
-| ImGui::SetColumnWidth | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L160) | N/A |
-| ImGui::GetColumnOffset | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L168) | N/A |
-| ImGui::SetColumnOffset | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L177) | N/A |
-| ImGui::GetColumnsCount | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L185) | N/A |
+| ImGui::TableSetBgColor | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L120) | N/A |
+| ImGui::Columns | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L133) | N/A |
+| ImGui::NextColumn | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L145) | N/A |
+| ImGui::GetColumnIndex | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L150) | N/A |
+| ImGui::GetColumnWidth | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L155) | N/A |
+| ImGui::SetColumnWidth | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L163) | N/A |
+| ImGui::GetColumnOffset | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L171) | N/A |
+| ImGui::SetColumnOffset | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L180) | N/A |
+| ImGui::GetColumnsCount | ✅ | [imgui_table_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_table_gm.cpp#L188) | N/A |
 | ImGui::BeginTabBar | ✅ | [imgui_tabs_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tabs_gm.cpp#L3) | N/A |
 | ImGui::EndTabBar | ✅ | [imgui_tabs_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tabs_gm.cpp#L12) | N/A |
 | ImGui::BeginTabItem | ✅ | [imgui_tabs_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_tabs_gm.cpp#L17) | See [ImGuiReturnMask Usage](https://github.com/nommiin/ImGui_GM/wiki/ImGuiReturnMask-Usage) for more info the `mask` argument |
@@ -461,44 +461,44 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.DockBuilderFinish(node_id) | [imgui_docking_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_docking_gm.cpp#L166) |
 | ImGui.DragFloatN(label, v, v_speed, v_min, v_max, format, flags, count) | [imgui_drag_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drag_gm.cpp#L94) |
 | ImGui.DragIntN(label, v, v_speed, v_min, v_max, format, flags, count) | [imgui_drag_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drag_gm.cpp#L237) |
-| ImGui.DrawListAddLine(list, x1, y1, x2, y2, col, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L37) |
-| ImGui.DrawListAddRect(list, x1, y1, x2, y2, col, rounding, thickness, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L52) |
-| ImGui.DrawListAddRectFilled(list, x1, y1, x2, y2, col, rounding, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L71) |
-| ImGui.DrawListAddRectFilledMultiColor(list, x1, y1, x2, y2, col1, col2, col3, col4) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L88) |
-| ImGui.DrawListAddQuad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L104) |
-| ImGui.DrawListAddQuadFilled(list, x1, y1, x2, y2, x3, y3, x4, y4, col) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L123) |
-| ImGui.DrawListAddTriangle(list, x1, y1, x2, y2, x3, y3, col, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L140) |
-| ImGui.DrawListAddTriangleFilled(list, x1, y1, x2, y2, x3, y3, col) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L157) |
-| ImGui.DrawListAddCircle(list, _x, _y, radius, col, num_segments, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L172) |
-| ImGui.DrawListAddCircleFilled(list, _x, _y, radius, col, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L188) |
-| ImGui.DrawListAddNgon(list, _x, _y, radius, col, num_segments, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L202) |
-| ImGui.DrawListAddNgonFilled(list, _x, _y, radius, col, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L218) |
-| ImGui.DrawListAddText(list, _x, _y, text, col) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L232) |
-| ImGui.DrawListAddTextFont(list, _x, _y, text, col, font, font_size, wrap_width) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L244) |
-| ImGui.DrawListAddPolyline(list, positions, col, thickness, flags, num_points) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L261) |
-| ImGui.DrawListAddConvexPolyFilled(list, positions, col, num_points) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L287) |
-| ImGui.DrawListAddBezierCubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, thickness, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L309) |
-| ImGui.DrawListAddBezierQuadratic(list, x1, y1, x2, y2, x3, y3, col, thickness, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L329) |
-| ImGui.DrawListPathFillConvex(list, col) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L347) |
-| ImGui.DrawListPathStroke(list, col, thickness, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L356) |
-| ImGui.DrawListPathClear(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L369) |
-| ImGui.DrawListPathLineTo(list, _x, _y) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L377) |
-| ImGui.DrawListPathLineToMergeDuplicate(list, _x, _y) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L387) |
-| ImGui.DrawListPathArcTo(list, _x, _y, radius, a_min, a_max, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L397) |
-| ImGui.DrawListPathArcToFast(list, _x, _y, radius, a_min_of_12, a_max_of_12) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L412) |
-| ImGui.DrawListPathBezierCubicCurveTo(list, x2, y2, x3, y3, x4, y4, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L425) |
-| ImGui.DrawListPathBezierQuadraticCurveTo(list, x2, y2, x3, y3, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L441) |
-| ImGui.DrawListPathRect(list, x1, y1, x2, y2, rounding, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L455) |
-| ImGui.DrawListAddImage(list, sprite, subimg, x1, y1, x2, y2, col, uv) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L471) |
-| ImGui.DrawListAddImageRounded(list, sprite, subimg, x1, y1, x2, y2, col, rounding, flags, uv) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L493) |
-| ImGui.DrawListPushClipRect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L514) |
-| ImGui.DrawlistPushClipRectFullscreen(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L527) |
-| ImGui.DrawListPopClipRect(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L534) |
-| ImGui.DrawListPushTexture(list, sprite, subimg) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L542) |
-| ImGui.DrawListPopTexture(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L552) |
-| ImGui.DrawListFlagsGet(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L560) |
-| ImGui.DrawListFlagsSet(list, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L568) |
-| ImGui.DrawListFlagToggle(list, flag) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L577) |
+| ImGui.DrawListAddLine(list, x1, y1, x2, y2, col, alpha, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L37) |
+| ImGui.DrawListAddRect(list, x1, y1, x2, y2, col, alpha, rounding, thickness, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L57) |
+| ImGui.DrawListAddRectFilled(list, x1, y1, x2, y2, col, alpha, rounding, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L82) |
+| ImGui.DrawListAddRectFilledMultiColor(list, x1, y1, x2, y2, col1, col2, col3, col4, alpha) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L104) |
+| ImGui.DrawListAddQuad(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L124) |
+| ImGui.DrawListAddQuadFilled(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L148) |
+| ImGui.DrawListAddTriangle(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L169) |
+| ImGui.DrawListAddTriangleFilled(list, x1, y1, x2, y2, x3, y3, col, alpha) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L190) |
+| ImGui.DrawListAddCircle(list, _x, _y, radius, col, alpha, num_segments, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L209) |
+| ImGui.DrawListAddCircleFilled(list, _x, _y, radius, col, alpha, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L230) |
+| ImGui.DrawListAddNgon(list, _x, _y, radius, col, alpha, num_segments, thickness) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L248) |
+| ImGui.DrawListAddNgonFilled(list, _x, _y, radius, col, alpha, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L269) |
+| ImGui.DrawListAddText(list, _x, _y, text, col, alpha) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L287) |
+| ImGui.DrawListAddTextFont(list, _x, _y, text, font, font_size, col, alpha, wrap_width) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L303) |
+| ImGui.DrawListAddPolyline(list, positions, col, alpha, thickness, flags, num_points) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L325) |
+| ImGui.DrawListAddConvexPolyFilled(list, positions, col, alpha, num_points) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L359) |
+| ImGui.DrawListAddBezierCubic(list, x1, y1, x2, y2, x3, y3, x4, y4, col, alpha, thickness, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L385) |
+| ImGui.DrawListAddBezierQuadratic(list, x1, y1, x2, y2, x3, y3, col, alpha, thickness, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L411) |
+| ImGui.DrawListPathFillConvex(list, col, alpha) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L435) |
+| ImGui.DrawListPathStroke(list, col, alpha, thickness, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L448) |
+| ImGui.DrawListPathClear(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L466) |
+| ImGui.DrawListPathLineTo(list, _x, _y) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L474) |
+| ImGui.DrawListPathLineToMergeDuplicate(list, _x, _y) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L484) |
+| ImGui.DrawListPathArcTo(list, _x, _y, radius, a_min, a_max, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L494) |
+| ImGui.DrawListPathArcToFast(list, _x, _y, radius, a_min_of_12, a_max_of_12) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L509) |
+| ImGui.DrawListPathBezierCubicCurveTo(list, x2, y2, x3, y3, x4, y4, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L522) |
+| ImGui.DrawListPathBezierQuadraticCurveTo(list, x2, y2, x3, y3, num_segments) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L538) |
+| ImGui.DrawListPathRect(list, x1, y1, x2, y2, rounding, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L552) |
+| ImGui.DrawListAddImage(list, sprite, subimg, x1, y1, x2, y2, col, alpha, uv) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L568) |
+| ImGui.DrawListAddImageRounded(list, sprite, subimg, x1, y1, x2, y2, rounding, col, alpha, flags, uv) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L595) |
+| ImGui.DrawListPushClipRect(list, clip_min_x, clip_min_y, clip_max_x, clip_max_y, intersect_with_current_clip_rect) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L625) |
+| ImGui.DrawlistPushClipRectFullscreen(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L638) |
+| ImGui.DrawListPopClipRect(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L645) |
+| ImGui.DrawListPushTexture(list, sprite, subimg) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L653) |
+| ImGui.DrawListPopTexture(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L663) |
+| ImGui.DrawListFlagsGet(list) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L671) |
+| ImGui.DrawListFlagsSet(list, flags) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L679) |
+| ImGui.DrawListFlagToggle(list, flag) | [imgui_drawlist_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_drawlist_gm.cpp#L688) |
 | ImGui.MemoryEditorShowWindow(title, buffer, offset, size) | [imgui_ext_memeditor_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_ext_memeditor_gm.cpp#L5) |
 | ImGui.MemoryEditorDrawContents(buffer, offset, size) | [imgui_ext_memeditor_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_ext_memeditor_gm.cpp#L18) |
 | ImGui.TextEditorCreate() | [imgui_ext_text_editor_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_ext_text_editor_gm.cpp#L12) |
@@ -593,6 +593,7 @@ Below is a table of non-standard functions made specifically for ImGui_GM
 | ImGui.SliderIntN(label, v, v_min, v_max, format, flags, count) | [imgui_slider_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_slider_gm.cpp#L196) |
 | ImGui.GetStyleColor(idx) | [imgui_style_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_style_gm.cpp#L57) |
 | ImGui.Surface(surface, color, alpha, width, height, uv) | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L113) |
+| ImGui.BeginViewportSideBar(name, viewport, dir, size, window_flags) | [imgui_widgets_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_widgets_gm.cpp#L179) |
 | ImGui.BeginChildFrame() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L54) |
 | ImGui.EndChildFrame() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L68) |
 | ImGui.GetWindowPosX() | [imgui_window_gm.cpp](https://github.com/nommiin/ImGui_GM/blob/main/dll/imgui_window_gm.cpp#L105) |

@@ -175,3 +175,15 @@ GMFUNC(__imgui_bullet) {
 	ImGui::Bullet();
 	Result.kind = VALUE_UNDEFINED;
 }
+
+GMFUNC(__imgui_begin_viewport_sidebar) {
+	const char* name = YYGetString(arg, 0);
+	ImGuiID viewport = YYGetReal(arg, 1);
+	double dir = YYGetReal(arg, 2);
+	float size = YYGetReal(arg, 3);
+	ImGuiWindowFlags window_flags = YYGetInt64(arg, 4);
+	GMDEFAULT(ImGuiWindowFlags.None);
+
+	Result.kind = VALUE_BOOL;
+	Result.val = ImGui::BeginViewportSideBar(name, (viewport != 0 ? ImGui::FindViewportByID(viewport) : NULL), (ImGuiDir)dir, size, window_flags);
+}
